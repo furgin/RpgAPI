@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import com.vartala.soulofw0lf.rpgapi.achievementapi.TitleAchievement;
 import com.vartala.soulofw0lf.rpgapi.chatapi.ChatClass;
@@ -25,6 +26,7 @@ import com.vartala.soulofw0lf.rpgapi.partyapi.LFGPlayer;
 import com.vartala.soulofw0lf.rpgapi.partyapi.PartyGroup;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.spellapi.MagicSpell;
+import com.vartala.soulofw0lf.rpgapi.sqlapi.SQLHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
@@ -41,8 +43,8 @@ import com.vartala.soulofw0lf.rpgapi.util.PlayerUtil;
 
 //@author soulofwolf linksbro..
 public class RpgAPI extends JavaPlugin implements Listener {
-	//Plugins
-	public WorldGuardPlugin WG;
+    //Plugins
+    public WorldGuardPlugin WG;
     public static RpgAPI plugin;
     //
     //files
@@ -57,21 +59,21 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static YamlConfiguration minionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Minions.yml"));
     public static YamlConfiguration classConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Classes.yml"));
 
-	
-	//Listeners
-	public MapListener MapListen;
-	public RegionListener RegionListen;
-	public playerLogIn PlayerListener;
-	public ClickInvListener clickListener;
+
+    //Listeners
+    public MapListener MapListen;
+    public RegionListener RegionListen;
+    public playerLogIn PlayerListener;
+    public ClickInvListener clickListener;
     public ChatListener chatListener;
     public FoodListener foodListener;
 
-	
-	//Utilities
-	PlayerUtil PlayerUtility = new PlayerUtil(this);
-	
-	//Variables
-	public static ArrayList<RpgClickInv> rpgClicks = new ArrayList<RpgClickInv>();
+
+    //Utilities
+    PlayerUtil PlayerUtility = new PlayerUtil(this);
+
+    //Variables
+    public static ArrayList<RpgClickInv> rpgClicks = new ArrayList<RpgClickInv>();
     public Map<String, GuildObject> guilds = new HashMap<>();
     public Map<String, PartyGroup> partys = new HashMap<>();
     public Map<String, LFGPlayer> lookingForGroup = new HashMap<>();
@@ -92,31 +94,32 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static String dBEncoding = "";
     public static boolean uniCode = true;
     public static String dBURL = "";
-	
-	
-	@Override
-	public void onEnable() 
-	{
-		plugin = this;
-		Bukkit.getPluginManager().registerEvents(this, this);
-		if(Bukkit.getPluginManager().isPluginEnabled("WorldGuard"))
-		{
-			this.WG = (WorldGuardPlugin)Bukkit.getPluginManager().getPlugin("WorldGuard");
-		}
-		this.RegionListen = new RegionListener(this, this.WG);
-		this.MapListen = new MapListener(this);
-		this.PlayerListener = new playerLogIn ();
-		this.clickListener = new ClickInvListener(plugin);
+    public static Logger logger = Logger.getLogger(RpgAPI.class.getName());
+    public static SQLHandler sqlHandler = null;
+
+
+    @Override
+    public void onEnable() {
+        plugin = this;
+        Bukkit.getPluginManager().registerEvents(this, this);
+        if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
+            this.WG = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
+        }
+        this.RegionListen = new RegionListener(this, this.WG);
+        this.MapListen = new MapListener(this);
+        this.PlayerListener = new playerLogIn();
+        this.clickListener = new ClickInvListener(plugin);
         this.chatListener = new ChatListener(this);
         this.foodListener = new FoodListener(this);
         saveDefaultConfig();
         //grab database values if they should be used
-        if (getConfig().getBoolean("Use Mysql") == true){
-        dBUserName = getConfig().getString("Mysql Database.User");
-        dBPassword = getConfig().getString("Mysql Database.Password");
-        dBEncoding = getConfig().getString("Mysql Database.Encoding");
-        uniCode = getConfig().getBoolean("Mysql Database.UseUnicode");
-        dBURL = getConfig().getString("Mysql Database.URL");
+        if (getConfig().getBoolean("Use Mysql") == true) {
+            dBUserName = getConfig().getString("Mysql Database.User");
+            dBPassword = getConfig().getString("Mysql Database.Password");
+            dBEncoding = getConfig().getString("Mysql Database.Encoding");
+            uniCode = getConfig().getBoolean("Mysql Database.UseUnicode");
+            dBURL = getConfig().getString("Mysql Database.URL");
+            sqlHandler = new SQLHandler(dBUserName, dBPassword, dBURL);
         }
         //load yml files and set a value to each of them if they don't exist.
         playerConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayers.yml"));
@@ -129,34 +132,34 @@ public class RpgAPI extends JavaPlugin implements Listener {
         achievementConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Achievements.yml"));
         minionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Minions.yml"));
         classConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Classes.yml"));
-        if (playerConfig.get("Players") == null){
-        playerConfig.set("Players", "This Config File will hold all player data (Mysql is greatly recommended!)");
+        if (playerConfig.get("Players") == null) {
+            playerConfig.set("Players", "This Config File will hold all player data (Mysql is greatly recommended!)");
         }
-        if (localeConfig.get("Locale Settings") == null){
-        localeConfig.set("Locale Settings", "This file is used to set all language settings!");
+        if (localeConfig.get("Locale Settings") == null) {
+            localeConfig.set("Locale Settings", "This file is used to set all language settings!");
         }
-        if (guildConfig.get("Guilds Info") == null){
-        guildConfig.set("Guilds Info", "This File will save all guild info, Mysql is highly recommended!");
+        if (guildConfig.get("Guilds Info") == null) {
+            guildConfig.set("Guilds Info", "This File will save all guild info, Mysql is highly recommended!");
         }
-        if (chatConfig.get("Channels") == null){
-        chatConfig.set("Channels", "This config will save all your chat channel data.");
+        if (chatConfig.get("Channels") == null) {
+            chatConfig.set("Channels", "This config will save all your chat channel data.");
         }
-        if (foodConfig.get("Rpg Foods") == null){
+        if (foodConfig.get("Rpg Foods") == null) {
             foodConfig.set("Rpg Foods", "This file will save all your Rpg Food Items");
         }
-        if (clickConfig.get("Click File") == null){
+        if (clickConfig.get("Click File") == null) {
             clickConfig.set("Click File", "This File is used to save all your click menu's");
         }
-        if (settingsConfig.get("Settings") == null){
+        if (settingsConfig.get("Settings") == null) {
             settingsConfig.set("Settings", "this file is used for all plugin settings!");
         }
-        if (achievementConfig.get("Achievements") == null){
+        if (achievementConfig.get("Achievements") == null) {
             achievementConfig.set("Achievements", "This file stores all your servers saved Achievements");
         }
-        if (minionConfig.get("Minions") == null){
+        if (minionConfig.get("Minions") == null) {
             minionConfig.set("Minions", "this file is used to store all minion and monster data (Mysql is highly recommended!");
         }
-        if (classConfig.get("Classes") == null){
+        if (classConfig.get("Classes") == null) {
             classConfig.set("Classes", "This file is used to save all Rpg Classes");
         }
         try {
@@ -170,23 +173,20 @@ public class RpgAPI extends JavaPlugin implements Listener {
             achievementConfig.save(new File("plugins/RpgAPI/Achievements.yml"));
             minionConfig.save(new File("plugins/RpgAPI/Minions.yml"));
             classConfig.save(new File("plugins/RpgAPI/Classes.yml"));
-        } catch (IOException e) {}
+        } catch (IOException e) {
+        }
 
-	}
-	
-	@EventHandler
-	public void onRightClickMap(MapRightClickEvent event)
-	{
-		if(event.isPlayerSneaking())
-		{
-			ScrollMap.getScrollMap(event.getMapID()).getMapRender().decrementIndex();
-			ScrollMap.getScrollMap(event.getMapID()).update(event.getPlayer().getName());
-		}
-		else
-		{
-			ScrollMap.getScrollMap(event.getMapID()).getMapRender().incrementIndex();
-			ScrollMap.getScrollMap(event.getMapID()).update(event.getPlayer().getName());
-		}
-	}
+    }
+
+    @EventHandler
+    public void onRightClickMap(MapRightClickEvent event) {
+        if (event.isPlayerSneaking()) {
+            ScrollMap.getScrollMap(event.getMapID()).getMapRender().decrementIndex();
+            ScrollMap.getScrollMap(event.getMapID()).update(event.getPlayer().getName());
+        } else {
+            ScrollMap.getScrollMap(event.getMapID()).getMapRender().incrementIndex();
+            ScrollMap.getScrollMap(event.getMapID()).update(event.getPlayer().getName());
+        }
+    }
 
 }
