@@ -1,0 +1,10 @@
+#Load / Save Settings for the Rpg Suite of plugins
+Use Mysql: false
+MySql DataBase:
+  User: usernamehere
+  Password: passwordgoeshere
+  #leave this line alone if you don't know what it means
+  CharacterEncoding: ISO-8859-1
+  #leave this line alone if you don't know what it means
+  UseUnicode: true
+  Url: 'jdbc:mysql://your.database.address/goes_here'
