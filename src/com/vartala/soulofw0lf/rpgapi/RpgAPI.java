@@ -12,6 +12,7 @@ import com.vartala.soulofw0lf.rpgapi.achievementapi.TitleAchievement;
 import com.vartala.soulofw0lf.rpgapi.chatapi.ChatClass;
 import com.vartala.soulofw0lf.rpgapi.chatapi.ChatListener;
 import com.vartala.soulofw0lf.rpgapi.classapi.RpgClasses;
+import com.vartala.soulofw0lf.rpgapi.commandapi.UniqueCommands;
 import com.vartala.soulofw0lf.rpgapi.enumapi.ClassName;
 import com.vartala.soulofw0lf.rpgapi.enumapi.Spell;
 import com.vartala.soulofw0lf.rpgapi.factionapi.FactionLevel;
@@ -29,14 +30,16 @@ import com.vartala.soulofw0lf.rpgapi.spellapi.MagicSpell;
 import com.vartala.soulofw0lf.rpgapi.sqlapi.SQLHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+
 import com.vartala.soulofw0lf.rpgapi.eventsapi.MapRightClickEvent;
 import com.vartala.soulofw0lf.rpgapi.listenersapi.MapListener;
-import com.vartala.soulofw0lf.rpgapi.listenersapi.RegionListener;
 import com.vartala.soulofw0lf.rpgapi.listenersapi.playerLogIn;
 import com.vartala.soulofw0lf.rpgapi.mapsapi.ScrollMap;
 import com.vartala.soulofw0lf.rpgapi.util.PlayerUtil;
@@ -44,7 +47,6 @@ import com.vartala.soulofw0lf.rpgapi.util.PlayerUtil;
 //@author soulofwolf linksbro..
 public class RpgAPI extends JavaPlugin implements Listener {
     //Plugins
-    public WorldGuardPlugin WG;
     public static RpgAPI plugin;
     //
     //files
@@ -58,11 +60,11 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static YamlConfiguration achievementConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Achievements.yml"));
     public static YamlConfiguration minionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Minions.yml"));
     public static YamlConfiguration classConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Classes.yml"));
+    public static YamlConfiguration commandConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Commands.yml"));
 
 
     //Listeners
     public MapListener MapListen;
-    public RegionListener RegionListen;
     public playerLogIn PlayerListener;
     public ClickInvListener clickListener;
     public ChatListener chatListener;
@@ -96,16 +98,13 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static String dBURL = "";
     public static Logger logger = Logger.getLogger(RpgAPI.class.getName());
     public static SQLHandler sqlHandler = null;
+    public static List<String> commands = new ArrayList<String>();
 
 
     @Override
     public void onEnable() {
         plugin = this;
         Bukkit.getPluginManager().registerEvents(this, this);
-        if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
-            this.WG = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
-        }
-        this.RegionListen = new RegionListener(this, this.WG);
         this.MapListen = new MapListener(this);
         this.PlayerListener = new playerLogIn();
         this.clickListener = new ClickInvListener(plugin);
@@ -132,6 +131,13 @@ public class RpgAPI extends JavaPlugin implements Listener {
         achievementConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Achievements.yml"));
         minionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Minions.yml"));
         classConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Classes.yml"));
+        commandConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Commands.yml"));
+        if (commandConfig.get("Commands") == null){
+            commandConfig.set("Commands.SetNick", "nick");
+        }
+        for (String command : commandConfig.getConfigurationSection("Commands").getKeys(false)){
+             commands.add(command);
+        }
         if (playerConfig.get("Players") == null) {
             playerConfig.set("Players", "This Config File will hold all player data (Mysql is greatly recommended!)");
         }
@@ -186,6 +192,19 @@ public class RpgAPI extends JavaPlugin implements Listener {
         } else {
             ScrollMap.getScrollMap(event.getMapID()).getMapRender().incrementIndex();
             ScrollMap.getScrollMap(event.getMapID()).update(event.getPlayer().getName());
+        }
+    }
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void playerCommand(PlayerCommandPreprocessEvent event){
+        Player p = event.getPlayer();
+        String s = event.getMessage();
+        String[] args = s.split(" ");
+        String cmd = args[0].replaceAll("/","");
+        for (String command : commands){
+        if (cmd.equalsIgnoreCase(command)){
+            UniqueCommands.BaseCommandHandler(p, args);
+            event.setCancelled(true);
+        }
         }
     }
 
