@@ -3,4 +3,3 @@ main: com.vartala.soulofw0lf.rpgapi.RpgAPI
 version: 0.2
 author: Soulofw0lf
 description: rpg Api designed by soulofw0lf and Linksy
-depend: [WorldGuard]

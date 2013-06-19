@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import com.vartala.soulofw0lf.rpgapi.achievementapi.TitleAchievement;
+import com.vartala.soulofw0lf.rpgapi.borderapi.BorderCheck;
 import com.vartala.soulofw0lf.rpgapi.chatapi.ChatClass;
 import com.vartala.soulofw0lf.rpgapi.chatapi.ChatListener;
 import com.vartala.soulofw0lf.rpgapi.classapi.RpgClasses;
@@ -107,9 +108,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
         this.MapListen = new MapListener(this);
         this.PlayerListener = new playerLogIn();
-        this.clickListener = new ClickInvListener(plugin);
+        this.clickListener = new ClickInvListener(this);
         this.chatListener = new ChatListener(this);
         this.foodListener = new FoodListener(this);
+        BorderCheck.cycleCheck(this);
         saveDefaultConfig();
         //grab database values if they should be used
         if (getConfig().getBoolean("Use Mysql") == true) {
