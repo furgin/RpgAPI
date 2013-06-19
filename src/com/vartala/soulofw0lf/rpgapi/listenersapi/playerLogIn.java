@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
-import com.vartala.soulofw0lf.rpgapi.sql.SQLLoading;
+
 
 public class playerLogIn implements Listener {
 
@@ -18,21 +18,27 @@ public class playerLogIn implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{    //
 		String p = event.getPlayer().getName();
-		try {
-			String nick = SQLLoading.getActiveNick(p);
-			RpgPlayer rp = new RpgPlayer();
-			if(SQLLoading.loadNick(rp, nick))
-			{
-				//RpgAPI.playerList.put(p,rp);
-			}
-			else
-			{
-				//kick player..loading went wrong
-				event.getPlayer().kickPlayer("Error Logging in. Please try again later.");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+
+        /*
+         * Commented out until sql loading is fixed
+         */
+
+
+		//try {
+		//	String nick = SQLLoading.getActiveNick(p);
+		//	RpgPlayer rp = new RpgPlayer();
+		//	if(SQLLoading.loadNick(rp, nick))
+		//	{
+		//		//RpgAPI.playerList.put(p,rp);
+		//	}
+		//	else
+		//	{
+		//		//kick player..loading went wrong
+		//		event.getPlayer().kickPlayer("Error Logging in. Please try again later.");
+		//	}
+		//} catch (SQLException e) {
+		//	e.printStackTrace();
+		//}
 	}
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerKick(PlayerKickEvent event){
