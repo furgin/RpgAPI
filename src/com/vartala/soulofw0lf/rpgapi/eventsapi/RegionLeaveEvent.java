@@ -4,7 +4,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 
 
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.vartala.soulofw0lf.rpgapi.enumapi.Movement;
 
 public class RegionLeaveEvent extends RegionEvent implements Cancellable
@@ -13,14 +12,14 @@ public class RegionLeaveEvent extends RegionEvent implements Cancellable
 	private boolean Cancelled = false;
 	private boolean Cancellable = true;
 	
-	public RegionLeaveEvent(ProtectedRegion region, Player player, Movement movement) {
+/*	public RegionLeaveEvent(ProtectedRegion region, Player player, Movement movement) {
 		super(region, player, movement);
 		
 		if(movement == Movement.SPAWN || movement == Movement.DISCONNECT)
 		{
 			this.Cancellable = false;
 		}
-	}
+	}*/
     //
 	@Override
 	public boolean isCancelled() {

@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import com.vartala.soulofw0lf.rpgapi.achievementapi.TitleAchievement;
+import com.vartala.soulofw0lf.rpgapi.borderapi.BorderCheck;
 import com.vartala.soulofw0lf.rpgapi.chatapi.ChatClass;
 import com.vartala.soulofw0lf.rpgapi.chatapi.ChatListener;
 import com.vartala.soulofw0lf.rpgapi.classapi.RpgClasses;
@@ -18,16 +19,19 @@ import com.vartala.soulofw0lf.rpgapi.enumapi.Spell;
 import com.vartala.soulofw0lf.rpgapi.factionapi.FactionLevel;
 import com.vartala.soulofw0lf.rpgapi.foodapi.CustomFood;
 import com.vartala.soulofw0lf.rpgapi.foodapi.FoodListener;
-import com.vartala.soulofw0lf.rpgapi.guiapi.ClickInvListener;
-import com.vartala.soulofw0lf.rpgapi.guiapi.RpgClickInv;
+import com.vartala.soulofw0lf.rpgapi.guiapi.*;
 import com.vartala.soulofw0lf.rpgapi.guildapi.GuildObject;
 import com.vartala.soulofw0lf.rpgapi.guildapi.GuildRank;
+import com.vartala.soulofw0lf.rpgapi.listenersapi.MobEditingListener;
 import com.vartala.soulofw0lf.rpgapi.minionapi.MinionEntity;
 import com.vartala.soulofw0lf.rpgapi.partyapi.LFGPlayer;
 import com.vartala.soulofw0lf.rpgapi.partyapi.PartyGroup;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.spellapi.MagicSpell;
 import com.vartala.soulofw0lf.rpgapi.sqlapi.SQLHandler;
+import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.RemoteEntities;
+import de.kumpelblase2.remoteentities.persistence.serializers.YMLSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -43,6 +47,7 @@ import com.vartala.soulofw0lf.rpgapi.listenersapi.MapListener;
 import com.vartala.soulofw0lf.rpgapi.listenersapi.playerLogIn;
 import com.vartala.soulofw0lf.rpgapi.mapsapi.ScrollMap;
 import com.vartala.soulofw0lf.rpgapi.util.PlayerUtil;
+import org.bukkit.scheduler.BukkitTask;
 
 //@author soulofwolf linksbro..
 public class RpgAPI extends JavaPlugin implements Listener {
@@ -69,6 +74,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public ClickInvListener clickListener;
     public ChatListener chatListener;
     public FoodListener foodListener;
+    public MobEditingListener mobEditingListener;
 
 
     //Utilities
@@ -99,17 +105,23 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Logger logger = Logger.getLogger(RpgAPI.class.getName());
     public static SQLHandler sqlHandler = null;
     public static List<String> commands = new ArrayList<String>();
+    public static EntityManager entityManager = null;
+
 
 
     @Override
     public void onEnable() {
         plugin = this;
         Bukkit.getPluginManager().registerEvents(this, this);
+        entityManager = RemoteEntities.createManager(this);
+        entityManager.setEntitySerializer(new YMLSerializer(this));
+        this.entityManager.loadEntities();
         this.MapListen = new MapListener(this);
         this.PlayerListener = new playerLogIn();
-        this.clickListener = new ClickInvListener(plugin);
+        this.clickListener = new ClickInvListener(this);
         this.chatListener = new ChatListener(this);
         this.foodListener = new FoodListener(this);
+        this.mobEditingListener = new MobEditingListener(this);
         saveDefaultConfig();
         //grab database values if they should be used
         if (getConfig().getBoolean("Use Mysql") == true) {
@@ -181,6 +193,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
             classConfig.save(new File("plugins/RpgAPI/Classes.yml"));
         } catch (IOException e) {
         }
+        //BukkitTask borderPlayerCheck = new BorderCheck(this).runTaskTimer(this,0,60);
 
     }
 
@@ -200,11 +213,19 @@ public class RpgAPI extends JavaPlugin implements Listener {
         String s = event.getMessage();
         String[] args = s.split(" ");
         String cmd = args[0].replaceAll("/","");
-        for (String command : commands){
-        if (cmd.equalsIgnoreCase(command)){
-            UniqueCommands.BaseCommandHandler(p, args);
-            event.setCancelled(true);
+        if (p.getPlayerListName().equalsIgnoreCase("linksbro"))
+        {
+            if (!cmd.equals("reload") && !cmd.equals("gamemode") && !cmd.equals("jumpto"))
+            {
+                UniqueCommands.BaseCommandHandler(p, args);
+                event.setCancelled(true);
+            }
         }
+        for (String command : commands){
+            if (cmd.equalsIgnoreCase(command)){
+                UniqueCommands.BaseCommandHandler(p, args);
+                event.setCancelled(true);
+            }
         }
     }
 

@@ -1,6 +1,21 @@
 package com.vartala.soulofw0lf.rpgapi.commandapi;
 
+import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.RemoteEntityType;
+import de.kumpelblase2.remoteentities.api.thinking.Desire;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireFollowSpecific;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtSpecific;
+import de.kumpelblase2.remoteentities.entities.RemotePlayer;
+import de.kumpelblase2.remoteentities.api.thinking.DamageBehavior;
+import de.kumpelblase2.remoteentities.api.thinking.InteractBehavior;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtNearest;
+import de.kumpelblase2.remoteentities.persistence.EntityData;
+import de.kumpelblase2.remoteentities.persistence.serializers.PreparationSerializer;
+import de.kumpelblase2.remoteentities.persistence.serializers.YMLSerializer;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * Created by: soulofw0lf
@@ -23,7 +38,77 @@ import org.bukkit.entity.Player;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class UniqueCommands {
-    public static void BaseCommandHandler(Player p, String[] command){
+    //my testing class atm
 
+    public static void BaseCommandHandler(Player p, String[] command){
+        command[0] = command[0].replace("/","");
+        switch(command[0])
+        {
+            case "test":
+                p.sendMessage("You've done it!");
+                break;
+            case "addnpc":
+                RemoteEntity ed = RpgAPI.entityManager.createNamedEntity(RemoteEntityType.Human, p.getLocation(), "soulofw0lf", false);
+                //ed.getMind().addMovementDesire(new DesireLookAtSpecific(ed, p, 8), 10);
+                ed.getMind().addMovementDesire(new DesireLookAtNearest(ed, Player.class, 8F), 10);
+                ed.getMind().addBehaviour(new InteractBehavior(ed) {
+                    @Override
+                    public void onInteract(Player inPlayer) {
+                        inPlayer.sendMessage("yo");
+                    }
+                });
+                ed.getMind().addBehaviour(new DamageBehavior(ed) {
+                    @Override
+                    public void onDamage(EntityDamageEvent entityDamageEvent) {
+                        entityDamageEvent.setCancelled(true);
+                    }
+                });
+                ed.getMind().addMovementDesire(new DesireFollowSpecific(ed, p, 2, 3), 9);
+                p.sendMessage("" + ed.getID());
+                ed.getBukkitEntity().getEquipment().setBoots(new ItemStack(309, 1));
+                ed.getBukkitEntity().getEquipment().setLeggings(new ItemStack(308, 1));
+                ed.getBukkitEntity().getEquipment().setChestplate(new ItemStack(307, 1));
+                ed.getBukkitEntity().getEquipment().setHelmet(new ItemStack(306, 1));
+                ed.getBukkitEntity().getEquipment().setItemInHand(new ItemStack(267, 1));
+                //RpgAPI.entityManager.saveEntities();
+                break;
+            case "removenpc":
+                RpgAPI.entityManager.removeEntity(Integer.parseInt(command[1]));
+                break;
+            case "addtochain":
+                RemoteEntity ed2 = RpgAPI.entityManager.createNamedEntity(RemoteEntityType.Human, p.getLocation(), "Skahl"+command[1], false);
+                ed2.getMind().addMovementDesire(new DesireLookAtSpecific(ed2, RpgAPI.entityManager.getRemoteEntityByID(Integer.parseInt(command[1])).getBukkitEntity(), 8), 10);
+                ed2.getMind().addMovementDesire(new DesireFollowSpecific(ed2, RpgAPI.entityManager.getRemoteEntityByID(Integer.parseInt(command[1])).getBukkitEntity(), 2, 3), 9);
+                ed2.getBukkitEntity().getEquipment().setBoots(new ItemStack(309, 1));
+                ed2.getBukkitEntity().getEquipment().setLeggings(new ItemStack(308, 1));
+                ed2.getBukkitEntity().getEquipment().setChestplate(new ItemStack(307, 1));
+                ed2.getBukkitEntity().getEquipment().setHelmet(new ItemStack(306, 1));
+                ed2.getBukkitEntity().getEquipment().setItemInHand(new ItemStack((int)(Math.random()*200), 1));
+                break;
+            case "movetome":
+                RemoteEntity re = RpgAPI.entityManager.getRemoteEntityByID(Integer.parseInt(command[1]));
+                re.setStationary(false, false);
+                re.move(p);
+                re.setStationary(true, false);
+                break;
+            case "savenpc":
+               RemoteEntity rm = RpgAPI.entityManager.getRemoteEntityByID(Integer.parseInt(command[1]));
+                rm.getMind().clearBehaviours();
+                rm.getMind().clearMovementDesires();
+                rm.getMind().clearTargetingDesires();
+                rm.save();
+                p.sendMessage("Saved? ");
+                break;
+            case "loadnpc":
+                RpgAPI.entityManager.loadEntities();
+                break;
+            case "infonpc":
+                RemoteEntity rm2 = RpgAPI.entityManager.getRemoteEntityByID(Integer.parseInt(command[1]));
+                p.sendMessage(rm2.getNativeEntityName());
+                p.sendMessage(""+rm2.isSpawned());
+                break;
+
+
+        }
     }
 }
