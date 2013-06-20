@@ -24,7 +24,7 @@ import java.util.Map;
  */
 public class MinionGui {
     //for the player p, creates entity config with id
-    public void createGui(Player p, int guiId, int mobId)
+    public static void createGui(Player p, int guiId, int mobId)
     {
         MobCommand mc = RpgAPI.minionCommands.get("Set "+guiId);
         RpgClickInv rpgClickInv = new RpgClickInv(RpgAPI.plugin);
@@ -34,7 +34,6 @@ public class MinionGui {
         rpgClickInv.setClickInv(inv);
         Map<ItemStack, List<String>> commands = mc.toCommandMap(itemStacks);
         rpgClickInv.setItemCommands(commands);
+        p.openInventory(rpgClickInv.getClickInv());
     }
-
-
 }

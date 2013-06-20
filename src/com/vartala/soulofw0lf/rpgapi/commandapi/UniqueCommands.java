@@ -39,7 +39,18 @@ import org.bukkit.inventory.ItemStack;
  */
 public class UniqueCommands {
     //my testing class atm
+    /*
+    entity.getMind().addBehaviour(new InteractBehavior(entity)
+    {
+        @Override
+        public void onInteract(Player inPlayer)
+        {
+            if ((inPlayer.isOP()) && (inPlayer.isSneaking())){
+            inPlayer.openInventory(baseInvName);
+            }
 
+        }
+     */
     public static void BaseCommandHandler(Player p, String[] command){
         command[0] = command[0].replace("/","");
         switch(command[0])

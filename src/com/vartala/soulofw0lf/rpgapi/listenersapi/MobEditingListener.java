@@ -1,6 +1,7 @@
 package com.vartala.soulofw0lf.rpgapi.listenersapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import com.vartala.soulofw0lf.rpgapi.minionapi.MinionGui;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -24,7 +25,6 @@ public class MobEditingListener implements Listener {
     {
         rRA = RA;
         Bukkit.getPluginManager().registerEvents(this, this.rRA);
-
     }
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerInteractEntityEvent (PlayerInteractEntityEvent event)
@@ -40,6 +40,7 @@ public class MobEditingListener implements Listener {
                 {
                     RemoteEntity rm = RpgAPI.entityManager.getRemoteEntityFromEntity((LivingEntity)clickedEntity);
                     who.sendMessage("You've attempted to access remoteentity:"+rm.getID());
+                    MinionGui.createGui(who,1,rm.getID());
 
                 }
             }
