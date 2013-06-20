@@ -50,11 +50,16 @@ public class MobCommand {
         }
         return itemStackList;
     }
-/* uncompleted
-public Map<ItemStack,List<String>> toCommandMap()
-    {
 
-    }*/
+    public Map<ItemStack,List<String>> toCommandMap(ArrayList<ItemStack> itemStacks)
+    {
+        Map<ItemStack,List<String>> returnMap = new HashMap<>();
+        for (ItemStack is : itemStacks)
+        {
+            returnMap.put(is, commandMap.get(is.getItemMeta().getDisplayName()));
+        }
+        return returnMap;
+    }
 
     public String getSetName() {
         return setName;
