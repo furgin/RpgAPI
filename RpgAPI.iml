@@ -10,8 +10,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.bukkit:craftbukkit:1.5.2-R0.2-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: com.sk89q:worldguard:5.7.6-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: com.sk89q:worldedit:5.5.3" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.sk89q:worldguard:5.7.6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.sk89q:worldedit:5.5.3" level="project" />
     <orderEntry type="library" name="Maven: de.schlichtherle:truezip:6.8.3" level="project" />
     <orderEntry type="library" name="Maven: rhino:js:1.7R2" level="project" />
     <orderEntry type="library" name="Maven: com.sk89q:jchronic:0.2.4a" level="project" />
