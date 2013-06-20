@@ -24,6 +24,7 @@ import com.vartala.soulofw0lf.rpgapi.guiapi.RpgClickInv;
 import com.vartala.soulofw0lf.rpgapi.guildapi.GuildObject;
 import com.vartala.soulofw0lf.rpgapi.guildapi.GuildRank;
 import com.vartala.soulofw0lf.rpgapi.minionapi.MinionEntity;
+import com.vartala.soulofw0lf.rpgapi.mobcommandapi.MobCommand;
 import com.vartala.soulofw0lf.rpgapi.partyapi.LFGPlayer;
 import com.vartala.soulofw0lf.rpgapi.partyapi.PartyGroup;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
@@ -62,6 +63,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static YamlConfiguration minionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Minions.yml"));
     public static YamlConfiguration classConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Classes.yml"));
     public static YamlConfiguration commandConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Commands.yml"));
+    public static YamlConfiguration mobCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/MobCommands.yml"));
 
 
     //Listeners
@@ -100,6 +102,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Logger logger = Logger.getLogger(RpgAPI.class.getName());
     public static SQLHandler sqlHandler = null;
     public static List<String> commands = new ArrayList<String>();
+    public static Map<String, MobCommand> minionCommands = new HashMap<>();
 
 
     @Override
@@ -134,6 +137,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
         minionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Minions.yml"));
         classConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Classes.yml"));
         commandConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Commands.yml"));
+        mobCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/MobCommands.yml"));
+        if (mobCommand.get("Mob Commands") == null){
+            mobCommand.set("Mob Commands.Set 1.Item 1.Commands.1.ClickType", "right");
+        }
         if (commandConfig.get("Commands") == null){
             commandConfig.set("Commands.SetNick", "nick");
         }
