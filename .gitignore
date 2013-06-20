@@ -221,3 +221,5 @@ pip-log.txt
 
 *.class
 
+
+target/classes/com/vartala/soulofw0lf/rpgapi/RpgAPI.class
