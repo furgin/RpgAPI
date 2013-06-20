@@ -1,5 +1,9 @@
 package com.vartala.soulofw0lf.rpgapi.mobcommandapi;
 
+import com.vartala.soulofw0lf.rpgapi.guiapi.InventoryMaker;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,10 +41,20 @@ public class MobCommand {
     //all items in set ID's mapped by name
     private Map<String, Integer> idMap = new HashMap<>();
 
-    public void MobCommand(){
-
+    public ArrayList<ItemStack> toItemStack() {
+        ArrayList<ItemStack> itemStackList = new ArrayList<>();
+        for (String name : itemNames)
+        {
+            ItemStack is = InventoryMaker.itemStackMaker(name, Material.getMaterial(idMap.get(name)), 1, (short)0, loreMap.get(name));
+            itemStackList.add(is);
+        }
+        return itemStackList;
     }
+/* uncompleted
+public Map<ItemStack,List<String>> toCommandMap()
+    {
 
+    }*/
 
     public String getSetName() {
         return setName;

@@ -120,7 +120,6 @@ public class RpgAPI extends JavaPlugin implements Listener {
         this.entityManager = RemoteEntities.createManager(this);
         BorderCheck.cycleCheck(this);
         saveDefaultConfig();
-        SetBuilder.minionCommand();
         //grab database values if they should be used
         if (getConfig().getBoolean("Use Mysql") == true) {
             dBUserName = getConfig().getString("Mysql Database.User");
@@ -195,6 +194,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
             classConfig.save(new File("plugins/RpgAPI/Classes.yml"));
         } catch (IOException e) {
         }
+        SetBuilder.minionCommand();
 
     }
 
