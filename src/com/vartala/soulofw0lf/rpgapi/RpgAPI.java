@@ -31,6 +31,8 @@ import com.vartala.soulofw0lf.rpgapi.partyapi.PartyGroup;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.spellapi.MagicSpell;
 import com.vartala.soulofw0lf.rpgapi.sqlapi.SQLHandler;
+import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.RemoteEntities;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -104,7 +106,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static SQLHandler sqlHandler = null;
     public static List<String> commands = new ArrayList<String>();
     public static Map<String, MobCommand> minionCommands = new HashMap<>();
-
+    public static EntityManager entityManager;
 
     @Override
     public void onEnable() {
@@ -115,8 +117,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
         this.clickListener = new ClickInvListener(this);
         this.chatListener = new ChatListener(this);
         this.foodListener = new FoodListener(this);
+        this.entityManager = RemoteEntities.createManager(this);
         BorderCheck.cycleCheck(this);
         saveDefaultConfig();
+        SetBuilder.minionCommand();
         //grab database values if they should be used
         if (getConfig().getBoolean("Use Mysql") == true) {
             dBUserName = getConfig().getString("Mysql Database.User");
