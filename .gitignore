@@ -17,6 +17,7 @@ local.properties
 .loadpath
 *.iml
 .idea/
+target/
 
 # External tool builders
 .externalToolBuilders/
@@ -219,3 +220,4 @@ pip-log.txt
 *.MF
 
 *.class
+
