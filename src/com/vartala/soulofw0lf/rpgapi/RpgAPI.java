@@ -25,6 +25,7 @@ import com.vartala.soulofw0lf.rpgapi.guildapi.GuildObject;
 import com.vartala.soulofw0lf.rpgapi.guildapi.GuildRank;
 import com.vartala.soulofw0lf.rpgapi.minionapi.MinionEntity;
 import com.vartala.soulofw0lf.rpgapi.mobcommandapi.MobCommand;
+import com.vartala.soulofw0lf.rpgapi.mobcommandapi.SetBuilder;
 import com.vartala.soulofw0lf.rpgapi.partyapi.LFGPlayer;
 import com.vartala.soulofw0lf.rpgapi.partyapi.PartyGroup;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
@@ -188,8 +189,11 @@ public class RpgAPI extends JavaPlugin implements Listener {
             achievementConfig.save(new File("plugins/RpgAPI/Achievements.yml"));
             minionConfig.save(new File("plugins/RpgAPI/Minions.yml"));
             classConfig.save(new File("plugins/RpgAPI/Classes.yml"));
+            mobCommand.save(new File("plugins/RpgAPI/MobCommands.yml"));
         } catch (IOException e) {
         }
+        new SetBuilder();
+
 
     }
 
