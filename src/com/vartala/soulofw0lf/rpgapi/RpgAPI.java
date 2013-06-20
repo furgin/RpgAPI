@@ -23,6 +23,7 @@ import com.vartala.soulofw0lf.rpgapi.guiapi.ClickInvListener;
 import com.vartala.soulofw0lf.rpgapi.guiapi.RpgClickInv;
 import com.vartala.soulofw0lf.rpgapi.guildapi.GuildObject;
 import com.vartala.soulofw0lf.rpgapi.guildapi.GuildRank;
+import com.vartala.soulofw0lf.rpgapi.listenersapi.PoisonListener;
 import com.vartala.soulofw0lf.rpgapi.minionapi.MinionEntity;
 import com.vartala.soulofw0lf.rpgapi.mobcommandapi.MobCommand;
 import com.vartala.soulofw0lf.rpgapi.mobcommandapi.SetBuilder;
@@ -75,6 +76,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public ClickInvListener clickListener;
     public ChatListener chatListener;
     public FoodListener foodListener;
+    public PoisonListener poisonlistener;
 
 
     //Utilities
@@ -118,6 +120,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
         this.chatListener = new ChatListener(this);
         this.foodListener = new FoodListener(this);
         this.entityManager = RemoteEntities.createManager(this);
+        this.poisonlistener = new PoisonListener(this);
         BorderCheck.cycleCheck(this);
         saveDefaultConfig();
         //grab database values if they should be used

@@ -43,6 +43,8 @@ public class RpgPlayer {
     //players Good Neutral Evil Alignment
     private String playerGEAlignment = "";
 
+    private boolean poisonProof = false;
+
 	
 	/*
 	 * Rpg Races Variables
@@ -1163,5 +1165,13 @@ public class RpgPlayer {
 
     public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    public boolean isPoisonProof() {
+        return poisonProof;
+    }
+
+    public void setPoisonProof(boolean poisonProof) {
+        this.poisonProof = poisonProof;
     }
 }
