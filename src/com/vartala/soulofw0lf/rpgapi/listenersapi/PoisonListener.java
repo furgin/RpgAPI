@@ -43,19 +43,23 @@ public class PoisonListener implements Listener {
         if (p.getGameMode().equals(GameMode.getByValue(1))){
             return;
         }
+        if (this.Rpgapi.activeNicks.containsKey(p.getName())){
         RpgPlayer rp =  this.Rpgapi.rpgPlayers.get(this.Rpgapi.activeNicks.get(p.getName()));
         if (rp.isPoisonProof()){
-            return;
+           return;
+        }
         }
         if (p.getLocation().getY() >= 31){
             return;
         }
-        if (!(p.getWorld().getName().equalsIgnoreCase("Kardegah"))){
-            return;
+        p.sendMessage("you are below 30");
+        if (p.getWorld().getName().equalsIgnoreCase("Kardegah")){
+            p.sendMessage("You are on kardegah");
+        Location poisonLoc = new Location(Bukkit.getWorld("Kardegah"), 2485d, 0d, -2411d);
+        if (poisonLoc.distance(p.getLocation()) <= 200){
+            p.sendMessage("you are within poison distance.");
+            p.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 15, 2), true);
         }
-        Location poisonLoc = new Location(Bukkit.getWorld("Kardegah"), 2485, 0, -2411);
-        if (poisonLoc.distance(p.getLocation()) <= 100){
-            p.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 15, 6), true);
         }
     }
 }
