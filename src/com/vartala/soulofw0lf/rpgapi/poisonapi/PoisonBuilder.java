@@ -30,16 +30,13 @@ import java.util.Map;
  */
 public class PoisonBuilder {
     public static void newPoison(){
-        List<PotionEffectType> potionEffects = new ArrayList<PotionEffectType>();
-        Map<PotionEffectType, PoisonEffects> pfm = new HashMap<>();
+
         for (String poisonName : RpgAPI.poisonCommand.getConfigurationSection("Poisons").getKeys(false)){
-            pfm.clear();
-            potionEffects.clear();
             RpgPoison rPoison = new RpgPoison();
+            Map<PotionEffectType, PoisonEffects> pfm = rPoison.getEffectStats();
             rPoison.setPoisonName(poisonName);
             for (String effect : RpgAPI.poisonCommand.getConfigurationSection("Poisons." + poisonName + ".Potion Effects").getKeys(false)){
                 PotionEffectType pType = PotionEffectType.getByName(effect);
-                potionEffects.add(pType);
                 PoisonEffects pEffect = new PoisonEffects();
                 pEffect.setEffectName(effect);
                 pEffect.setDuration(RpgAPI.poisonCommand.getInt("Poisons." + poisonName + ".Potion Effects." + effect + ".Duration"));
@@ -47,7 +44,6 @@ public class PoisonBuilder {
                 pfm.put(pType, pEffect);
             }
             rPoison.setEffectStats(pfm);
-            rPoison.setPoisonEffects(potionEffects);
             rPoison.setWorldName(RpgAPI.poisonCommand.getString("Poisons." + poisonName + ".World"));
             rPoison.setPoisonX(RpgAPI.poisonCommand.getDouble("Poisons." + poisonName + ".Potion X"));
             rPoison.setPoisonY(RpgAPI.poisonCommand.getDouble("Poisons." + poisonName + ".Potion Y"));
@@ -56,7 +52,6 @@ public class PoisonBuilder {
             rPoison.setPoisonTickLength(RpgAPI.poisonCommand.getInt("Poisons." + poisonName + ".Reset Length"));
             rPoison.setPoisonRadius(RpgAPI.poisonCommand.getInt("Poisons." + poisonName + ".Radius"));
             RpgAPI.rpgPoisons.put(poisonName, rPoison);
-            RpgAPI.poisonNames.add(poisonName);
         }
     }
 }
