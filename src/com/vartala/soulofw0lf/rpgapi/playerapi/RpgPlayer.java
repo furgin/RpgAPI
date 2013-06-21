@@ -43,7 +43,11 @@ public class RpgPlayer {
     //players Good Neutral Evil Alignment
     private String playerGEAlignment = "";
 
+    //is the player immune to poison
     private boolean poisonProof = false;
+
+    //is the player currently poisoned
+    private boolean isPoisoned = false;
 
 	
 	/*
@@ -1173,5 +1177,13 @@ public class RpgPlayer {
 
     public void setPoisonProof(boolean poisonProof) {
         this.poisonProof = poisonProof;
+    }
+
+    public boolean isPoisoned() {
+        return isPoisoned;
+    }
+
+    public void setPoisoned(boolean poisoned) {
+        isPoisoned = poisoned;
     }
 }

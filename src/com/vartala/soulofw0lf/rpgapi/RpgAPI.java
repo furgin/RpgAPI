@@ -30,6 +30,9 @@ import com.vartala.soulofw0lf.rpgapi.mobcommandapi.SetBuilder;
 import com.vartala.soulofw0lf.rpgapi.partyapi.LFGPlayer;
 import com.vartala.soulofw0lf.rpgapi.partyapi.PartyGroup;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
+import com.vartala.soulofw0lf.rpgapi.poisonapi.PoisonBuilder;
+import com.vartala.soulofw0lf.rpgapi.poisonapi.PoisonTimeChecker;
+import com.vartala.soulofw0lf.rpgapi.poisonapi.RpgPoison;
 import com.vartala.soulofw0lf.rpgapi.spellapi.MagicSpell;
 import com.vartala.soulofw0lf.rpgapi.sqlapi.SQLHandler;
 import de.kumpelblase2.remoteentities.EntityManager;
@@ -68,6 +71,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static YamlConfiguration classConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Classes.yml"));
     public static YamlConfiguration commandConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Commands.yml"));
     public static YamlConfiguration mobCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/MobCommands.yml"));
+    public static YamlConfiguration poisonCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Poisons.yml"));
 
 
     //Listeners
@@ -93,10 +97,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public Map<String, FactionLevel> allFactions = new HashMap<>();
     public Map<String, TitleAchievement> titleAchievs = new HashMap<>();
     public Map<Spell, MagicSpell> allSpells = new HashMap<>();
-    public Map<String, RpgPlayer> rpgPlayers = new HashMap<>();
+    public static Map<String, RpgPlayer> rpgPlayers = new HashMap<>();
     public Map<ClassName, RpgClasses> rpgClasses = new HashMap<>();
     public static List<ChatClass> chatClasses = new ArrayList<ChatClass>();
-    public Map<String, String> activeNicks = new HashMap<>();
+    public static Map<String, String> activeNicks = new HashMap<>();
     public Map<String, CustomFood> foodItems = new HashMap<>();
     public static boolean rpgStyleFood = true;
     public static String dBUserName = "";
@@ -109,13 +113,15 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static List<String> commands = new ArrayList<String>();
     public static Map<String, MobCommand> minionCommands = new HashMap<>();
     public static EntityManager entityManager;
+    public static Map<String, RpgPoison> rpgPoisons = new HashMap<>();
+    public static List<String> poisonNames = new ArrayList<String>();
 
     @Override
     public void onEnable() {
         plugin = this;
         Bukkit.getPluginManager().registerEvents(this, this);
         this.MapListen = new MapListener(this);
-        this.PlayerListener = new playerLogIn();
+        this.PlayerListener = new playerLogIn(this);
         this.clickListener = new ClickInvListener(this);
         this.chatListener = new ChatListener(this);
         this.foodListener = new FoodListener(this);
@@ -145,6 +151,20 @@ public class RpgAPI extends JavaPlugin implements Listener {
         classConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Classes.yml"));
         commandConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Commands.yml"));
         mobCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/MobCommands.yml"));
+        poisonCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Poisons.yml"));
+        if (poisonCommand.get("Poisons") == null){
+            poisonCommand.set("Poisons.Sickening Ground.Potion Effects.1", "POISON");
+            poisonCommand.set("Poisons.Sickening Ground.Potion Effects.2", "WEAKNESS");
+            poisonCommand.set("Poisons.Sickening Ground.Duration", 15);
+            poisonCommand.set("Poisons.Sickening Ground.Potion Strength", 2);
+            poisonCommand.set("Poisons.Sickening Ground.World", "Kardegah");
+            poisonCommand.set("Poisons.Sickening Ground.Potion X", -2587);
+            poisonCommand.set("Poisons.Sickening Ground.Potion Z", -3060);
+            poisonCommand.set("Poisons.Sickening Ground.Potion Y", 162);
+            poisonCommand.set("Poisons.Sickening Ground.Above Y", true);
+            poisonCommand.set("Poisons.Sickening Ground.Reset Length", 10);
+            poisonCommand.set("Poisons.Sickening Ground.Radius", 38);
+        }
         if (mobCommand.get("Mob Commands") == null){
             mobCommand.set("Mob Commands.Set 1.Item 1.Commands.1.ClickType", "right");
         }
@@ -195,10 +215,13 @@ public class RpgAPI extends JavaPlugin implements Listener {
             achievementConfig.save(new File("plugins/RpgAPI/Achievements.yml"));
             minionConfig.save(new File("plugins/RpgAPI/Minions.yml"));
             classConfig.save(new File("plugins/RpgAPI/Classes.yml"));
+            mobCommand.save(new File("plugins/RpgAPI/MobCommands.yml"));
+            poisonCommand.save(new File("plugins/RpgAPI/Poisons.yml"));
         } catch (IOException e) {
         }
-        SetBuilder.minionCommand();
-
+        //SetBuilder.minionCommand();
+        PoisonBuilder.newPoison();
+        PoisonTimeChecker.PoisonRegionTimer();
     }
 
     @EventHandler
