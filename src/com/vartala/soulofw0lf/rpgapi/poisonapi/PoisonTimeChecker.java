@@ -89,9 +89,10 @@ public class PoisonTimeChecker {
         rp.setPoisoned(true);
         Player p = Bukkit.getPlayer(name);
         for (PotionEffectType pType : rPoison.getPoisonEffects()){
-        p.addPotionEffect(new PotionEffect(pType, rPoison.getPoisonDuration()*20, rPoison.getPoisonStrength()), true);
-            PoisonRemover(rPoison, rp);
-        }
+            PoisonEffects effect = rPoison.getEffectStats().get(pType);
+            p.addPotionEffect(new PotionEffect(pType, effect.getDuration() * 20, effect.getStrength()), true);
+         }
+        PoisonRemover(rPoison, rp);
         for (PoisonBehavior pBehavior : rPoison.getPoisonBehaviors()){
             pBehavior.poisonBehavior(p);
         }

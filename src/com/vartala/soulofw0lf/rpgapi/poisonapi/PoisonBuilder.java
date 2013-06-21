@@ -31,16 +31,23 @@ import java.util.Map;
 public class PoisonBuilder {
     public static void newPoison(){
         List<PotionEffectType> potionEffects = new ArrayList<PotionEffectType>();
+        Map<PotionEffectType, PoisonEffects> pfm = new HashMap<>();
         for (String poisonName : RpgAPI.poisonCommand.getConfigurationSection("Poisons").getKeys(false)){
+            pfm.clear();
             potionEffects.clear();
-        RpgPoison rPoison = new RpgPoison();
+            RpgPoison rPoison = new RpgPoison();
             rPoison.setPoisonName(poisonName);
             for (String effect : RpgAPI.poisonCommand.getConfigurationSection("Poisons." + poisonName + ".Potion Effects").getKeys(false)){
-            potionEffects.add(PotionEffectType.getByName(RpgAPI.poisonCommand.getString("Poisons." + poisonName + ".Potion Effects." + effect)));
+                PotionEffectType pType = PotionEffectType.getByName(effect);
+                potionEffects.add(pType);
+                PoisonEffects pEffect = new PoisonEffects();
+                pEffect.setEffectName(effect);
+                pEffect.setDuration(RpgAPI.poisonCommand.getInt("Poisons." + poisonName + ".Potion Effects." + effect + ".Duration"));
+                pEffect.setStrength(RpgAPI.poisonCommand.getInt("Poisons." + poisonName + ".Potion Effects." + effect + ".Strength"));
+                pfm.put(pType, pEffect);
             }
+            rPoison.setEffectStats(pfm);
             rPoison.setPoisonEffects(potionEffects);
-            rPoison.setPoisonDuration(RpgAPI.poisonCommand.getInt("Poisons." + poisonName + ".Duration"));
-            rPoison.setPoisonStrength(RpgAPI.poisonCommand.getInt("Poisons." + poisonName + ".Potion Strength"));
             rPoison.setWorldName(RpgAPI.poisonCommand.getString("Poisons." + poisonName + ".World"));
             rPoison.setPoisonX(RpgAPI.poisonCommand.getDouble("Poisons." + poisonName + ".Potion X"));
             rPoison.setPoisonY(RpgAPI.poisonCommand.getDouble("Poisons." + poisonName + ".Potion Y"));

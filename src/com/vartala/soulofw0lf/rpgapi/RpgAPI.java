@@ -153,10 +153,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
         mobCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/MobCommands.yml"));
         poisonCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Poisons.yml"));
         if (poisonCommand.get("Poisons") == null){
-            poisonCommand.set("Poisons.Sickening Ground.Potion Effects.1", "POISON");
-            poisonCommand.set("Poisons.Sickening Ground.Potion Effects.2", "WEAKNESS");
-            poisonCommand.set("Poisons.Sickening Ground.Duration", 15);
-            poisonCommand.set("Poisons.Sickening Ground.Potion Strength", 2);
+            poisonCommand.set("Poisons.Sickening Ground.Potion Effects.POISON.Duration", 15);
+            poisonCommand.set("Poisons.Sickening Ground.Potion Effects.POISON.Strength", 2);
+            poisonCommand.set("Poisons.Sickening Ground.Potion Effects.WEAKNESS.Duration", 30);
+            poisonCommand.set("Poisons.Sickening Ground.Potion Effects.WEAKNESS.Strength", 4);
             poisonCommand.set("Poisons.Sickening Ground.World", "Kardegah");
             poisonCommand.set("Poisons.Sickening Ground.Potion X", -2587);
             poisonCommand.set("Poisons.Sickening Ground.Potion Z", -3060);

@@ -3,7 +3,9 @@ package com.vartala.soulofw0lf.rpgapi.poisonapi;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by: soulofw0lf
@@ -34,11 +36,10 @@ public class RpgPoison {
     private double poisonX = 0;
     private double poisonZ = 0;
     private boolean aboveY = false;
-    private Integer poisonDuration = 0;
     private Integer poisonTickLength = 0;
-    private Integer poisonStrength = 0;
     private List<PotionEffectType> poisonEffects = new ArrayList<PotionEffectType>();
     private List<PoisonBehavior> poisonBehaviors = new ArrayList<PoisonBehavior>();
+    private Map<PotionEffectType, PoisonEffects> effectStats = new HashMap<>();
 
     public void RpgPoison(){
 
@@ -52,13 +53,6 @@ public class RpgPoison {
         this.poisonTickLength = poisonTickLength;
     }
 
-    public Integer getPoisonDuration() {
-        return poisonDuration;
-    }
-
-    public void setPoisonDuration(Integer poisonDuration) {
-        this.poisonDuration = poisonDuration;
-    }
 
     public boolean isAboveY() {
         return aboveY;
@@ -132,11 +126,11 @@ public class RpgPoison {
         this.poisonBehaviors = poisonBehaviors;
     }
 
-    public Integer getPoisonStrength() {
-        return poisonStrength;
+    public Map<PotionEffectType, PoisonEffects> getEffectStats() {
+        return effectStats;
     }
 
-    public void setPoisonStrength(Integer poisonStrength) {
-        this.poisonStrength = poisonStrength;
+    public void setEffectStats(Map<PotionEffectType, PoisonEffects> effectStats) {
+        this.effectStats = effectStats;
     }
 }
