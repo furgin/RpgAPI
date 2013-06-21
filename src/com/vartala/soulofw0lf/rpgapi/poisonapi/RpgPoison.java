@@ -37,7 +37,6 @@ public class RpgPoison {
     private double poisonZ = 0;
     private boolean aboveY = false;
     private Integer poisonTickLength = 0;
-    private List<PotionEffectType> poisonEffects = new ArrayList<PotionEffectType>();
     private List<PoisonBehavior> poisonBehaviors = new ArrayList<PoisonBehavior>();
     private Map<PotionEffectType, PoisonEffects> effectStats = new HashMap<>();
 
@@ -110,13 +109,6 @@ public class RpgPoison {
         this.poisonZ = poisonZ;
     }
 
-    public List<PotionEffectType> getPoisonEffects() {
-        return poisonEffects;
-    }
-
-    public void setPoisonEffects(List<PotionEffectType> poisonEffects) {
-        this.poisonEffects = poisonEffects;
-    }
 
     public List<PoisonBehavior> getPoisonBehaviors() {
         return poisonBehaviors;

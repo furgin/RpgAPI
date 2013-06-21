@@ -41,43 +41,22 @@ public class PoisonTimeChecker {
         final Map<String, RpgPoison> poisonRegions = RpgAPI.rpgPoisons;
         final Map<String, RpgPlayer> rPlayers = RpgAPI.rpgPlayers;
         final Map<String, String> playerNicks = RpgAPI.activeNicks;
-        final List<String> poisonNames = RpgAPI.poisonNames;
         new BukkitRunnable(){
             @Override
             public void run(){
                 for (Player p : Bukkit.getOnlinePlayers()){
                     RpgPlayer rp =  rPlayers.get(playerNicks.get(p.getName()));
                     Location pLoc = p.getLocation();
-                    boolean isPoisoned = false;
-                    boolean isPoisonProof = false;
-                    if (rp != null){
-                        if (rp.isPoisonProof()){
-                            isPoisonProof = true;
-                        }
-                        if (rp.isPoisoned()){
-                            isPoisoned = true;
-                        }
+                    if (rp != null && (rp.isPoisonProof() || rp.isPoisoned())){
+                        continue;
                     }
-                    if ((isPoisoned == false) && (isPoisonProof == false)){
-                        for (String poison : poisonNames){
-                            RpgPoison rPoison = poisonRegions.get(poison);
-                            Location Loc = new Location(Bukkit.getWorld(rPoison.getWorldName()), rPoison.getPoisonX(), rPoison.getPoisonY(), rPoison.getPoisonZ());
-                            if (Loc.getWorld().getName().equalsIgnoreCase(pLoc.getWorld().getName())){
-                                if(rPoison.isAboveY()){
-                                    if (pLoc.getY() >= rPoison.getPoisonY()){
-                                        if (Loc.distance(pLoc) <= rPoison.getPoisonRadius()){
-                                            PoisonAplicator(rPoison, p.getName());
-                                        }
-                                    }
-                                }
-                                if(!(rPoison.isAboveY())){
-                                    if (pLoc.getY() <= rPoison.getPoisonY()){
-                                        if (Loc.distance(pLoc) <= rPoison.getPoisonRadius()){
-                                            PoisonAplicator(rPoison, p.getName());
-                                        }
-                                    }
-                                }
-                            }
+                    for (String poison : poisonRegions.keySet()){
+                        RpgPoison rPoison = poisonRegions.get(poison);
+                        Location Loc = new Location(Bukkit.getWorld(rPoison.getWorldName()), rPoison.getPoisonX(), rPoison.getPoisonY(), rPoison.getPoisonZ());
+                        if ((Loc.getWorld().getName().equalsIgnoreCase(pLoc.getWorld().getName()) &&
+                            ((rPoison.isAboveY() && pLoc.getY() >= rPoison.getPoisonY()&& Loc.distance(pLoc) <= rPoison.getPoisonRadius()) ||
+                            (!(rPoison.isAboveY()) && pLoc.getY() <= rPoison.getPoisonY() && Loc.distance(pLoc) <= rPoison.getPoisonRadius())))){
+                            PoisonAplicator(rPoison, p.getName());
                         }
                     }
                 }
@@ -88,7 +67,7 @@ public class PoisonTimeChecker {
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(name));
         rp.setPoisoned(true);
         Player p = Bukkit.getPlayer(name);
-        for (PotionEffectType pType : rPoison.getPoisonEffects()){
+        for (PotionEffectType pType : rPoison.getEffectStats().keySet()){
             PoisonEffects effect = rPoison.getEffectStats().get(pType);
             p.addPotionEffect(new PotionEffect(pType, effect.getDuration() * 20, effect.getStrength()), true);
          }

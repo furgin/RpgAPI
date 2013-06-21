@@ -114,7 +114,6 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<String, MobCommand> minionCommands = new HashMap<>();
     public static EntityManager entityManager;
     public static Map<String, RpgPoison> rpgPoisons = new HashMap<>();
-    public static List<String> poisonNames = new ArrayList<String>();
 
     @Override
     public void onEnable() {
