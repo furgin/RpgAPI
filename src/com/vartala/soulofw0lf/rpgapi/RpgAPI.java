@@ -82,6 +82,25 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public FoodListener foodListener;
     public PoisonListener poisonlistener;
 
+    //plugin booleans
+    public static boolean guildsOn = true;
+    public static boolean chatOn = true;
+    public static boolean poisonedEarthOn = true;
+    public static boolean classesOn = true;
+    public static boolean racesOn = true;
+    public static boolean achievementsOn = true;
+    public static boolean foodOn = true;
+    public static boolean partyOn = true;
+    public static boolean minionsOn = true;
+    public static boolean clickOn = true;
+    public static boolean friendsOn = true;
+    public static boolean lobbyOn = true;
+    public static boolean questOn = true;
+    public static boolean spawnsOn = true;
+    public static boolean warpsOn = true;
+    public static boolean tradeOn = true;
+    public static boolean borderOn = true;
+
 
     //Utilities
     PlayerUtil PlayerUtility = new PlayerUtil(this);
@@ -118,16 +137,33 @@ public class RpgAPI extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         plugin = this;
+        saveDefaultConfig();
+        guildsOn = getConfig().getBoolean("Plugins.Guilds");
+        chatOn = getConfig().getBoolean("Plugins.Chat");
+        poisonedEarthOn = getConfig().getBoolean("Plugins.Poisoned Earth");
+        classesOn = getConfig().getBoolean("Plugins.Classes");
+        racesOn = getConfig().getBoolean("Plugins.Races");
+        achievementsOn = getConfig().getBoolean("Plugins.Achievements");
+        foodOn = getConfig().getBoolean("Plugins.Food");
+        partyOn = getConfig().getBoolean("Plugins.Party");
+        minionsOn = getConfig().getBoolean("Plugins.Minions");
+        clickOn = getConfig().getBoolean("Plugins.Click");
+        friendsOn = getConfig().getBoolean("Plugins.Friends");
+        lobbyOn = getConfig().getBoolean("Plugins.Lobby");
+        questOn = getConfig().getBoolean("Plugins.Quest");
+        spawnsOn = getConfig().getBoolean("Plugins.Spawns");
+        warpsOn = getConfig().getBoolean("Plugins.Warps");
+        tradeOn = getConfig().getBoolean("Plugins.Trade");
+        borderOn = getConfig().getBoolean("Plugins.Border");
         Bukkit.getPluginManager().registerEvents(this, this);
         this.MapListen = new MapListener(this);
         this.PlayerListener = new playerLogIn(this);
-        this.clickListener = new ClickInvListener(this);
-        this.chatListener = new ChatListener(this);
-        this.foodListener = new FoodListener(this);
-        this.entityManager = RemoteEntities.createManager(this);
-        this.poisonlistener = new PoisonListener(this);
-        BorderCheck.cycleCheck(this);
-        saveDefaultConfig();
+        if (clickOn){this.clickListener = new ClickInvListener(this);}
+        if (chatOn){this.chatListener = new ChatListener(this);}
+        if (foodOn){this.foodListener = new FoodListener(this);}
+        if (minionsOn){this.entityManager = RemoteEntities.createManager(this);}
+        if (poisonedEarthOn){this.poisonlistener = new PoisonListener(this);}
+        if (borderOn){BorderCheck.cycleCheck(this);}
         //grab database values if they should be used
         if (getConfig().getBoolean("Use Mysql") == true) {
             dBUserName = getConfig().getString("Mysql Database.User");
@@ -140,17 +176,17 @@ public class RpgAPI extends JavaPlugin implements Listener {
         //load yml files and set a value to each of them if they don't exist.
         playerConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayers.yml"));
         localeConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale.yml"));
-        guildConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Guilds.yml"));
-        chatConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/ChatChannels.yml"));
-        foodConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Food.yml"));
-        clickConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Clicks.yml"));
+        if (guildsOn){guildConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Guilds.yml"));}
+        if (chatOn){chatConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/ChatChannels.yml"));}
+        if (foodOn){foodConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Food.yml"));}
+        if (clickOn){clickConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Clicks.yml"));}
         settingsConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Settings.yml"));
-        achievementConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Achievements.yml"));
-        minionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Minions.yml"));
-        classConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Classes.yml"));
+        if (achievementsOn){achievementConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Achievements.yml"));}
+        if (minionsOn){minionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Minions.yml"));}
+        if (classesOn){classConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Classes.yml"));}
         commandConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Commands.yml"));
-        mobCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/MobCommands.yml"));
-        poisonCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Poisons.yml"));
+        if (minionsOn){mobCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/MobCommands.yml"));}
+        if (poisonedEarthOn){poisonCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Poisons.yml"));
         if (poisonCommand.get("Poisons") == null){
             poisonCommand.set("Poisons.Sickening Ground.Potion Effects.POISON.Duration", 15);
             poisonCommand.set("Poisons.Sickening Ground.Potion Effects.POISON.Strength", 2);
@@ -163,10 +199,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
             poisonCommand.set("Poisons.Sickening Ground.Above Y", true);
             poisonCommand.set("Poisons.Sickening Ground.Reset Length", 10);
             poisonCommand.set("Poisons.Sickening Ground.Radius", 38);
-        }
-        if (mobCommand.get("Mob Commands") == null){
+        }}
+        if (minionsOn){if (mobCommand.get("Mob Commands") == null){
             mobCommand.set("Mob Commands.Set 1.Item 1.Commands.1.ClickType", "right");
-        }
+        }}
         if (commandConfig.get("Commands") == null){
             commandConfig.set("Commands.SetNick", "nick");
         }
@@ -179,48 +215,50 @@ public class RpgAPI extends JavaPlugin implements Listener {
         if (localeConfig.get("Locale Settings") == null) {
             localeConfig.set("Locale Settings", "This file is used to set all language settings!");
         }
-        if (guildConfig.get("Guilds Info") == null) {
+        if (guildsOn){if (guildConfig.get("Guilds Info") == null) {
             guildConfig.set("Guilds Info", "This File will save all guild info, Mysql is highly recommended!");
-        }
-        if (chatConfig.get("Channels") == null) {
+        }}
+        if (chatOn){if (chatConfig.get("Channels") == null) {
             chatConfig.set("Channels", "This config will save all your chat channel data.");
-        }
-        if (foodConfig.get("Rpg Foods") == null) {
+        }}
+        if (foodOn){if (foodConfig.get("Rpg Foods") == null) {
             foodConfig.set("Rpg Foods", "This file will save all your Rpg Food Items");
-        }
-        if (clickConfig.get("Click File") == null) {
+        }}
+        if (clickOn){if (clickConfig.get("Click File") == null) {
             clickConfig.set("Click File", "This File is used to save all your click menu's");
-        }
+        }}
         if (settingsConfig.get("Settings") == null) {
             settingsConfig.set("Settings", "this file is used for all plugin settings!");
         }
-        if (achievementConfig.get("Achievements") == null) {
+        if (achievementsOn){if (achievementConfig.get("Achievements") == null) {
             achievementConfig.set("Achievements", "This file stores all your servers saved Achievements");
-        }
-        if (minionConfig.get("Minions") == null) {
+        }}
+        if (minionsOn){if (minionConfig.get("Minions") == null) {
             minionConfig.set("Minions", "this file is used to store all minion and monster data (Mysql is highly recommended!");
-        }
-        if (classConfig.get("Classes") == null) {
+        }}
+        if (classesOn){if (classConfig.get("Classes") == null) {
             classConfig.set("Classes", "This file is used to save all Rpg Classes");
-        }
+        }}
         try {
             playerConfig.save(new File("plugins/RpgAPI/RpgPlayers.yml"));
             localeConfig.save(new File("plugins/RpgAPI/Locale.yml"));
-            guildConfig.save(new File("plugins/RpgAPI/Guilds.yml"));
-            chatConfig.save(new File("plugins/RpgAPI/ChatChannels.yml"));
-            foodConfig.save(new File("plugins/RpgAPI/Food.yml"));
-            clickConfig.save(new File("plugins/RpgAPI/Clicks.yml"));
+            if (guildsOn){guildConfig.save(new File("plugins/RpgAPI/Guilds.yml"));}
+            if (chatOn){chatConfig.save(new File("plugins/RpgAPI/ChatChannels.yml"));}
+            if (foodOn){foodConfig.save(new File("plugins/RpgAPI/Food.yml"));}
+            if (clickOn){clickConfig.save(new File("plugins/RpgAPI/Clicks.yml"));}
             settingsConfig.save(new File("plugins/RpgAPI/Settings.yml"));
-            achievementConfig.save(new File("plugins/RpgAPI/Achievements.yml"));
-            minionConfig.save(new File("plugins/RpgAPI/Minions.yml"));
-            classConfig.save(new File("plugins/RpgAPI/Classes.yml"));
-            mobCommand.save(new File("plugins/RpgAPI/MobCommands.yml"));
-            poisonCommand.save(new File("plugins/RpgAPI/Poisons.yml"));
+            if (achievementsOn){achievementConfig.save(new File("plugins/RpgAPI/Achievements.yml"));}
+            if (minionsOn){minionConfig.save(new File("plugins/RpgAPI/Minions.yml"));}
+            if (classesOn){classConfig.save(new File("plugins/RpgAPI/Classes.yml"));}
+            if (minionsOn){mobCommand.save(new File("plugins/RpgAPI/MobCommands.yml"));}
+            if (poisonedEarthOn){poisonCommand.save(new File("plugins/RpgAPI/Poisons.yml"));}
         } catch (IOException e) {
         }
         //SetBuilder.minionCommand();
+        if (poisonedEarthOn){
         PoisonBuilder.newPoison();
         PoisonTimeChecker.PoisonRegionTimer();
+        }
     }
 
     @EventHandler

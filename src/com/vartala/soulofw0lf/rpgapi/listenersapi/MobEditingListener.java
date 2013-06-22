@@ -29,6 +29,9 @@ public class MobEditingListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerInteractEntityEvent (PlayerInteractEntityEvent event)
     {
+        if (!RpgAPI.minionsOn){
+            return;
+        }
         Player who = event.getPlayer();
         Entity clickedEntity = event.getRightClicked();
         who.sendMessage("You've interacted with an entity.");

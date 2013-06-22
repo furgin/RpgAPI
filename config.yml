@@ -8,3 +8,22 @@ MySql DataBase:
   #leave this line alone if you don't know what it means
   UseUnicode: true
   Url: 'jdbc:mysql://your.database.address/goes_here'
+Plugins:
+  Guilds: true
+  Chat: true
+  Poisoned Earth: true
+  Classes: true
+  Races: true
+  Achievements: true
+  Food: true
+  Party: true
+  #click must be true to use minions
+  Minions: true
+  Click: true
+  Friends: true
+  Lobby: true
+  Quest: true
+  Spawns: true
+  Warps: true
+  Trade: true
+  Border: true

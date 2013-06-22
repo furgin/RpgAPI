@@ -36,6 +36,9 @@ public class ChatListener implements Listener {
     //
     @EventHandler(priority = EventPriority.HIGHEST)
     public void channelChat(AsyncPlayerChatEvent event){
+        if (!(RpgAPI.chatOn)){
+            return;
+        }
         String senderName = event.getPlayer().getName();
         RpgPlayer sendPlayer = this.Rpgapi.rpgPlayers.get(this.Rpgapi.activeNicks.get(senderName));
         if (sendPlayer.getActiveChannel().isEmpty()){

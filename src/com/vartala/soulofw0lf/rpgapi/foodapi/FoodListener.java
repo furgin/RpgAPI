@@ -48,6 +48,9 @@ public class FoodListener implements Listener {
     @EventHandler
     public void onRestore(EntityRegainHealthEvent event)
     {
+        if (!RpgAPI.foodOn){
+            return;
+        }
         if ((event.getRegainReason() == EntityRegainHealthEvent.RegainReason.REGEN) ||
                 (event.getRegainReason() == EntityRegainHealthEvent.RegainReason.SATIATED))
         {
@@ -62,6 +65,9 @@ public class FoodListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onEntityDamage(EntityDamageEvent event){
+        if (!RpgAPI.foodOn){
+            return;
+        }
         if (!(event.getEntity() instanceof Player)) {
             return;
         }
@@ -74,6 +80,9 @@ public class FoodListener implements Listener {
     }
     @EventHandler(priority = EventPriority.LOW)
     public void onFoodLevelChange(FoodLevelChangeEvent event){
+        if (!RpgAPI.foodOn){
+            return;
+        }
         Player p = (Player) event.getEntity();
         if (RpgAPI.rpgStyleFood){
         event.setCancelled(true);
@@ -82,6 +91,9 @@ public class FoodListener implements Listener {
     }
     @EventHandler(priority=EventPriority.HIGH)
     public void onPlayerUse(PlayerInteractEvent event){
+        if (!RpgAPI.foodOn){
+            return;
+        }
         Player p = event.getPlayer();
         ItemStack item = p.getItemInHand();
         if(item == null || item.getTypeId() == 0){

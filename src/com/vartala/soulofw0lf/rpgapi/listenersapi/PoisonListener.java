@@ -40,6 +40,9 @@ public class PoisonListener implements Listener {
     }
     @EventHandler
     public void playerPoisonGround(PlayerMoveEvent event){
+        if (!RpgAPI.poisonedEarthOn){
+            return;
+        }
         Player p = event.getPlayer();
         if (p.getGameMode().equals(GameMode.getByValue(1))){
 

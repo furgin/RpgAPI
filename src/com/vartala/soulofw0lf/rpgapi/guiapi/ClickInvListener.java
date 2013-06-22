@@ -18,6 +18,9 @@ public class ClickInvListener implements Listener {
     //this method handles the actual listener for inventory clicks
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void clickListener(InventoryClickEvent event){
+        if (!RpgAPI.clickOn){
+            return;
+        }
         //grab the name of the inventory and assign it to a string
 		String name = event.getInventory().getName();
 
