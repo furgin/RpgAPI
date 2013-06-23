@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -25,7 +26,7 @@ public class ClickInvListener implements Listener {
 		String name = event.getInventory().getName();
 
         //setting a null enum placeholder for the type of click that is used
-		ClickType click = null;
+        ClickType click = null;
 
         //initializing a boolean that we will use to determine if the inventory
         //is actually one we should listen for
@@ -70,15 +71,8 @@ public class ClickInvListener implements Listener {
         /*
          * set the click enum to the appropriate type of click used
          */
-		if (event.isLeftClick()){
-			click = ClickType.LEFT;
-		}
-		if (event.isRightClick()){
-			click = ClickType.RIGHT;
-		}
-		if (event.isShiftClick()){
-			click = ClickType.SHIFT;
-		}
+        click = event.getClick();
+
         //process each click behavior saved to this inventory
 		for(InventoryClickBehavior behavior : rci.getBehavior()){
 			behavior.onClick(rci, player, is, click);

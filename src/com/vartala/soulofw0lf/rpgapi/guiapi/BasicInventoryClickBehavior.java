@@ -7,6 +7,7 @@ import java.util.Map;
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -14,8 +15,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class BasicInventoryClickBehavior  implements InventoryClickBehavior{
     //
 	@Override
-	public void onClick(RpgClickInv inv, Player p, ItemStack item,
-			ClickType click) {
+	public void onClick(RpgClickInv inv, Player p, ItemStack item, ClickType click
+			) {
 		//make a map from the item commands stored in the click inventory
 		Map<ItemStack, List<String>> itemCommands = inv.getItemCommands();
         //get the item meta from the item stack
@@ -133,7 +134,7 @@ public class BasicInventoryClickBehavior  implements InventoryClickBehavior{
 			}.runTaskLater(RpgAPI.plugin,4);
 
 		}
-		if (click == ClickType.SHIFT){
+		if (click == ClickType.SHIFT_LEFT || click == ClickType.SHIFT_RIGHT){
 			player.closeInventory();
 			new BukkitRunnable(){
 				@Override
