@@ -141,6 +141,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<String, RpgPoison> rpgPoisons = new HashMap<>();
     public static Map<String, File> playerFiles = new HashMap<>();
     public static Map<String, String> localeSettings = new HashMap<>();
+    public static Map<String, String> commandSettings = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -276,6 +277,8 @@ public class RpgAPI extends JavaPlugin implements Listener {
             localeConfig.set("Translations.Test Message", "&0Black &1Dark Blue &2Dark Green &4Dark Red &5Purple &6Gold &7 Grey" +
                     " &8Dark Grey &9 Blue &aGreen &bAqua &cRed &dLight Purple &eYellow &fWhite" +
                     "&lBold &mStrikeThrough &nUnderlined &oitalic &kObfuscated &rreset");
+            localeConfig.set("Commands.Test Command", "test");
+            localeConfig.set("Commands.Player Info", "pinfo");
         }
         if (guildsOn){if (guildConfig.get("Guilds Info") == null) {
             guildConfig.set("Guilds Info", "This File will save all guild info, Mysql is highly recommended!");
@@ -320,11 +323,16 @@ public class RpgAPI extends JavaPlugin implements Listener {
         for (String s : localeConfig.getConfigurationSection("Translations").getKeys(false)){
             localeSettings.put(s, localeConfig.getString("Translations." + s));
         }
+        for (String command : localeConfig.getConfigurationSection("Commands").getKeys(false)){
+            String commandRT = localeConfig.getString("Commands." + command);
+            commands.add(commandRT);
+            commandSettings.put(command, commandRT);
+        }
         //SetBuilder.minionCommand();
         if (poisonedEarthOn){
         PoisonBuilder.newPoison();
         PoisonTimeChecker.PoisonRegionTimer();
-            commands.add("test");
+
         }
     }
 
@@ -343,9 +351,9 @@ public class RpgAPI extends JavaPlugin implements Listener {
         Player p = event.getPlayer();
         String s = event.getMessage();
         String[] args = s.split(" ");
-        String cmd = args[0].replaceAll("/","");
+        String cmdAlias = args[0].replaceAll("/","");
         for (String command : commands){
-        if (cmd.equalsIgnoreCase(command)){
+        if (cmdAlias.equalsIgnoreCase(command)){
             UniqueCommands.BaseCommandHandler(p, args);
             event.setCancelled(true);
         }

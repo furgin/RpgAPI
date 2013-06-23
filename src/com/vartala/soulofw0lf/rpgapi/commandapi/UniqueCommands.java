@@ -1,6 +1,8 @@
 package com.vartala.soulofw0lf.rpgapi.commandapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import com.vartala.soulofw0lf.rpgapi.enumapi.PlayerStat;
+import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
@@ -54,10 +56,21 @@ public class UniqueCommands {
      */
     public static void BaseCommandHandler(Player p, String[] command){
         command[0] = command[0].replace("/","");
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Test Command"))){
+            p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Test Message")));
+            return;
+        }
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Player Info"))){
+            String activeNick = RpgAPI.activeNicks.get(p.getName());
+            RpgPlayer rp = RpgAPI.rpgPlayers.get(activeNick);
+            p.sendMessage("Your current Name is " + activeNick);
+            p.sendMessage(ChatColors.ChatString("&F[&4Rpg Player Info&F] &2Your current Health is &4" + rp.getStats().get(PlayerStat.HIT_POINTS) + "&2 out of &4" + rp.getStats().get(PlayerStat.TOTAL_HIT_POINTS) + "&2."));
+            return;
+        }
         switch(command[0])
         {
-            case "test":
-                p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Test Message")));
+            case "body":
+                p.sendMessage(ChatColors.ChatString("&2sup man, &4 how's it going?"));
                 break;
             case "addnpc":
                 RemoteEntity ed = RpgAPI.entityManager.createNamedEntity(RemoteEntityType.Human, p.getLocation(), "soulofw0lf", false);

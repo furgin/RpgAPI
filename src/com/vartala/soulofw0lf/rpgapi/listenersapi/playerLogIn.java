@@ -26,12 +26,13 @@ public class playerLogIn implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerJoin(PlayerJoinEvent event)
-	{    //
+	{
         Player player = event.getPlayer();
 		String pName = player.getName();
         String p = RpgAPI.activeNicks.get(pName);
         if (p == null){
             p = pName;
+            RpgAPI.activeNicks.put(p, p);
         }
 
         player.setPlayerListName(p);
@@ -67,6 +68,7 @@ public class playerLogIn implements Listener {
         String rpname = RpgAPI.activeNicks.get(pName);
         RpgPlayer rp = RpgAPI.rpgPlayers.get(rpname);
         RpgPlayerBuilder.RpgSaver(rpname, rp);
+        RpgAPI.rpgPlayers.remove(rpname);
 		/*
 		 * save active nickname to table
 		 */
@@ -79,6 +81,7 @@ public class playerLogIn implements Listener {
         String rpname = RpgAPI.activeNicks.get(pName);
         RpgPlayer rp = RpgAPI.rpgPlayers.get(rpname);
         RpgPlayerBuilder.RpgSaver(rpname, rp);
+        RpgAPI.rpgPlayers.remove(rpname);
 		/*
 		 * save active nickname to table
 		 */

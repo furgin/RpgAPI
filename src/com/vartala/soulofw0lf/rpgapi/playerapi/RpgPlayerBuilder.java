@@ -776,7 +776,7 @@ public class RpgPlayerBuilder {
                 rp.setReputationLevels(repLevel);
                 rp.setFactionsDiscovered(repDiscovered);
             }
-
+          return rp;
         }
         return rp;
     }
