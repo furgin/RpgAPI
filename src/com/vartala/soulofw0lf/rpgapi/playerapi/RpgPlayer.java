@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.vartala.soulofw0lf.rpgapi.enumapi.*;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 
 /*
@@ -22,8 +23,7 @@ public class RpgPlayer {
 	 * general variables
 	 */
 
-    //the players current nickname
-	private String NickName = "";
+
 
     //the players actual name
     private String realName = "";
@@ -150,7 +150,7 @@ public class RpgPlayer {
     private List<String> chatChannels = new ArrayList<String>();
 
     //colors of chat channel mapped to channel name
-	private Map<String, Integer> channelColors = new HashMap<>();
+	private Map<String, ChatColor> channelColors = new HashMap<>();
 
     //active channel a player is talking in
 	private String activeChannel = "";
@@ -342,7 +342,7 @@ public class RpgPlayer {
 	private Map<ElementalType, Boolean> elemDmgtype = new HashMap<>();
 
     //true or false for each type of elemental damage a player is resistant to
-    private Map<ElementalType, Boolean> elemRestype = new HashMap<>();
+    private Map<ElementalType, Integer> elemRestype = new HashMap<>();
 
     //list of all feats a player has
 	private List<Feat> hasFeats = new ArrayList<Feat>();
@@ -788,12 +788,12 @@ public class RpgPlayer {
 	}
 
 
-	public Map<ElementalType, Boolean> getElemRestype() {
+	public Map<ElementalType, Integer> getElemRestype() {
 		return elemRestype;
 	}
 
 
-	public void setElemRestype(Map<ElementalType, Boolean> elemRestype) {
+	public void setElemRestype(Map<ElementalType, Integer> elemRestype) {
 		this.elemRestype = elemRestype;
 	}
 
@@ -856,16 +856,6 @@ public class RpgPlayer {
 	}
 
 
-
-	public String getNickName() {
-		return NickName;
-	}
-
-
-
-	public void setNickName(String nickName) {
-		NickName = nickName;
-	}
 
     public Integer getAgro() {
         return agro;
@@ -1027,11 +1017,11 @@ public class RpgPlayer {
         this.modChats = modChats;
     }
 
-    public Map<String, Integer> getChannelColors() {
+    public Map<String, ChatColor> getChannelColors() {
         return channelColors;
     }
 
-    public void setChannelColors(Map<String, Integer> channelColors) {
+    public void setChannelColors(Map<String, ChatColor> channelColors) {
         this.channelColors = channelColors;
     }
 

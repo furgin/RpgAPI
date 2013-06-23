@@ -3,6 +3,7 @@ package com.vartala.soulofw0lf.rpgapi.listenersapi;
 import java.sql.SQLException;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayerBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -25,11 +26,13 @@ public class playerLogIn implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{    //
-		String p = event.getPlayer().getName();
-        RpgPlayer rp = new RpgPlayer();
-        rp.setNickName(p);
+		String pName = event.getPlayer().getName();
+        String p = RpgAPI.activeNicks.get(pName);
+        if (p == null){
+            p = pName;
+        }
+        RpgPlayer rp = RpgPlayerBuilder.RpgBuilder(p);
         RpgAPI.rpgPlayers.put(p, rp);
-        RpgAPI.activeNicks.put(p, p);
         /*
          * Commented out until sql loading is fixed
          */

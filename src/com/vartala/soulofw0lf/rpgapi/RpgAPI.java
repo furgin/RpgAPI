@@ -83,6 +83,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public PoisonListener poisonlistener;
 
     //plugin booleans
+    public static boolean useMySql = false;
     public static boolean guildsOn = true;
     public static boolean chatOn = true;
     public static boolean poisonedEarthOn = true;
@@ -100,6 +101,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static boolean warpsOn = true;
     public static boolean tradeOn = true;
     public static boolean borderOn = true;
+    public static boolean reputationOn = true;
 
 
     //Utilities
@@ -133,11 +135,13 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<String, MobCommand> minionCommands = new HashMap<>();
     public static EntityManager entityManager;
     public static Map<String, RpgPoison> rpgPoisons = new HashMap<>();
+    public static Map<String, File> playerFiles = new HashMap<>();
 
     @Override
     public void onEnable() {
         plugin = this;
         saveDefaultConfig();
+        useMySql = getConfig().getBoolean("Use Mysql");
         guildsOn = getConfig().getBoolean("Plugins.Guilds");
         chatOn = getConfig().getBoolean("Plugins.Chat");
         poisonedEarthOn = getConfig().getBoolean("Plugins.Poisoned Earth");
@@ -155,9 +159,18 @@ public class RpgAPI extends JavaPlugin implements Listener {
         warpsOn = getConfig().getBoolean("Plugins.Warps");
         tradeOn = getConfig().getBoolean("Plugins.Trade");
         borderOn = getConfig().getBoolean("Plugins.Border");
+        reputationOn = getConfig().getBoolean("Plugins.Reputation");
         Bukkit.getPluginManager().registerEvents(this, this);
         this.MapListen = new MapListener(this);
         this.PlayerListener = new playerLogIn(this);
+        File f = new File("plugins/RpgAPI/RpgPLayers");
+        File[] files = f.listFiles();
+        for (File playerFile : files)
+        {
+            YamlConfiguration.loadConfiguration(playerFile);
+            String fileName = playerFile.getName();
+            playerFiles.put(fileName, playerFile);
+        }
         if (clickOn){this.clickListener = new ClickInvListener(this);}
         if (chatOn){this.chatListener = new ChatListener(this);}
         if (foodOn){this.foodListener = new FoodListener(this);}
@@ -165,7 +178,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
         if (poisonedEarthOn){this.poisonlistener = new PoisonListener(this);}
         if (borderOn){BorderCheck.cycleCheck(this);}
         //grab database values if they should be used
-        if (getConfig().getBoolean("Use Mysql") == true) {
+        if (useMySql) {
             dBUserName = getConfig().getString("Mysql Database.User");
             dBPassword = getConfig().getString("Mysql Database.Password");
             dBEncoding = getConfig().getString("Mysql Database.Encoding");
@@ -175,6 +188,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }
         //load yml files and set a value to each of them if they don't exist.
         playerConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayers.yml"));
+        for (String players : playerConfig.getConfigurationSection("Active Nicks").getKeys(false)){
+            String currentNick = playerConfig.getString("Active Nicks." + players);
+            activeNicks.put(players, currentNick);
+        }
         localeConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale.yml"));
         if (guildsOn){guildConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Guilds.yml"));}
         if (chatOn){chatConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/ChatChannels.yml"));}
