@@ -189,7 +189,7 @@ public class RpgPlayerBuilder {
             }
             if (RpgAPI.chatOn){
                 for (String channelName : rp.getChatChannels()){
-                    playerFile.set("Rpg Player.Chat.Channel." + channelName + ".Color", rp.getChannelColors().get(channelName));
+                    playerFile.set("Rpg Player.Chat.Channel." + channelName + ".Color", rp.getChannelColors().get(channelName).toString());
                     if (rp.getActiveChannel().equalsIgnoreCase(channelName)){
                         playerFile.set("Rpg Player.Chat.Channel." + channelName + ".Active", true);
                     } else {

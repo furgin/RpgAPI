@@ -356,6 +356,9 @@ public class RpgPlayer {
     //spells per level per combat
 	private Map<Integer, Integer> spellsPerCombat = new HashMap<>();
 
+    //is the player wearing aromor he isn't proficient with
+    private Boolean encumbered = false;
+
 
     /*
      *  all getters and setters
@@ -1175,5 +1178,13 @@ public class RpgPlayer {
 
     public void setPoisoned(boolean poisoned) {
         isPoisoned = poisoned;
+    }
+
+    public Boolean getEncumbered() {
+        return encumbered;
+    }
+
+    public void setEncumbered(Boolean encumbered) {
+        this.encumbered = encumbered;
     }
 }

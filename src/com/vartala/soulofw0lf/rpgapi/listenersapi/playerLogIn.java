@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayerBuilder;
+import com.vartala.soulofw0lf.rpgapi.speedapi.SpeedHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,6 +15,7 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
+import org.bukkit.scheduler.BukkitRunnable;
 
 
 public class playerLogIn implements Listener {
@@ -40,6 +42,15 @@ public class playerLogIn implements Listener {
         player.sendMessage("Your active Character is " + p + ".");
         RpgPlayer rp = RpgPlayerBuilder.RpgBuilder(p);
         RpgAPI.rpgPlayers.put(p, rp);
+        final RpgPlayer r = rp;
+        new BukkitRunnable(){
+
+            @Override
+            public void run() {
+                SpeedHandler.SetWalkSpeed(r);
+            }
+        }.runTaskLater(RpgAPI.plugin, 40);
+
         /*
          * Commented out until sql loading is fixed
          */
