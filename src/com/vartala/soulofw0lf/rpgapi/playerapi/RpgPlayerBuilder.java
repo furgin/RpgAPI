@@ -39,9 +39,13 @@ public class RpgPlayerBuilder {
         if (RpgAPI.useMySql){
                   //TODO do stuff here LinksBro
         } else {
-          YamlConfiguration playerFile = YamlConfiguration.loadConfiguration(RpgAPI.playerFiles.get(p));
-            if (playerFile == null){
-                    playerFile = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Poisons.yml"));
+            Boolean fileExists = false;
+            for(String fileName : RpgAPI.playerFiles.keySet()){
+                if (p.equalsIgnoreCase(fileName)){fileExists = true;}
+            }
+            if (!(fileExists)){
+                   YamlConfiguration playerFile = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayer/" + p + ".yml"));
+                    File playerFiles = new File(playerFile.getName());
                     playerFile.set("Rpg Player.Real Name", p);
                 if (RpgAPI.classesOn){
                     playerFile.set("Rpg Player.Classes.Lawful Chaotic Alignment", "");
@@ -226,11 +230,13 @@ public class RpgPlayerBuilder {
                     playerFile.set("Rpg Player.Reputation.Factions.Server.Discovered", true);
                 }
                 try {
-                    playerFile.save(new File("plugins/RpgAPI/RpgPlayer/" + playerFile.getName() + ".yml"));
+                    playerFile.save(new File("plugins/RpgAPI/RpgPlayer/" + p + ".yml"));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                RpgAPI.playerFiles.put(p, playerFiles);
             }
+            YamlConfiguration playerFile = YamlConfiguration.loadConfiguration(RpgAPI.playerFiles.get(p));
             rp.setRealName(playerFile.getString("Rpg Player.Real Name"));
             if (RpgAPI.classesOn){
                 rp.setPlayerLCAlignment(playerFile.getString("Rpg Player.Classes.Lawful Chaotic Alignment"));
@@ -320,23 +326,31 @@ public class RpgPlayerBuilder {
                 elementalTypeIntegerMap.put(ElementalType.SONIC, playerFile.getInt("Rpg Player.Classes.Stats.Elemental Resistances.Sonic"));
                 rp.setElemRestype(elementalTypeIntegerMap);
                 List<Feat> playerFeats = rp.getHasFeats();
+                if (playerFile.getString("Rpg Player.Classes.Stats.Feats") != null){
                 for (String feat : playerFile.getConfigurationSection("Rpg Player.Classes.Stats.Feats").getKeys(false)){
                     playerFeats.add(Feat.valueOf(feat));
                 }
+                }
                 rp.setHasFeats(playerFeats);
                 Map<PlayerSkill, Integer> playerSkills = rp.getSkills();
+                if (playerFile.getString("Rpg Player.Classes.Stats.Skills") != null){
                 for (String skillName : playerFile.getConfigurationSection("Rpg Player.Classes.Stats.Skills").getKeys(false)){
                     playerSkills.put(PlayerSkill.valueOf(skillName), playerFile.getInt("Rpg Player.Classes.Stats.Skills." + skillName));
                 }
+                }
                 rp.setSkills(playerSkills);
                 Map<Spell, Boolean> playerSpells = rp.getSpells();
+                if (playerFile.getString("Rpg Player.Classes.Stats.Spells.Spells Known") != null){
                 for (String spellsKnown : playerFile.getConfigurationSection("Rpg Player.Classes.Stats.Spells.Spells Known").getKeys(false)){
                     playerSpells.put(Spell.valueOf(spellsKnown), playerFile.getBoolean("Rpg Player.Classes.Stats.Spells.Spells Known." + spellsKnown));
                 }
+                }
                 rp.setSpells(playerSpells);
                 Map<Integer, Integer> spellsPerLevel = rp.getSpellsPerCombat();
+                if (playerFile.getString("Rpg Player.Classes.Stats.Spells.Spells Per Combat") != null){
                 for (String level : playerFile.getConfigurationSection("Rpg Player.Classes.Stats.Spells.Spells Per Combat").getKeys(false)){
                 spellsPerLevel.put(parseInt(level), playerFile.getInt("Rpg Player.Classes.Stats.Spells.Spells Per Combat." + level));
+                }
                 }
                 rp.setSpellsPerCombat(spellsPerLevel);
 
@@ -350,8 +364,10 @@ public class RpgPlayerBuilder {
             }
             if (RpgAPI.friendsOn){
                 List<String> friendList = rp.getFriendsList();
+                if (playerFile.getString("Rpg Player.Friends List") != null){
                 for (String friendName : playerFile.getConfigurationSection("rpg Player.Friends List").getKeys(false)){
                 friendList.add(friendName);
+                }
                 }
                 rp.setFriendsList(friendList);
             }
@@ -364,6 +380,7 @@ public class RpgPlayerBuilder {
             if (RpgAPI.chatOn){
                 List<String> chatChannels = rp.getChatChannels();
                 Map<String, ChatColor> channelColors = rp.getChannelColors();
+                if (playerFile.getString("Rpg Player.Chat.Channels") != null){
                 for (String chat : playerFile.getConfigurationSection("Rpg Player.Chat.Channels").getKeys(false)){
                     chatChannels.add(chat);
                     if (playerFile.getBoolean("Rpg Player.Chat.Channels." + chat + ".Active") == true){
@@ -371,37 +388,50 @@ public class RpgPlayerBuilder {
                     }
                     channelColors.put(chat, ChatColor.valueOf(playerFile.getString("Rpg Player.Chat.Channels." + chat + ".Color")));
                 }
+                }
                 rp.setChatChannels(chatChannels);
                 rp.setChannelColors(channelColors);
                 List<String> ignoreList = rp.getIgnoreList();
+                if (playerFile.getString("Rpg Player.Chat.Ignore List") != null){
                 for (String ignoredPlayer : playerFile.getConfigurationSection("Rpg Player.Chat.Ignore List").getKeys(false)){
                     ignoreList.add(ignoredPlayer);
                 }
+                }
                 rp.setIgnoreList(ignoreList);
                 List<String> invitedChats = rp.getInvitedChats();
+                if (playerFile.getString("Rpg Player.Chat.Invited Chats") != null){
                 for (String invitedChatChannels : playerFile.getConfigurationSection("Rpg Player.Chat.Invited Chats").getKeys(false)){
                     invitedChats.add(invitedChatChannels);
                 }
+                }
                 rp.setInvitedChats(invitedChats);
                 List<String> bannedChats = rp.getBannedChats();
+                if (playerFile.getString("Rpg Player.Chat.Banned Chats") != null){
                 for (String bannedChatChannels : playerFile.getConfigurationSection("Rpg Player.Chat.Banned Chats").getKeys(false)){
                     bannedChats.add(bannedChatChannels);
                 }
+                }
                 rp.setBannedChats(bannedChats);
                 List<String> mutedChats = rp.getMutedChats();
+                if (playerFile.getString("Rpg Player.Chat.Muted Chats") != null){
                 for (String mutedChatChannels : playerFile.getConfigurationSection("Rpg Player.Chat.Muted Chats").getKeys(false)){
                     mutedChats.add(mutedChatChannels);
+                }
                 }
                 rp.setMutedChats(mutedChats);
 
                 List<String> ownedChats = rp.getOwnedChats();
+                if (playerFile.getString("Rpg Player.Chat.Owned Chats") != null){
                 for (String ownedChatChannels : playerFile.getConfigurationSection("Rpg Player.Chat.Owned Chats").getKeys(false)){
                     ownedChats.add(ownedChatChannels);
                 }
+                }
                 rp.setOwnedChats(ownedChats);
                 List<String> moderatedChats = rp.getModChats();
+                if (playerFile.getString("Rpg Player.Chat.Moderated Chats") != null){
                 for (String modChatChannels : playerFile.getConfigurationSection("Rpg Player.Chat.Moderated Chats").getKeys(false)){
                     moderatedChats.add(modChatChannels);
+                }
                 }
                 rp.setModChats(moderatedChats);
                 rp.setChatSpy(playerFile.getBoolean("Rpg Player.Chat.Spy"));
@@ -412,8 +442,10 @@ public class RpgPlayerBuilder {
                 rp.setShowWorldName(playerFile.getBoolean("Rpg Player.Chat.Show World Name"));
                 rp.setActiveLanguage(playerFile.getString("Rpg Player.Chat.Languages.Active"));
                 List<String> languages = rp.getKnownLanguages();
+                if (playerFile.getString("Rpg Player.Chat.Languages.Known Languages") != null){
                 for (String language : playerFile.getConfigurationSection("Rpg Player.Chat.Languages.Known Languages").getKeys(false)){
                     languages.add(language);
+                }
                 }
                 rp.setKnownLanguages(languages);
                 rp.setShowLanguages(playerFile.getBoolean("Rpg Player.Chat.Languages.Show Languages"));
@@ -422,8 +454,10 @@ public class RpgPlayerBuilder {
                 rp.setActivePrefix(playerFile.getString("Rpg Player.Achievements.Active Prefix"));
                 rp.setActiveSuffix(playerFile.getString("Rpg Player.Achievements.Active Suffix"));
                 List<String> playerTitles = rp.getTitles();
+                if (playerFile.getString("Rpg Player.Achievements.Titles") != null){
                 for (String title : playerFile.getConfigurationSection("Rpg Player.Achievements.Titles").getKeys(false)){
                     playerTitles.add(title);
+                }
                 }
                 rp.setTitles(playerTitles);
             }
@@ -440,8 +474,10 @@ public class RpgPlayerBuilder {
             }
             if (RpgAPI.minionsOn){
                 List<String> petsOwned = rp.getPetsOwned();
+                if (playerFile.getString("Rpg Player.Minions.Pets Owned") != null){
                 for (String pet : playerFile.getConfigurationSection("Rpg Player.Minions.Pets Owned").getKeys(false)){
                     petsOwned.add(pet);
+                }
                 }
                 rp.setPetsOwned(petsOwned);
                 rp.setActivePet(playerFile.getString("Rpg Player.Minions.Active Pet"));
@@ -450,6 +486,7 @@ public class RpgPlayerBuilder {
                 List<String> currentQuests = rp.getCurrentQuests();
                 Map<String, Integer> questStage = rp.getQuestStages();
                 Map<String, Integer> stageCounter = rp.getQuestGoalCount();
+                if (playerFile.getString("Rpg Player.Quests.Current Quests") != null){
                 for (String questName : playerFile.getConfigurationSection("Rpg Player.Quests.Current Quests").getKeys(false)){
                     currentQuests.add(questName);
                     if (playerFile.getBoolean("Rpg Player.Quests.Current Quests." + questName + ".Active")){
@@ -459,25 +496,31 @@ public class RpgPlayerBuilder {
                     stageCounter.put(questName, playerFile.getInt("Rpg Player.Quests.Current Quests." + questName + ".Counter"));
 
                 }
+                }
                 rp.setCurrentQuests(currentQuests);
                 rp.setQuestStages(questStage);
                 rp.setQuestGoalCount(stageCounter);
                 List<String> completedQuests = rp.getCompletedQuests();
+                if (playerFile.getString("Rpg Player.Quests.Completed Quests") != null){
                 for (String questName : playerFile.getConfigurationSection("Rpg Player.Quests.Completed Quests").getKeys(false)){
                     completedQuests.add(questName);
+                }
                 }
                 rp.setCompletedQuests(completedQuests);
             }
             if (RpgAPI.reputationOn){
                 Map<Reputation, Integer> repLevel = rp.getReputationLevels();
                 Map<Reputation, Boolean> repDiscovered = rp.getFactionsDiscovered();
+                if (playerFile.getString("Rpg Player.Reputation.Factions") != null){
                 for (String rep : playerFile.getConfigurationSection("Rpg Player.Reputation.Factions.").getKeys(false)){
                     repLevel.put(Reputation.valueOf(rep), playerFile.getInt("Rpg Player.Reputation.Factions." + rep + "Reputation Level"));
                     repDiscovered.put(Reputation.valueOf(rep), playerFile.getBoolean("Rpg Player.Reputation.Factions." + rep + "Discovered"));
                 }
+                }
                 rp.setReputationLevels(repLevel);
                 rp.setFactionsDiscovered(repDiscovered);
             }
+
         }
         return rp;
     }

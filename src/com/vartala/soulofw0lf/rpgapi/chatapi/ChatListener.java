@@ -64,7 +64,7 @@ public class ChatListener implements Listener {
         event.setCancelled(true);
         for (Player p : event.getRecipients()){
              RpgPlayer receivePlayer = this.Rpgapi.rpgPlayers.get(this.Rpgapi.activeNicks.get(p.getName()));
-             String receiveName = receivePlayer.getNickName();
+             String receiveName = this.Rpgapi.activeNicks.get(p.getName());
              for (ChatBehavior behavior : thisChat.getChannelBehaviors()){
                  behavior.chatChannel(activeChat, receiveName, language, event.getMessage(), spyChat);
              }

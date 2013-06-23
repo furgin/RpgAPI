@@ -72,6 +72,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static YamlConfiguration commandConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Commands.yml"));
     public static YamlConfiguration mobCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/MobCommands.yml"));
     public static YamlConfiguration poisonCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Poisons.yml"));
+    public static YamlConfiguration testPlayer = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayer/TestPlayer.yml"));
 
 
     //Listeners
@@ -165,11 +166,13 @@ public class RpgAPI extends JavaPlugin implements Listener {
         this.PlayerListener = new playerLogIn(this);
         File f = new File("plugins/RpgAPI/RpgPLayers");
         File[] files = f.listFiles();
+        if (!(files == null)){
         for (File playerFile : files)
         {
             YamlConfiguration.loadConfiguration(playerFile);
             String fileName = playerFile.getName();
             playerFiles.put(fileName, playerFile);
+        }
         }
         if (clickOn){this.clickListener = new ClickInvListener(this);}
         if (chatOn){this.chatListener = new ChatListener(this);}
@@ -188,10 +191,8 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }
         //load yml files and set a value to each of them if they don't exist.
         playerConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayers.yml"));
-        for (String players : playerConfig.getConfigurationSection("Active Nicks").getKeys(false)){
-            String currentNick = playerConfig.getString("Active Nicks." + players);
-            activeNicks.put(players, currentNick);
-        }
+        testPlayer =  YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayer/TestPlayer.yml"));
+
         localeConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale.yml"));
         if (guildsOn){guildConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Guilds.yml"));}
         if (chatOn){chatConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/ChatChannels.yml"));}
@@ -226,8 +227,12 @@ public class RpgAPI extends JavaPlugin implements Listener {
         for (String command : commandConfig.getConfigurationSection("Commands").getKeys(false)){
              commands.add(command);
         }
-        if (playerConfig.get("Players") == null) {
-            playerConfig.set("Players", "This Config File will hold all player data (Mysql is greatly recommended!)");
+        if (playerConfig.get("Active Nicks") == null) {
+            playerConfig.set("Active Nicks.Sample Player", "Sample Nick");
+        }
+        for (String players : playerConfig.getConfigurationSection("Active Nicks").getKeys(false)){
+            String currentNick = playerConfig.getString("Active Nicks." + players);
+            activeNicks.put(players, currentNick);
         }
         if (localeConfig.get("Locale Settings") == null) {
             localeConfig.set("Locale Settings", "This file is used to set all language settings!");
@@ -259,6 +264,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
         try {
             playerConfig.save(new File("plugins/RpgAPI/RpgPlayers.yml"));
             localeConfig.save(new File("plugins/RpgAPI/Locale.yml"));
+            testPlayer.save(new File("plugins/RpgAPI/RpgPlayer/TestPlayer.yml"));
             if (guildsOn){guildConfig.save(new File("plugins/RpgAPI/Guilds.yml"));}
             if (chatOn){chatConfig.save(new File("plugins/RpgAPI/ChatChannels.yml"));}
             if (foodOn){foodConfig.save(new File("plugins/RpgAPI/Food.yml"));}

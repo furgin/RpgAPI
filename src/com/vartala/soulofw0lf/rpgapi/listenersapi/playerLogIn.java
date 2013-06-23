@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayerBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -26,11 +27,16 @@ public class playerLogIn implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{    //
-		String pName = event.getPlayer().getName();
+        Player player = event.getPlayer();
+		String pName = player.getName();
         String p = RpgAPI.activeNicks.get(pName);
         if (p == null){
             p = pName;
         }
+
+        player.setPlayerListName(p);
+        player.setDisplayName(p);
+        player.sendMessage("Your active Character is " + p + ".");
         RpgPlayer rp = RpgPlayerBuilder.RpgBuilder(p);
         RpgAPI.rpgPlayers.put(p, rp);
         /*
