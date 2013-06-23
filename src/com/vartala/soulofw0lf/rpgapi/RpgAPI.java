@@ -139,7 +139,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<String, MobCommand> minionCommands = new HashMap<>();
     public static EntityManager entityManager;
     public static Map<String, RpgPoison> rpgPoisons = new HashMap<>();
-    public static Map<String, File> playerFiles = new HashMap<>();
+
     public static Map<String, String> localeSettings = new HashMap<>();
     public static Map<String, String> commandSettings = new HashMap<>();
 
@@ -172,12 +172,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
         File f = new File("plugins/RpgAPI/RpgPLayers");
         File[] files = f.listFiles();
         if (!(files == null)){
-        for (File playerFile : files)
-        {
-            YamlConfiguration.loadConfiguration(playerFile);
-            String fileName = playerFile.getName();
-            playerFiles.put(fileName, playerFile);
-        }
+            for (File playerFile : files)
+            {
+                YamlConfiguration.loadConfiguration(playerFile);
+            }
         }
         if (clickOn){this.clickListener = new ClickInvListener(this);}
         if (chatOn){this.chatListener = new ChatListener(this);}

@@ -137,7 +137,7 @@ public class RpgPlayerBuilder {
             playerFile.set("Rpg Player.Classes.Stats.Skills.DIPLOMACY", rp.getSkills().get(PlayerSkill.DIPLOMACY));
             playerFile.set("Rpg Player.Classes.Stats.Skills.DISABLE_DEVICE", rp.getSkills().get(PlayerSkill.DISABLE_DEVICE));
             playerFile.set("Rpg Player.Classes.Stats.Skills.DISGUISE", rp.getSkills().get(PlayerSkill.DISGUISE));
-            playerFile.set("Rpg Player.Classes.Stats.Skills.ESCAPE_ARTIST", rp.getSkills().get(PlayerSkill.ESCAPSE_ARTIST));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.ESCAPE_ARTIST", rp.getSkills().get(PlayerSkill.ESCAPE_ARTIST));
             playerFile.set("Rpg Player.Classes.Stats.Skills.FLY", rp.getSkills().get(PlayerSkill.FLY));
             playerFile.set("Rpg Player.Classes.Stats.Skills.HANDLE_ANIMAL", rp.getSkills().get(PlayerSkill.HANDLE_ANIMAL));
             playerFile.set("Rpg Player.Classes.Stats.Skills.HEAL", rp.getSkills().get(PlayerSkill.HEAL));
@@ -164,71 +164,118 @@ public class RpgPlayerBuilder {
             playerFile.set("Rpg Player.Classes.Stats.Skills.SURVIVAL", rp.getSkills().get(PlayerSkill.SURVIVAL));
             playerFile.set("Rpg Player.Classes.Stats.Skills.SWIM", rp.getSkills().get(PlayerSkill.SWIM));
             playerFile.set("Rpg Player.Classes.Stats.Skills.USE_MAGIC_DEVICE", rp.getSkills().get(PlayerSkill.USE_MAGIC_DEVICE));
-            playerFile.set("Rpg Player.Classes.Stats.Spells.Spells Known", "");
-            playerFile.set("Rpg Player.Classes.Stats.Spells.Spells Per Combat", "");
+            for (Spell spell : rp.getSpells().keySet()){
+                playerFile.set("Rpg Player.Classes.Stats.Spells.Spells Known." + spell, true);
+            }
+            for (Integer level : rp.getSpellsPerCombat().keySet()){
+                playerFile.set("Rpg Player.Classes.stats.Spells.Spells Per Combat" + level, rp.getSpellsPerCombat().get(level));
+            }
+        }
+            if (RpgAPI.racesOn){playerFile.set("Rpg Player.Race", rp.getRace());}
+            if (RpgAPI.guildsOn){
+                playerFile.set("Rpg Player.Guild.Name", rp.getGuild());
+                playerFile.set("Rpg Player.Guild.Rank",  rp.getGuildRank());
+            }
+            if (RpgAPI.friendsOn){
+                for (String friends : rp.getFriendsList()){
+                    playerFile.set("Rpg Player.Friends List." + friends, true);}
+            }
 
-        }
-        if (RpgAPI.racesOn){playerFile.set("Rpg Player.Race", "");}
-        if (RpgAPI.guildsOn){
-            playerFile.set("Rpg Player.Guild.Name", "");
-            playerFile.set("Rpg Player.Guild.Rank",  "");
-        }
-        if (RpgAPI.friendsOn){playerFile.set("Rpg Player.Friends List", "");}
-        if (RpgAPI.tradeOn){
-            playerFile.set("Rpg Player.Trade.Copper", 0);
-            playerFile.set("Rpg Player.Trade.Silver", 0);
-            playerFile.set("Rpg Player.Trade.Gold", 0);
-            playerFile.set("Rpg Player.Trade.Platinum", 0);
-        }
-        if (RpgAPI.chatOn){
-            playerFile.set("Rpg Player.Chat.Channels.Global.Active", true);
-            playerFile.set("Rpg Player.Chat.Channels.Global.Color", "White");
-            playerFile.set("Rpg Player.Chat.Ignore List", "");
-            playerFile.set("Rpg Player.Chat.Invited Chats", "");
-            playerFile.set("Rpg Player.Chat.Banned Chats", "");
-            playerFile.set("Rpg Player.Chat.Muted Chats", "");
-            playerFile.set("Rpg Player.Chat.Owned Chats", "");
-            playerFile.set("Rpg Player.Chat.Moderated Chats", "");
-            playerFile.set("Rpg Player.Chat.Spy", false);
-            playerFile.set("Rpg Player.Chat.Show Guild Tags", true);
-            playerFile.set("Rpg Player.Chat.Show Achieve Titles", true);
-            playerFile.set("Rpg Player.Chat.Show Channel Names", true);
-            playerFile.set("Rpg Player.Chat.Show Language Names", true);
-            playerFile.set("Rpg Player.Chat.Show World Name", true);
-            playerFile.set("Rpg Player.Chat.Languages.Active", "Common");
-            playerFile.set("Rpg Player.Chat.Languages.Known Languages", "");
-            playerFile.set("Rpg Player.Chat.Languages.Show Languages", true);
-        }
-        if (RpgAPI.achievementsOn){
-            playerFile.set("Rpg Player.Achievements.Active Prefix", "");
-            playerFile.set("Rpg Player.Achievements.Active Suffix", "");
-            playerFile.set("Rpg Player.Achievements.Titles", "");
-        }
-        if (RpgAPI.clickOn){playerFile.set("Rpg Player.Click.defaultClick", true);}
-        if (RpgAPI.lobbyOn){
-            playerFile.set("Rpg Player.Lobby.In Lobby", false);
-            playerFile.set("Rpg Player.Lobby.Armor Inventory", "");
-            playerFile.set("Rpg Player.Lobby.Inventory Contents", "");
-            playerFile.set("Rpg Player.Lobby.Current Health", "");
-            playerFile.set("Rpg Player.Lobby.Coordinates.X", 0);
-            playerFile.set("Rpg Player.Lobby.Coordinates.Y", 0);
-            playerFile.set("Rpg Player.Lobby.Coordinates.Z", 0);
-            playerFile.set("Rpg Player.Lobby.Coordinates.World", "");
-        }
-        if (RpgAPI.minionsOn){
-            playerFile.set("Rpg Player.Minions.Pets Owned", "");
-            playerFile.set("Rpg Player.Minions.Active Pet", "");
-        }
-        if (RpgAPI.questOn){
-            playerFile.set("Rpg Player.Quests.Current Quests.Log On.Stage", 0);
-            playerFile.set("Rpg Player.Quests.Current Quests.Log On.Active", true);
-            playerFile.set("Rpg Player.Quests.Current Quests.Log On.Counter", 0);
-            playerFile.set("Rpg Player.Quests.Completed Quests", "");
-        }
-        if (RpgAPI.reputationOn){
-            playerFile.set("Rpg Player.Reputation.Factions.Server.Reputation Level", 0);
-            playerFile.set("Rpg Player.Reputation.Factions.Server.Discovered", true);
-        }
+            if (RpgAPI.tradeOn){
+                playerFile.set("Rpg Player.Trade.Copper", rp.getCopper());
+                playerFile.set("Rpg Player.Trade.Silver", rp.getSilver());
+                playerFile.set("Rpg Player.Trade.Gold", rp.getGold());
+                playerFile.set("Rpg Player.Trade.Platinum", rp.getPlatinum());
+            }
+            if (RpgAPI.chatOn){
+                for (String channelName : rp.getChatChannels()){
+                    playerFile.set("Rpg Player.Chat.Channel." + channelName + ".Color", rp.getChannelColors().get(channelName));
+                    if (rp.getActiveChannel().equalsIgnoreCase(channelName)){
+                        playerFile.set("Rpg Player.Chat.Channel." + channelName + ".Active", true);
+                    } else {
+                        playerFile.set("Rpg Player.Chat.Channel." + channelName + ".Active", false);
+                    }
+                }
+                for (String ignoredPlayers : rp.getIgnoreList()){
+                    playerFile.set("Rpg Player.Chat.Ignore List." + ignoredPlayers, true);
+                }
+                for (String ignoredPlayers : rp.getInvitedChats()){
+                    playerFile.set("Rpg Player.Chat.Invited Chats." + ignoredPlayers, true);
+                }
+                for (String ignoredPlayers : rp.getBannedChats()){
+                    playerFile.set("Rpg Player.Chat.Banned Chats." + ignoredPlayers, true);
+                }
+                for (String ignoredPlayers : rp.getMutedChats()){
+                    playerFile.set("Rpg Player.Chat.Muted Chats." + ignoredPlayers, true);
+                }
+                for (String ignoredPlayers : rp.getOwnedChats()){
+                    playerFile.set("Rpg Player.Chat.Owned Chats." + ignoredPlayers, true);
+                }
+                for (String ignoredPlayers : rp.getModChats()){
+                    playerFile.set("Rpg Player.Chat.Moderated Chats." + ignoredPlayers, true);
+                }
+                playerFile.set("Rpg Player.Chat.Spy", rp.isChatSpy());
+                playerFile.set("Rpg Player.Chat.Show Guild Tags", rp.isShowGuildTags());
+                playerFile.set("Rpg Player.Chat.Show Achieve Titles", rp.isShowAchieveTitles());
+                playerFile.set("Rpg Player.Chat.Show Channel Names", rp.isShowChannelNames());
+                playerFile.set("Rpg Player.Chat.Show Language Names", rp.isShowLanguageNames());
+                playerFile.set("Rpg Player.Chat.Show World Name", rp.isShowWorldName());
+                playerFile.set("Rpg Player.Chat.Languages.Active", rp.getActiveLanguage());
+                for (String languages : rp.getKnownLanguages()){
+                    playerFile.set("Rpg Player.Chat.Languages.Known Languages." + languages, true);
+                }
+
+                playerFile.set("Rpg Player.Chat.Languages.Show Languages", rp.isShowLanguages());
+            }
+            if (RpgAPI.achievementsOn){
+                playerFile.set("Rpg Player.Achievements.Active Prefix", rp.getActivePrefix());
+                playerFile.set("Rpg Player.Achievements.Active Suffix", rp.getActiveSuffix());
+                for (String title : rp.getTitles()){
+                    playerFile.set("Rpg Player.Achievements.Titles." + title, true);
+                }
+            }
+            if (RpgAPI.clickOn){playerFile.set("Rpg Player.Click.defaultClick", rp.isDefaultClick());}
+            if (RpgAPI.lobbyOn){
+                playerFile.set("Rpg Player.Lobby.In Lobby", rp.isInLobby());
+                playerFile.set("Rpg Player.Lobby.Armor Inventory", rp.getArmorInventory());
+                playerFile.set("Rpg Player.Lobby.Inventory Contents", rp.getInventoryContents());
+                playerFile.set("Rpg Player.Lobby.Current Health", rp.getCurrentHealth());
+                playerFile.set("Rpg Player.Lobby.Coordinates.X", rp.getOldX());
+                playerFile.set("Rpg Player.Lobby.Coordinates.Y", rp.getOldY());
+                playerFile.set("Rpg Player.Lobby.Coordinates.Z", rp.getOldZ());
+                playerFile.set("Rpg Player.Lobby.Coordinates.World", rp.getOldWorld());
+            }
+            if (RpgAPI.minionsOn){
+                for (String pet : rp.getPetsOwned()){
+                    playerFile.set("Rpg Player.Minions.Pets Owned." + pet, true);
+                }
+                playerFile.set("Rpg Player.Minions.Active Pet", rp.getActivePet());
+            }
+            if (RpgAPI.questOn){
+                for (String quest : rp.getQuestStages().keySet()){
+                    playerFile.set("Rpg Player.Quests.Current Quests." + quest + ".Stage", rp.getQuestStages().get(quest));
+                    if (rp.getActiveQuest().equalsIgnoreCase(quest)){
+                        playerFile.set("Rpg Player.Quests.Current Quests." + quest + ".Active", true);
+                    }   else {
+                        playerFile.set("Rpg Player.Quests.Current Quests." + quest + ".Active", false);
+                    }
+                }
+                for (String questsC : rp.getQuestGoalCount().keySet()){
+                    playerFile.set("Rpg Player.Quests.Current Quests." + questsC + ".Counter", rp.getQuestGoalCount().get(questsC));
+                }
+                for (String completedQuests : rp.getCompletedQuests()){
+
+                    playerFile.set("Rpg Player.Quests.Completed Quests." + completedQuests, true);
+                }
+            }
+            if (RpgAPI.reputationOn){
+                for (Reputation rep : rp.getReputationLevels().keySet()){
+                    playerFile.set("Rpg Player.Reputation.Factions."+rep+".Reputation Level", rp.getReputationLevels().get(rep));
+                }
+                for (Reputation rep : rp.getFactionsDiscovered().keySet()){
+                    playerFile.set("Rpg Player.Reputation.Factions."+rep+".Discovered", rp.getFactionsDiscovered().get(rep));
+                }
+            }
         try {
             playerFile.save(new File("plugins/RpgAPI/RpgPlayer/" + name + ".yml"));
         } catch (IOException e) {
@@ -242,12 +289,29 @@ public class RpgPlayerBuilder {
                   //TODO do stuff here LinksBro
         } else {
             Boolean fileExists = false;
-            for(String fileName : RpgAPI.playerFiles.keySet()){
-                if (p.equalsIgnoreCase(fileName)){fileExists = true;}
+            File f = new File("plugins/RpgAPI/RpgPLayers");
+            File[] files = f.listFiles();
+            if (!(files == null)){
+                for (File playerFile : files)
+                {
+                    YamlConfiguration.loadConfiguration(playerFile);
+                    String fileName = playerFile.getName();
+                    if ((p + ".yml").equalsIgnoreCase(fileName)){
+                        for (String realName : RpgAPI.activeNicks.keySet()){
+                            if (realName.equalsIgnoreCase(p)){
+                                Bukkit.getPlayer(p).sendMessage("that file exists test");
+                            }
+                            if (RpgAPI.activeNicks.get(realName).equalsIgnoreCase(p)){
+                                Bukkit.getPlayer(realName).sendMessage("This file exists");
+                            }
+                        }
+
+                        fileExists = true;
+                    }
+                }
             }
             if (!(fileExists)){
                    YamlConfiguration playerFile = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayer/" + p + ".yml"));
-                    File playerFiles = new File(playerFile.getName());
                     playerFile.set("Rpg Player.Real Name", p);
                 if (RpgAPI.classesOn){
                     playerFile.set("Rpg Player.Classes.Lawful Chaotic Alignment", "");
@@ -372,127 +436,81 @@ public class RpgPlayerBuilder {
                     playerFile.set("Rpg Player.Classes.Stats.Skills.SURVIVAL", 0);
                     playerFile.set("Rpg Player.Classes.Stats.Skills.SWIM", 0);
                     playerFile.set("Rpg Player.Classes.Stats.Skills.USE_MAGIC_DEVICE", 0);
-                    for (Spell spell : rp.getSpells().keySet()){
-                        playerFile.set("Rpg Player.Classes.Stats.Spells.Spells Known." + spell, true);
-                    }
-                    for (Integer level : rp.getSpellsPerCombat().keySet()){
-                        playerFile.set("Rpg Player.Classes.stats.Spells.Spells Per Combat" + level, rp.getSpellsPerCombat().get(level));
-                    }
-                }
-                if (RpgAPI.racesOn){playerFile.set("Rpg Player.Race", rp.getRace());}
-                if (RpgAPI.guildsOn){
-                    playerFile.set("Rpg Player.Guild.Name", rp.getGuild());
-                    playerFile.set("Rpg Player.Guild.Rank",  rp.getGuildRank());
-                }
-                if (RpgAPI.friendsOn){
-                    for (String friends : rp.getFriendsList()){
-                        playerFile.set("Rpg Player.Friends List." + friends, true);}
-                    }
+                    playerFile.set("Rpg Player.Classes.Stats.Spells.Spells Known", "");
+                    playerFile.set("Rpg Player.Classes.Stats.Spells.Spells Per Combat", "");
 
+                }
+                if (RpgAPI.racesOn){playerFile.set("Rpg Player.Race", "");}
+                if (RpgAPI.guildsOn){
+                    playerFile.set("Rpg Player.Guild.Name", "");
+                    playerFile.set("Rpg Player.Guild.Rank",  "");
+                }
+                if (RpgAPI.friendsOn){playerFile.set("Rpg Player.Friends List", "");}
                 if (RpgAPI.tradeOn){
-                    playerFile.set("Rpg Player.Trade.Copper", rp.getCopper());
-                    playerFile.set("Rpg Player.Trade.Silver", rp.getSilver());
-                    playerFile.set("Rpg Player.Trade.Gold", rp.getGold());
-                    playerFile.set("Rpg Player.Trade.Platinum", rp.getPlatinum());
+                    playerFile.set("Rpg Player.Trade.Copper", 0);
+                    playerFile.set("Rpg Player.Trade.Silver", 0);
+                    playerFile.set("Rpg Player.Trade.Gold", 0);
+                    playerFile.set("Rpg Player.Trade.Platinum", 0);
                 }
                 if (RpgAPI.chatOn){
-                    for (String channelName : rp.getChatChannels()){
-                        playerFile.set("Rpg Player.Chat.Channel." + channelName + ".Color", rp.getChannelColors().get(channelName));
-                        if (rp.getActiveChannel().equalsIgnoreCase(channelName)){
-                            playerFile.set("Rpg Player.Chat.Channel." + channelName + ".Active", true);
-                        } else {
-                            playerFile.set("Rpg Player.Chat.Channel." + channelName + ".Active", false);
-                        }
-                    }
-                    for (String ignoredPlayers : rp.getIgnoreList()){
-                        playerFile.set("Rpg Player.Chat.Ignore List." + ignoredPlayers, true);
-                    }
-                    for (String ignoredPlayers : rp.getInvitedChats()){
-                        playerFile.set("Rpg Player.Chat.Invited Chats." + ignoredPlayers, true);
-                    }
-                    for (String ignoredPlayers : rp.getBannedChats()){
-                        playerFile.set("Rpg Player.Chat.Banned Chats." + ignoredPlayers, true);
-                    }
-                    for (String ignoredPlayers : rp.getMutedChats()){
-                        playerFile.set("Rpg Player.Chat.Muted Chats." + ignoredPlayers, true);
-                    }
-                    for (String ignoredPlayers : rp.getOwnedChats()){
-                        playerFile.set("Rpg Player.Chat.Owned Chats." + ignoredPlayers, true);
-                    }
-                    for (String ignoredPlayers : rp.getModChats()){
-                        playerFile.set("Rpg Player.Chat.Moderated Chats." + ignoredPlayers, true);
-                    }
-                    playerFile.set("Rpg Player.Chat.Spy", rp.isChatSpy());
-                    playerFile.set("Rpg Player.Chat.Show Guild Tags", rp.isShowGuildTags());
-                    playerFile.set("Rpg Player.Chat.Show Achieve Titles", rp.isShowAchieveTitles());
-                    playerFile.set("Rpg Player.Chat.Show Channel Names", rp.isShowChannelNames());
-                    playerFile.set("Rpg Player.Chat.Show Language Names", rp.isShowLanguageNames());
-                    playerFile.set("Rpg Player.Chat.Show World Name", rp.isShowWorldName());
-                    playerFile.set("Rpg Player.Chat.Languages.Active", rp.getActiveLanguage());
-                    for (String languages : rp.getKnownLanguages()){
-                        playerFile.set("Rpg Player.Chat.Languages.Known Languages." + languages, true);
-                    }
-
-                    playerFile.set("Rpg Player.Chat.Languages.Show Languages", rp.isShowLanguages());
+                    playerFile.set("Rpg Player.Chat.Channels.Global.Active", true);
+                    playerFile.set("Rpg Player.Chat.Channels.Global.Color", "WHITE");
+                    playerFile.set("Rpg Player.Chat.Ignore List", "");
+                    playerFile.set("Rpg Player.Chat.Invited Chats", "");
+                    playerFile.set("Rpg Player.Chat.Banned Chats", "");
+                    playerFile.set("Rpg Player.Chat.Muted Chats", "");
+                    playerFile.set("Rpg Player.Chat.Owned Chats", "");
+                    playerFile.set("Rpg Player.Chat.Moderated Chats", "");
+                    playerFile.set("Rpg Player.Chat.Spy", false);
+                    playerFile.set("Rpg Player.Chat.Show Guild Tags", true);
+                    playerFile.set("Rpg Player.Chat.Show Achieve Titles", true);
+                    playerFile.set("Rpg Player.Chat.Show Channel Names", true);
+                    playerFile.set("Rpg Player.Chat.Show Language Names", true);
+                    playerFile.set("Rpg Player.Chat.Show World Name", true);
+                    playerFile.set("Rpg Player.Chat.Languages.Active", "Common");
+                    playerFile.set("Rpg Player.Chat.Languages.Known Languages", "");
+                    playerFile.set("Rpg Player.Chat.Languages.Show Languages", true);
                 }
                 if (RpgAPI.achievementsOn){
-                    playerFile.set("Rpg Player.Achievements.Active Prefix", rp.getActivePrefix());
-                    playerFile.set("Rpg Player.Achievements.Active Suffix", rp.getActiveSuffix());
-                    for (String title : rp.getTitles()){
-                        playerFile.set("Rpg Player.Achievements.Titles." + title, true);
-                    }
+                    playerFile.set("Rpg Player.Achievements.Active Prefix", "");
+                    playerFile.set("Rpg Player.Achievements.Active Suffix", "");
+                    playerFile.set("Rpg Player.Achievements.Titles", "");
                 }
-                if (RpgAPI.clickOn){playerFile.set("Rpg Player.Click.defaultClick", rp.isDefaultClick());}
+                if (RpgAPI.clickOn){playerFile.set("Rpg Player.Click.defaultClick", true);}
                 if (RpgAPI.lobbyOn){
-                    playerFile.set("Rpg Player.Lobby.In Lobby", rp.isInLobby());
-                    playerFile.set("Rpg Player.Lobby.Armor Inventory", rp.getArmorInventory());
-                    playerFile.set("Rpg Player.Lobby.Inventory Contents", rp.getInventoryContents());
-                    playerFile.set("Rpg Player.Lobby.Current Health", rp.getCurrentHealth());
-                    playerFile.set("Rpg Player.Lobby.Coordinates.X", rp.getOldX());
-                    playerFile.set("Rpg Player.Lobby.Coordinates.Y", rp.getOldY());
-                    playerFile.set("Rpg Player.Lobby.Coordinates.Z", rp.getOldZ());
-                    playerFile.set("Rpg Player.Lobby.Coordinates.World", rp.getOldWorld());
+                    playerFile.set("Rpg Player.Lobby.In Lobby", false);
+                    playerFile.set("Rpg Player.Lobby.Armor Inventory", "");
+                    playerFile.set("Rpg Player.Lobby.Inventory Contents", "");
+                    playerFile.set("Rpg Player.Lobby.Current Health", "");
+                    playerFile.set("Rpg Player.Lobby.Coordinates.X", 0);
+                    playerFile.set("Rpg Player.Lobby.Coordinates.Y", 0);
+                    playerFile.set("Rpg Player.Lobby.Coordinates.Z", 0);
+                    playerFile.set("Rpg Player.Lobby.Coordinates.World", "");
                 }
                 if (RpgAPI.minionsOn){
-                    for (String pet : rp.getPetsOwned()){
-                    playerFile.set("Rpg Player.Minions.Pets Owned." + pet, true);
-                    }
-                    playerFile.set("Rpg Player.Minions.Active Pet", rp.getActivePet());
+                    playerFile.set("Rpg Player.Minions.Pets Owned", "");
+                    playerFile.set("Rpg Player.Minions.Active Pet", "");
                 }
                 if (RpgAPI.questOn){
-                    for (String quest : rp.getQuestStages().keySet()){
-                        playerFile.set("Rpg Player.Quests.Current Quests." + quest + ".Stage", rp.getQuestStages().get(quest));
-                        if (rp.getActiveQuest().equalsIgnoreCase(quest)){
-                            playerFile.set("Rpg Player.Quests.Current Quests." + quest + ".Active", true);
-                        }   else {
-                            playerFile.set("Rpg Player.Quests.Current Quests." + quest + ".Active", false);
-                        }
-                    }
-                    for (String questsC : rp.getQuestGoalCount().keySet()){
-                        playerFile.set("Rpg Player.Quests.Current Quests." + questsC + ".Counter", rp.getQuestGoalCount().get(questsC));
-                    }
-                    for (String completedQuests : rp.getCompletedQuests()){
-
-                    playerFile.set("Rpg Player.Quests.Completed Quests." + completedQuests, true);
-                    }
+                    playerFile.set("Rpg Player.Quests.Current Quests.Log On.Stage", 0);
+                    playerFile.set("Rpg Player.Quests.Current Quests.Log On.Active", true);
+                    playerFile.set("Rpg Player.Quests.Current Quests.Log On.Counter", 0);
+                    playerFile.set("Rpg Player.Quests.Completed Quests", "");
                 }
                 if (RpgAPI.reputationOn){
-                    for (Reputation rep : rp.getReputationLevels().keySet()){
-                    playerFile.set("Rpg Player.Reputation.Factions."+rep+".Reputation Level", rp.getReputationLevels().get(rep));
-                    }
-                    for (Reputation rep : rp.getFactionsDiscovered().keySet()){
-                    playerFile.set("Rpg Player.Reputation.Factions."+rep+".Discovered", rp.getFactionsDiscovered().get(rep));
-                    }
+                    playerFile.set("Rpg Player.Reputation.Factions.Server.Reputation Level", 0);
+                    playerFile.set("Rpg Player.Reputation.Factions.Server.Discovered", true);
 
                 }
+
                 try {
                     playerFile.save(new File("plugins/RpgAPI/RpgPlayer/" + p + ".yml"));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                RpgAPI.playerFiles.put(p, playerFiles);
+
             }
-            YamlConfiguration playerFile = YamlConfiguration.loadConfiguration(RpgAPI.playerFiles.get(p));
+            YamlConfiguration playerFile = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayer/" + p + ".yml"));
             rp.setRealName(playerFile.getString("Rpg Player.Real Name"));
             if (RpgAPI.classesOn){
                 rp.setPlayerLCAlignment(playerFile.getString("Rpg Player.Classes.Lawful Chaotic Alignment"));
@@ -582,7 +600,7 @@ public class RpgPlayerBuilder {
                 elementalTypeIntegerMap.put(ElementalType.SONIC, playerFile.getInt("Rpg Player.Classes.Stats.Elemental Resistances.SONIC"));
                 rp.setElemRestype(elementalTypeIntegerMap);
                 List<Feat> playerFeats = rp.getHasFeats();
-                if (playerFile.getString("Rpg Player.Classes.Stats.Feats") != null){
+                if (!(playerFile.getString("Rpg Player.Classes.Stats.Feats").isEmpty())){
                 for (String feat : playerFile.getConfigurationSection("Rpg Player.Classes.Stats.Feats").getKeys(false)){
                     playerFeats.add(Feat.valueOf(feat));
                 }
@@ -597,15 +615,19 @@ public class RpgPlayerBuilder {
                 rp.setSkills(playerSkills);
                 Map<Spell, Boolean> playerSpells = rp.getSpells();
                 if (playerFile.getString("Rpg Player.Classes.Stats.Spells.Spells Known") != null){
+                    if (!(playerFile.getString("Rpg Player.Classes.Stats.Spells.Spells Known").isEmpty())){
                 for (String spellsKnown : playerFile.getConfigurationSection("Rpg Player.Classes.Stats.Spells.Spells Known").getKeys(false)){
                     playerSpells.put(Spell.valueOf(spellsKnown), playerFile.getBoolean("Rpg Player.Classes.Stats.Spells.Spells Known." + spellsKnown));
+                }
                 }
                 }
                 rp.setSpells(playerSpells);
                 Map<Integer, Integer> spellsPerLevel = rp.getSpellsPerCombat();
                 if (playerFile.getString("Rpg Player.Classes.Stats.Spells.Spells Per Combat") != null){
+                    if (!(playerFile.getString("Rpg Player.Classes.Stats.Spells.Spells Per Combat").isEmpty())){
                 for (String level : playerFile.getConfigurationSection("Rpg Player.Classes.Stats.Spells.Spells Per Combat").getKeys(false)){
                 spellsPerLevel.put(parseInt(level), playerFile.getInt("Rpg Player.Classes.Stats.Spells.Spells Per Combat." + level));
+                }
                 }
                 }
                 rp.setSpellsPerCombat(spellsPerLevel);
@@ -621,8 +643,10 @@ public class RpgPlayerBuilder {
             if (RpgAPI.friendsOn){
                 List<String> friendList = rp.getFriendsList();
                 if (playerFile.getString("Rpg Player.Friends List") != null){
+                    if (!(playerFile.getString("Rpg Player.Friends List").isEmpty())){
                 for (String friendName : playerFile.getConfigurationSection("rpg Player.Friends List").getKeys(false)){
                 friendList.add(friendName);
+                }
                 }
                 }
                 rp.setFriendsList(friendList);
@@ -649,44 +673,58 @@ public class RpgPlayerBuilder {
                 rp.setChannelColors(channelColors);
                 List<String> ignoreList = rp.getIgnoreList();
                 if (playerFile.getString("Rpg Player.Chat.Ignore List") != null){
+                    if (!(playerFile.getString("Rpg Player.Chat.Ignore List").isEmpty())){
                 for (String ignoredPlayer : playerFile.getConfigurationSection("Rpg Player.Chat.Ignore List").getKeys(false)){
                     ignoreList.add(ignoredPlayer);
+                }
                 }
                 }
                 rp.setIgnoreList(ignoreList);
                 List<String> invitedChats = rp.getInvitedChats();
                 if (playerFile.getString("Rpg Player.Chat.Invited Chats") != null){
+                    if (!(playerFile.getString("Rpg Player.Chat.Invited Chats").isEmpty())){
                 for (String invitedChatChannels : playerFile.getConfigurationSection("Rpg Player.Chat.Invited Chats").getKeys(false)){
                     invitedChats.add(invitedChatChannels);
+                }
                 }
                 }
                 rp.setInvitedChats(invitedChats);
                 List<String> bannedChats = rp.getBannedChats();
                 if (playerFile.getString("Rpg Player.Chat.Banned Chats") != null){
+                    if (!(playerFile.getString("Rpg Player.Chat.Banned Chats").isEmpty())){
+
                 for (String bannedChatChannels : playerFile.getConfigurationSection("Rpg Player.Chat.Banned Chats").getKeys(false)){
                     bannedChats.add(bannedChatChannels);
+                }
                 }
                 }
                 rp.setBannedChats(bannedChats);
                 List<String> mutedChats = rp.getMutedChats();
                 if (playerFile.getString("Rpg Player.Chat.Muted Chats") != null){
+                    if (!(playerFile.getString("Rpg Player.Chat.Muted Chats").isEmpty())){
                 for (String mutedChatChannels : playerFile.getConfigurationSection("Rpg Player.Chat.Muted Chats").getKeys(false)){
                     mutedChats.add(mutedChatChannels);
+                }
                 }
                 }
                 rp.setMutedChats(mutedChats);
 
                 List<String> ownedChats = rp.getOwnedChats();
                 if (playerFile.getString("Rpg Player.Chat.Owned Chats") != null){
+                    if (!(playerFile.getString("Rpg Player.Chat.Owned Chats").isEmpty())){
+
                 for (String ownedChatChannels : playerFile.getConfigurationSection("Rpg Player.Chat.Owned Chats").getKeys(false)){
                     ownedChats.add(ownedChatChannels);
+                }
                 }
                 }
                 rp.setOwnedChats(ownedChats);
                 List<String> moderatedChats = rp.getModChats();
                 if (playerFile.getString("Rpg Player.Chat.Moderated Chats") != null){
+                    if (!(playerFile.getString("Rpg Player.Chat.Moderated Chats").isEmpty())){
                 for (String modChatChannels : playerFile.getConfigurationSection("Rpg Player.Chat.Moderated Chats").getKeys(false)){
                     moderatedChats.add(modChatChannels);
+                }
                 }
                 }
                 rp.setModChats(moderatedChats);
@@ -699,8 +737,10 @@ public class RpgPlayerBuilder {
                 rp.setActiveLanguage(playerFile.getString("Rpg Player.Chat.Languages.Active"));
                 List<String> languages = rp.getKnownLanguages();
                 if (playerFile.getString("Rpg Player.Chat.Languages.Known Languages") != null){
+                    if (!(playerFile.getString("Rpg Player.Chat.Languages.Known Languages").isEmpty())){
                 for (String language : playerFile.getConfigurationSection("Rpg Player.Chat.Languages.Known Languages").getKeys(false)){
                     languages.add(language);
+                }
                 }
                 }
                 rp.setKnownLanguages(languages);
@@ -711,8 +751,10 @@ public class RpgPlayerBuilder {
                 rp.setActiveSuffix(playerFile.getString("Rpg Player.Achievements.Active Suffix"));
                 List<String> playerTitles = rp.getTitles();
                 if (playerFile.getString("Rpg Player.Achievements.Titles") != null){
+                    if (!(playerFile.getString("Rpg Player.Achievements.Titles").isEmpty())){
                 for (String title : playerFile.getConfigurationSection("Rpg Player.Achievements.Titles").getKeys(false)){
                     playerTitles.add(title);
+                }
                 }
                 }
                 rp.setTitles(playerTitles);
@@ -731,8 +773,10 @@ public class RpgPlayerBuilder {
             if (RpgAPI.minionsOn){
                 List<String> petsOwned = rp.getPetsOwned();
                 if (playerFile.getString("Rpg Player.Minions.Pets Owned") != null){
+                    if (!(playerFile.getString("Rpg Player.Minions.Pets Owned").isEmpty())){
                 for (String pet : playerFile.getConfigurationSection("Rpg Player.Minions.Pets Owned").getKeys(false)){
                     petsOwned.add(pet);
+                }
                 }
                 }
                 rp.setPetsOwned(petsOwned);
@@ -743,6 +787,7 @@ public class RpgPlayerBuilder {
                 Map<String, Integer> questStage = rp.getQuestStages();
                 Map<String, Integer> stageCounter = rp.getQuestGoalCount();
                 if (playerFile.getString("Rpg Player.Quests.Current Quests") != null){
+                    if (!(playerFile.getString("Rpg Player.Quests.Current Quests").isEmpty())){
                 for (String questName : playerFile.getConfigurationSection("Rpg Player.Quests.Current Quests").getKeys(false)){
                     currentQuests.add(questName);
                     if (playerFile.getBoolean("Rpg Player.Quests.Current Quests." + questName + ".Active")){
@@ -750,7 +795,7 @@ public class RpgPlayerBuilder {
                     }
                     questStage.put(questName, playerFile.getInt("Rpg Player.Quests.Current Quests." + questName + ".Stage"));
                     stageCounter.put(questName, playerFile.getInt("Rpg Player.Quests.Current Quests." + questName + ".Counter"));
-
+                }
                 }
                 }
                 rp.setCurrentQuests(currentQuests);
@@ -758,8 +803,10 @@ public class RpgPlayerBuilder {
                 rp.setQuestGoalCount(stageCounter);
                 List<String> completedQuests = rp.getCompletedQuests();
                 if (playerFile.getString("Rpg Player.Quests.Completed Quests") != null){
+                    if (!(playerFile.getString("Rpg Player.Quests.Completed Quests").isEmpty())){
                 for (String questName : playerFile.getConfigurationSection("Rpg Player.Quests.Completed Quests").getKeys(false)){
                     completedQuests.add(questName);
+                }
                 }
                 }
                 rp.setCompletedQuests(completedQuests);
@@ -768,9 +815,11 @@ public class RpgPlayerBuilder {
                 Map<Reputation, Integer> repLevel = rp.getReputationLevels();
                 Map<Reputation, Boolean> repDiscovered = rp.getFactionsDiscovered();
                 if (playerFile.getString("Rpg Player.Reputation.Factions") != null){
+                    if (!(playerFile.getString("Rpg Player.Reputation.Factions").isEmpty())){
                 for (String rep : playerFile.getConfigurationSection("Rpg Player.Reputation.Factions.").getKeys(false)){
                     repLevel.put(Reputation.valueOf(rep), playerFile.getInt("Rpg Player.Reputation.Factions." + rep + "Reputation Level"));
                     repDiscovered.put(Reputation.valueOf(rep), playerFile.getBoolean("Rpg Player.Reputation.Factions." + rep + "Discovered"));
+                }
                 }
                 }
                 rp.setReputationLevels(repLevel);

@@ -20,6 +20,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Map;
+
 /**
  * Created by: soulofw0lf
  * Date: 6/14/13
@@ -58,6 +60,10 @@ public class UniqueCommands {
         command[0] = command[0].replace("/","");
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Test Command"))){
             p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Test Message")));
+            String activeNick = RpgAPI.activeNicks.get(p.getName());
+            RpgPlayer rp = RpgAPI.rpgPlayers.get(activeNick);
+            Map<PlayerStat, Integer> playerStatIntegerMap = rp.getStats();
+            playerStatIntegerMap.put(PlayerStat.HIT_POINTS, 10);
             return;
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Player Info"))){
@@ -71,6 +77,7 @@ public class UniqueCommands {
         {
             case "body":
                 p.sendMessage(ChatColors.ChatString("&2sup man, &4 how's it going?"));
+
                 break;
             case "addnpc":
                 RemoteEntity ed = RpgAPI.entityManager.createNamedEntity(RemoteEntityType.Human, p.getLocation(), "soulofw0lf", false);
