@@ -185,10 +185,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
         if (borderOn){
             worldBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgBorders.yml"));
             if (worldBorder.get("Worlds") == null){
-                worldBorder.set("Worlds.TestWorld.X", 0);
-                worldBorder.set("Worlds.TestWorld.Y", 0);
-                worldBorder.set("Worlds.TestWorld.Z", 0);
-                worldBorder.set("Worlds.TestWorld.Radius", 1000);
+                worldBorder.set("Worlds.Kardegah.X", 0);
+                worldBorder.set("Worlds.Kardegah.Y", 0);
+                worldBorder.set("Worlds.Kardegah.Z", 0);
+                worldBorder.set("Worlds.Kardegah.Radius", 5100);
             }
             try {
                 worldBorder.save(new File("plugins/RpgAPI/RpgBorders.yml"));
