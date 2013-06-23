@@ -39,6 +39,7 @@ import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.RemoteEntities;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -139,7 +140,6 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static EntityManager entityManager;
     public static Map<String, RpgPoison> rpgPoisons = new HashMap<>();
     public static Map<String, File> playerFiles = new HashMap<>();
-    public static Map<String, Location> worldBorders = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -185,10 +185,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
         if (borderOn){
             worldBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgBorders.yml"));
             if (worldBorder.get("Worlds") == null){
-                worldBorder.set("Worlds.Kardegah.X", 0);
-                worldBorder.set("Worlds.Kardegah.Y", 0);
-                worldBorder.set("Worlds.Kardegah.Z", 0);
-                worldBorder.set("Worlds.Kardegah.Radius", 5100);
+                worldBorder.set("Worlds.World.X", 0);
+                worldBorder.set("Worlds.World.Y", 0);
+                worldBorder.set("Worlds.World.Z", 0);
+                worldBorder.set("Worlds.World.Radius", 1000);
             }
             try {
                 worldBorder.save(new File("plugins/RpgAPI/RpgBorders.yml"));
@@ -205,8 +205,11 @@ public class RpgAPI extends JavaPlugin implements Listener {
                 Y = worldBorder.getDouble("Worlds." + worlds + ".Y");
                 Z = worldBorder.getDouble("Worlds." + worlds + ".Z");
                 radius = worldBorder.getInt("Worlds." + worlds + ".Radius");
-                loc = new Location(Bukkit.getWorld(worlds), X, Y, Z);
+                World world = Bukkit.getWorld(worlds);
+                if (world != null){
+                loc = new Location(world, X, Y, Z);
                 BorderCheck.cycleCheck(this, loc, radius);
+                }
             }
 
         }
