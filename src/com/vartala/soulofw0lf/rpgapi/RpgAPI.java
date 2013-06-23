@@ -38,6 +38,7 @@ import com.vartala.soulofw0lf.rpgapi.sqlapi.SQLHandler;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.RemoteEntities;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -73,6 +74,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static YamlConfiguration mobCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/MobCommands.yml"));
     public static YamlConfiguration poisonCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Poisons.yml"));
     public static YamlConfiguration testPlayer = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayer/TestPlayer.yml"));
+    public static YamlConfiguration worldBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgBorders.yml"));
 
 
     //Listeners
@@ -137,6 +139,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static EntityManager entityManager;
     public static Map<String, RpgPoison> rpgPoisons = new HashMap<>();
     public static Map<String, File> playerFiles = new HashMap<>();
+    public static Map<String, Location> worldBorders = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -179,7 +182,34 @@ public class RpgAPI extends JavaPlugin implements Listener {
         if (foodOn){this.foodListener = new FoodListener(this);}
         if (minionsOn){this.entityManager = RemoteEntities.createManager(this);}
         if (poisonedEarthOn){this.poisonlistener = new PoisonListener(this);}
-        if (borderOn){BorderCheck.cycleCheck(this);}
+        if (borderOn){
+            worldBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgBorders.yml"));
+            if (worldBorder.get("Worlds") == null){
+                worldBorder.set("Worlds.TestWorld.X", 0);
+                worldBorder.set("Worlds.TestWorld.Y", 0);
+                worldBorder.set("Worlds.TestWorld.Z", 0);
+                worldBorder.set("Worlds.TestWorld.Radius", 1000);
+            }
+            try {
+                worldBorder.save(new File("plugins/RpgAPI/RpgBorders.yml"));
+
+            } catch (IOException e) {
+            }
+            Double X = 0.0;
+            Double Y = 0.0;
+            Double Z = 0.0;
+            Location loc = null;
+            Integer radius = 0;
+            for (String worlds : worldBorder.getConfigurationSection("Worlds").getKeys(false)){
+                X = worldBorder.getDouble("Worlds." + worlds + ".X");
+                Y = worldBorder.getDouble("Worlds." + worlds + ".Y");
+                Z = worldBorder.getDouble("Worlds." + worlds + ".Z");
+                radius = worldBorder.getInt("Worlds." + worlds + ".Radius");
+                loc = new Location(Bukkit.getWorld(worlds), X, Y, Z);
+                BorderCheck.cycleCheck(this, loc, radius);
+            }
+
+        }
         //grab database values if they should be used
         if (useMySql) {
             dBUserName = getConfig().getString("Mysql Database.User");
