@@ -43,11 +43,13 @@ public class playerLogIn implements Listener {
         RpgPlayer rp = RpgPlayerBuilder.RpgBuilder(p);
         RpgAPI.rpgPlayers.put(p, rp);
         final RpgPlayer r = rp;
+        final String playerN = pName;
         new BukkitRunnable(){
 
             @Override
             public void run() {
-                SpeedHandler.SetWalkSpeed(r);
+                SpeedHandler.SetWalkSpeed(r, playerN);
+                SpeedHandler.SetFlySpeed(r, playerN);
             }
         }.runTaskLater(RpgAPI.plugin, 40);
 
@@ -79,7 +81,15 @@ public class playerLogIn implements Listener {
         String rpname = RpgAPI.activeNicks.get(pName);
         RpgPlayer rp = RpgAPI.rpgPlayers.get(rpname);
         RpgPlayerBuilder.RpgSaver(rpname, rp);
-        RpgAPI.rpgPlayers.remove(rpname);
+        final String rName = rpname;
+        new BukkitRunnable(){
+
+            @Override
+            public void run() {
+                RpgAPI.rpgPlayers.remove(rName);
+            }
+        }.runTaskLater(RpgAPI.plugin, 40);
+
 		/*
 		 * save active nickname to table
 		 */
@@ -89,10 +99,17 @@ public class playerLogIn implements Listener {
 	{
         Player p = event.getPlayer();
         String pName = p.getName();
-        String rpname = RpgAPI.activeNicks.get(pName);
-        RpgPlayer rp = RpgAPI.rpgPlayers.get(rpname);
-        RpgPlayerBuilder.RpgSaver(rpname, rp);
-        RpgAPI.rpgPlayers.remove(rpname);
+        String rpName = RpgAPI.activeNicks.get(pName);
+        RpgPlayer rp = RpgAPI.rpgPlayers.get(rpName);
+        RpgPlayerBuilder.RpgSaver(rpName, rp);
+        final String rName = rpName;
+        new BukkitRunnable(){
+
+            @Override
+            public void run() {
+                RpgAPI.rpgPlayers.remove(rName);
+            }
+        }.runTaskLater(RpgAPI.plugin, 40);
 		/*
 		 * save active nickname to table
 		 */

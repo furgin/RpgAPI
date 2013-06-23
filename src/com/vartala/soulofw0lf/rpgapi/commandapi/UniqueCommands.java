@@ -66,8 +66,10 @@ public class UniqueCommands {
             Integer speed = statMap.get(PlayerStat.SPEED_LAND);
             speed += 5;
             statMap.put(PlayerStat.SPEED_LAND, speed);
+            statMap.put(PlayerStat.SPEED_FLY, speed);
             rp.setStats(statMap);
-            SpeedHandler.SetWalkSpeed(rp);
+            SpeedHandler.SetWalkSpeed(rp, p.getName());
+            SpeedHandler.SetFlySpeed(rp, p.getName());
             p.sendMessage("You are going " + p.getWalkSpeed() + " fast, with a movement speed of " + speed + ".");
             return;
         }
@@ -76,8 +78,10 @@ public class UniqueCommands {
             RpgPlayer rp = RpgAPI.rpgPlayers.get(activeNick);
             Map<PlayerStat, Integer> statMap = rp.getStats();
             statMap.put(PlayerStat.SPEED_LAND, 0);
+            statMap.put(PlayerStat.SPEED_FLY, 0);
             rp.setStats(statMap);
-            SpeedHandler.SetWalkSpeed(rp);
+            SpeedHandler.SetWalkSpeed(rp, p.getName());
+            SpeedHandler.SetFlySpeed(rp, p.getName());
 
             return;
         }
