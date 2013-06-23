@@ -1,6 +1,7 @@
 package com.vartala.soulofw0lf.rpgapi.commandapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
@@ -56,7 +57,7 @@ public class UniqueCommands {
         switch(command[0])
         {
             case "test":
-                p.sendMessage("You've done it!");
+                p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Test Message")));
                 break;
             case "addnpc":
                 RemoteEntity ed = RpgAPI.entityManager.createNamedEntity(RemoteEntityType.Human, p.getLocation(), "soulofw0lf", false);

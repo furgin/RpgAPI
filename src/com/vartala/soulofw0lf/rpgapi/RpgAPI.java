@@ -140,6 +140,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static EntityManager entityManager;
     public static Map<String, RpgPoison> rpgPoisons = new HashMap<>();
     public static Map<String, File> playerFiles = new HashMap<>();
+    public static Map<String, String> localeSettings = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -269,6 +270,12 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }
         if (localeConfig.get("Locale Settings") == null) {
             localeConfig.set("Locale Settings", "This file is used to set all language settings!");
+            localeConfig.set("Translations.Error Message", "&F[&2Rpg API&F] &4This command should be ");
+            localeConfig.set("Translations.Eating Health Full", "&F[&2Rpg API&F] &4you cannot eat while your health is full!");
+            localeConfig.set("Translations.Already Eating", "&F[&2Rpg API&F] &4you are already eating!");
+            localeConfig.set("Translations.Test Message", "&0Black &1Dark Blue &2Dark Green &4Dark Red &5Purple &6Gold &7 Grey" +
+                    " &8Dark Grey &9 Blue &aGreen &bAqua &cRed &dLight Purple &eYellow &fWhite" +
+                    "&lBold &mStrikeThrough &nUnderlined &oitalic &kObfuscated &rreset");
         }
         if (guildsOn){if (guildConfig.get("Guilds Info") == null) {
             guildConfig.set("Guilds Info", "This File will save all guild info, Mysql is highly recommended!");
@@ -310,10 +317,14 @@ public class RpgAPI extends JavaPlugin implements Listener {
             if (poisonedEarthOn){poisonCommand.save(new File("plugins/RpgAPI/Poisons.yml"));}
         } catch (IOException e) {
         }
+        for (String s : localeConfig.getConfigurationSection("Translations").getKeys(false)){
+            localeSettings.put(s, localeConfig.getString("Translations." + s));
+        }
         //SetBuilder.minionCommand();
         if (poisonedEarthOn){
         PoisonBuilder.newPoison();
         PoisonTimeChecker.PoisonRegionTimer();
+            commands.add("test");
         }
     }
 

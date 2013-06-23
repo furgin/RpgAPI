@@ -1,7 +1,9 @@
 package com.vartala.soulofw0lf.rpgapi.foodapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import com.vartala.soulofw0lf.rpgapi.enumapi.PlayerStat;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
+import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -114,15 +116,15 @@ public class FoodListener implements Listener {
             String senderName = event.getPlayer().getName();
             RpgPlayer sendPlayer = this.Rpgapi.rpgPlayers.get(this.Rpgapi.activeNicks.get(senderName));
             Integer health = sendPlayer.getCurrentHealth();
-            Integer maxhealth = p.getMaxHealth();
+            Integer maxHealth = sendPlayer.getStats().get(PlayerStat.TOTAL_HIT_POINTS);
             if ((event.getAction() == Action.RIGHT_CLICK_AIR) || (event.getAction() == Action.RIGHT_CLICK_BLOCK)){
-                if (health.equals(maxhealth)){
-                    p.sendMessage("you cannot eat while your health is full!");
+                if (health.equals(maxHealth)){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Eating Health Full")));
                     return;
                 } else
                 {
                     if (sendPlayer.isEating()){
-                        p.sendMessage("You are already eating!");
+                        p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Already Eating")));
                         return;
                     } else {
                         sendPlayer.setEating(true);
