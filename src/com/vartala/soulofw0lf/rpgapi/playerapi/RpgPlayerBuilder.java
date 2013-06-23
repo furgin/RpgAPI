@@ -34,6 +34,208 @@ import static javax.xml.bind.DatatypeConverter.parseInt;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class RpgPlayerBuilder {
+    public static void RpgSaver(String name, RpgPlayer rp){
+        if (RpgAPI.useMySql){
+            //TODO do stuff here LinksBro
+        } else {
+        YamlConfiguration playerFile = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayers/" + name + ".yml"));
+        if (RpgAPI.classesOn){
+            playerFile.set("Rpg Player.Classes.Lawful Chaotic Alignment", rp.getPlayerLCAlignment());
+            playerFile.set("Rpg Player.Classes.Good Evil Alignment", rp.getPlayerGEAlignment());
+            playerFile.set("Rpg Player.Classes.Class", rp.getPlayerClass());
+            playerFile.set("Rpg Player.Classes.Stats.Character Level", rp.getStats().get(PlayerStat.CHARACTER_LEVEL));
+            playerFile.set("Rpg Player.Classes.Stats.Age", rp.getStats().get(PlayerStat.AGE));
+            playerFile.set("Rpg Player.Classes.Stats.Strength", rp.getStats().get(PlayerStat.STRENGTH));
+            playerFile.set("Rpg Player.Classes.Stats.Dexterity", rp.getStats().get(PlayerStat.DEXTERITY));
+            playerFile.set("Rpg Player.Classes.Stats.Constitution", rp.getStats().get(PlayerStat.CONSTITUTION));
+            playerFile.set("Rpg Player.Classes.Stats.Intelligence", rp.getStats().get(PlayerStat.INTELLIGENCE));
+            playerFile.set("Rpg Player.Classes.Stats.Wisdom", rp.getStats().get(PlayerStat.WISDOM));
+            playerFile.set("Rpg Player.Classes.Stats.Charisma", rp.getStats().get(PlayerStat.CHARISMA));
+            playerFile.set("Rpg Player.Classes.Stats.Hit Points", rp.getStats().get(PlayerStat.HIT_POINTS));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_PIERCING", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_PIERCING));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_SLASHING", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_SLASHING));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_BLUDGEONING", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_BLUDGEONING));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_MAGICAL", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_MAGICAL));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_EPIC", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_EPIC));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_LAWFUL", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_LAWFUL));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_GOOD", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_GOOD));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_CHAOTIC", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_CHAOTIC));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_EVIL", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_EVIL));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_FIRE", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_FIRE));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_COLD", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_COLD));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_ACID", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_ACID));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_SONIC", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_SONIC));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_ELECTRICITY", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_ELECTRICITY));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_SILVER", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_SILVER));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_COLD_IRON", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_COLD_IRON));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_ADAMANTINE", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_ADAMANTINE));
+            playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_NONE", rp.getStats().get(PlayerStat.DAMAGE_REDUCTION_NONE));
+            playerFile.set("Rpg Player.Classes.Stats.Total Hit Points", rp.getStats().get(PlayerStat.TOTAL_HIT_POINTS));
+            playerFile.set("Rpg Player.Classes.Stats.Speed.Land", rp.getStats().get(PlayerStat.SPEED_LAND));
+            playerFile.set("Rpg Player.Classes.Stats.Speed.Land With Armor", rp.getStats().get(PlayerStat.SPEED_LAND_WITH_ARMOR));
+            playerFile.set("Rpg Player.Classes.Stats.Speed.Fly", rp.getStats().get(PlayerStat.SPEED_FLY));
+            playerFile.set("Rpg Player.Classes.Stats.Speed.Swim", rp.getStats().get(PlayerStat.SPEED_SWIM));
+            playerFile.set("Rpg Player.Classes.Stats.Initiative", rp.getStats().get(PlayerStat.INITIATIVE));
+            playerFile.set("Rpg Player.Classes.Stats.Armor Class.Armor Bonus", rp.getStats().get(PlayerStat.ARMOR_CLASS_ARMOR_BONUS));
+            playerFile.set("Rpg Player.Classes.Stats.Armor Class.Shield Bonus", rp.getStats().get(PlayerStat.ARMOR_CLASS_SHIELD_BONUS));
+            playerFile.set("Rpg Player.Classes.Stats.Armor Class.Size Modifier", rp.getStats().get(PlayerStat.ARMOR_CLASS_SIZE_MODIFIER));
+            playerFile.set("Rpg Player.Classes.Stats.Armor Class.Natural Armor", rp.getStats().get(PlayerStat.ARMOR_CLASS_NATURAL_ARMOR));
+            playerFile.set("Rpg Player.Classes.Stats.Armor Class.Deflection Bonus", rp.getStats().get(PlayerStat.ARMOR_CLASS_DEFLECTION_MODIFIER));
+            playerFile.set("Rpg Player.Classes.Stats.Armor Class.Miscellaneous Modifier", rp.getStats().get(PlayerStat.ARMOR_CLASS_MODIFIER_MISC));
+            playerFile.set("Rpg Player.Classes.Stats.Saves.Fortitude.Class Bonus", rp.getStats().get(PlayerStat.FORTITUDE_CLASS_BONUS));
+            playerFile.set("Rpg Player.Classes.Stats.Saves.Fortitude.Constitution Bonus", rp.getStats().get(PlayerStat.FORTITUDE_CONSTITUTION_BONUS));
+            playerFile.set("Rpg Player.Classes.Stats.Saves.Fortitude.Magic Bonus", rp.getStats().get(PlayerStat.FORTITUDE_MAGIC));
+            playerFile.set("Rpg Player.Classes.Stats.Saves.Fortitude.Miscellaneous Bonus", rp.getStats().get(PlayerStat.FORTITUDE_MISC));
+            playerFile.set("Rpg Player.Classes.Stats.Saves.Reflex.Class Bonus", rp.getStats().get(PlayerStat.REFLEX__CLASS_BONUS));
+            playerFile.set("Rpg Player.Classes.Stats.Saves.Reflex.Dexterity Bonus", rp.getStats().get(PlayerStat.REFLEX_DEXTERITY_BONUS));
+            playerFile.set("Rpg Player.Classes.Stats.Saves.Reflex.Magic Bonus", rp.getStats().get(PlayerStat.REFLEX_MAGIC));
+            playerFile.set("Rpg Player.Classes.Stats.Saves.Reflex.Miscellaneous Bonus", rp.getStats().get(PlayerStat.REFLEX_MISC));
+            playerFile.set("Rpg Player.Classes.Stats.Saves.Will.Class Bonus", rp.getStats().get(PlayerStat.WILLPOWER_CLASS_BONUS));
+            playerFile.set("Rpg Player.Classes.Stats.Saves.Will.Wisdom Bonus", rp.getStats().get(PlayerStat.WILLPOWER_WISDOM_BONUS));
+            playerFile.set("Rpg Player.Classes.Stats.Saves.Will.Magic Bonus", rp.getStats().get(PlayerStat.WILLPOWER_MAGIC));
+            playerFile.set("Rpg Player.Classes.Stats.Saves.Will.Miscellaneous Bonus", rp.getStats().get(PlayerStat.WILLPOWER_MISC));
+            playerFile.set("Rpg Player.Classes.Stats.Base Attack Bonus", rp.getStats().get(PlayerStat.BASE_ATTACK_BONUS));
+            playerFile.set("Rpg Player.Classes.Stats.Spell Resistance", rp.getStats().get(PlayerStat.SPELL_RESISTANCE));
+            playerFile.set("Rpg Player.Classes.Stats.Combat Maneuver Bonus.Base Attack Bonus", rp.getStats().get(PlayerStat.COMBAT_MANUEVER_BONUS_BAB));
+            playerFile.set("Rpg Player.Classes.Stats.Combat Maneuver Bonus.Size Bonus", rp.getStats().get(PlayerStat.COMBAT_MANUEVER_BONUS_SIZE));
+            playerFile.set("Rpg Player.Classes.Stats.Combat Maneuver Bonus.Strength Bonus", rp.getStats().get(PlayerStat.COMBAT_MANUEVER_BONUS_STRENGTH));
+            playerFile.set("Rpg Player.Classes.Stats.Combat Maneuver Bonus.Miscellaneous Bonus", rp.getStats().get(PlayerStat.COMBAT_MANUEVER_BONUS_MISC));
+            playerFile.set("Rpg Player.Classes.Stats.Combat Defense Bonus.Strength Bonus", rp.getStats().get(PlayerStat.COMBAT_MANUEVER_DEFENSE_STRENGTH));
+            playerFile.set("Rpg Player.Classes.Stats.Combat Defense Bonus.Dexterity Bonus", rp.getStats().get(PlayerStat.COMBAT_MANUEVER_DEFENSE_DEXTERITY));
+            playerFile.set("Rpg Player.Classes.Stats.Combat Defense Bonus.Base Attack Bonus", rp.getStats().get(PlayerStat.COMBAT_MANUEVER_DEFENSE_BAB));
+            playerFile.set("Rpg Player.Classes.Stats.Combat Defense Bonus.Size Bonus", rp.getStats().get(PlayerStat.COMBAT_MANUEVER_DEFENSE_SIZE));
+            playerFile.set("Rpg Player.Classes.Stats.Combat Defense Bonus.Standard Bonus", rp.getStats().get(PlayerStat.COMBAT_MANUEVER_DEFENSE_STANDARD));
+            playerFile.set("Rpg Player.Classes.Stats.Combat Defense Bonus.Miscellaneous Bonus", rp.getStats().get(PlayerStat.COMBAT_MANUEVER_DEFENSE_MISC));
+            playerFile.set("Rpg Player.Classes.Stats.Experience", rp.getStats().get(PlayerStat.EXPERIENCE_TOTAL));
+            playerFile.set("Rpg Player.Classes.Stats.Deity", rp.getPlayerText().get(PlayerText.DEITY));
+            playerFile.set("Rpg Player.Classes.Stats.Size", rp.getPlayerText().get(PlayerText.SIZE));
+            playerFile.set("Rpg Player.Classes.Stats.Gender", rp.getPlayerText().get(PlayerText.GENDER));
+            playerFile.set("Rpg Player.Classes.Stats.Height", rp.getPlayerText().get(PlayerText.HEIGHT));
+            playerFile.set("Rpg Player.Classes.Stats.Weight", rp.getPlayerText().get(PlayerText.WEIGHT));
+            playerFile.set("Rpg Player.Classes.Stats.Hair Color", rp.getPlayerText().get(PlayerText.HAIR_COLOR));
+            playerFile.set("Rpg Player.Classes.Stats.Eye color", rp.getPlayerText().get(PlayerText.EYE_COLOR));
+            playerFile.set("Rpg Player.Classes.Stats.Description", rp.getPlayerText().get(PlayerText.DESCRIPTION));
+            playerFile.set("Rpg Player.Classes.Stats.Elemental Resistances.FIRE", rp.getElemRestype().get(ElementalType.FIRE));
+            playerFile.set("Rpg Player.Classes.Stats.Elemental Resistances.COLD", rp.getElemRestype().get(ElementalType.COLD));
+            playerFile.set("Rpg Player.Classes.Stats.Elemental Resistances.ACID", rp.getElemRestype().get(ElementalType.ACID));
+            playerFile.set("Rpg Player.Classes.Stats.Elemental Resistances.ELECTRICITY", rp.getElemRestype().get(ElementalType.ELECTRICITY));
+            playerFile.set("Rpg Player.Classes.Stats.Elemental Resistances.SONIC", rp.getElemRestype().get(ElementalType.SONIC));
+            for (Feat charFeat : rp.getHasFeats()){
+                playerFile.set("Rpg Player.Classes.Stats.Feats." + charFeat, true);
+            }
+            playerFile.set("Rpg Player.Classes.Stats.Skills.ACROBATICS", rp.getSkills().get(PlayerSkill.ACROBATICS));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.APPRAISE", rp.getSkills().get(PlayerSkill.APPRAISE));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.BLUFF", rp.getSkills().get(PlayerSkill.BLUFF));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.CLIMB", rp.getSkills().get(PlayerSkill.CLIMB));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.CRAFT_ALCHEMY", rp.getSkills().get(PlayerSkill.CRAFT_ALCHEMY));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.CRAFT_ARMOR", rp.getSkills().get(PlayerSkill.CRAFT_ARMOR));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.CRAFT_ITEMS", rp.getSkills().get(PlayerSkill.CRAFT_ITEMS));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.CRAFT_JEWELRY", rp.getSkills().get(PlayerSkill.CRAFT_JEWELRY));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.CRAFT_POISON", rp.getSkills().get(PlayerSkill.CRAFT_POISON));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.CRAFT_TRAPS", rp.getSkills().get(PlayerSkill.CRAFT_TRAPS));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.CRAFT_WEAPONS", rp.getSkills().get(PlayerSkill.CRAFT_WEAPONS));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.DIPLOMACY", rp.getSkills().get(PlayerSkill.DIPLOMACY));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.DISABLE_DEVICE", rp.getSkills().get(PlayerSkill.DISABLE_DEVICE));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.DISGUISE", rp.getSkills().get(PlayerSkill.DISGUISE));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.ESCAPE_ARTIST", rp.getSkills().get(PlayerSkill.ESCAPSE_ARTIST));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.FLY", rp.getSkills().get(PlayerSkill.FLY));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.HANDLE_ANIMAL", rp.getSkills().get(PlayerSkill.HANDLE_ANIMAL));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.HEAL", rp.getSkills().get(PlayerSkill.HEAL));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.INTIMIDATE", rp.getSkills().get(PlayerSkill.INTIMIDATE));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_ARCANA", rp.getSkills().get(PlayerSkill.KNOWLEDGE_ARCANA));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_DUNGEONEERING", rp.getSkills().get(PlayerSkill.KNOWLEDGE_DUNGEONEERING));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_ENGINEERING", rp.getSkills().get(PlayerSkill.KNOWLEDGE_ENGINEERING));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_GEOGRAPHY", rp.getSkills().get(PlayerSkill.KNOWLEDGE_GEOGRAPHY));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_HISTORY", rp.getSkills().get(PlayerSkill.KNOWLEDGE_HISTORY));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_LOCAL", rp.getSkills().get(PlayerSkill.KNOWLEDGE_LOCAL));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_NATURE", rp.getSkills().get(PlayerSkill.KNOWLEDGE_NATURE));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_NOBILITY", rp.getSkills().get(PlayerSkill.KNOWLEDGE_NOBILITY));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_PLANES", rp.getSkills().get(PlayerSkill.KNOWLEDGE_PLANES));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_RELIGION", rp.getSkills().get(PlayerSkill.KNOWLEDGE_RELIGION));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.LINGUISTICS", rp.getSkills().get(PlayerSkill.LINGUISTICS));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.PERCEPTION", rp.getSkills().get(PlayerSkill.PERCEPTION));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.PERFORM", rp.getSkills().get(PlayerSkill.PERFORM));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.PROFESSION", rp.getSkills().get(PlayerSkill.PROFESSION));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.RIDE", rp.getSkills().get(PlayerSkill.RIDE));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.SENSE_MOTIVE", rp.getSkills().get(PlayerSkill.SENSE_MOTIVE));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.SLEIGHT_OF_HAND", rp.getSkills().get(PlayerSkill.SLEIGHT_OF_HAND));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.SPELLCRAFT", rp.getSkills().get(PlayerSkill.SPELLCRAFT));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.STEALTH", rp.getSkills().get(PlayerSkill.STEALTH));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.SURVIVAL", rp.getSkills().get(PlayerSkill.SURVIVAL));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.SWIM", rp.getSkills().get(PlayerSkill.SWIM));
+            playerFile.set("Rpg Player.Classes.Stats.Skills.USE_MAGIC_DEVICE", rp.getSkills().get(PlayerSkill.USE_MAGIC_DEVICE));
+            playerFile.set("Rpg Player.Classes.Stats.Spells.Spells Known", "");
+            playerFile.set("Rpg Player.Classes.Stats.Spells.Spells Per Combat", "");
+
+        }
+        if (RpgAPI.racesOn){playerFile.set("Rpg Player.Race", "");}
+        if (RpgAPI.guildsOn){
+            playerFile.set("Rpg Player.Guild.Name", "");
+            playerFile.set("Rpg Player.Guild.Rank",  "");
+        }
+        if (RpgAPI.friendsOn){playerFile.set("Rpg Player.Friends List", "");}
+        if (RpgAPI.tradeOn){
+            playerFile.set("Rpg Player.Trade.Copper", 0);
+            playerFile.set("Rpg Player.Trade.Silver", 0);
+            playerFile.set("Rpg Player.Trade.Gold", 0);
+            playerFile.set("Rpg Player.Trade.Platinum", 0);
+        }
+        if (RpgAPI.chatOn){
+            playerFile.set("Rpg Player.Chat.Channels.Global.Active", true);
+            playerFile.set("Rpg Player.Chat.Channels.Global.Color", "White");
+            playerFile.set("Rpg Player.Chat.Ignore List", "");
+            playerFile.set("Rpg Player.Chat.Invited Chats", "");
+            playerFile.set("Rpg Player.Chat.Banned Chats", "");
+            playerFile.set("Rpg Player.Chat.Muted Chats", "");
+            playerFile.set("Rpg Player.Chat.Owned Chats", "");
+            playerFile.set("Rpg Player.Chat.Moderated Chats", "");
+            playerFile.set("Rpg Player.Chat.Spy", false);
+            playerFile.set("Rpg Player.Chat.Show Guild Tags", true);
+            playerFile.set("Rpg Player.Chat.Show Achieve Titles", true);
+            playerFile.set("Rpg Player.Chat.Show Channel Names", true);
+            playerFile.set("Rpg Player.Chat.Show Language Names", true);
+            playerFile.set("Rpg Player.Chat.Show World Name", true);
+            playerFile.set("Rpg Player.Chat.Languages.Active", "Common");
+            playerFile.set("Rpg Player.Chat.Languages.Known Languages", "");
+            playerFile.set("Rpg Player.Chat.Languages.Show Languages", true);
+        }
+        if (RpgAPI.achievementsOn){
+            playerFile.set("Rpg Player.Achievements.Active Prefix", "");
+            playerFile.set("Rpg Player.Achievements.Active Suffix", "");
+            playerFile.set("Rpg Player.Achievements.Titles", "");
+        }
+        if (RpgAPI.clickOn){playerFile.set("Rpg Player.Click.defaultClick", true);}
+        if (RpgAPI.lobbyOn){
+            playerFile.set("Rpg Player.Lobby.In Lobby", false);
+            playerFile.set("Rpg Player.Lobby.Armor Inventory", "");
+            playerFile.set("Rpg Player.Lobby.Inventory Contents", "");
+            playerFile.set("Rpg Player.Lobby.Current Health", "");
+            playerFile.set("Rpg Player.Lobby.Coordinates.X", 0);
+            playerFile.set("Rpg Player.Lobby.Coordinates.Y", 0);
+            playerFile.set("Rpg Player.Lobby.Coordinates.Z", 0);
+            playerFile.set("Rpg Player.Lobby.Coordinates.World", "");
+        }
+        if (RpgAPI.minionsOn){
+            playerFile.set("Rpg Player.Minions.Pets Owned", "");
+            playerFile.set("Rpg Player.Minions.Active Pet", "");
+        }
+        if (RpgAPI.questOn){
+            playerFile.set("Rpg Player.Quests.Current Quests.Log On.Stage", 0);
+            playerFile.set("Rpg Player.Quests.Current Quests.Log On.Active", true);
+            playerFile.set("Rpg Player.Quests.Current Quests.Log On.Counter", 0);
+            playerFile.set("Rpg Player.Quests.Completed Quests", "");
+        }
+        if (RpgAPI.reputationOn){
+            playerFile.set("Rpg Player.Reputation.Factions.Server.Reputation Level", 0);
+            playerFile.set("Rpg Player.Reputation.Factions.Server.Discovered", true);
+        }
+        try {
+            playerFile.save(new File("plugins/RpgAPI/RpgPlayer/" + name + ".yml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        }
+    }
     public static RpgPlayer RpgBuilder(String p){
         RpgPlayer rp = new RpgPlayer();
         if (RpgAPI.useMySql){
@@ -60,24 +262,24 @@ public class RpgPlayerBuilder {
                     playerFile.set("Rpg Player.Classes.Stats.Wisdom", 10);
                     playerFile.set("Rpg Player.Classes.Stats.Charisma", 10);
                     playerFile.set("Rpg Player.Classes.Stats.Hit Points", 10);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Piercing", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Slashing", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Bludgeoning", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Magical", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Epic", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Lawful", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Good", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Chaotic", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Evil", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Fire", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Cold", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Acid", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Sonic", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Electricity", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Silver", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Cold Iron", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.Adamantine", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Damage Reduction.None", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_PIERCING", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_SLASHING", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_BLUDGEONING", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_MAGICAL", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_EPIC", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_LAWFUL", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_GOOD", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_CHAOTIC", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_EVIL", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_FIRE", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_COLD", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_ACID", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_SONIC", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_ELECTRICITY", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_SILVER", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_COLD_IRON", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_ADAMANTINE", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_NONE", 0);
                     playerFile.set("Rpg Player.Classes.Stats.Total Hit Points", 10);
                     playerFile.set("Rpg Player.Classes.Stats.Speed.Land", 30);
                     playerFile.set("Rpg Player.Classes.Stats.Speed.Land With Armor", 20);
@@ -123,111 +325,165 @@ public class RpgPlayerBuilder {
                     playerFile.set("Rpg Player.Classes.Stats.Hair Color", "");
                     playerFile.set("Rpg Player.Classes.Stats.Eye color", "");
                     playerFile.set("Rpg Player.Classes.Stats.Description", "");
-                    playerFile.set("Rpg Player.Classes.Stats.Elemental Resistances.Fire", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Elemental Resistances.Cold", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Elemental Resistances.Acid", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Elemental Resistances.Electricity", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Elemental Resistances.Sonic", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Elemental Resistances.FIRE", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Elemental Resistances.COLD", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Elemental Resistances.ACID", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Elemental Resistances.ELECTRICITY", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Elemental Resistances.SONIC", 0);
                     playerFile.set("Rpg Player.Classes.Stats.Feats", "");
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Acrobatics", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Appraise", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Bluff", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Climb", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Craft", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Diplomacy", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Disable Device", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Disguise", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Escape Artist", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Fly", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Handle Animal", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Heal", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Intimidate", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Knowledges.Arcana", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Knowledges.Dungeoneering", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Knowledges.Engineering", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Knowledges.Geography", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Knowledges.History", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Knowledges.Local", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Knowledges.Nature", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Knowledges.Nobility", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Knowledges.Planes", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Knowledges.Religion", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Linguistics", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Perception", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Perform", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Profession", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Ride", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Sense Motive", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Sleight of Hand", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Spellcraft", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Stealth", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Survival", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Swim", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Skills.Use Magic Device", 0);
-                    playerFile.set("Rpg Player.Classes.Stats.Spells.Spells Known", "");
-                    playerFile.set("Rpg Player.Classes.Stats.Spells.Spells Per Combat", "");
-
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.ACROBATICS", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.APPRAISE", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.BLUFF", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.CLIMB", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.CRAFT_ALCHEMY", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.CRAFT_ARMOR", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.CRAFT_ITEMS", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.CRAFT_JEWELRY", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.CRAFT_POISON", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.CRAFT_TRAPS", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.CRAFT_WEAPONS", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.DIPLOMACY", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.DISABLE_DEVICE", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.DISGUISE", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.ESCAPE_ARTIST", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.FLY", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.HANDLE_ANIMAL", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.HEAL", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.INTIMIDATE", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_ARCANA", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_DUNGEONEERING", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_ENGINEERING", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_GEOGRAPHY", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_HISTORY", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_LOCAL", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_NATURE", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_NOBILITY", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_PLANES", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.KNOWLEDGE_RELIGION", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.LINGUISTICS", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.PERCEPTION", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.PERFORM", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.PROFESSION", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.RIDE", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.SENSE_MOTIVE", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.SLEIGHT_OF_HAND", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.SPELLCRAFT", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.STEALTH", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.SURVIVAL", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.SWIM", 0);
+                    playerFile.set("Rpg Player.Classes.Stats.Skills.USE_MAGIC_DEVICE", 0);
+                    for (Spell spell : rp.getSpells().keySet()){
+                        playerFile.set("Rpg Player.Classes.Stats.Spells.Spells Known." + spell, true);
+                    }
+                    for (Integer level : rp.getSpellsPerCombat().keySet()){
+                        playerFile.set("Rpg Player.Classes.stats.Spells.Spells Per Combat" + level, rp.getSpellsPerCombat().get(level));
+                    }
                 }
-                if (RpgAPI.racesOn){playerFile.set("Rpg Player.Race", "");}
+                if (RpgAPI.racesOn){playerFile.set("Rpg Player.Race", rp.getRace());}
                 if (RpgAPI.guildsOn){
-                    playerFile.set("Rpg Player.Guild.Name", "");
-                    playerFile.set("Rpg Player.Guild.Rank",  "");
+                    playerFile.set("Rpg Player.Guild.Name", rp.getGuild());
+                    playerFile.set("Rpg Player.Guild.Rank",  rp.getGuildRank());
                 }
-                if (RpgAPI.friendsOn){playerFile.set("Rpg Player.Friends List", "");}
+                if (RpgAPI.friendsOn){
+                    for (String friends : rp.getFriendsList()){
+                        playerFile.set("Rpg Player.Friends List." + friends, true);}
+                    }
+
                 if (RpgAPI.tradeOn){
-                    playerFile.set("Rpg Player.Trade.Copper", 0);
-                    playerFile.set("Rpg Player.Trade.Silver", 0);
-                    playerFile.set("Rpg Player.Trade.Gold", 0);
-                    playerFile.set("Rpg Player.Trade.Platinum", 0);
+                    playerFile.set("Rpg Player.Trade.Copper", rp.getCopper());
+                    playerFile.set("Rpg Player.Trade.Silver", rp.getSilver());
+                    playerFile.set("Rpg Player.Trade.Gold", rp.getGold());
+                    playerFile.set("Rpg Player.Trade.Platinum", rp.getPlatinum());
                 }
                 if (RpgAPI.chatOn){
-                    playerFile.set("Rpg Player.Chat.Channels.Global.Active", true);
-                    playerFile.set("Rpg Player.Chat.Channels.Global.Color", "White");
-                    playerFile.set("Rpg Player.Chat.Ignore List", "");
-                    playerFile.set("Rpg Player.Chat.Invited Chats", "");
-                    playerFile.set("Rpg Player.Chat.Banned Chats", "");
-                    playerFile.set("Rpg Player.Chat.Muted Chats", "");
-                    playerFile.set("Rpg Player.Chat.Owned Chats", "");
-                    playerFile.set("Rpg Player.Chat.Moderated Chats", "");
-                    playerFile.set("Rpg Player.Chat.Spy", false);
-                    playerFile.set("Rpg Player.Chat.Show Guild Tags", true);
-                    playerFile.set("Rpg Player.Chat.Show Achieve Titles", true);
-                    playerFile.set("Rpg Player.Chat.Show Channel Names", true);
-                    playerFile.set("Rpg Player.Chat.Show Language Names", true);
-                    playerFile.set("Rpg Player.Chat.Show World Name", true);
-                    playerFile.set("Rpg Player.Chat.Languages.Active", "Common");
-                    playerFile.set("Rpg Player.Chat.Languages.Known Languages", "");
-                    playerFile.set("Rpg Player.Chat.Languages.Show Languages", true);
+                    for (String channelName : rp.getChatChannels()){
+                        playerFile.set("Rpg Player.Chat.Channel." + channelName + ".Color", rp.getChannelColors().get(channelName));
+                        if (rp.getActiveChannel().equalsIgnoreCase(channelName)){
+                            playerFile.set("Rpg Player.Chat.Channel." + channelName + ".Active", true);
+                        } else {
+                            playerFile.set("Rpg Player.Chat.Channel." + channelName + ".Active", false);
+                        }
+                    }
+                    for (String ignoredPlayers : rp.getIgnoreList()){
+                        playerFile.set("Rpg Player.Chat.Ignore List." + ignoredPlayers, true);
+                    }
+                    for (String ignoredPlayers : rp.getInvitedChats()){
+                        playerFile.set("Rpg Player.Chat.Invited Chats." + ignoredPlayers, true);
+                    }
+                    for (String ignoredPlayers : rp.getBannedChats()){
+                        playerFile.set("Rpg Player.Chat.Banned Chats." + ignoredPlayers, true);
+                    }
+                    for (String ignoredPlayers : rp.getMutedChats()){
+                        playerFile.set("Rpg Player.Chat.Muted Chats." + ignoredPlayers, true);
+                    }
+                    for (String ignoredPlayers : rp.getOwnedChats()){
+                        playerFile.set("Rpg Player.Chat.Owned Chats." + ignoredPlayers, true);
+                    }
+                    for (String ignoredPlayers : rp.getModChats()){
+                        playerFile.set("Rpg Player.Chat.Moderated Chats." + ignoredPlayers, true);
+                    }
+                    playerFile.set("Rpg Player.Chat.Spy", rp.isChatSpy());
+                    playerFile.set("Rpg Player.Chat.Show Guild Tags", rp.isShowGuildTags());
+                    playerFile.set("Rpg Player.Chat.Show Achieve Titles", rp.isShowAchieveTitles());
+                    playerFile.set("Rpg Player.Chat.Show Channel Names", rp.isShowChannelNames());
+                    playerFile.set("Rpg Player.Chat.Show Language Names", rp.isShowLanguageNames());
+                    playerFile.set("Rpg Player.Chat.Show World Name", rp.isShowWorldName());
+                    playerFile.set("Rpg Player.Chat.Languages.Active", rp.getActiveLanguage());
+                    for (String languages : rp.getKnownLanguages()){
+                        playerFile.set("Rpg Player.Chat.Languages.Known Languages." + languages, true);
+                    }
+
+                    playerFile.set("Rpg Player.Chat.Languages.Show Languages", rp.isShowLanguages());
                 }
                 if (RpgAPI.achievementsOn){
-                    playerFile.set("Rpg Player.Achievements.Active Prefix", "");
-                    playerFile.set("Rpg Player.Achievements.Active Suffix", "");
-                    playerFile.set("Rpg Player.Achievements.Titles", "");
+                    playerFile.set("Rpg Player.Achievements.Active Prefix", rp.getActivePrefix());
+                    playerFile.set("Rpg Player.Achievements.Active Suffix", rp.getActiveSuffix());
+                    for (String title : rp.getTitles()){
+                        playerFile.set("Rpg Player.Achievements.Titles." + title, true);
+                    }
                 }
-                if (RpgAPI.clickOn){playerFile.set("Rpg Player.Click.defaultClick", true);}
+                if (RpgAPI.clickOn){playerFile.set("Rpg Player.Click.defaultClick", rp.isDefaultClick());}
                 if (RpgAPI.lobbyOn){
-                    playerFile.set("Rpg Player.Lobby.In Lobby", false);
-                    playerFile.set("Rpg Player.Lobby.Armor Inventory", "");
-                    playerFile.set("Rpg Player.Lobby.Inventory Contents", "");
-                    playerFile.set("Rpg Player.Lobby.Current Health", "");
-                    playerFile.set("Rpg Player.Lobby.Coordinates.X", 0);
-                    playerFile.set("Rpg Player.Lobby.Coordinates.Y", 0);
-                    playerFile.set("Rpg Player.Lobby.Coordinates.Z", 0);
-                    playerFile.set("Rpg Player.Lobby.Coordinates.World", "");
+                    playerFile.set("Rpg Player.Lobby.In Lobby", rp.isInLobby());
+                    playerFile.set("Rpg Player.Lobby.Armor Inventory", rp.getArmorInventory());
+                    playerFile.set("Rpg Player.Lobby.Inventory Contents", rp.getInventoryContents());
+                    playerFile.set("Rpg Player.Lobby.Current Health", rp.getCurrentHealth());
+                    playerFile.set("Rpg Player.Lobby.Coordinates.X", rp.getOldX());
+                    playerFile.set("Rpg Player.Lobby.Coordinates.Y", rp.getOldY());
+                    playerFile.set("Rpg Player.Lobby.Coordinates.Z", rp.getOldZ());
+                    playerFile.set("Rpg Player.Lobby.Coordinates.World", rp.getOldWorld());
                 }
                 if (RpgAPI.minionsOn){
-                    playerFile.set("Rpg Player.Minions.Pets Owned", "");
-                    playerFile.set("Rpg Player.Minions.Active Pet", "");
+                    for (String pet : rp.getPetsOwned()){
+                    playerFile.set("Rpg Player.Minions.Pets Owned." + pet, true);
+                    }
+                    playerFile.set("Rpg Player.Minions.Active Pet", rp.getActivePet());
                 }
                 if (RpgAPI.questOn){
-                    playerFile.set("Rpg Player.Quests.Current Quests.Log On.Stage", 0);
-                    playerFile.set("Rpg Player.Quests.Current Quests.Log On.Active", true);
-                    playerFile.set("Rpg Player.Quests.Current Quests.Log On.Counter", 0);
-                    playerFile.set("Rpg Player.Quests.Completed Quests", "");
+                    for (String quest : rp.getQuestStages().keySet()){
+                        playerFile.set("Rpg Player.Quests.Current Quests." + quest + ".Stage", rp.getQuestStages().get(quest));
+                        if (rp.getActiveQuest().equalsIgnoreCase(quest)){
+                            playerFile.set("Rpg Player.Quests.Current Quests." + quest + ".Active", true);
+                        }   else {
+                            playerFile.set("Rpg Player.Quests.Current Quests." + quest + ".Active", false);
+                        }
+                    }
+                    for (String questsC : rp.getQuestGoalCount().keySet()){
+                        playerFile.set("Rpg Player.Quests.Current Quests." + questsC + ".Counter", rp.getQuestGoalCount().get(questsC));
+                    }
+                    for (String completedQuests : rp.getCompletedQuests()){
+
+                    playerFile.set("Rpg Player.Quests.Completed Quests." + completedQuests, true);
+                    }
                 }
                 if (RpgAPI.reputationOn){
-                    playerFile.set("Rpg Player.Reputation.Factions.Server.Reputation Level", 0);
-                    playerFile.set("Rpg Player.Reputation.Factions.Server.Discovered", true);
+                    for (Reputation rep : rp.getReputationLevels().keySet()){
+                    playerFile.set("Rpg Player.Reputation.Factions."+rep+".Reputation Level", rp.getReputationLevels().get(rep));
+                    }
+                    for (Reputation rep : rp.getFactionsDiscovered().keySet()){
+                    playerFile.set("Rpg Player.Reputation.Factions."+rep+".Discovered", rp.getFactionsDiscovered().get(rep));
+                    }
+
                 }
                 try {
                     playerFile.save(new File("plugins/RpgAPI/RpgPlayer/" + p + ".yml"));
@@ -252,24 +508,24 @@ public class RpgPlayerBuilder {
                 playerStats.put(PlayerStat.WISDOM, playerFile.getInt("Rpg Player.Classes.Stats.Wisdom"));
                 playerStats.put(PlayerStat.CHARISMA, playerFile.getInt("Rpg Player.Classes.Stats.Charisma"));
                 playerStats.put(PlayerStat.HIT_POINTS, playerFile.getInt("Rpg Player.Classes.Stats.Hit Points"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_PIERCING, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Piercing"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_SLASHING, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Slashing"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_BLUDGEONING, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Bludgeoning"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_CHAOTIC, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Chaotic"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_LAWFUL, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Lawful"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_GOOD, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Good"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_EVIL, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Evil"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_COLD, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Cold"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_FIRE, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Fire"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_ACID, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Acid"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_SONIC, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Sonic"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_ELECTRICITY, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Electricity"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_ADAMANTINE, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Adamantine"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_COLD_IRON, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Cold Iron"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_EPIC, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Epic"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_MAGICAL, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Magical"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_SILVER, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.Silver"));
-                playerStats.put(PlayerStat.DAMAGE_REDUCTION_NONE, playerFile.getInt("Rpg Player.Classes.Stats.Damage Reduction.None"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_PIERCING, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_PIERCING"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_SLASHING, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_SLASHING"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_BLUDGEONING, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_BLUDGEONING"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_CHAOTIC, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_CHAOTIC"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_LAWFUL, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_LAWFUL"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_GOOD, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_GOOD"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_EVIL, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_EVIL"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_COLD, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_COLD"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_FIRE, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_FIRE"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_ACID, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_ACID"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_SONIC, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_SONIC"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_ELECTRICITY, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_ELECTRICITY"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_ADAMANTINE, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_ADAMANTINE"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_COLD_IRON, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_COLD_IRON"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_EPIC, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_EPIC"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_MAGICAL, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_MAGICAL"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_SILVER, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_SILVER"));
+                playerStats.put(PlayerStat.DAMAGE_REDUCTION_NONE, playerFile.getInt("Rpg Player.Classes.Stats.DAMAGE_REDUCTION_NONE"));
                 playerStats.put(PlayerStat.TOTAL_HIT_POINTS, playerFile.getInt("Rpg Player.Classes.Stats.Total Hit Points"));
                 playerStats.put(PlayerStat.SPEED_LAND, playerFile.getInt("Rpg Player.Classes.Stats.Speed.Land"));
                 playerStats.put(PlayerStat.SPEED_LAND_WITH_ARMOR, playerFile.getInt("Rpg Player.Classes.Stats.Speed.Land With Armor"));
@@ -319,11 +575,11 @@ public class RpgPlayerBuilder {
                 textStats.put(PlayerText.DESCRIPTION, playerFile.getString("Rpg Player.Classes.Stats.Description"));
                 rp.setPlayerText(textStats);
                 Map<ElementalType, Integer> elementalTypeIntegerMap = rp.getElemRestype();
-                elementalTypeIntegerMap.put(ElementalType.FIRE, playerFile.getInt("Rpg Player.Classes.Stats.Elemental Resistances.Fire"));
-                elementalTypeIntegerMap.put(ElementalType.COLD, playerFile.getInt("Rpg Player.Classes.Stats.Elemental Resistances.Cold"));
-                elementalTypeIntegerMap.put(ElementalType.ACID, playerFile.getInt("Rpg Player.Classes.Stats.Elemental Resistances.Acid"));
-                elementalTypeIntegerMap.put(ElementalType.ELECTRICITY, playerFile.getInt("Rpg Player.Classes.Stats.Elemental Resistances.Electricity"));
-                elementalTypeIntegerMap.put(ElementalType.SONIC, playerFile.getInt("Rpg Player.Classes.Stats.Elemental Resistances.Sonic"));
+                elementalTypeIntegerMap.put(ElementalType.FIRE, playerFile.getInt("Rpg Player.Classes.Stats.Elemental Resistances.FIRE"));
+                elementalTypeIntegerMap.put(ElementalType.COLD, playerFile.getInt("Rpg Player.Classes.Stats.Elemental Resistances.COLD"));
+                elementalTypeIntegerMap.put(ElementalType.ACID, playerFile.getInt("Rpg Player.Classes.Stats.Elemental Resistances.ACID"));
+                elementalTypeIntegerMap.put(ElementalType.ELECTRICITY, playerFile.getInt("Rpg Player.Classes.Stats.Elemental Resistances.ELECTRICITY"));
+                elementalTypeIntegerMap.put(ElementalType.SONIC, playerFile.getInt("Rpg Player.Classes.Stats.Elemental Resistances.SONIC"));
                 rp.setElemRestype(elementalTypeIntegerMap);
                 List<Feat> playerFeats = rp.getHasFeats();
                 if (playerFile.getString("Rpg Player.Classes.Stats.Feats") != null){

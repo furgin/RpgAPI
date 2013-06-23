@@ -62,6 +62,11 @@ public class playerLogIn implements Listener {
 	}
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerKick(PlayerKickEvent event){
+        Player p = event.getPlayer();
+        String pName = p.getName();
+        String rpname = RpgAPI.activeNicks.get(pName);
+        RpgPlayer rp = RpgAPI.rpgPlayers.get(rpname);
+        RpgPlayerBuilder.RpgSaver(rpname, rp);
 		/*
 		 * save active nickname to table
 		 */
@@ -69,6 +74,11 @@ public class playerLogIn implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerQuit(PlayerQuitEvent event)
 	{
+        Player p = event.getPlayer();
+        String pName = p.getName();
+        String rpname = RpgAPI.activeNicks.get(pName);
+        RpgPlayer rp = RpgAPI.rpgPlayers.get(rpname);
+        RpgPlayerBuilder.RpgSaver(rpname, rp);
 		/*
 		 * save active nickname to table
 		 */
