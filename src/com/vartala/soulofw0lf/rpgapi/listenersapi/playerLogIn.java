@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayerBuilder;
 import com.vartala.soulofw0lf.rpgapi.speedapi.SpeedHandler;
+import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -39,15 +40,16 @@ public class playerLogIn implements Listener {
 
         player.setPlayerListName(p);
         player.setDisplayName(p);
-        player.sendMessage("Your active Character is " + p + ".");
+        player.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Active Character") + p));
         RpgPlayer rp = RpgPlayerBuilder.RpgBuilder(p);
         RpgAPI.rpgPlayers.put(p, rp);
-        final RpgPlayer r = rp;
+
         final String playerN = pName;
         new BukkitRunnable(){
 
             @Override
             public void run() {
+                RpgPlayer r = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(playerN));
                 SpeedHandler.SetWalkSpeed(r, playerN);
                 SpeedHandler.SetFlySpeed(r, playerN);
             }

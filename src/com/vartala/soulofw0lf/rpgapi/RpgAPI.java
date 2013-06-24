@@ -275,6 +275,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
             localeConfig.set("Translations.Test Message", "&0Black &1Dark Blue &2Dark Green &4Dark Red &5Purple &6Gold &7 Grey" +
                     " &8Dark Grey &9 Blue &aGreen &bAqua &cRed &dLight Purple &eYellow &fWhite" +
                     "&lBold &mStrikeThrough &nUnderlined &oitalic &kObfuscated &rreset");
+            localeConfig.set("Translations.Active Character", "&F[&4Rpg Player&F] &2Your Active Character Name is &6");
             localeConfig.set("Commands.Test Command", "test");
             localeConfig.set("Commands.Player Info", "pinfo");
         }
