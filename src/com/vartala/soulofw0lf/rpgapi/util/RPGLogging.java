@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class RPGLogging {
-    private static final Logger log = Logger.getLogger("Sync");
+    private static final Logger log = Logger.getLogger("RPGAPI");
     private static final String prefix = "[RPGAPI] ";
 
     public static void logInfo(String message){
