@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static javax.xml.bind.DatatypeConverter.parseInt;
+
 
 /**
  * Created by: soulofw0lf
@@ -616,7 +616,7 @@ public class RpgPlayerBuilder {
                 if (playerFile.getString("Rpg Player.Classes.Stats.Spells.Spells Per Combat") != null){
                     if (!(playerFile.getString("Rpg Player.Classes.Stats.Spells.Spells Per Combat").equalsIgnoreCase("none"))){
                 for (String level : playerFile.getConfigurationSection("Rpg Player.Classes.Stats.Spells.Spells Per Combat").getKeys(false)){
-                spellsPerLevel.put(parseInt(level), playerFile.getInt("Rpg Player.Classes.Stats.Spells.Spells Per Combat." + level));
+                spellsPerLevel.put(Integer.parseInt(level), playerFile.getInt("Rpg Player.Classes.Stats.Spells.Spells Per Combat." + level));
                 }
                 }
                 }
