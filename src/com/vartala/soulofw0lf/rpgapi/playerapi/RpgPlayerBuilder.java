@@ -38,7 +38,10 @@ public class RpgPlayerBuilder {
         if (RpgAPI.useMySql){
             //TODO do stuff here LinksBro
         } else {
+
+
         YamlConfiguration playerFile = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayers/" + name + ".yml"));
+            long before = System.currentTimeMillis();
         if (RpgAPI.classesOn){
             playerFile.set("Rpg Player.Classes.Lawful Chaotic Alignment", rp.getPlayerLCAlignment());
             playerFile.set("Rpg Player.Classes.Good Evil Alignment", rp.getPlayerGEAlignment());
@@ -281,6 +284,9 @@ public class RpgPlayerBuilder {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+            long after = System.currentTimeMillis();
+            System.out.println("Time to save in millis: "+(after-before));
         }
     }
     public static RpgPlayer RpgBuilder(String p){
@@ -550,6 +556,7 @@ public class RpgPlayerBuilder {
                 }
                 return rp;
             } else {
+                long before = System.currentTimeMillis();
             YamlConfiguration playerFile = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayer/" + p + ".yml"));
 
             if (RpgAPI.classesOn){
@@ -869,7 +876,10 @@ public class RpgPlayerBuilder {
                 }
 
             }
-          return rp;
+
+                long after = System.currentTimeMillis();
+                System.out.println("Time to load in millis: "+(after-before));
+                return rp;
             }
         }
         return rp;

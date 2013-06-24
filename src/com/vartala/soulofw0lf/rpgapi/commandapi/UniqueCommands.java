@@ -3,6 +3,7 @@ package com.vartala.soulofw0lf.rpgapi.commandapi;
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.enumapi.PlayerStat;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
+import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayerBuilder;
 import com.vartala.soulofw0lf.rpgapi.speedapi.SpeedHandler;
 import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -71,7 +72,19 @@ public class UniqueCommands {
             SpeedHandler.SetWalkSpeed(rp, p.getName());
             SpeedHandler.SetFlySpeed(rp, p.getName());
             p.sendMessage("You are going " + p.getWalkSpeed() + " fast, with a movement speed of " + speed + ".");
+            RpgAPI.commands.add("nick");
             return;
+        }
+        if (command[0].equalsIgnoreCase("nick")){
+            String name = p.getName();
+            String newName = command[1];
+            RpgAPI.activeNicks.remove(name);
+            RpgAPI.activeNicks.put(name, newName);
+            RpgPlayer rp = RpgPlayerBuilder.RpgBuilder(newName);
+            RpgAPI.rpgPlayers.remove(newName);
+            RpgAPI.rpgPlayers.put(newName, rp);
+            SpeedHandler.SetWalkSpeed(rp, name);
+            SpeedHandler.SetFlySpeed(rp, name);
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Player Info"))){
             String activeNick = RpgAPI.activeNicks.get(p.getName());
