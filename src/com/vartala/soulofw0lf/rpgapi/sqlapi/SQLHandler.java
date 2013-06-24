@@ -1,25 +1,17 @@
 package com.vartala.soulofw0lf.rpgapi.sqlapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import com.vartala.soulofw0lf.rpgapi.util.RPGLogging;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 public class SQLHandler extends SQLOps {
     private String host, database, username, password;
     private Connection connection;
-    private static final Logger SQLLogger = Logger.getLogger("SQLHandler");
-    /**
-     * Used for proper logging
-     */
-    public static void logSevere(String severe)
-    {
-        SQLLogger.severe(severe);
-    }
     /**
      * Reopens the SQL connection if it is closed. This is invoked upon every
      * query.
@@ -52,10 +44,10 @@ public class SQLHandler extends SQLOps {
             connection = DriverManager.getConnection("jdbc:mysql://" + RpgAPI.dBURL, RpgAPI.dBUserName, RpgAPI.dBPassword);
             return true;
         } catch (ClassNotFoundException ex) {
-            logSevere("Could not find MySQL driver class!");
+            RPGLogging.logSevere("Could not find MySQL driver class!");
             ex.printStackTrace();
         } catch (SQLException ex) {
-            logSevere("SQL Exception!");
+            RPGLogging.logSevere("SQL Exception!");
             ex.printStackTrace();
         }
         return false;

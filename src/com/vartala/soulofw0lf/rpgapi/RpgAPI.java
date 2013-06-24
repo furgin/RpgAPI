@@ -2,6 +2,7 @@ package com.vartala.soulofw0lf.rpgapi;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +36,7 @@ import com.vartala.soulofw0lf.rpgapi.poisonapi.PoisonTimeChecker;
 import com.vartala.soulofw0lf.rpgapi.poisonapi.RpgPoison;
 import com.vartala.soulofw0lf.rpgapi.spellapi.MagicSpell;
 import com.vartala.soulofw0lf.rpgapi.sqlapi.SQLHandler;
+import com.vartala.soulofw0lf.rpgapi.util.RPGLogging;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.RemoteEntities;
 import org.bukkit.Bukkit;
@@ -217,10 +219,14 @@ public class RpgAPI extends JavaPlugin implements Listener {
         if (useMySql) {
             dBUserName = getConfig().getString("Mysql Database.User");
             dBPassword = getConfig().getString("Mysql Database.Password");
-            dBEncoding = getConfig().getString("Mysql Database.Encoding");
-            uniCode = getConfig().getBoolean("Mysql Database.UseUnicode");
             dBURL = getConfig().getString("Mysql Database.URL");
-            sqlHandler = new SQLHandler(dBUserName, dBPassword, dBURL);
+            sqlHandler = new SQLHandler();
+            if (!sqlHandler.initialise())
+            {
+                RPGLogging.logSevere("Failed to initialize the SQL connection. Check connection settings in RPGAPI config files. Otherwise please disable mysql as storage system.");
+            }
+            else
+                RPGLogging.logInfo("SQL connection initialised.");
         }
         //load yml files and set a value to each of them if they don't exist.
         playerConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayers.yml"));
