@@ -52,6 +52,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -151,6 +152,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<String, String> commandSettings = new HashMap<>();
     public static Map<String, WarpSets> savedSets = new HashMap<>();
     public static Map<String, RpgWarp> savedWarps = new HashMap<>();
+    public static List<ItemStack> warpItems = new ArrayList<ItemStack>();
 
     @Override
     public void onEnable() {

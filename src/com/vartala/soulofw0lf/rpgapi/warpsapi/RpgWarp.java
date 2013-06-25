@@ -66,6 +66,12 @@ public class RpgWarp {
     private Boolean needsLore = false;
     //list of all lores needed for this warp
     private List<String> loreNeeded = new ArrayList<String>();
+    //does this warp need it's own permission?
+    private Boolean singlePerm = false;
+    //what is the permission this warp needs if it needs one
+    private String permNeeded = "";
+    //special behaviors for the warps to do
+    private List<WarpBehavior> warpBehaviors = new ArrayList<WarpBehavior>();
 
     public List<String> getLoreNeeded() {
         return loreNeeded;
@@ -225,6 +231,30 @@ public class RpgWarp {
 
     public void setWarpName(String warpName) {
         this.warpName = warpName;
+    }
+
+    public Boolean getSinglePerm() {
+        return singlePerm;
+    }
+
+    public void setSinglePerm(Boolean singlePerm) {
+        this.singlePerm = singlePerm;
+    }
+
+    public String getPermNeeded() {
+        return permNeeded;
+    }
+
+    public void setPermNeeded(String permNeeded) {
+        this.permNeeded = permNeeded;
+    }
+
+    public List<WarpBehavior> getWarpBehaviors() {
+        return warpBehaviors;
+    }
+
+    public void setWarpBehaviors(List<WarpBehavior> warpBehaviors) {
+        this.warpBehaviors = warpBehaviors;
     }
     /*
      * All getters and setters listed below

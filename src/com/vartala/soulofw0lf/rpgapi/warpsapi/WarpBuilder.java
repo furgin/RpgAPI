@@ -1,8 +1,10 @@
 package com.vartala.soulofw0lf.rpgapi.warpsapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import com.vartala.soulofw0lf.rpgapi.guiapi.InventoryMaker;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -50,6 +52,10 @@ public class WarpBuilder {
                         newWarp.setWarpYaw(Float.parseFloat(warpConfig.getString("Warp Data.Warp Yaw")));
                         newWarp.setWarpPitch(Float.parseFloat(warpConfig.getString("Warp Data.Warp Pitch")));
                         newWarp.setSameWorld(warpConfig.getBoolean("Warp Data.Same World Only"));
+                        newWarp.setSinglePerm(warpConfig.getBoolean("Warp Data.Needs Individual Permission"));
+                        if (newWarp.getSinglePerm()){
+                            newWarp.setPermNeeded(warpConfig.getString("Warp Data.Permission"));
+                        }
                         newWarp.setVariance(warpConfig.getBoolean("Warp Data.Use Variance"));
                         if (newWarp.getVariance()){
                             newWarp.setWarpVariance(warpConfig.getInt("Warp Data.Radius For Variance"));
@@ -81,6 +87,17 @@ public class WarpBuilder {
                             newWarp.setItemConsumed(warpConfig.getBoolean("Warp Data.Is Item Consumed"));
                         }
                         RpgAPI.savedWarps.put(warpSets.getName(), newWarp);
+                        for (String itemName : newWarp.getItemNames()){
+                            for (Material itemMaterial : newWarp.getItemMaterial()){
+                                for (String itemLore : newWarp.getLoreNeeded()){
+                                    List<String> tempLore = new ArrayList<String>();
+                                    tempLore.add(itemLore);
+                                    Short dura = 0;
+                                    ItemStack is = InventoryMaker.itemStackMaker(itemName, itemMaterial, 0, dura, tempLore);
+                                    RpgAPI.warpItems.add(is);
+                                }
+                            }
+                        }
                     }
                 }
             }
