@@ -38,9 +38,9 @@ public class WarpBuilder {
         File[] files = f.listFiles();
         if (files != null){
             for (File warpSets : files){
-                File r = new File("plugins/RpgAPI/RpgWarps/" + warpSets);
+                File r = new File("plugins/RpgAPI/RpgWarps/" + warpSets.getName());
                 File[] files1 = r.listFiles();
-                if (files != null){
+                if (files1 != null){
                     for (File warpFiles : files1){
                         YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(warpFiles);
                         RpgWarp newWarp = new RpgWarp();
@@ -113,8 +113,8 @@ public class WarpBuilder {
             }
         }
     }
-    public static void SaveWarps(){
-        for (String thisWarp : RpgAPI.savedWarps.keySet()){
+    public static void SaveWarp(String thisWarp){
+
             RpgWarp saveWarp = RpgAPI.savedWarps.get(thisWarp);
             YamlConfiguration warpYml = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgWarps/" + saveWarp.getWarpSet() + "/" + saveWarp.getWarpName() + ".yml"));
             warpYml.set("Warp Data.Warp Name", saveWarp.getWarpName());
@@ -163,11 +163,12 @@ public class WarpBuilder {
                 }
 
                 warpYml.set("Warp Data.Is Item Consumed", saveWarp.getItemConsumed());
-                try {
-                    warpYml.save(new File("plugins/RpgAPI/RpgWarps/" + saveWarp.getWarpSet() + "/" + saveWarp.getWarpName() + ".yml"));
-                } catch (IOException e) {
-                }
+
             }
+        try {
+            warpYml.save(new File("plugins/RpgAPI/RpgWarps/" + saveWarp.getWarpSet() + "/" + saveWarp.getWarpName() + ".yml"));
+        } catch (IOException e) {
         }
-    }
+        }
+
 }

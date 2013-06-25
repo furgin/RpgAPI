@@ -294,6 +294,18 @@ public class RpgAPI extends JavaPlugin implements Listener {
             localeConfig.set("Translations.Active Character", "&F[&4Rpg Player&F] &2Your Active Character Name is &6");
             localeConfig.set("Commands.Test Command", "test");
             localeConfig.set("Commands.Player Info", "pinfo");
+            if (warpsOn){
+                localeConfig.set("Commands.Set Warp", "setwarp");
+                localeConfig.set("Commands.Delete Warp", "delwarp");
+                localeConfig.set("Commands.Use Warp", "warp");
+                localeConfig.set("Commands.Save Warp", "savewarp");
+                localeConfig.set("Commands.Edit Warp", "editwarp");
+                localeConfig.set("Commands.Edit set", "editset");
+                localeConfig.set("Commands.Make Set", "makeset");
+                localeConfig.set("Commands.Delete set", "delset");
+                localeConfig.set("Commands.Load Warps", "loadwarps");
+            }
+
         }
         if (guildsOn){if (guildConfig.get("Guilds Info") == null) {
             guildConfig.set("Guilds Info", "This File will save all guild info, Mysql is highly recommended!");
@@ -357,7 +369,9 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable(){
-        if (warpsOn){WarpBuilder.SaveWarps();WarpSetBuilder.SaveSets();}
+        for (String thisWarp : RpgAPI.savedWarps.keySet()){
+        if (warpsOn){WarpBuilder.SaveWarp(thisWarp);WarpSetBuilder.SaveSets();}
+        }
         try {
             if (warpsOn){warpConfig.save(new File("plugins/RpgAPI/WarpConfig.yml"));}
         } catch (IOException e) {

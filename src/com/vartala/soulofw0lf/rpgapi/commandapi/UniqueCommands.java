@@ -6,6 +6,7 @@ import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayerBuilder;
 import com.vartala.soulofw0lf.rpgapi.speedapi.SpeedHandler;
 import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
+import com.vartala.soulofw0lf.rpgapi.warpsapi.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
@@ -22,6 +23,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -60,6 +62,59 @@ public class UniqueCommands {
      */
     public static void BaseCommandHandler(Player p, String[] command){
         command[0] = command[0].replace("/","");
+        if(command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Load Warps"))){
+            WarpSetBuilder.BuildSets();WarpBuilder.WarpLoader();
+            p.sendMessage("you have loaded all warps");
+        }
+
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Set Warp"))){
+            RpgWarp rWarp = new RpgWarp();
+            rWarp.setWarpName(command[1]);
+            rWarp.setWarpSet("Default");
+            if (!(RpgAPI.savedSets.containsKey("Default"))){
+                WarpSets wSet = new WarpSets();
+                wSet.setSetName("Default");
+                wSet.setWarpsRandom(false);
+                wSet.setSetPermission("default.warp");
+                RpgAPI.savedSets.put(wSet.getSetName(), wSet);
+            }
+            rWarp.setWarpX(p.getLocation().getX());
+            rWarp.setWarpY(p.getLocation().getY());
+            rWarp.setWarpZ(p.getLocation().getZ());
+            rWarp.setWorldName(p.getWorld().getName());
+            rWarp.setWarpYaw(p.getLocation().getYaw());
+            rWarp.setWarpPitch(p.getLocation().getPitch());
+            RpgAPI.savedWarps.put(command[1], rWarp);
+            WarpSets thisSet = RpgAPI.savedSets.get("Default");
+            List<RpgWarp> thisList = thisSet.getSetWarps();
+            thisList.add(rWarp);
+            thisSet.setSetWarps(thisList);
+            p.sendMessage("you have set a warp named " + command[1] + ".");
+        }
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Save Warp"))){
+            if (command.length != 2){
+                p.sendMessage("Proper formatting /saveWarpCommand <warp name>");
+                return;
+            }
+            if (!(RpgAPI.savedWarps.containsKey(command[1]))){
+                p.sendMessage("That Warp Doesn't Exist!!!");
+                return;
+            }
+            WarpBuilder.SaveWarp(command[1]);
+            p.sendMessage("you have saved a warp named " + command[1] + ".");
+        }
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Use Warp"))){
+            if (command.length != 2){
+                p.sendMessage("Proper formatting /useWarpCommand <warp name>");
+                return;
+            }
+            if (!(RpgAPI.savedWarps.containsKey(command[1]))){
+                p.sendMessage("That Warp Doesn't Exist!!!");
+                return;
+            }
+            p.sendMessage("you have used a warp named " + command[1] + ".");
+            WarpProcessor.WarpHandler(p.getName(), RpgAPI.savedWarps.get(command[1]));
+        }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Test Command"))){
             String activeNick = RpgAPI.activeNicks.get(p.getName());
             RpgPlayer rp = RpgAPI.rpgPlayers.get(activeNick);
