@@ -27,6 +27,7 @@ public class WarpSets {
     private String setName = "";
     private Boolean warpsRandom = false;
     private String setPermission = "";
+    private List<RpgWarp> setWarps = new ArrayList<RpgWarp>();
 
     public WarpSets(){
 
@@ -55,5 +56,13 @@ public class WarpSets {
 
     public void setSetName(String setName) {
         this.setName = setName;
+    }
+
+    public List<RpgWarp> getSetWarps() {
+        return setWarps;
+    }
+
+    public void setSetWarps(List<RpgWarp> setWarps) {
+        this.setWarps = setWarps;
     }
 }

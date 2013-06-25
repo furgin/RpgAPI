@@ -87,6 +87,10 @@ public class WarpBuilder {
                             newWarp.setItemConsumed(warpConfig.getBoolean("Warp Data.Is Item Consumed"));
                         }
                         RpgAPI.savedWarps.put(warpSets.getName(), newWarp);
+                        WarpSets thisSet = RpgAPI.savedSets.get(newWarp.getWarpSet());
+                        List<RpgWarp> thisWarp = thisSet.getSetWarps();
+                        thisWarp.add(newWarp);
+                        thisSet.setSetWarps(thisWarp);
                         for (String itemName : newWarp.getItemNames()){
                             for (Material itemMaterial : newWarp.getItemMaterial()){
                                 for (String itemLore : newWarp.getLoreNeeded()){
