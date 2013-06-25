@@ -37,6 +37,10 @@ import com.vartala.soulofw0lf.rpgapi.poisonapi.RpgPoison;
 import com.vartala.soulofw0lf.rpgapi.spellapi.MagicSpell;
 import com.vartala.soulofw0lf.rpgapi.sqlapi.SQLHandler;
 import com.vartala.soulofw0lf.rpgapi.util.RPGLogging;
+import com.vartala.soulofw0lf.rpgapi.warpsapi.RpgWarp;
+import com.vartala.soulofw0lf.rpgapi.warpsapi.WarpBuilder;
+import com.vartala.soulofw0lf.rpgapi.warpsapi.WarpSetBuilder;
+import com.vartala.soulofw0lf.rpgapi.warpsapi.WarpSets;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.RemoteEntities;
 import org.bukkit.Bukkit;
@@ -78,6 +82,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static YamlConfiguration poisonCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Poisons.yml"));
     public static YamlConfiguration testPlayer = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayer/TestPlayer.yml"));
     public static YamlConfiguration worldBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgBorders.yml"));
+    public static YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/WarpConfig.yml"));
 
 
     //Listeners
@@ -144,6 +149,8 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
     public static Map<String, String> localeSettings = new HashMap<>();
     public static Map<String, String> commandSettings = new HashMap<>();
+    public static Map<String, WarpSets> savedSets = new HashMap<>();
+    public static Map<String, RpgWarp> savedWarps = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -309,6 +316,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
         if (classesOn){if (classConfig.get("Classes") == null) {
             classConfig.set("Classes", "This file is used to save all Rpg Classes");
         }}
+        if (warpsOn){warpConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/WarpConfig.yml"));}
         try {
             playerConfig.save(new File("plugins/RpgAPI/RpgPlayers.yml"));
             localeConfig.save(new File("plugins/RpgAPI/Locale.yml"));
@@ -323,6 +331,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
             if (classesOn){classConfig.save(new File("plugins/RpgAPI/Classes.yml"));}
             if (minionsOn){mobCommand.save(new File("plugins/RpgAPI/MobCommands.yml"));}
             if (poisonedEarthOn){poisonCommand.save(new File("plugins/RpgAPI/Poisons.yml"));}
+            if (warpsOn){warpConfig.save(new File("plugins/RpgAPI/WarpConfig.yml"));}
         } catch (IOException e) {
         }
         for (String s : localeConfig.getConfigurationSection("Translations").getKeys(false)){
@@ -334,6 +343,8 @@ public class RpgAPI extends JavaPlugin implements Listener {
             commandSettings.put(command, commandRT);
         }
         //SetBuilder.minionCommand();
+
+        if (warpsOn){WarpSetBuilder.BuildSets();WarpBuilder.WarpLoader();}
         if (poisonedEarthOn){
         PoisonBuilder.newPoison();
         PoisonTimeChecker.PoisonRegionTimer();
