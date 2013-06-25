@@ -182,7 +182,7 @@ public class MinionEntity {
 
     /**
      * Used to set the elemental damaage type of a minion
-     * 
+     *
      * @param elemDmgtype Map of elemental damage types and values
      */
     public void setElemDmgtype(Map<ElementalType, Boolean> elemDmgtype) {
