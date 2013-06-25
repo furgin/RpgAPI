@@ -36,7 +36,7 @@ public class SQLHandler extends SQLOps {
     /**
      * Initialise a new connection using RPGApi settings
      *
-     * @return
+     * @return if connection was successfully established
      */
     public boolean initialise() {
         try {
@@ -57,7 +57,7 @@ public class SQLHandler extends SQLOps {
      * Any query which does not return a ResultSet object. Such as : INSERT,
      * UPDATE, CREATE TABLE...
      *
-     * @param query
+     * @param query SQL statement to be executed
      */
     public void standardQuery(String query) throws SQLException {
         this.refreshConnection();
@@ -67,7 +67,7 @@ public class SQLHandler extends SQLOps {
     /**
      * Check whether a field/entry exists in a database.
      *
-     * @param query
+     * @param query SQL statement to be executed
      * @return Whether or not a result has been found in the query.
      * @throws SQLException
      */
@@ -83,8 +83,8 @@ public class SQLHandler extends SQLOps {
      * sqlQuery("SELECT * FROM sometable;"); set.doSomething(); set.close();
      * -----
      *
-     * @param query
-     * @return ResultSet
+     * @param query SQL statement to be executed
+     * @return ResultSet the resultset of the executed query
      */
     public ResultSet sqlQuery(String query) throws SQLException {
         this.refreshConnection();
