@@ -57,7 +57,7 @@ public class WarpProcessor {
             Boolean aboveGround = false;
             while (aboveGround == false){
                 Block b = l.getBlock();
-                if (b.getType() != Material.AIR){
+                if (!(b.getType().equals(Material.AIR))){
                     l.setY(l.getY()+3);
                 } else {
                     aboveGround = true;
