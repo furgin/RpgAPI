@@ -72,6 +72,10 @@ public class RpgWarp {
     private String permNeeded = "";
     //special behaviors for the warps to do
     private List<WarpBehavior> warpBehaviors = new ArrayList<WarpBehavior>();
+    //does the player need to be a certain level to use this warp?
+    private Boolean levelNeeded = false;
+    //if a level is required what should it be?
+    private Integer warpLevel = 1;
 
     public List<String> getLoreNeeded() {
         return loreNeeded;
@@ -255,6 +259,22 @@ public class RpgWarp {
 
     public void setWarpBehaviors(List<WarpBehavior> warpBehaviors) {
         this.warpBehaviors = warpBehaviors;
+    }
+
+    public Boolean getLevelNeeded() {
+        return levelNeeded;
+    }
+
+    public void setLevelNeeded(Boolean levelNeeded) {
+        this.levelNeeded = levelNeeded;
+    }
+
+    public Integer getWarpLevel() {
+        return warpLevel;
+    }
+
+    public void setWarpLevel(Integer warpLevel) {
+        this.warpLevel = warpLevel;
     }
     /*
      * All getters and setters listed below

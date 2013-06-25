@@ -23,45 +23,83 @@ import java.util.List;
  * You should have received a copy of the GNU General Public License
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**
+ *
+ */
 public class WarpSets {
     private String setName = "";
     private Boolean warpsRandom = false;
     private String setPermission = "";
     private List<RpgWarp> setWarps = new ArrayList<RpgWarp>();
 
+    /**
+     *
+     */
     public WarpSets(){
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSetPermission() {
         return setPermission;
     }
 
+    /**
+     *
+     * @param setPermission
+     */
     public void setSetPermission(String setPermission) {
         this.setPermission = setPermission;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getWarpsRandom() {
         return warpsRandom;
     }
 
+    /**
+     *
+     * @param warpsRandom
+     */
     public void setWarpsRandom(Boolean warpsRandom) {
         this.warpsRandom = warpsRandom;
     }
 
-
+    /**
+     *
+     * @return
+     */
     public String getSetName() {
         return setName;
     }
 
+    /**
+     *
+     * @param setName
+     */
     public void setSetName(String setName) {
         this.setName = setName;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<RpgWarp> getSetWarps() {
         return setWarps;
     }
 
+    /**
+     *
+     * @param setWarps
+     */
     public void setSetWarps(List<RpgWarp> setWarps) {
         this.setWarps = setWarps;
     }

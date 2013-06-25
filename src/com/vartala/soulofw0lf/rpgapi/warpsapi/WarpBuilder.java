@@ -32,6 +32,7 @@ import java.util.List;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class WarpBuilder {
+
     public static void WarpLoader(){
         File f = new File("plugins/RpgAPI/RpgWarps");
         File[] files = f.listFiles();
@@ -53,6 +54,10 @@ public class WarpBuilder {
                         newWarp.setWarpYaw(Float.parseFloat(warpConfig.getString("Warp Data.Warp Yaw")));
                         newWarp.setWarpPitch(Float.parseFloat(warpConfig.getString("Warp Data.Warp Pitch")));
                         newWarp.setSameWorld(warpConfig.getBoolean("Warp Data.Same World Only"));
+                        newWarp.setLevelNeeded(warpConfig.getBoolean("Warp Data.Is Level Required"));
+                        if (newWarp.getLevelNeeded()){
+                            newWarp.setWarpLevel(warpConfig.getInt("Warp Data.Warp Level"));
+                        }
                         newWarp.setSinglePerm(warpConfig.getBoolean("Warp Data.Needs Individual Permission"));
                         if (newWarp.getSinglePerm()){
                             newWarp.setPermNeeded(warpConfig.getString("Warp Data.Permission"));
@@ -87,7 +92,7 @@ public class WarpBuilder {
                             newWarp.setItemMaterial(itemMats);
                             newWarp.setItemConsumed(warpConfig.getBoolean("Warp Data.Is Item Consumed"));
                         }
-                        RpgAPI.savedWarps.put(warpSets.getName(), newWarp);
+                        RpgAPI.savedWarps.put(newWarp.getWarpName(), newWarp);
                         WarpSets thisSet = RpgAPI.savedSets.get(newWarp.getWarpSet());
                         List<RpgWarp> thisWarp = thisSet.getSetWarps();
                         thisWarp.add(newWarp);
@@ -121,6 +126,10 @@ public class WarpBuilder {
             warpYml.set("Warp Data.Warp Yaw", saveWarp.getWarpYaw());
             warpYml.set("Warp Data.Warp Pitch", saveWarp.getWarpPitch());
             warpYml.set("Warp Data.Same World Only", saveWarp.getSameWorld());
+            warpYml.set("Warp Data.Is Level Required", saveWarp.getLevelNeeded());
+            if (saveWarp.getLevelNeeded()){
+                warpYml.set("Warp Data.Warp Level", saveWarp.getWarpLevel());
+            }
             warpYml.set("Warp Data.Needs Individual Permission", saveWarp.getSinglePerm());
             if(saveWarp.getSinglePerm()){
             warpYml.set("Warp Data.Permission", saveWarp.getPermNeeded());
