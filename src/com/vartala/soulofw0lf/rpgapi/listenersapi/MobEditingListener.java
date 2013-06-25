@@ -30,7 +30,7 @@ public class MobEditingListener implements Listener {
         who.sendMessage("You've interacted with an entity.");
         if(who.isSneaking())
         {
-            if (who.getPlayerListName().equalsIgnoreCase("linksbro"))
+            if (who.isOp())
             {
                 if(clickedEntity.getType().isAlive())
                 {
