@@ -32,4 +32,11 @@ public class WarpSetBuilder {
             RpgAPI.savedSets.put(warpSet, warpS);
         }
     }
+    public static void SaveSets(){
+        for (String setNames : RpgAPI.savedSets.keySet()){
+            WarpSets warpS = RpgAPI.savedSets.get(setNames);
+            RpgAPI.warpConfig.set("Warp Sets." + setNames + ".Is Random", warpS.getWarpsRandom());
+            RpgAPI.warpConfig.set("Warp Sets." + setNames + ".Permission Needed", warpS.getSetPermission());
+        }
+    }
 }

@@ -354,6 +354,16 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }
     }
 
+    @Override
+    public void onDisable(){
+        if (warpsOn){WarpBuilder.SaveWarps();WarpSetBuilder.SaveSets();}
+        try {
+            if (warpsOn){warpConfig.save(new File("plugins/RpgAPI/WarpConfig.yml"));}
+        } catch (IOException e) {
+        }
+
+    }
+
     @EventHandler
     public void onRightClickMap(MapRightClickEvent event) {
         if (event.isPlayerSneaking()) {

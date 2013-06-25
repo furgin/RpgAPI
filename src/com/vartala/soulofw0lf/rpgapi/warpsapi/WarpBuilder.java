@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,6 +104,59 @@ public class WarpBuilder {
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+    public static void SaveWarps(){
+        for (String thisWarp : RpgAPI.savedWarps.keySet()){
+            RpgWarp saveWarp = RpgAPI.savedWarps.get(thisWarp);
+            YamlConfiguration warpYml = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgWarps/" + saveWarp.getWarpSet() + "/" + saveWarp.getWarpName() + ".yml"));
+            warpYml.set("Warp Data.Warp Name", saveWarp.getWarpName());
+            warpYml.set("Warp Data.Cool Down", saveWarp.getWarpCoolDown());
+            warpYml.set("Warp Data.Warp X", saveWarp.getWarpX());
+            warpYml.set("Warp Data.Warp Y", saveWarp.getWarpY());
+            warpYml.set("Warp Data.Warp Z", saveWarp.getWarpZ());
+            warpYml.set("Warp Data.Warp World", saveWarp.getWorldName());
+            warpYml.set("Warp Data.Warp Yaw", saveWarp.getWarpYaw());
+            warpYml.set("Warp Data.Warp Pitch", saveWarp.getWarpPitch());
+            warpYml.set("Warp Data.Same World Only", saveWarp.getSameWorld());
+            warpYml.set("Warp Data.Needs Individual Permission", saveWarp.getSinglePerm());
+            if(saveWarp.getSinglePerm()){
+            warpYml.set("Warp Data.Permission", saveWarp.getPermNeeded());
+            }
+            warpYml.set("Warp Data.Use Variance", saveWarp.getVariance());
+            if (saveWarp.getVariance()){
+            warpYml.set("Warp Data.Radius For Variance", saveWarp.getWarpVariance());
+            }
+            warpYml.set("Warp Data.Is Item Needed", saveWarp.getItemNeeded());
+            if (saveWarp.getItemNeeded()){
+                warpYml.set("Warp Data.Use Item For Warp", saveWarp.getUseItemForWarp());
+                warpYml.set("Warp Data.Is Lore Needed", saveWarp.getNeedsLore());
+                if (saveWarp.getNeedsLore()){
+                    List<String> neededLores = saveWarp.getLoreNeeded();
+                    for (String lores : neededLores){
+                        warpYml.set("Warp Data.Lore List." + lores, true);
+                    }
+
+                }
+                warpYml.set("Warp Data.Is Item Name Needed", saveWarp.getItemNeedsName());
+                if (saveWarp.getItemNeedsName()){
+                    List<String> namesNeeded = saveWarp.getItemNames();
+                    for (String itemName : namesNeeded){
+                        warpYml.set("Warp Data.Names Needed." + itemName, true);
+                    }
+
+                }
+                List<Material> itemMats = saveWarp.getItemMaterial();
+                for (Material materials : itemMats){
+                    warpYml.set("Warp Data.Item Material." + materials.toString(), true);
+                }
+
+                warpYml.set("Warp Data.Is Item Consumed", saveWarp.getItemConsumed());
+                try {
+                    warpYml.save(new File("plugins/RpgAPI/RpgWarps/" + saveWarp.getWarpSet() + "/" + saveWarp.getWarpName() + ".yml"));
+                } catch (IOException e) {
                 }
             }
         }
