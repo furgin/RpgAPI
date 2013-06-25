@@ -48,7 +48,7 @@ public class RPGLogging {
      * <p>
      * Any process that logs a severe warning is at great risk of failing.
      *
-     * @param message
+     * @param message message to be logged to console
      */
     public static void logSevere(String message){
         log.severe(prefix + message);

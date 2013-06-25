@@ -34,6 +34,11 @@ import java.util.Map;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class RpgPlayerBuilder {
+    /**
+     * Used to save an RpgPlayer object to a player's account
+     * @param name Nickname to save the RpgPlayer object to
+     * @param rp RpgPlayer object to be saved
+     */
     public static void RpgSaver(String name, RpgPlayer rp){
         if (RpgAPI.useMySql){
             //TODO do stuff here LinksBro
@@ -289,6 +294,13 @@ public class RpgPlayerBuilder {
             System.out.println("Time to save in millis: "+(after-before));
         }
     }
+
+    /**
+     * Used to create a new RpgPlayer object by loading information from a file/database
+     *
+     * @param p playerNickname to be loaded
+     * @return returns the newly created RpgPlayer, initialised with loaded data
+     */
     public static RpgPlayer RpgBuilder(String p){
         RpgPlayer rp = new RpgPlayer();
         if (RpgAPI.useMySql){
