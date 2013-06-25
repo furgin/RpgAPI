@@ -1,0 +1,89 @@
+package com.vartala.soulofw0lf.rpgapi.warpsapi;
+
+import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by: soulofw0lf
+ * Date: 6/24/13
+ * Time: 6:29 PM
+ * <p/>
+ * This file is part of the Rpg Suite Created by Soulofw0lf and Linksy.
+ * <p/>
+ * The Rpg Suite is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p/>
+ * The Rpg Suite is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
+ */
+public class WarpBuilder {
+    public static void WarpLoader(){
+        File f = new File("plugins/RpgAPI/RpgWarps");
+        File[] files = f.listFiles();
+        if (files != null){
+            for (File warpSets : files){
+                File r = new File("plugins/RpgAPI/RpgWarps/" + warpSets);
+                File[] files1 = r.listFiles();
+                if (files != null){
+                    for (File warpFiles : files1){
+                        YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(warpFiles);
+                        RpgWarp newWarp = new RpgWarp();
+                        newWarp.setWarpSet(warpSets.getName());
+                        newWarp.setWarpName(warpConfig.getString("Warp Data.Warp Name"));
+                        newWarp.setWarpCoolDown(warpConfig.getInt("Warp Data.Cool Down"));
+                        newWarp.setWarpX(warpConfig.getDouble("Warp Data.Warp X"));
+                        newWarp.setWarpY(warpConfig.getDouble("Warp Data.Warp Y"));
+                        newWarp.setWarpZ(warpConfig.getDouble("Warp Data.Warp Z"));
+                        newWarp.setWorldName(warpConfig.getString("Warp Data.Warp World"));
+                        newWarp.setWarpYaw(Float.parseFloat(warpConfig.getString("Warp Data.Warp Yaw")));
+                        newWarp.setWarpPitch(Float.parseFloat(warpConfig.getString("Warp Data.Warp Pitch")));
+                        newWarp.setSameWorld(warpConfig.getBoolean("Warp Data.Same World Only"));
+                        newWarp.setVariance(warpConfig.getBoolean("Warp Data.Use Variance"));
+                        if (newWarp.getVariance()){
+                            newWarp.setWarpVariance(warpConfig.getInt("Warp Data.Radius For Variance"));
+                        }
+                        newWarp.setItemNeeded(warpConfig.getBoolean("Warp Data.Is Item Needed"));
+                        if (newWarp.getItemNeeded()){
+                            newWarp.setUseItemForWarp(warpConfig.getBoolean("Warp Data.Use Item For Warp"));
+                            newWarp.setNeedsLore(warpConfig.getBoolean("Warp Data.Is Lore Needed"));
+                            if (newWarp.getNeedsLore()){
+                                List<String> neededLores = new ArrayList<String>();
+                                for (String lores : warpConfig.getConfigurationSection("Warp Data.Lore List").getKeys(false)){
+                                    neededLores.add(lores);
+                                }
+                                newWarp.setLoreNeeded(neededLores);
+                            }
+                            newWarp.setItemNeedsName(warpConfig.getBoolean("Warp Data.Is Item Name Needed"));
+                            if (newWarp.getItemNeedsName()){
+                                List<String> namesNeeded = new ArrayList<String>();
+                                for (String itemName : warpConfig.getConfigurationSection("Warp Data.Names Needed").getKeys(false)){
+                                    namesNeeded.add(itemName);
+                                }
+                                newWarp.setItemNames(namesNeeded);
+                            }
+                            List<Material> itemMats = new ArrayList<Material>();
+                            for (String materials : warpConfig.getConfigurationSection("Warp Data.Item Materials").getKeys(false)){
+                                itemMats.add(Material.valueOf(materials));
+                            }
+                            newWarp.setItemMaterial(itemMats);
+                            newWarp.setItemConsumed(warpConfig.getBoolean("Warp Data.Is Item Consumed"));
+                        }
+                        RpgAPI.savedWarps.put(warpSets.getName(), newWarp);
+                    }
+                }
+            }
+        }
+    }
+}
