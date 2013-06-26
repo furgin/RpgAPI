@@ -66,8 +66,7 @@ public class RpgPlayer {
     //does the player already have a food buff
 	private boolean buffed = false;
 
-    //food items a player has eaten
-    private List<String> eatenItems = new ArrayList<String>();
+
 
 	
 	/*
@@ -200,6 +199,18 @@ public class RpgPlayer {
 
     //list of all titles a player has earned
 	private List<String> titles = new ArrayList<String>();
+
+    //list of mobs killed with counter
+    private Map<String, Integer> mobKills = new HashMap<>();
+
+    //list of players killed with counter
+    private Map<String, Integer> playerKills = new HashMap<>();
+
+    //food items a player has eaten
+    private Map<String, Integer> eatenItems = new HashMap<>();
+
+    //Items used
+    private Map<String, Integer> itemsUsed = new HashMap<>();
 
 	
 	/*
@@ -1074,11 +1085,35 @@ public class RpgPlayer {
         this.realName = realName;
     }
 
-    public List<String> getEatenItems() {
+    public Map<String, Integer> getEatenItems() {
         return eatenItems;
     }
 
-    public void setEatenItems(List<String> eatenItems) {
+    public void setEatenItems(Map<String, Integer> eatenItems) {
         this.eatenItems = eatenItems;
+    }
+
+    public Map<String, Integer> getPlayerKills() {
+        return playerKills;
+    }
+
+    public void setPlayerKills(Map<String, Integer> playerKills) {
+        this.playerKills = playerKills;
+    }
+
+    public Map<String, Integer> getMobKills() {
+        return mobKills;
+    }
+
+    public void setMobKills(Map<String, Integer> mobKills) {
+        this.mobKills = mobKills;
+    }
+
+    public Map<String, Integer> getItemsUsed() {
+        return itemsUsed;
+    }
+
+    public void setItemsUsed(Map<String, Integer> itemsUsed) {
+        this.itemsUsed = itemsUsed;
     }
 }

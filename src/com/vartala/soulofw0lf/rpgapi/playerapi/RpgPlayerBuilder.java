@@ -2,7 +2,6 @@ package com.vartala.soulofw0lf.rpgapi.playerapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.enumapi.*;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -72,7 +71,7 @@ public class RpgPlayerBuilder {
                 //does the player already have a food buff
                 if (RpgAPI.foodOn){
                     playerFile.set(p + ".RpgFood.Food Buffed", rp.isBuffed());
-                    playerFile.set(p + ".RpgFood.Food Consumed", rp.getEatenItems());
+
                 }
 
                 /*
@@ -175,6 +174,17 @@ public class RpgPlayerBuilder {
                     playerFile.set(p + ".RpgAchievements.Active Suffix", rp.getActiveSuffix());
                     //list of all titles a player has earned
                     playerFile.set(p + ".RpgAchievements.Titles", rp.getTitles());
+                    //list of mobs killed with counter
+                    playerFile.set(p + ".RpgAchievements.Mob Kills", rp.getMobKills());
+
+                    //list of players killed with counter
+                    playerFile.set(p + ".RpgAchievements.Player Kills", rp.getPlayerKills());
+
+                    //food items a player has eaten
+                    playerFile.set(p + ".RpgAchievements.Food Consumed", rp.getEatenItems());
+
+                    //Items used
+                    playerFile.set(p + ".RpgAchievements.Items Used", rp.getItemsUsed());
                 }
             	/*
 	            * rpg click variables
@@ -192,7 +202,7 @@ public class RpgPlayerBuilder {
                     //all languages a player knows
                     playerFile.set(p + ".RpgLanguages.Known Languages", rp.getKnownLanguages());
                     //should languages a player doesn't know be shown in chat?
-                    playerFile.set(p + ".RpgLangauges.Languages In Chat", rp.showLanguagesInChat());
+                    playerFile.set(p + ".RpgLanguages.Languages In Chat", rp.showLanguagesInChat());
                 }
                 /*
 	            * rpg lobby variables
@@ -314,6 +324,7 @@ public class RpgPlayerBuilder {
      * @param p playerNickname to be loaded
      * @return returns the newly created RpgPlayer, initialised with loaded data
      */
+
     public static RpgPlayer RpgBuilder(String p){
         RpgPlayer rp = new RpgPlayer();
         if (RpgAPI.useMySql){
@@ -537,6 +548,19 @@ public class RpgPlayerBuilder {
                     playerTitles.add("The Recruit");
                     playerTitles.add("Server Joiner");
                     rp.setTitles(playerTitles);
+                    Map<String, Integer> ei = rp.getEatenItems();
+                    ei.put("Bread", 1);
+                    rp.setEatenItems(ei);
+                    Map<String, Integer> mk = rp.getMobKills();
+                    mk.put("Pig", 1);
+                    rp.setMobKills(mk);
+                    Map<String, Integer> pk = rp.getPlayerKills();
+                    pk.put("Notch", 1);
+                    rp.setPlayerKills(pk);
+                    Map<String, Integer> iu = rp.getItemsUsed();
+                    iu.put("Stone of Destiny", 1);
+                    rp.setItemsUsed(iu);
+
                 }
                 if (RpgAPI.clickOn){rp.setClick(true);}
                 if (RpgAPI.lobbyOn){
@@ -605,7 +629,7 @@ public class RpgPlayerBuilder {
                 //does the player already have a food buff
                 if (RpgAPI.foodOn){
                     rp.setBuffed(playerFile.getBoolean(p + ".RpgFood.Food Buffed"));
-                    rp.setEatenItems(playerFile.getStringList(p + ".RpgFood.Food Consumed"));
+
                 }
 
                 /*
@@ -712,6 +736,31 @@ public class RpgPlayerBuilder {
                     rp.setActiveSuffix(playerFile.getString(p + ".RpgAchievements.Active Suffix"));
                     //list of all titles a player has earned
                     rp.setTitles((List<String>) playerFile.getList(p + ".RpgAchievements.Titles"));
+
+                    Map<String, Integer> t = rp.getEatenItems();
+                    for (String key : playerFile.getConfigurationSection(p + ".RpgAchievements.Food Consumed").getKeys(false)){
+                        t.put(key, playerFile.getInt(p + ".RpgAchievements.Food Consumed." + key));
+                    }
+                    rp.setEatenItems(t);
+
+                    Map<String, Integer> r = rp.getMobKills();
+                    for (String key : playerFile.getConfigurationSection(p + ".RpgAchievements.Mob Kills").getKeys(false)){
+                        r.put(key, playerFile.getInt(p + ".RpgAchievements.Mob Kills." + key));
+                    }
+                    rp.setMobKills(r);
+
+                    Map<String, Integer> v = rp.getPlayerKills();
+                    for (String key : playerFile.getConfigurationSection(p + ".RpgAchievements.Player Kills").getKeys(false)){
+                        v.put(key, playerFile.getInt(p + ".RpgAchievements.Player Kills." + key));
+                    }
+                    rp.setPlayerKills(v);
+
+                    Map<String, Integer> q = rp.getItemsUsed();
+                    for (String key : playerFile.getConfigurationSection(p + ".RpgAchievements.Items Used").getKeys(false)){
+                        q.put(key, playerFile.getInt(p + ".RpgAchievements.Items Used." + key));
+                    }
+                    rp.setItemsUsed(q);
+
                 }
             	/*
 	            * rpg click variables
@@ -729,7 +778,7 @@ public class RpgPlayerBuilder {
                     //all languages a player knows
                     rp.setKnownLanguages((List<String>)playerFile.getList(p + ".RpgLanguages.Known Languages"));
                     //should languages a player doesn't know be shown in chat?
-                    rp.setLanguagesInChat(playerFile.getBoolean(p + ".RpgLangauges.Languages In Chat"));
+                    rp.setLanguagesInChat(playerFile.getBoolean(p + ".RpgLanguages.Languages In Chat"));
                 }
                 /*
 	            * rpg lobby variables
