@@ -29,25 +29,25 @@ public class RpgPlayer {
     private String realName = "";
 
     //player TP invite state
-	private boolean hasTpInvite = false;
+	private boolean tpInviteState = false;
 
     //is the player currently in a menu
-	private boolean isInMenu = false;
+	private boolean menuOpen = false;
 
     //get wether a player has moved from a previous position
-	private boolean hasMoved = false;
+	private boolean locationChanged = false;
 
     //player Lawful / neutral / chaotic alignment
-    private String playerLCAlignment = "";
+    private String lawfulAlignment = "";
 
     //players Good Neutral Evil Alignment
-    private String playerGEAlignment = "";
+    private String goodAlignment = "";
 
     //is the player immune to poison
     private boolean poisonProof = false;
 
     //is the player currently poisoned
-    private boolean isPoisoned = false;
+    private boolean poisoned = false;
 
 	
 	/*
@@ -61,33 +61,36 @@ public class RpgPlayer {
 	 * rpgfood variables
 	 */
     //is the player currently eatting
-	private boolean isEating = false;
+	private boolean eating = false;
 
     //does the player already have a food buff
-	private boolean hasBuff = false;
+	private boolean buffed = false;
+
+    //food items a player has eaten
+    private List<String> eatenItems = new ArrayList<String>();
 
 	
 	/*
 	 * rpg party variables
 	 */
     //does the player have a pending party invite
-	private boolean isPartyInvited = false;
+	private boolean partyInvite = false;
 
     //does the player want a gui to automatically
     //open when being invited to partys
 	private boolean partyGui = true;
 
     //is the player in a party
-	private boolean isInParty = false;
+	private boolean inParty = false;
 
     //auto pass on rolls
-	private boolean allPass = false;
+	private boolean passingRolls = false;
 
     //auto need on rolls
-	private boolean allNeed = false;
+	private boolean needingRolls = false;
 
     //auto greed on rolls
-    private boolean allGreed = false;
+    private boolean greedingRolls = false;
 
     //auto open loot window for player
 	private boolean lootGui = true;
@@ -98,13 +101,13 @@ public class RpgPlayer {
 	 */
 
     //does the player have a pending guild invite
-	private boolean isGuildInvited = false;
+	private boolean guildInvite = false;
 
     //should the guild accept gui auto open on a guild invitation
 	private boolean guildGui = true;
 
     //is the player in a guild
-	private boolean isInGuild = false;
+	private boolean inGuild = false;
 
     //what is the players guild name
 	private String guild = "";
@@ -127,7 +130,7 @@ public class RpgPlayer {
 	 * trade variables
 	 */
     //is the player currently in trade
-	private boolean isInTrade = false;
+	private boolean inTrade = false;
 
     //the players total Copper
     private int copper = 0;
@@ -146,11 +149,8 @@ public class RpgPlayer {
 	 * chat variables
 	 */
 
-    //all channels a player is in
-    private List<String> chatChannels = new ArrayList<String>();
-
     //colors of chat channel mapped to channel name
-	private Map<String, ChatColor> channelColors = new HashMap<>();
+	private Map<String, String> channelColor = new HashMap<>();
 
     //active channel a player is talking in
 	private String activeChannel = "";
@@ -159,7 +159,7 @@ public class RpgPlayer {
 	private List<String> ignoreList = new ArrayList<String>();
 
 	//does the player have a pending chat invite
-	private boolean isChatInvited = false;
+	private boolean chatInvite = false;
 
 	//list of channels the player has invites for
 	private List<String> invitedChats = new ArrayList<String>();
@@ -177,16 +177,16 @@ public class RpgPlayer {
     private List<String> modChats = new ArrayList<String>();
 
     //is chat spy toggled on or off
-    private boolean chatSpy = false;
+    private boolean SpyingOnChats = false;
 
     /*
      * booleans for which message prefixes are shown in chat
      */
-    private boolean showGuildTags = true;
-    private boolean showAchieveTitles = true;
-    private boolean showChannelNames = true;
-    private boolean showLanguageNames = true;
-    private boolean showWorldName = true;
+    private boolean showingGuildTags = true;
+    private boolean showingAchieveTitles = true;
+    private boolean showingChannelNames = true;
+    private boolean showingLanguageNames = true;
+    private boolean showingWorldName = true;
 	
 	/*
 	 * rpg achievements variables
@@ -206,7 +206,7 @@ public class RpgPlayer {
 	 * rpg click variables
 	 */
     //should the player use the default shift click on player behavior
-	private boolean defaultClick = true;
+	private boolean UseClick = true;
 
 	
 	/*
@@ -220,7 +220,7 @@ public class RpgPlayer {
 	private List<String> knownLanguages = new ArrayList<String>();
 
     //should languages a player doesn't know be shown in chat?
-	private boolean showLanguages = true; 
+	private boolean languagesInChat = true;
 
 		
 	
@@ -229,7 +229,7 @@ public class RpgPlayer {
 	 */
 
     //is the player in a lobby?
-	private boolean isInLobby = false;
+	private boolean inLobby = false;
 
     //serialised armor inventory for a player
     private String armorInventory = "";
@@ -261,19 +261,19 @@ public class RpgPlayer {
 	private List<String> petsOwned = new ArrayList<String>();
 
     //does the player have an active pet
-	private boolean hasActivePet = false;
+	private boolean petActive = false;
 
     //active pets name
 	private String activePet = "";
 
     //does the player have agro
-    private boolean hasAgro = false;
+    private boolean agro = false;
 
     //is the player in combat
-    private boolean isInCombat = false;
+    private boolean inCombat = false;
 
     //a players current agro rating
-    private Integer agro = 0;
+    private Integer agroLevel = 0;
 	
 	/*
 	 * rpg Quest variables - comming soon?
@@ -300,10 +300,10 @@ public class RpgPlayer {
      */
 
     //number for current reputation with a faction
-    private Map<Reputation, Integer> reputationLevels = new HashMap<>();
+    private Map<String, Integer> reputationLevels = new HashMap<>();
 
     //wether or not a player has discovered a factions existance
-    private Map<Reputation, Boolean> factionsDiscovered = new HashMap<>();
+    private List<Reputation> factionsDiscovered = new ArrayList<Reputation>();
 	
 	
 	/*
@@ -311,20 +311,20 @@ public class RpgPlayer {
 	 */
 
     //does the player have a pending rez?
-	private boolean hasRez = false;
+	private boolean ressurectionPending = false;
 
     //is the player currently rezz'ing someone
-	private boolean isRezzing = false;
+	private boolean ressurecting = false;
 
     //is the player dead
-	private boolean isDead = false;
+	private boolean dead = false;
 
 	/*
 	 * rpgclasses variables
 	 */
 	
     //players class name
-	private String playerClass = "";
+	private String className = "";
 
     //a map of the values for every player stat (sorted by enum)
 	private Map<PlayerStat, Integer> stats = new HashMap<>();
@@ -333,28 +333,28 @@ public class RpgPlayer {
     private Map<PlayerText, String> playerText = new HashMap<>();
 
     //true or false for each type of damage a player is resistant to
-	private Map<DamageType, Boolean> drTypes = new HashMap<>();
+	private Map<DamageType, Integer> drTypes = new HashMap<>();
 
     //true or false for the damage types a player is currently doing
-	private Map<DamageType, Boolean> dmgType = new HashMap<>();
+	private Map<DamageType, Integer> dmgTypes = new HashMap<>();
 
     //true or false for the elemental damage types a player is currently doing
-	private Map<ElementalType, Boolean> elemDmgtype = new HashMap<>();
+	private Map<ElementalType, Integer> elemDmgTypes = new HashMap<>();
 
     //true or false for each type of elemental damage a player is resistant to
-    private Map<ElementalType, Integer> elemRestype = new HashMap<>();
+    private Map<ElementalType, Integer> elemResTypes = new HashMap<>();
 
     //list of all feats a player has
-	private List<Feat> hasFeats = new ArrayList<Feat>();
+	private List<Feat> feats = new ArrayList<Feat>();
 
     //skills a player has ranks in and how many ranks they have
 	private Map<PlayerSkill, Integer> skills = new HashMap<>();
 
     //true or false list of all spells for which a player knows
-	private Map<Spell, Boolean> spells = new HashMap<>();
+	private List<Spell> spells = new ArrayList<Spell>();
 
     //spells per level per combat
-	private Map<Integer, Integer> spellsPerCombat = new HashMap<>();
+	private Map<String, Integer> spellsPerCombat = new HashMap<>();
 
     //is the player wearing aromor he isn't proficient with
     private Boolean encumbered = false;
@@ -369,599 +369,77 @@ public class RpgPlayer {
 	{
 		
 	}
-		
 
-
-	public boolean isHasTpInvite() {
-		return hasTpInvite;
-	}
-
-
-	public void setHasTpInvite(boolean hasTpInvite) {
-		this.hasTpInvite = hasTpInvite;
-	}
-
-
-	public boolean isInMenu() {
-		return isInMenu;
-	}
-
-
-	public void setInMenu(boolean isInMenu) {
-		this.isInMenu = isInMenu;
-	}
-
-
-	public boolean isHasMoved() {
-		return hasMoved;
-	}
-
-
-	public void setHasMoved(boolean hasMoved) {
-		this.hasMoved = hasMoved;
-	}
-
-
-	public boolean isEating() {
-		return isEating;
-	}
-
-
-	public void setEating(boolean isEating) {
-		this.isEating = isEating;
-	}
-
-
-	public boolean isHasBuff() {
-		return hasBuff;
-	}
-
-
-	public void setHasBuff(boolean hasBuff) {
-		this.hasBuff = hasBuff;
-	}
-
-
-	public boolean isPartyInvited() {
-		return isPartyInvited;
-	}
-
-
-	public void setPartyInvited(boolean isPartyInvited) {
-		this.isPartyInvited = isPartyInvited;
-	}
-
-
-	public boolean isPartyGui() {
-		return partyGui;
-	}
-
-
-	public void setPartyGui(boolean partyGui) {
-		this.partyGui = partyGui;
-	}
-
-
-	public boolean isInParty() {
-		return isInParty;
-	}
-
-
-	public void setInParty(boolean isInParty) {
-		this.isInParty = isInParty;
-	}
-
-
-	public boolean isAllPass() {
-		return allPass;
-	}
-
-
-	public void setAllPass(boolean allPass) {
-		this.allPass = allPass;
-	}
-
-
-	public boolean isLootGui() {
-		return lootGui;
-	}
-
-
-	public void setLootGui(boolean lootGui) {
-		this.lootGui = lootGui;
-	}
-
-
-	public boolean isGuildInvited() {
-		return isGuildInvited;
-	}
-
-
-	public void setGuildInvited(boolean isGuildInvited) {
-		this.isGuildInvited = isGuildInvited;
-	}
-
-
-	public boolean isGuildGui() {
-		return guildGui;
-	}
-
-
-	public void setGuildGui(boolean guildGui) {
-		this.guildGui = guildGui;
-	}
-
-
-	public boolean isInGuild() {
-		return isInGuild;
-	}
-
-
-	public void setInGuild(boolean isInGuild) {
-		this.isInGuild = isInGuild;
-	}
-
-
-	public String getGuild() {
-		return guild;
-	}
-
-
-	public void setGuild(String guild) {
-		this.guild = guild;
-	}
-
-
-	public String getGuildRank() {
-		return guildRank;
-	}
-
-
-	public void setGuildRank(String guildRank) {
-		this.guildRank = guildRank;
-	}
-
-
-	public boolean isFriendsGui() {
-		return friendsGui;
-	}
-
-
-	public void setFriendsGui(boolean friendsGui) {
-		this.friendsGui = friendsGui;
-	}
-
-
-	public List<String> getFriendsList() {
-		return friendsList;
-	}
-
-
-	public void setFriendsList(List<String> friendsList) {
-		this.friendsList = friendsList;
-	}
-
-
-	public boolean isInTrade() {
-		return isInTrade;
-	}
-
-
-	public void setInTrade(boolean isInTrade) {
-		this.isInTrade = isInTrade;
-	}
-
-
-	public List<String> getChatChannels() {
-		return chatChannels;
-	}
-
-
-	public void setChatChannels(List<String> chatChannels) {
-		this.chatChannels = chatChannels;
-	}
-
-
-	public String getActiveChannel() {
-		return activeChannel;
-	}
-
-
-	public void setActiveChannel(String activeChannel) {
-		this.activeChannel = activeChannel;
-	}
-
-
-	public List<String> getIgnoreList() {
-		return ignoreList;
-	}
-
-
-	public void setIgnoreList(List<String> ignoreList) {
-		this.ignoreList = ignoreList;
-	}
-
-
-	public boolean isChatInvited() {
-		return isChatInvited;
-	}
-
-
-	public void setChatInvited(boolean isChatInvited) {
-		this.isChatInvited = isChatInvited;
-	}
-
-
-	public List<String> getInvitedChats() {
-		return invitedChats;
-	}
-
-
-	public void setInvitedChats(List<String> invitedChats) {
-		this.invitedChats = invitedChats;
-	}
-
-
-	public String getActivePrefix() {
-		return activePrefix;
-	}
-
-
-	public void setActivePrefix(String activePrefix) {
-		this.activePrefix = activePrefix;
-	}
-
-
-	public String getActiveSuffix() {
-		return activeSuffix;
-	}
-
-
-	public void setActiveSuffix(String activeSuffix) {
-		this.activeSuffix = activeSuffix;
-	}
-
-
-	public List<String> getTitles() {
-		return titles;
-	}
-
-
-	public void setTitles(List<String> titles) {
-		this.titles = titles;
-	}
-
-
-	public boolean isDefaultClick() {
-		return defaultClick;
-	}
-
-
-	public void setDefaultClick(boolean defaultClick) {
-		this.defaultClick = defaultClick;
-	}
-
-
-	public String getActiveLanguage() {
-		return activeLanguage;
-	}
-
-
-	public void setActiveLanguage(String activeLanguage) {
-		this.activeLanguage = activeLanguage;
-	}
-
-
-	public List<String> getKnownLanguages() {
-		return knownLanguages;
-	}
-
-
-	public void setKnownLanguages(List<String> knownLanguages) {
-		this.knownLanguages = knownLanguages;
-	}
-
-
-	public boolean isShowLanguages() {
-		return showLanguages;
-	}
-
-
-	public void setShowLanguages(boolean showLanguages) {
-		this.showLanguages = showLanguages;
-	}
-
-
-	public boolean isInLobby() {
-		return isInLobby;
-	}
-
-
-	public void setInLobby(boolean isInLobby) {
-		this.isInLobby = isInLobby;
-	}
-
-
-	public List<String> getPetsOwned() {
-		return petsOwned;
-	}
-
-
-	public void setPetsOwned(List<String> petsOwned) {
-		this.petsOwned = petsOwned;
-	}
-
-
-	public boolean isHasActivePet() {
-		return hasActivePet;
-	}
-
-
-	public void setHasActivePet(boolean hasActivePet) {
-		this.hasActivePet = hasActivePet;
-	}
-
-
-	public String getActivePet() {
-		return activePet;
-	}
-
-
-	public void setActivePet(String activePet) {
-		this.activePet = activePet;
-	}
-
-
-	public boolean isHasRez() {
-		return hasRez;
-	}
-
-
-	public void setHasRez(boolean hasRez) {
-		this.hasRez = hasRez;
-	}
-
-
-	public boolean isRezzing() {
-		return isRezzing;
-	}
-
-
-	public void setRezzing(boolean isRezzing) {
-		this.isRezzing = isRezzing;
-	}
-
-
-	public boolean isDead() {
-		return isDead;
-	}
-
-
-	public void setDead(boolean isDead) {
-		this.isDead = isDead;
-	}
-
-
-	public String getPlayerClass() {
-		return playerClass;
-	}
-
-    public void setPlayerClass(String playerclass){
-        this.playerClass = playerclass;
+    public Boolean isEncumbered() {
+        return encumbered;
     }
 
-
-	public Map<PlayerStat, Integer> getStats() {
-		return stats;
-	}
-
-
-	public void setStats(Map<PlayerStat, Integer> stats) {
-		this.stats = stats;
-	}
-
-
-	public Map<DamageType, Boolean> getDrTypes() {
-		return drTypes;
-	}
-
-
-	public void setDrTypes(Map<DamageType, Boolean> drTypes) {
-		this.drTypes = drTypes;
-	}
-
-
-	public Map<DamageType, Boolean> getDmgType() {
-		return dmgType;
-	}
-
-
-	public void setDmgType(Map<DamageType, Boolean> dmgType) {
-		this.dmgType = dmgType;
-	}
-
-
-	public Map<ElementalType, Boolean> getElemDmgtype() {
-		return elemDmgtype;
-	}
-
-
-	public void setElemDmgtype(Map<ElementalType, Boolean> elemDmgtype) {
-		this.elemDmgtype = elemDmgtype;
-	}
-
-
-	public Map<ElementalType, Integer> getElemRestype() {
-		return elemRestype;
-	}
-
-
-	public void setElemRestype(Map<ElementalType, Integer> elemRestype) {
-		this.elemRestype = elemRestype;
-	}
-
-
-	public List<Feat> getHasFeats() {
-		return hasFeats;
-	}
-
-
-	public void setHasFeats(List<Feat> hasFeats) {
-		this.hasFeats = hasFeats;
-	}
-
-
-
-	public Map<PlayerSkill, Integer> getSkills() {
-		return skills;
-	}
-
-
-
-	public void setSkills(Map<PlayerSkill, Integer> skills) {
-		this.skills = skills;
-	}
-
-
-
-	public String getRace() {
-		return race;
-	}
-
-
-
-	public void setRace(String race) {
-		this.race = race;
-	}
-
-
-
-	public Map<Spell, Boolean> getSpells() {
-		return spells;
-	}
-
-
-
-	public void setSpells(Map<Spell, Boolean> spells) {
-		this.spells = spells;
-	}
-
-
-
-	public Map<Integer, Integer> getSpellsPerCombat() {
-		return spellsPerCombat;
-	}
-
-
-
-	public void setSpellsPerCombat(Map<Integer, Integer> spellsPerCombat) {
-		this.spellsPerCombat = spellsPerCombat;
-	}
-
-
-
-    public Integer getAgro() {
-        return agro;
+    public void setEncumbered(Boolean encumbered) {
+        this.encumbered = encumbered;
     }
 
-    public void setAgro(Integer agro) {
-        this.agro = agro;
+    public Map<String, Integer> getSpellsPerCombat() {
+        return spellsPerCombat;
     }
 
-    public boolean isHasAgro() {
-        return hasAgro;
+    public void setSpellsPerCombat(Map<String, Integer> spellsPerCombat) {
+        this.spellsPerCombat = spellsPerCombat;
     }
 
-    public void setHasAgro(boolean hasAgro) {
-        this.hasAgro = hasAgro;
+    public List<Spell> getSpells() {
+        return spells;
     }
 
-    public boolean isInCombat() {
-        return isInCombat;
+    public void setSpells(List<Spell> spells) {
+        this.spells = spells;
     }
 
-    public void setInCombat(boolean inCombat) {
-        isInCombat = inCombat;
+    public Map<PlayerSkill, Integer> getSkills() {
+        return skills;
     }
 
-    public String getArmorInventory() {
-        return armorInventory;
+    public void setSkills(Map<PlayerSkill, Integer> skills) {
+        this.skills = skills;
     }
 
-    public void setArmorInventory(String armorInventory) {
-        this.armorInventory = armorInventory;
+    public List<Feat> getFeats() {
+        return feats;
     }
 
-    public String getInventoryContents() {
-        return inventoryContents;
+    public void setFeats(List<Feat> feats) {
+        this.feats = feats;
     }
 
-    public void setInventoryContents(String inventoryContents) {
-        this.inventoryContents = inventoryContents;
+    public Map<ElementalType, Integer> getElemResTypes() {
+        return elemResTypes;
     }
 
-    public Integer getCurrentHealth() {
-        return currentHealth;
+    public void setElemResTypes(Map<ElementalType, Integer> elemResTypes) {
+        this.elemResTypes = elemResTypes;
     }
 
-    public void setCurrentHealth(Integer currentHealth) {
-        this.currentHealth = currentHealth;
+    public Map<ElementalType, Integer> getElemDmgTypes() {
+        return elemDmgTypes;
     }
 
-    public List<String> getCurrentQuests() {
-        return currentQuests;
+    public void setElemDmgTypes(Map<ElementalType, Integer> elemDmgTypes) {
+        this.elemDmgTypes = elemDmgTypes;
     }
 
-    public void setCurrentQuests(List<String> currentQuests) {
-        this.currentQuests = currentQuests;
+    public Map<DamageType, Integer> getDmgTypes() {
+        return dmgTypes;
     }
 
-    public List<String> getCompletedQuests() {
-        return completedQuests;
+    public void setDmgTypes(Map<DamageType, Integer> dmgTypes) {
+        this.dmgTypes = dmgTypes;
     }
 
-    public void setCompletedQuests(List<String> completedQuests) {
-        this.completedQuests = completedQuests;
+    public Map<DamageType, Integer> getDrTypes() {
+        return drTypes;
     }
 
-    public Map<String, Integer> getQuestStages() {
-        return questStages;
-    }
-
-    public void setQuestStages(Map<String, Integer> questStages) {
-        this.questStages = questStages;
-    }
-
-    public String getActiveQuest() {
-        return activeQuest;
-    }
-
-    public void setActiveQuest(String activeQuest) {
-        this.activeQuest = activeQuest;
-    }
-
-    public Map<Reputation, Integer> getReputationLevels() {
-        return reputationLevels;
-    }
-
-    public void setReputationLevels(Map<Reputation, Integer> reputationLevels) {
-        this.reputationLevels = reputationLevels;
-    }
-
-    public Map<Reputation, Boolean> getFactionsDiscovered() {
-        return factionsDiscovered;
-    }
-
-    public void setFactionsDiscovered(Map<Reputation, Boolean> factionsDiscovered) {
-        this.factionsDiscovered = factionsDiscovered;
-    }
-
-    public Map<String, Integer> getQuestGoalCount() {
-        return questGoalCount;
-    }
-
-    public void setQuestGoalCount(Map<String, Integer> questGoalCount) {
-        this.questGoalCount = questGoalCount;
+    public void setDrTypes(Map<DamageType, Integer> drTypes) {
+        this.drTypes = drTypes;
     }
 
     public Map<PlayerText, String> getPlayerText() {
@@ -972,140 +450,148 @@ public class RpgPlayer {
         this.playerText = playerText;
     }
 
-    public String getPlayerLCAlignment() {
-        return playerLCAlignment;
+    public Map<PlayerStat, Integer> getStats() {
+        return stats;
     }
 
-    public void setPlayerLCAlignment(String playerLCAlignment) {
-        this.playerLCAlignment = playerLCAlignment;
+    public void setStats(Map<PlayerStat, Integer> stats) {
+        this.stats = stats;
     }
 
-    public String getPlayerGEAlignment() {
-        return playerGEAlignment;
+    public String getClassName() {
+        return className;
     }
 
-    public void setPlayerGEAlignment(String playerGEAlignment) {
-        this.playerGEAlignment = playerGEAlignment;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
-    public List<String> getBannedChats() {
-        return bannedChats;
+    public boolean isDead() {
+        return dead;
     }
 
-    public void setBannedChats(List<String> bannedChats) {
-        this.bannedChats = bannedChats;
+    public void setDead(boolean dead) {
+        this.dead = dead;
     }
 
-    public List<String> getMutedChats() {
-        return mutedChats;
+    public boolean isRessurecting() {
+        return ressurecting;
     }
 
-    public void setMutedChats(List<String> mutedChats) {
-        this.mutedChats = mutedChats;
+    public void setRessurecting(boolean ressurecting) {
+        this.ressurecting = ressurecting;
     }
 
-    public List<String> getOwnedChats() {
-        return ownedChats;
+    public boolean hasRessurectionPending() {
+        return ressurectionPending;
     }
 
-    public void setOwnedChats(List<String> ownedChats) {
-        this.ownedChats = ownedChats;
+    public void setRessurectionPending(boolean ressurectionPending) {
+        this.ressurectionPending = ressurectionPending;
     }
 
-    public List<String> getModChats() {
-        return modChats;
+    public List<Reputation> getFactionsDiscovered() {
+        return factionsDiscovered;
     }
 
-    public void setModChats(List<String> modChats) {
-        this.modChats = modChats;
+    public void setFactionsDiscovered(List<Reputation> factionsDiscovered) {
+        this.factionsDiscovered = factionsDiscovered;
     }
 
-    public Map<String, ChatColor> getChannelColors() {
-        return channelColors;
+    public Map<String, Integer> getReputationLevels() {
+        return reputationLevels;
     }
 
-    public void setChannelColors(Map<String, ChatColor> channelColors) {
-        this.channelColors = channelColors;
+    public void setReputationLevels(Map<String, Integer> reputationLevels) {
+        this.reputationLevels = reputationLevels;
     }
 
-    public boolean isChatSpy() {
-        return chatSpy;
+    public Map<String, Integer> getQuestGoalCount() {
+        return questGoalCount;
     }
 
-    public void setChatSpy(boolean chatSpy) {
-        this.chatSpy = chatSpy;
+    public void setQuestGoalCount(Map<String, Integer> questGoalCount) {
+        this.questGoalCount = questGoalCount;
     }
 
-    public boolean isAllNeed() {
-        return allNeed;
+    public String getActiveQuest() {
+        return activeQuest;
     }
 
-    public void setAllNeed(boolean allNeed) {
-        this.allNeed = allNeed;
+    public void setActiveQuest(String activeQuest) {
+        this.activeQuest = activeQuest;
     }
 
-    public boolean isAllGreed() {
-        return allGreed;
+    public Map<String, Integer> getQuestStages() {
+        return questStages;
     }
 
-    public void setAllGreed(boolean allGreed) {
-        this.allGreed = allGreed;
+    public void setQuestStages(Map<String, Integer> questStages) {
+        this.questStages = questStages;
     }
 
-    public int getCopper() {
-        return copper;
+    public List<String> getCompletedQuests() {
+        return completedQuests;
     }
 
-    public void setCopper(int copper) {
-        this.copper = copper;
+    public void setCompletedQuests(List<String> completedQuests) {
+        this.completedQuests = completedQuests;
     }
 
-    public int getSilver() {
-        return silver;
+    public List<String> getCurrentQuests() {
+        return currentQuests;
     }
 
-    public void setSilver(int silver) {
-        this.silver = silver;
+    public void setCurrentQuests(List<String> currentQuests) {
+        this.currentQuests = currentQuests;
     }
 
-    public int getGold() {
-        return gold;
+    public Boolean hasAgro() {
+        return agro;
     }
 
-    public void setGold(int gold) {
-        this.gold = gold;
+    public void setAgroTarget(Boolean agro) {
+        this.agro = agro;
     }
 
-    public int getPlatinum() {
-        return platinum;
+    public boolean isInCombat() {
+        return inCombat;
     }
 
-    public void setPlatinum(int platinum) {
-        this.platinum = platinum;
+    public void setInCombat(boolean inCombat) {
+        this.inCombat = inCombat;
     }
 
-    public double getOldX() {
-        return oldX;
+    public Integer getAgroLevel() {
+        return agroLevel;
     }
 
-    public void setOldX(double oldX) {
-        this.oldX = oldX;
+    public void setAgroLevel(Integer agroLevel) {
+        this.agroLevel = agroLevel;
     }
 
-    public double getOldY() {
-        return oldY;
+    public String getActivePet() {
+        return activePet;
     }
 
-    public void setOldY(double oldY) {
-        this.oldY = oldY;
+    public void setActivePet(String activePet) {
+        this.activePet = activePet;
     }
 
-    public double getOldZ() {
-        return oldZ;
+    public boolean hasPetActive() {
+        return petActive;
     }
 
-    public void setOldZ(double oldZ) {
-        this.oldZ = oldZ;
+    public void setPetActive(boolean petActive) {
+        this.petActive = petActive;
+    }
+
+    public List<String> getPetsOwned() {
+        return petsOwned;
+    }
+
+    public void setPetsOwned(List<String> petsOwned) {
+        this.petsOwned = petsOwned;
     }
 
     public String getOldWorld() {
@@ -1116,52 +602,420 @@ public class RpgPlayer {
         this.oldWorld = oldWorld;
     }
 
-    public boolean isShowGuildTags() {
-        return showGuildTags;
+    public double getOldZ() {
+        return oldZ;
     }
 
-    public void setShowGuildTags(boolean showGuildTags) {
-        this.showGuildTags = showGuildTags;
+    public void setOldZ(double oldZ) {
+        this.oldZ = oldZ;
     }
 
-    public boolean isShowAchieveTitles() {
-        return showAchieveTitles;
+    public double getOldY() {
+        return oldY;
     }
 
-    public void setShowAchieveTitles(boolean showAchieveTitles) {
-        this.showAchieveTitles = showAchieveTitles;
+    public void setOldY(double oldY) {
+        this.oldY = oldY;
     }
 
-    public boolean isShowChannelNames() {
-        return showChannelNames;
+    public double getOldX() {
+        return oldX;
     }
 
-    public void setShowChannelNames(boolean showChannelNames) {
-        this.showChannelNames = showChannelNames;
+    public void setOldX(double oldX) {
+        this.oldX = oldX;
     }
 
-    public boolean isShowLanguageNames() {
-        return showLanguageNames;
+    public Integer getCurrentHealth() {
+        return currentHealth;
     }
 
-    public void setShowLanguageNames(boolean showLanguageNames) {
-        this.showLanguageNames = showLanguageNames;
+    public void setCurrentHealth(Integer currentHealth) {
+        this.currentHealth = currentHealth;
     }
 
-    public boolean isShowWorldName() {
-        return showWorldName;
+    public String getInventoryContents() {
+        return inventoryContents;
     }
 
-    public void setShowWorldName(boolean showWorldName) {
-        this.showWorldName = showWorldName;
+    public void setInventoryContents(String inventoryContents) {
+        this.inventoryContents = inventoryContents;
     }
 
-    public String getRealName() {
-        return realName;
+    public String getArmorInventory() {
+        return armorInventory;
     }
 
-    public void setRealName(String realName) {
-        this.realName = realName;
+    public void setArmorInventory(String armorInventory) {
+        this.armorInventory = armorInventory;
+    }
+
+    public boolean isInLobby() {
+        return inLobby;
+    }
+
+    public void setInLobby(boolean inLobby) {
+        this.inLobby = inLobby;
+    }
+
+    public boolean showLanguagesInChat() {
+        return languagesInChat;
+    }
+
+    public void setLanguagesInChat(boolean languagesInChat) {
+        this.languagesInChat = languagesInChat;
+    }
+
+    public List<String> getKnownLanguages() {
+        return knownLanguages;
+    }
+
+    public void setKnownLanguages(List<String> knownLanguages) {
+        this.knownLanguages = knownLanguages;
+    }
+
+    public String getActiveLanguage() {
+        return activeLanguage;
+    }
+
+    public void setActiveLanguage(String activeLanguage) {
+        this.activeLanguage = activeLanguage;
+    }
+
+    public boolean usesClick() {
+        return UseClick;
+    }
+
+    public void setClick(boolean useClick) {
+        UseClick = useClick;
+    }
+
+    public List<String> getTitles() {
+        return titles;
+    }
+
+    public void setTitles(List<String> titles) {
+        this.titles = titles;
+    }
+
+    public String getActiveSuffix() {
+        return activeSuffix;
+    }
+
+    public void setActiveSuffix(String activeSuffix) {
+        this.activeSuffix = activeSuffix;
+    }
+
+    public String getActivePrefix() {
+        return activePrefix;
+    }
+
+    public void setActivePrefix(String activePrefix) {
+        this.activePrefix = activePrefix;
+    }
+
+    public boolean isShowingWorldNames() {
+        return showingWorldName;
+    }
+
+    public void setShowingWorldName(boolean showingWorldName) {
+        this.showingWorldName = showingWorldName;
+    }
+
+    public boolean isShowingLanguageNames() {
+        return showingLanguageNames;
+    }
+
+    public void setShowingLanguageNames(boolean showingLanguageNames) {
+        this.showingLanguageNames = showingLanguageNames;
+    }
+
+    public boolean isShowingChannelNames() {
+        return showingChannelNames;
+    }
+
+    public void setShowingChannelNames(boolean showingChannelNames) {
+        this.showingChannelNames = showingChannelNames;
+    }
+
+    public boolean isShowingAchieveTitles() {
+        return showingAchieveTitles;
+    }
+
+    public void setShowingAchieveTitles(boolean showingAchieveTitles) {
+        this.showingAchieveTitles = showingAchieveTitles;
+    }
+
+    public boolean isShowingGuildTags() {
+        return showingGuildTags;
+    }
+
+    public void setShowingGuildTags(boolean showingGuildTags) {
+        this.showingGuildTags = showingGuildTags;
+    }
+
+    public boolean isSpyingOnChats() {
+        return SpyingOnChats;
+    }
+
+    public void setSpyingOnChats(boolean spyingOnChats) {
+        SpyingOnChats = spyingOnChats;
+    }
+
+    public List<String> getModChats() {
+        return modChats;
+    }
+
+    public void setModChats(List<String> modChats) {
+        this.modChats = modChats;
+    }
+
+    public List<String> getOwnedChats() {
+        return ownedChats;
+    }
+
+    public void setOwnedChats(List<String> ownedChats) {
+        this.ownedChats = ownedChats;
+    }
+
+    public List<String> getMutedChats() {
+        return mutedChats;
+    }
+
+    public void setMutedChats(List<String> mutedChats) {
+        this.mutedChats = mutedChats;
+    }
+
+    public List<String> getBannedChats() {
+        return bannedChats;
+    }
+
+    public void setBannedChats(List<String> bannedChats) {
+        this.bannedChats = bannedChats;
+    }
+
+    public List<String> getInvitedChats() {
+        return invitedChats;
+    }
+
+    public void setInvitedChats(List<String> invitedChats) {
+        this.invitedChats = invitedChats;
+    }
+
+    public boolean hasChatInvite() {
+        return chatInvite;
+    }
+
+    public void setChatInvite(boolean chatInvite) {
+        this.chatInvite = chatInvite;
+    }
+
+    public List<String> getIgnoreList() {
+        return ignoreList;
+    }
+
+    public void setIgnoreList(List<String> ignoreList) {
+        this.ignoreList = ignoreList;
+    }
+
+    public String getActiveChannel() {
+        return activeChannel;
+    }
+
+    public void setActiveChannel(String activeChannel) {
+        this.activeChannel = activeChannel;
+    }
+
+    public Map<String, String> getChannelColor() {
+        return channelColor;
+    }
+
+    public void setChannelColor(Map<String, String> channelColor) {
+        this.channelColor = channelColor;
+    }
+
+    public int getPlatinum() {
+        return platinum;
+    }
+
+    public void setPlatinum(int platinum) {
+        this.platinum = platinum;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+    public int getSilver() {
+        return silver;
+    }
+
+    public void setSilver(int silver) {
+        this.silver = silver;
+    }
+
+    public int getCopper() {
+        return copper;
+    }
+
+    public void setCopper(int copper) {
+        this.copper = copper;
+    }
+
+    public boolean isInTrade() {
+        return inTrade;
+    }
+
+    public void setInTrade(boolean inTrade) {
+        this.inTrade = inTrade;
+    }
+
+    public List<String> getFriendsList() {
+        return friendsList;
+    }
+
+    public void setFriendsList(List<String> friendsList) {
+        this.friendsList = friendsList;
+    }
+
+    public boolean showFriendsGui() {
+        return friendsGui;
+    }
+
+    public void setFriendsGui(boolean friendsGui) {
+        this.friendsGui = friendsGui;
+    }
+
+    public String getGuildRank() {
+        return guildRank;
+    }
+
+    public void setGuildRank(String guildRank) {
+        this.guildRank = guildRank;
+    }
+
+    public String getGuild() {
+        return guild;
+    }
+
+    public void setGuild(String guild) {
+        this.guild = guild;
+    }
+
+    public boolean isInGuild() {
+        return inGuild;
+    }
+
+    public void setInGuild(boolean inGuild) {
+        this.inGuild = inGuild;
+    }
+
+    public boolean showGuildGui() {
+        return guildGui;
+    }
+
+    public void setGuildGui(boolean guildGui) {
+        this.guildGui = guildGui;
+    }
+
+    public boolean hasGuildInvite() {
+        return guildInvite;
+    }
+
+    public void setGuildInvite(boolean guildInvite) {
+        this.guildInvite = guildInvite;
+    }
+
+    public boolean showLootGui() {
+        return lootGui;
+    }
+
+    public void setLootGui(boolean lootGui) {
+        this.lootGui = lootGui;
+    }
+
+    public boolean isGreedingRolls() {
+        return greedingRolls;
+    }
+
+    public void setGreedingRolls(boolean greedingRolls) {
+        this.greedingRolls = greedingRolls;
+    }
+
+    public boolean isNeedingRolls() {
+        return needingRolls;
+    }
+
+    public void setNeedingRolls(boolean needingRolls) {
+        this.needingRolls = needingRolls;
+    }
+
+    public boolean isPassingRolls() {
+        return passingRolls;
+    }
+
+    public void setPassingRolls(boolean passingRolls) {
+        this.passingRolls = passingRolls;
+    }
+
+    public boolean isInParty() {
+        return inParty;
+    }
+
+    public void setInParty(boolean inParty) {
+        this.inParty = inParty;
+    }
+
+    public boolean showPartyGui() {
+        return partyGui;
+    }
+
+    public void setPartyGui(boolean partyGui) {
+        this.partyGui = partyGui;
+    }
+
+    public boolean hasPartyInvitePending() {
+        return partyInvite;
+    }
+
+    public void setPartyInvitePending(boolean partyInvite) {
+        this.partyInvite = partyInvite;
+    }
+
+    public boolean isBuffed() {
+        return buffed;
+    }
+
+    public void setBuffed(boolean buffed) {
+        this.buffed = buffed;
+    }
+
+    public boolean isEating() {
+        return eating;
+    }
+
+    public void setEating(boolean eating) {
+        this.eating = eating;
+    }
+
+    public String getRace() {
+        return race;
+    }
+
+    public void setRace(String race) {
+        this.race = race;
+    }
+
+    public boolean isPoisoned() {
+        return poisoned;
+    }
+
+    public void setPoisoned(boolean poisoned) {
+        this.poisoned = poisoned;
     }
 
     public boolean isPoisonProof() {
@@ -1172,19 +1026,59 @@ public class RpgPlayer {
         this.poisonProof = poisonProof;
     }
 
-    public boolean isPoisoned() {
-        return isPoisoned;
+    public String getGoodAlignment() {
+        return goodAlignment;
     }
 
-    public void setPoisoned(boolean poisoned) {
-        isPoisoned = poisoned;
+    public void setGoodAlignment(String goodAlignment) {
+        this.goodAlignment = goodAlignment;
     }
 
-    public Boolean getEncumbered() {
-        return encumbered;
+    public String getLawfulAlignment() {
+        return lawfulAlignment;
     }
 
-    public void setEncumbered(Boolean encumbered) {
-        this.encumbered = encumbered;
+    public void setLawfulAlignment(String lawfulAlignment) {
+        this.lawfulAlignment = lawfulAlignment;
+    }
+
+    public boolean locationHasChanged() {
+        return locationChanged;
+    }
+
+    public void setLocationChanged(boolean locationChanged) {
+        this.locationChanged = locationChanged;
+    }
+
+    public boolean hasMenuOpen() {
+        return menuOpen;
+    }
+
+    public void setMenuOpen(boolean menuOpen) {
+        this.menuOpen = menuOpen;
+    }
+
+    public boolean hasTpInvitePending() {
+        return tpInviteState;
+    }
+
+    public void setTpInviteState(boolean tpInviteState) {
+        this.tpInviteState = tpInviteState;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public List<String> getEatenItems() {
+        return eatenItems;
+    }
+
+    public void setEatenItems(List<String> eatenItems) {
+        this.eatenItems = eatenItems;
     }
 }
