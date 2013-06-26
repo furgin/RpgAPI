@@ -61,6 +61,7 @@ import com.vartala.soulofw0lf.rpgapi.listenersapi.MapListener;
 import com.vartala.soulofw0lf.rpgapi.listenersapi.playerLogIn;
 import com.vartala.soulofw0lf.rpgapi.mapsapi.ScrollMap;
 import com.vartala.soulofw0lf.rpgapi.util.PlayerUtil;
+import org.bukkit.scheduler.BukkitRunnable;
 
 //@author soulofwolf linksbro..
 public class RpgAPI extends JavaPlugin implements Listener {
@@ -359,7 +360,15 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }
         //SetBuilder.minionCommand();
 
-        if (warpsOn){WarpSetBuilder.BuildSets();WarpBuilder.WarpLoader();}
+        if (warpsOn){
+            WarpSetBuilder.BuildSets();
+            new BukkitRunnable(){
+                @Override
+                public void run(){
+                    WarpBuilder.WarpLoader();
+                }
+            }.runTaskLater(plugin, 5);
+        }
         if (poisonedEarthOn){
         PoisonBuilder.newPoison();
         PoisonTimeChecker.PoisonRegionTimer();

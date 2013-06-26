@@ -44,7 +44,7 @@ public class WarpBuilder {
                     for (File warpFiles : files1){
                         YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(warpFiles);
                         RpgWarp newWarp = new RpgWarp();
-                        newWarp.setWarpSet(warpSets.getName());
+                        newWarp.setWarpSet(warpConfig.getString("Warp Data.Warp Set"));
                         newWarp.setWarpName(warpConfig.getString("Warp Data.Warp Name"));
                         newWarp.setWarpCoolDown(warpConfig.getInt("Warp Data.Cool Down"));
                         newWarp.setWarpX(warpConfig.getDouble("Warp Data.Warp X"));
@@ -94,9 +94,12 @@ public class WarpBuilder {
                         }
                         RpgAPI.savedWarps.put(newWarp.getWarpName(), newWarp);
                         WarpSets thisSet = RpgAPI.savedSets.get(newWarp.getWarpSet());
-                        List<RpgWarp> thisWarp = thisSet.getSetWarps();
-                        thisWarp.add(newWarp);
-                        thisSet.setSetWarps(thisWarp);
+                        List<RpgWarp> setList = new ArrayList<RpgWarp>();
+                        if (thisSet.getSetWarps() != null){
+                            setList = thisSet.getSetWarps();
+                        }
+                        setList.add(newWarp);
+                        thisSet.setSetWarps(setList);
                         for (String itemName : newWarp.getItemNames()){
                             for (Material itemMaterial : newWarp.getItemMaterial()){
                                 for (String itemLore : newWarp.getLoreNeeded()){
@@ -117,6 +120,7 @@ public class WarpBuilder {
 
             RpgWarp saveWarp = RpgAPI.savedWarps.get(thisWarp);
             YamlConfiguration warpYml = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgWarps/" + saveWarp.getWarpSet() + "/" + saveWarp.getWarpName() + ".yml"));
+            warpYml.set("Warp Data.Warp Set", saveWarp.getWarpSet());
             warpYml.set("Warp Data.Warp Name", saveWarp.getWarpName());
             warpYml.set("Warp Data.Cool Down", saveWarp.getWarpCoolDown());
             warpYml.set("Warp Data.Warp X", saveWarp.getWarpX());

@@ -2,6 +2,9 @@ package com.vartala.soulofw0lf.rpgapi.warpsapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by: soulofw0lf
  * Date: 6/24/13
@@ -24,10 +27,12 @@ import com.vartala.soulofw0lf.rpgapi.RpgAPI;
  */
 public class WarpSetBuilder {
     public static void BuildSets(){
-        if (RpgAPI.warpConfig.getString("Warp Sets") != null){
+        if (RpgAPI.warpConfig.get("Warp Sets") != null){
         for (String warpSet : RpgAPI.warpConfig.getConfigurationSection("Warp Sets").getKeys(false)){
             WarpSets warpS = new WarpSets();
             warpS.setSetName(warpSet);
+            List<RpgWarp> setWarps = new ArrayList<RpgWarp>();
+            warpS.setSetWarps(setWarps);
             warpS.setWarpsRandom(RpgAPI.warpConfig.getBoolean("Warp Sets." + warpSet + ".Is Random"));
             warpS.setSetPermission(RpgAPI.warpConfig.getString("Warp Sets." + warpSet + ".Permission Needed"));
             RpgAPI.savedSets.put(warpSet, warpS);
@@ -39,6 +44,7 @@ public class WarpSetBuilder {
             WarpSets warpS = RpgAPI.savedSets.get(setNames);
             RpgAPI.warpConfig.set("Warp Sets." + setNames + ".Is Random", warpS.getWarpsRandom());
             RpgAPI.warpConfig.set("Warp Sets." + setNames + ".Permission Needed", warpS.getSetPermission());
+
         }
     }
 }

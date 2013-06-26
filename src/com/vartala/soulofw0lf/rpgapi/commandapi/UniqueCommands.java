@@ -113,6 +113,7 @@ public class UniqueCommands {
                 return;
             }
             p.sendMessage("you have used a warp named " + command[1] + ".");
+            p.sendMessage("The warp set this belongs to is " + RpgAPI.savedWarps.get(command[1]).getWarpSet());
             WarpProcessor.WarpHandler(p.getName(), RpgAPI.savedWarps.get(command[1]));
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Test Command"))){
