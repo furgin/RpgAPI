@@ -154,6 +154,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<String, WarpSets> savedSets = new HashMap<>();
     public static Map<String, RpgWarp> savedWarps = new HashMap<>();
     public static List<ItemStack> warpItems = new ArrayList<ItemStack>();
+    public static Map<String, List<String>> warpCds = new HashMap<>();
 
 
     @Override
@@ -305,6 +306,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
                 localeConfig.set("Commands.Make Set", "makeset");
                 localeConfig.set("Commands.Delete set", "delset");
                 localeConfig.set("Commands.Load Warps", "loadwarps");
+                localeConfig.set("Commands.Edit Warp Values", "warpvalues");
             }
 
         }

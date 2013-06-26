@@ -76,6 +76,8 @@ public class RpgWarp {
     private Boolean levelNeeded = false;
     //if a level is required what should it be?
     private Integer warpLevel = 1;
+    //should this warp use a cool down
+    private Boolean useCD = false;
 
     public List<String> getLoreNeeded() {
         return loreNeeded;
@@ -275,6 +277,14 @@ public class RpgWarp {
 
     public void setWarpLevel(Integer warpLevel) {
         this.warpLevel = warpLevel;
+    }
+
+    public Boolean getUseCD() {
+        return useCD;
+    }
+
+    public void setUseCD(Boolean useCD) {
+        this.useCD = useCD;
     }
     /*
      * All getters and setters listed below

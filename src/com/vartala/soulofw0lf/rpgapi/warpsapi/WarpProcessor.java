@@ -6,7 +6,9 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -74,9 +76,35 @@ public class WarpProcessor {
         }
         Player pl = Bukkit.getPlayer(p);
         pl.teleport(l);
+        if (thisWarp.getUseCD()){
+        if (RpgAPI.warpCds.containsKey(p)){
+            List<String> warps = RpgAPI.warpCds.get(p);
+            warps.add(thisWarp.getWarpName());
+            RpgAPI.warpCds.remove(p);
+            RpgAPI.warpCds.put(p, warps);
+        } else {
+            List<String> warps = new ArrayList<String>();
+            warps.add(thisWarp.getWarpName());
+            RpgAPI.warpCds.put(p, warps);
+        }
+            final String warpName = thisWarp.getWarpName();
+            final Integer cdTimer = thisWarp.getWarpCoolDown() * 20;
+            final String playerName = p;
+            new BukkitRunnable(){
+
+                @Override
+                public void run(){
+                    List<String> warps = RpgAPI.warpCds.get(playerName);
+                    warps.remove(warpName);
+                    RpgAPI.warpCds.remove(playerName);
+                    RpgAPI.warpCds.put(playerName, warps);
+                }
+            }.runTaskLater(RpgAPI.plugin, cdTimer);
+        }
         for ( WarpBehavior behavior : thisWarp.getWarpBehaviors()){
             behavior.onWarp(p);
         }
+
     }
 
     public static Boolean WarpRequirements(Player p, RpgWarp rWarp){
@@ -90,6 +118,13 @@ public class WarpProcessor {
         if (rWarp.getSinglePerm()){
             if (!(p.hasPermission(rWarp.getPermNeeded()))){
                 requirements = false;
+            }
+        }
+        if (RpgAPI.warpCds.containsKey(p.getName())){
+            for (String warpName : RpgAPI.warpCds.get(p.getName())){
+                if (warpName.equalsIgnoreCase(rWarp.getWarpName())){
+                    requirements = false;
+                }
             }
         }
         return requirements;

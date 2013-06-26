@@ -3,6 +3,7 @@ package com.vartala.soulofw0lf.rpgapi.listenersapi;
 import java.sql.SQLException;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import com.vartala.soulofw0lf.rpgapi.enumapi.PlayerStat;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayerBuilder;
 import com.vartala.soulofw0lf.rpgapi.speedapi.SpeedHandler;
 import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
@@ -52,8 +53,11 @@ public class playerLogIn implements Listener {
                 RpgPlayer r = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(playerN));
                 SpeedHandler.SetWalkSpeed(r, playerN);
                 SpeedHandler.SetFlySpeed(r, playerN);
+                Bukkit.getPlayer(playerN).setMaxHealth(r.getStats().get(PlayerStat.TOTAL_HIT_POINTS));
+                Bukkit.getPlayer(playerN).setHealth(r.getStats().get(PlayerStat.HIT_POINTS));
+                Bukkit.getPlayer(playerN).setLevel(r.getStats().get(PlayerStat.CHARACTER_LEVEL));
             }
-        }.runTaskLater(RpgAPI.plugin, 40);
+        }.runTaskLater(RpgAPI.plugin, 4);
 
         /*
          * Commented out until sql loading is fixed

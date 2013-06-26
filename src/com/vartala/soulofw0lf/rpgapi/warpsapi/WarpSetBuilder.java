@@ -44,7 +44,6 @@ public class WarpSetBuilder {
             WarpSets warpS = RpgAPI.savedSets.get(setNames);
             RpgAPI.warpConfig.set("Warp Sets." + setNames + ".Is Random", warpS.getWarpsRandom());
             RpgAPI.warpConfig.set("Warp Sets." + setNames + ".Permission Needed", warpS.getSetPermission());
-
         }
     }
 }

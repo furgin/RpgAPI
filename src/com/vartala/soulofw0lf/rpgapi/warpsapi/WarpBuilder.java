@@ -45,6 +45,7 @@ public class WarpBuilder {
                         YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(warpFiles);
                         RpgWarp newWarp = new RpgWarp();
                         newWarp.setWarpSet(warpConfig.getString("Warp Data.Warp Set"));
+                        newWarp.setUseCD(warpConfig.getBoolean("Warp Data.Use Cool Down"));
                         newWarp.setWarpName(warpConfig.getString("Warp Data.Warp Name"));
                         newWarp.setWarpCoolDown(warpConfig.getInt("Warp Data.Cool Down"));
                         newWarp.setWarpX(warpConfig.getDouble("Warp Data.Warp X"));
@@ -71,24 +72,15 @@ public class WarpBuilder {
                             newWarp.setUseItemForWarp(warpConfig.getBoolean("Warp Data.Use Item For Warp"));
                             newWarp.setNeedsLore(warpConfig.getBoolean("Warp Data.Is Lore Needed"));
                             if (newWarp.getNeedsLore()){
-                                List<String> neededLores = new ArrayList<String>();
-                                for (String lores : warpConfig.getConfigurationSection("Warp Data.Lore List").getKeys(false)){
-                                    neededLores.add(lores);
-                                }
+                                List<String> neededLores = (List<String>)warpConfig.getList("Warp Data.Lore List");
                                 newWarp.setLoreNeeded(neededLores);
                             }
                             newWarp.setItemNeedsName(warpConfig.getBoolean("Warp Data.Is Item Name Needed"));
                             if (newWarp.getItemNeedsName()){
-                                List<String> namesNeeded = new ArrayList<String>();
-                                for (String itemName : warpConfig.getConfigurationSection("Warp Data.Names Needed").getKeys(false)){
-                                    namesNeeded.add(itemName);
-                                }
+                                List<String> namesNeeded = (List<String>)warpConfig.getList("Warp Data.Names Needed");
                                 newWarp.setItemNames(namesNeeded);
                             }
-                            List<Material> itemMats = new ArrayList<Material>();
-                            for (String materials : warpConfig.getConfigurationSection("Warp Data.Item Materials").getKeys(false)){
-                                itemMats.add(Material.valueOf(materials));
-                            }
+                            List<Material> itemMats = (List<Material>)warpConfig.getList("Warp Data.Item Materials");
                             newWarp.setItemMaterial(itemMats);
                             newWarp.setItemConsumed(warpConfig.getBoolean("Warp Data.Is Item Consumed"));
                         }
@@ -118,61 +110,66 @@ public class WarpBuilder {
     }
     public static void SaveWarp(String thisWarp){
 
-            RpgWarp saveWarp = RpgAPI.savedWarps.get(thisWarp);
-            YamlConfiguration warpYml = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgWarps/" + saveWarp.getWarpSet() + "/" + saveWarp.getWarpName() + ".yml"));
-            warpYml.set("Warp Data.Warp Set", saveWarp.getWarpSet());
-            warpYml.set("Warp Data.Warp Name", saveWarp.getWarpName());
-            warpYml.set("Warp Data.Cool Down", saveWarp.getWarpCoolDown());
-            warpYml.set("Warp Data.Warp X", saveWarp.getWarpX());
-            warpYml.set("Warp Data.Warp Y", saveWarp.getWarpY());
-            warpYml.set("Warp Data.Warp Z", saveWarp.getWarpZ());
-            warpYml.set("Warp Data.Warp World", saveWarp.getWorldName());
-            warpYml.set("Warp Data.Warp Yaw", saveWarp.getWarpYaw());
-            warpYml.set("Warp Data.Warp Pitch", saveWarp.getWarpPitch());
-            warpYml.set("Warp Data.Same World Only", saveWarp.getSameWorld());
-            warpYml.set("Warp Data.Is Level Required", saveWarp.getLevelNeeded());
-            if (saveWarp.getLevelNeeded()){
-                warpYml.set("Warp Data.Warp Level", saveWarp.getWarpLevel());
-            }
-            warpYml.set("Warp Data.Needs Individual Permission", saveWarp.getSinglePerm());
-            if(saveWarp.getSinglePerm()){
+        RpgWarp saveWarp = RpgAPI.savedWarps.get(thisWarp);
+        YamlConfiguration warpYml = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgWarps/" + saveWarp.getWarpSet() + "/" + saveWarp.getWarpName() + ".yml"));
+        warpYml.set("Warp Data.Warp Name", saveWarp.getWarpName());
+        warpYml.set("Warp Data.Warp Set", saveWarp.getWarpSet());
+        warpYml.set("Warp Data.Warp X", saveWarp.getWarpX());
+        warpYml.set("Warp Data.Warp Y", saveWarp.getWarpY());
+        warpYml.set("Warp Data.Warp Z", saveWarp.getWarpZ());
+        warpYml.set("Warp Data.Warp Yaw", saveWarp.getWarpYaw());
+        warpYml.set("Warp Data.Warp Pitch", saveWarp.getWarpPitch());
+        warpYml.set("Warp Data.Same World Only", saveWarp.getSameWorld());
+        warpYml.set("Warp Data.Warp World", saveWarp.getWorldName());
+        warpYml.set("Warp Data.Use Cool Down", saveWarp.getUseCD());
+        warpYml.set("Warp Data.Cool Down", saveWarp.getWarpCoolDown());
+        warpYml.set("Warp Data.Is Level Required", saveWarp.getLevelNeeded());
+        if (saveWarp.getLevelNeeded()){
+            warpYml.set("Warp Data.Warp Level", saveWarp.getWarpLevel());
+        } else {
+            warpYml.set("Warp Data.Warp Level", 0);
+        }
+        warpYml.set("Warp Data.Needs Individual Permission", saveWarp.getSinglePerm());
+        if(saveWarp.getSinglePerm()){
             warpYml.set("Warp Data.Permission", saveWarp.getPermNeeded());
-            }
-            warpYml.set("Warp Data.Use Variance", saveWarp.getVariance());
-            if (saveWarp.getVariance()){
+        } else {
+            warpYml.set("Warp Data.Permission", "");
+        }
+        warpYml.set("Warp Data.Use Variance", saveWarp.getVariance());
+        if (saveWarp.getVariance()){
             warpYml.set("Warp Data.Radius For Variance", saveWarp.getWarpVariance());
+        } else {
+            warpYml.set("Warp Data.Radius For Variance", 0);
+        }
+        warpYml.set("Warp Data.Is Item Needed", saveWarp.getItemNeeded());
+        if (saveWarp.getItemNeeded()){
+            warpYml.set("Warp Data.Item Materials.", saveWarp.getItemMaterial());
+            warpYml.set("Warp Data.Is Lore Needed", saveWarp.getNeedsLore());
+            if (saveWarp.getNeedsLore()){
+                warpYml.set("Warp Data.Lore List.", saveWarp.getLoreNeeded());
+            } else {
+                warpYml.set("Warp Data.Lore List", "");
             }
-            warpYml.set("Warp Data.Is Item Needed", saveWarp.getItemNeeded());
-            if (saveWarp.getItemNeeded()){
-                warpYml.set("Warp Data.Use Item For Warp", saveWarp.getUseItemForWarp());
-                warpYml.set("Warp Data.Is Lore Needed", saveWarp.getNeedsLore());
-                if (saveWarp.getNeedsLore()){
-                    List<String> neededLores = saveWarp.getLoreNeeded();
-                    for (String lores : neededLores){
-                        warpYml.set("Warp Data.Lore List." + lores, true);
-                    }
-
-                }
-                warpYml.set("Warp Data.Is Item Name Needed", saveWarp.getItemNeedsName());
-                if (saveWarp.getItemNeedsName()){
-                    List<String> namesNeeded = saveWarp.getItemNames();
-                    for (String itemName : namesNeeded){
-                        warpYml.set("Warp Data.Names Needed." + itemName, true);
-                    }
-
-                }
-                List<Material> itemMats = saveWarp.getItemMaterial();
-                for (Material materials : itemMats){
-                    warpYml.set("Warp Data.Item Material." + materials.toString(), true);
-                }
-
-                warpYml.set("Warp Data.Is Item Consumed", saveWarp.getItemConsumed());
-
+            warpYml.set("Warp Data.Is Item Name Needed", saveWarp.getItemNeedsName());
+            if (saveWarp.getItemNeedsName()){
+                    warpYml.set("Warp Data.Names Needed.", saveWarp.getItemNames());
+            } else {
+                warpYml.set("Warp Data.Names Needed", "");
             }
+            warpYml.set("Warp Data.Is Item Consumed", saveWarp.getItemConsumed());
+            warpYml.set("Warp Data.Use Item For Warp", saveWarp.getUseItemForWarp());
+        } else {
+            warpYml.set("Warp Data.Item Materials", "");
+            warpYml.set("Warp Data.Is Lore Needed", false);
+            warpYml.set("Warp Data.Lore List", "");
+            warpYml.set("Warp Data.Is Item Name Needed", false);
+            warpYml.set("Warp Data.Names Needed", "");
+            warpYml.set("Warp Data.Is Item Consumed", false);
+            warpYml.set("Warp Data.Use Item For Warp", false);
+        }
         try {
             warpYml.save(new File("plugins/RpgAPI/RpgWarps/" + saveWarp.getWarpSet() + "/" + saveWarp.getWarpName() + ".yml"));
         } catch (IOException e) {
         }
-        }
-
+    }
 }

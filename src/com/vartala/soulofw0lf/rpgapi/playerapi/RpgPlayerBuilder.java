@@ -345,10 +345,10 @@ public class RpgPlayerBuilder {
                     playerStats.put(PlayerStat.DAMAGE_REDUCTION_MAGICAL, 0);
                     playerStats.put(PlayerStat.DAMAGE_REDUCTION_SILVER, 0);
                     playerStats.put(PlayerStat.DAMAGE_REDUCTION_NONE, 0);
-                    playerStats.put(PlayerStat.TOTAL_HIT_POINTS, 0);
+                    playerStats.put(PlayerStat.TOTAL_HIT_POINTS, 10);
                     playerStats.put(PlayerStat.SPEED_LAND, 30);
                     playerStats.put(PlayerStat.SPEED_LAND_WITH_ARMOR, 20);
-                    playerStats.put(PlayerStat.SPEED_FLY, 0);
+                    playerStats.put(PlayerStat.SPEED_FLY, 30);
                     playerStats.put(PlayerStat.SPEED_SWIM, 20);
                     playerStats.put(PlayerStat.INITIATIVE, 1);
                     playerStats.put(PlayerStat.ARMOR_CLASS_ARMOR_BONUS, 0);

@@ -19,9 +19,12 @@ import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtNearest;
 import de.kumpelblase2.remoteentities.persistence.EntityData;
 import de.kumpelblase2.remoteentities.persistence.serializers.PreparationSerializer;
 import de.kumpelblase2.remoteentities.persistence.serializers.YMLSerializer;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 import java.util.Map;
@@ -112,9 +115,136 @@ public class UniqueCommands {
                 p.sendMessage("That Warp Doesn't Exist!!!");
                 return;
             }
-            p.sendMessage("you have used a warp named " + command[1] + ".");
-            p.sendMessage("The warp set this belongs to is " + RpgAPI.savedWarps.get(command[1]).getWarpSet());
+            if (RpgAPI.warpCds.containsKey(p.getName())){
+                for (String warpName : RpgAPI.warpCds.get(p.getName())){
+                    if (warpName.equalsIgnoreCase(command[1])){
+                        p.sendMessage("You must wait longer before using that Warp");
+                        return;
+                    }
+                }
+            }
+            if (RpgAPI.savedWarps.get(command[1]).getItemNeeded()){
+                Boolean useWarp = ItemProcessor(p, RpgAPI.savedWarps.get(command[1]));
+                if (!(useWarp)){
+                    p.sendMessage("You do not have the required item to use this warp");
+                    return;
+                }
+
+            }
             WarpProcessor.WarpHandler(p.getName(), RpgAPI.savedWarps.get(command[1]));
+        }
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Edit Warp Values"))){
+            if (command.length != 4){
+                p.sendMessage("Proper use /" + RpgAPI.commandSettings.get("Edit Warp Values") + " <warp name> <Cd |Level | Perm | Variance | Material | iName | iLore> <Value_settings>");
+                return;
+            }
+            if (!(RpgAPI.savedWarps.containsKey(command[1]))){
+                p.sendMessage("That warp does not exist!");
+                return;
+            }
+            if (command[2].equalsIgnoreCase("level")){
+                RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
+                Integer i = Integer.parseInt(command[3]);
+                rWarp.setWarpLevel(i);
+            }
+            if (command[2].equalsIgnoreCase("perm")){
+                RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
+                rWarp.setPermNeeded(command[3]);
+            }
+            if (command[2].equalsIgnoreCase("Variance")){
+                RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
+                Integer i = Integer.parseInt(command[3]);
+                rWarp.setWarpVariance(i);
+            }
+            if (command[2].equalsIgnoreCase("Material")){
+                RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
+                Material mat = Material.valueOf(command[3]);
+                List<Material> mats = rWarp.getItemMaterial();
+                mats.add(mat);
+                rWarp.setItemMaterial(mats);
+            }
+            if (command[2].equalsIgnoreCase("iName")){
+                RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
+                List<String> names = rWarp.getItemNames();
+                names.add(command[3].replaceAll("_", " "));
+                rWarp.setItemNames(names);
+            }
+            if (command[2].equalsIgnoreCase("iLore")){
+                RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
+                List<String> lores = rWarp.getLoreNeeded();
+                lores.add(command[3].replaceAll("_", " "));
+                rWarp.setLoreNeeded(lores);
+            }
+            if (command[2].equalsIgnoreCase("cd")){
+                RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
+                Integer i = Integer.parseInt(command[3]);
+                rWarp.setWarpCoolDown(i);
+            }
+        }
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Edit Warp"))){
+            if (command.length != 4){
+                p.sendMessage("Proper use /" + RpgAPI.commandSettings.get("Edit Warp") + " <warp name> <Cd | World | Level | Perm | Variance | item> <true/false>");
+                return;
+            }
+            if (!(RpgAPI.savedWarps.containsKey(command[1]))){
+                p.sendMessage("That warp does not exist!");
+                return;
+            }
+            if (command[2].equalsIgnoreCase("World")){
+                RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
+                Boolean c3 = false;
+                if (command[3].equalsIgnoreCase("true")){
+                    c3 = true;
+                }
+                rWarp.setSameWorld(c3);
+                p.sendMessage("Warp " + command[1] + " now has Same world required set to " + c3 + ".");
+            }
+            if (command[2].equalsIgnoreCase("level")){
+                RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
+                Boolean c3 = false;
+                if (command[3].equalsIgnoreCase("true")){
+                    c3 = true;
+                }
+                rWarp.setLevelNeeded(c3);
+                p.sendMessage("Warp " + command[1] + " now has Level Needed set to " + c3 + ".");
+            }
+            if (command[2].equalsIgnoreCase("Perm")){
+                RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
+                Boolean c3 = false;
+                if (command[3].equalsIgnoreCase("true")){
+                    c3 = true;
+                }
+                rWarp.setSinglePerm(c3);
+                p.sendMessage("Warp " + command[1] + " now has Same world required set to " + c3 + ".");
+            }
+            if (command[2].equalsIgnoreCase("Variance")){
+                RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
+                Boolean c3 = false;
+                if (command[3].equalsIgnoreCase("true")){
+                    c3 = true;
+                }
+                rWarp.setVariance(c3);
+                p.sendMessage("Warp " + command[1] + " now has Variance set to " + c3 + ".");
+            }
+            if (command[2].equalsIgnoreCase("cd")){
+                RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
+                Boolean c3 = false;
+                if (command[3].equalsIgnoreCase("true")){
+                    c3 = true;
+                }
+                rWarp.setUseCD(c3);
+                p.sendMessage("Warp " + command[1] + " now has Use Cool down set to " + c3 + ".");
+            }
+            if (command[2].equalsIgnoreCase("Item")){
+                RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
+                Boolean c3 = false;
+                if (command[3].equalsIgnoreCase("true")){
+                    c3 = true;
+                }
+
+                rWarp.setItemNeeded(c3);
+                p.sendMessage("Warp " + command[1] + " now has Item required set to " + c3 + ".");
+            }
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Test Command"))){
             String activeNick = RpgAPI.activeNicks.get(p.getName());
@@ -223,5 +353,66 @@ public class UniqueCommands {
 
 
         }
+    }
+
+    private static Boolean ItemProcessor(Player p, RpgWarp rpgWarp) {
+        Boolean useWarp = false;
+        Inventory inv = p.getInventory();
+        for (ItemStack is : inv.getContents()){
+            for (Material mat : rpgWarp.getItemMaterial()){
+                if (is == null || is.getType().equals(Material.AIR)){
+                    continue;
+                }
+                if (!(is.getType().equals(mat))){
+                    continue;
+                }
+                ItemMeta im = is.getItemMeta();
+                if ((rpgWarp.getItemNeedsName() || rpgWarp.getNeedsLore()) && im == null){
+                    continue;
+                }
+                if (rpgWarp.getNeedsLore() && im.getLore() == null){
+                    continue;
+                }
+                if (rpgWarp.getItemNeedsName() && im.getDisplayName() == null){
+                    continue;
+                }
+                if (rpgWarp.getItemNeedsName() || rpgWarp.getNeedsLore()){
+                    if (rpgWarp.getNeedsLore()){
+                        Boolean lorePresent = false;
+                        for (String lore : rpgWarp.getLoreNeeded()){
+                             for (String lores : im.getLore()){
+                                 if(lore.equalsIgnoreCase(lores)){
+                                     lorePresent = true;
+                                 }
+                             }
+                        }
+                        if (lorePresent == false){
+                            continue;
+                        }
+                    }
+                    if (rpgWarp.getItemNeedsName()){
+                        Boolean namePresent = false;
+                        for (String iName : rpgWarp.getItemNames()){
+                            if (iName.equalsIgnoreCase(im.getDisplayName())){
+                               namePresent = true;
+                            }
+                        }
+                        if (namePresent == false){
+                            continue;
+                        }
+                    }
+                }
+                if (rpgWarp.getItemConsumed()){
+                    Integer a = is.getAmount();
+                    if (a <= 1){
+                        p.getInventory().remove(is);
+                    }
+                    is.setAmount(a-1);
+                }
+                useWarp = true;
+                return useWarp;
+            }
+        }
+        return useWarp;
     }
 }
