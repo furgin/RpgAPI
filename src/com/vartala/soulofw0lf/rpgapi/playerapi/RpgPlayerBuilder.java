@@ -330,137 +330,137 @@ public class RpgPlayerBuilder {
                     rp.setLawfulAlignment("NEUTRAL");
                     rp.setGoodAlignment("NEUTRAL");
                     rp.setClassName("NONE");
-                    Map<PlayerStat, Integer> playerStats = rp.getStats();
-                    playerStats.put(PlayerStat.CHARACTER_LEVEL, 1);
-                    playerStats.put(PlayerStat.AGE, 0);
-                    playerStats.put(PlayerStat.STRENGTH, 10);
-                    playerStats.put(PlayerStat.DEXTERITY, 10);
-                    playerStats.put(PlayerStat.CONSTITUTION, 10);
-                    playerStats.put(PlayerStat.INTELLIGENCE, 10);
-                    playerStats.put(PlayerStat.WISDOM, 10);
-                    playerStats.put(PlayerStat.CHARISMA, 10);
-                    playerStats.put(PlayerStat.HIT_POINTS, 10);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_PIERCING, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_SLASHING, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_BLUDGEONING, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_CHAOTIC, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_LAWFUL, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_GOOD, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_EVIL, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_COLD, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_FIRE, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_ACID, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_SONIC, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_ELECTRICITY, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_ADAMANTINE, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_COLD_IRON, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_EPIC, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_MAGICAL, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_SILVER, 0);
-                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_NONE, 0);
-                    playerStats.put(PlayerStat.TOTAL_HIT_POINTS, 10);
-                    playerStats.put(PlayerStat.SPEED_LAND, 30);
-                    playerStats.put(PlayerStat.SPEED_LAND_WITH_ARMOR, 20);
-                    playerStats.put(PlayerStat.SPEED_FLY, 30);
-                    playerStats.put(PlayerStat.SPEED_SWIM, 20);
-                    playerStats.put(PlayerStat.INITIATIVE, 1);
-                    playerStats.put(PlayerStat.ARMOR_CLASS_ARMOR_BONUS, 0);
-                    playerStats.put(PlayerStat.ARMOR_CLASS_SHIELD_BONUS, 0);
-                    playerStats.put(PlayerStat.ARMOR_CLASS_SIZE_MODIFIER, 0);
-                    playerStats.put(PlayerStat.ARMOR_CLASS_NATURAL_ARMOR, 0);
-                    playerStats.put(PlayerStat.ARMOR_CLASS_DEFLECTION_MODIFIER, 0);
-                    playerStats.put(PlayerStat.ARMOR_CLASS_MODIFIER_MISC, 0);
-                    playerStats.put(PlayerStat.FORTITUDE_CLASS_BONUS, 0);
-                    playerStats.put(PlayerStat.FORTITUDE_CONSTITUTION_BONUS, 0);
-                    playerStats.put(PlayerStat.FORTITUDE_MAGIC, 0);
-                    playerStats.put(PlayerStat.FORTITUDE_MISC, 0);
-                    playerStats.put(PlayerStat.REFLEX__CLASS_BONUS, 0);
-                    playerStats.put(PlayerStat.REFLEX_DEXTERITY_BONUS, 0);
-                    playerStats.put(PlayerStat.REFLEX_MAGIC, 0);
-                    playerStats.put(PlayerStat.REFLEX_MISC, 0);
-                    playerStats.put(PlayerStat.WILLPOWER_CLASS_BONUS, 0);
-                    playerStats.put(PlayerStat.WILLPOWER_WISDOM_BONUS, 0);
-                    playerStats.put(PlayerStat.WILLPOWER_MAGIC, 0);
-                    playerStats.put(PlayerStat.WILLPOWER_MISC, 0);
-                    playerStats.put(PlayerStat.BASE_ATTACK_BONUS, 0);
-                    playerStats.put(PlayerStat.SPELL_RESISTANCE, 0);
-                    playerStats.put(PlayerStat.COMBAT_MANUEVER_BONUS_BAB, 0);
-                    playerStats.put(PlayerStat.COMBAT_MANUEVER_BONUS_SIZE, 0);
-                    playerStats.put(PlayerStat.COMBAT_MANUEVER_BONUS_STRENGTH, 0);
-                    playerStats.put(PlayerStat.COMBAT_MANUEVER_BONUS_MISC, 0);
-                    playerStats.put(PlayerStat.COMBAT_MANUEVER_DEFENSE_STRENGTH, 0);
-                    playerStats.put(PlayerStat.COMBAT_MANUEVER_DEFENSE_DEXTERITY, 0);
-                    playerStats.put(PlayerStat.COMBAT_MANUEVER_DEFENSE_BAB, 0);
-                    playerStats.put(PlayerStat.COMBAT_MANUEVER_DEFENSE_SIZE, 0);
-                    playerStats.put(PlayerStat.COMBAT_MANUEVER_DEFENSE_STANDARD, 10);
-                    playerStats.put(PlayerStat.COMBAT_MANUEVER_DEFENSE_MISC, 0);
-                    playerStats.put(PlayerStat.EXPERIENCE_TOTAL, 0);
+                    Map<String, Integer> playerStats = rp.getStats();
+                    playerStats.put(PlayerStat.CHARACTER_LEVEL.toString(), 1);
+                    playerStats.put(PlayerStat.AGE.toString(), 0);
+                    playerStats.put(PlayerStat.STRENGTH.toString(), 10);
+                    playerStats.put(PlayerStat.DEXTERITY.toString(), 10);
+                    playerStats.put(PlayerStat.CONSTITUTION.toString(), 10);
+                    playerStats.put(PlayerStat.INTELLIGENCE.toString(), 10);
+                    playerStats.put(PlayerStat.WISDOM.toString(), 10);
+                    playerStats.put(PlayerStat.CHARISMA.toString(), 10);
+                    playerStats.put(PlayerStat.HIT_POINTS.toString(), 10);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_PIERCING.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_SLASHING.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_BLUDGEONING.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_CHAOTIC.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_LAWFUL.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_GOOD.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_EVIL.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_COLD.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_FIRE.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_ACID.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_SONIC.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_ELECTRICITY.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_ADAMANTINE.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_COLD_IRON.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_EPIC.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_MAGICAL.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_SILVER.toString(), 0);
+                    playerStats.put(PlayerStat.DAMAGE_REDUCTION_NONE.toString(), 0);
+                    playerStats.put(PlayerStat.TOTAL_HIT_POINTS.toString(), 10);
+                    playerStats.put(PlayerStat.SPEED_LAND.toString(), 30);
+                    playerStats.put(PlayerStat.SPEED_LAND_WITH_ARMOR.toString(), 20);
+                    playerStats.put(PlayerStat.SPEED_FLY.toString(), 30);
+                    playerStats.put(PlayerStat.SPEED_SWIM.toString(), 20);
+                    playerStats.put(PlayerStat.INITIATIVE.toString(), 1);
+                    playerStats.put(PlayerStat.ARMOR_CLASS_ARMOR_BONUS.toString(), 0);
+                    playerStats.put(PlayerStat.ARMOR_CLASS_SHIELD_BONUS.toString(), 0);
+                    playerStats.put(PlayerStat.ARMOR_CLASS_SIZE_MODIFIER.toString(), 0);
+                    playerStats.put(PlayerStat.ARMOR_CLASS_NATURAL_ARMOR.toString(), 0);
+                    playerStats.put(PlayerStat.ARMOR_CLASS_DEFLECTION_MODIFIER.toString(), 0);
+                    playerStats.put(PlayerStat.ARMOR_CLASS_MODIFIER_MISC.toString(), 0);
+                    playerStats.put(PlayerStat.FORTITUDE_CLASS_BONUS.toString(), 0);
+                    playerStats.put(PlayerStat.FORTITUDE_CONSTITUTION_BONUS.toString(), 0);
+                    playerStats.put(PlayerStat.FORTITUDE_MAGIC.toString(), 0);
+                    playerStats.put(PlayerStat.FORTITUDE_MISC.toString(), 0);
+                    playerStats.put(PlayerStat.REFLEX__CLASS_BONUS.toString(), 0);
+                    playerStats.put(PlayerStat.REFLEX_DEXTERITY_BONUS.toString(), 0);
+                    playerStats.put(PlayerStat.REFLEX_MAGIC.toString(), 0);
+                    playerStats.put(PlayerStat.REFLEX_MISC.toString(), 0);
+                    playerStats.put(PlayerStat.WILLPOWER_CLASS_BONUS.toString(), 0);
+                    playerStats.put(PlayerStat.WILLPOWER_WISDOM_BONUS.toString(), 0);
+                    playerStats.put(PlayerStat.WILLPOWER_MAGIC.toString(), 0);
+                    playerStats.put(PlayerStat.WILLPOWER_MISC.toString(), 0);
+                    playerStats.put(PlayerStat.BASE_ATTACK_BONUS.toString(), 0);
+                    playerStats.put(PlayerStat.SPELL_RESISTANCE.toString(), 0);
+                    playerStats.put(PlayerStat.COMBAT_MANUEVER_BONUS_BAB.toString(), 0);
+                    playerStats.put(PlayerStat.COMBAT_MANUEVER_BONUS_SIZE.toString(), 0);
+                    playerStats.put(PlayerStat.COMBAT_MANUEVER_BONUS_STRENGTH.toString(), 0);
+                    playerStats.put(PlayerStat.COMBAT_MANUEVER_BONUS_MISC.toString(), 0);
+                    playerStats.put(PlayerStat.COMBAT_MANUEVER_DEFENSE_STRENGTH.toString(), 0);
+                    playerStats.put(PlayerStat.COMBAT_MANUEVER_DEFENSE_DEXTERITY.toString(), 0);
+                    playerStats.put(PlayerStat.COMBAT_MANUEVER_DEFENSE_BAB.toString(), 0);
+                    playerStats.put(PlayerStat.COMBAT_MANUEVER_DEFENSE_SIZE.toString(), 0);
+                    playerStats.put(PlayerStat.COMBAT_MANUEVER_DEFENSE_STANDARD.toString(), 10);
+                    playerStats.put(PlayerStat.COMBAT_MANUEVER_DEFENSE_MISC.toString(), 0);
+                    playerStats.put(PlayerStat.EXPERIENCE_TOTAL.toString(), 0);
                     rp.setStats(playerStats);
-                    Map<PlayerText, String> textStats = rp.getPlayerText();
-                    textStats.put(PlayerText.DEITY, "NONE");
-                    textStats.put(PlayerText.SIZE, "NONE");
-                    textStats.put(PlayerText.GENDER, "NONE");
-                    textStats.put(PlayerText.HEIGHT, "NONE");
-                    textStats.put(PlayerText.WEIGHT, "NONE");
-                    textStats.put(PlayerText.HAIR_COLOR, "NONE");
-                    textStats.put(PlayerText.EYE_COLOR, "NONE");
-                    textStats.put(PlayerText.DESCRIPTION, "NONE");
+                    Map<String, String> textStats = rp.getPlayerText();
+                    textStats.put(PlayerText.DEITY.toString(), "NONE");
+                    textStats.put(PlayerText.SIZE.toString(), "NONE");
+                    textStats.put(PlayerText.GENDER.toString(), "NONE");
+                    textStats.put(PlayerText.HEIGHT.toString(), "NONE");
+                    textStats.put(PlayerText.WEIGHT.toString(), "NONE");
+                    textStats.put(PlayerText.HAIR_COLOR.toString(), "NONE");
+                    textStats.put(PlayerText.EYE_COLOR.toString(), "NONE");
+                    textStats.put(PlayerText.DESCRIPTION.toString(), "NONE");
                     rp.setPlayerText(textStats);
-                    Map<ElementalType, Integer> elementalTypeIntegerMap = rp.getElemResTypes();
-                    elementalTypeIntegerMap.put(ElementalType.FIRE, 0);
-                    elementalTypeIntegerMap.put(ElementalType.COLD, 0);
-                    elementalTypeIntegerMap.put(ElementalType.ACID, 0);
-                    elementalTypeIntegerMap.put(ElementalType.ELECTRICITY, 0);
-                    elementalTypeIntegerMap.put(ElementalType.SONIC, 0);
+                    Map<String, Integer> elementalTypeIntegerMap = rp.getElemResTypes();
+                    elementalTypeIntegerMap.put(ElementalType.FIRE.toString(), 0);
+                    elementalTypeIntegerMap.put(ElementalType.COLD.toString(), 0);
+                    elementalTypeIntegerMap.put(ElementalType.ACID.toString(), 0);
+                    elementalTypeIntegerMap.put(ElementalType.ELECTRICITY.toString(), 0);
+                    elementalTypeIntegerMap.put(ElementalType.SONIC.toString(), 0);
                     rp.setElemResTypes(elementalTypeIntegerMap);
-                    List<Feat> playerFeats = rp.getFeats();
-                    playerFeats.add(Feat.SOCIABLE);
+                    List<String> playerFeats = rp.getFeats();
+                    playerFeats.add(Feat.SOCIABLE.toString());
                     rp.setFeats(playerFeats);
-                    Map<PlayerSkill, Integer> playerSkills = rp.getSkills();
-                    playerSkills.put(PlayerSkill.ACROBATICS, 0);
-                    playerSkills.put(PlayerSkill.APPRAISE, 0);
-                    playerSkills.put(PlayerSkill.BLUFF, 0);
-                    playerSkills.put(PlayerSkill.CLIMB, 0);
-                    playerSkills.put(PlayerSkill.CRAFT_ALCHEMY, 0);
-                    playerSkills.put(PlayerSkill.CRAFT_ARMOR, 0);
-                    playerSkills.put(PlayerSkill.CRAFT_ITEMS, 0);
-                    playerSkills.put(PlayerSkill.CRAFT_JEWELRY, 0);
-                    playerSkills.put(PlayerSkill.CRAFT_POISON, 0);
-                    playerSkills.put(PlayerSkill.CRAFT_TRAPS, 0);
-                    playerSkills.put(PlayerSkill.CRAFT_WEAPONS, 0);
-                    playerSkills.put(PlayerSkill.DIPLOMACY, 0);
-                    playerSkills.put(PlayerSkill.DISABLE_DEVICE, 0);
-                    playerSkills.put(PlayerSkill.DISGUISE, 0);
-                    playerSkills.put(PlayerSkill.ESCAPE_ARTIST, 0);
-                    playerSkills.put(PlayerSkill.FLY, 0);
-                    playerSkills.put(PlayerSkill.HANDLE_ANIMAL, 0);
-                    playerSkills.put(PlayerSkill.HEAL, 0);
-                    playerSkills.put(PlayerSkill.INTIMIDATE, 0);
-                    playerSkills.put(PlayerSkill.KNOWLEDGE_ARCANA, 0);
-                    playerSkills.put(PlayerSkill.KNOWLEDGE_DUNGEONEERING, 0);
-                    playerSkills.put(PlayerSkill.KNOWLEDGE_ENGINEERING, 0);
-                    playerSkills.put(PlayerSkill.KNOWLEDGE_GEOGRAPHY, 0);
-                    playerSkills.put(PlayerSkill.KNOWLEDGE_HISTORY, 0);
-                    playerSkills.put(PlayerSkill.KNOWLEDGE_LOCAL, 0);
-                    playerSkills.put(PlayerSkill.KNOWLEDGE_NATURE, 0);
-                    playerSkills.put(PlayerSkill.KNOWLEDGE_NOBILITY, 0);
-                    playerSkills.put(PlayerSkill.KNOWLEDGE_PLANES, 0);
-                    playerSkills.put(PlayerSkill.KNOWLEDGE_RELIGION, 0);
-                    playerSkills.put(PlayerSkill.LINGUISTICS, 0);
-                    playerSkills.put(PlayerSkill.PERCEPTION, 0);
-                    playerSkills.put(PlayerSkill.PERFORM, 0);
-                    playerSkills.put(PlayerSkill.PROFESSION, 0);
-                    playerSkills.put(PlayerSkill.RIDE, 0);
-                    playerSkills.put(PlayerSkill.SENSE_MOTIVE, 0);
-                    playerSkills.put(PlayerSkill.SLEIGHT_OF_HAND, 0);
-                    playerSkills.put(PlayerSkill.SPELLCRAFT, 0);
-                    playerSkills.put(PlayerSkill.STEALTH, 0);
-                    playerSkills.put(PlayerSkill.SURVIVAL, 0);
-                    playerSkills.put(PlayerSkill.SWIM, 0);
-                    playerSkills.put(PlayerSkill.USE_MAGIC_DEVICE, 0);
+                    Map<String, Integer> playerSkills = rp.getSkills();
+                    playerSkills.put(PlayerSkill.ACROBATICS.toString(), 0);
+                    playerSkills.put(PlayerSkill.APPRAISE.toString(), 0);
+                    playerSkills.put(PlayerSkill.BLUFF.toString(), 0);
+                    playerSkills.put(PlayerSkill.CLIMB.toString(), 0);
+                    playerSkills.put(PlayerSkill.CRAFT_ALCHEMY.toString(), 0);
+                    playerSkills.put(PlayerSkill.CRAFT_ARMOR.toString(), 0);
+                    playerSkills.put(PlayerSkill.CRAFT_ITEMS.toString(), 0);
+                    playerSkills.put(PlayerSkill.CRAFT_JEWELRY.toString(), 0);
+                    playerSkills.put(PlayerSkill.CRAFT_POISON.toString(), 0);
+                    playerSkills.put(PlayerSkill.CRAFT_TRAPS.toString(), 0);
+                    playerSkills.put(PlayerSkill.CRAFT_WEAPONS.toString(), 0);
+                    playerSkills.put(PlayerSkill.DIPLOMACY.toString(), 0);
+                    playerSkills.put(PlayerSkill.DISABLE_DEVICE.toString(), 0);
+                    playerSkills.put(PlayerSkill.DISGUISE.toString(), 0);
+                    playerSkills.put(PlayerSkill.ESCAPE_ARTIST.toString(), 0);
+                    playerSkills.put(PlayerSkill.FLY.toString(), 0);
+                    playerSkills.put(PlayerSkill.HANDLE_ANIMAL.toString(), 0);
+                    playerSkills.put(PlayerSkill.HEAL.toString(), 0);
+                    playerSkills.put(PlayerSkill.INTIMIDATE.toString(), 0);
+                    playerSkills.put(PlayerSkill.KNOWLEDGE_ARCANA.toString(), 0);
+                    playerSkills.put(PlayerSkill.KNOWLEDGE_DUNGEONEERING.toString(), 0);
+                    playerSkills.put(PlayerSkill.KNOWLEDGE_ENGINEERING.toString(), 0);
+                    playerSkills.put(PlayerSkill.KNOWLEDGE_GEOGRAPHY.toString(), 0);
+                    playerSkills.put(PlayerSkill.KNOWLEDGE_HISTORY.toString(), 0);
+                    playerSkills.put(PlayerSkill.KNOWLEDGE_LOCAL.toString(), 0);
+                    playerSkills.put(PlayerSkill.KNOWLEDGE_NATURE.toString(), 0);
+                    playerSkills.put(PlayerSkill.KNOWLEDGE_NOBILITY.toString(), 0);
+                    playerSkills.put(PlayerSkill.KNOWLEDGE_PLANES.toString(), 0);
+                    playerSkills.put(PlayerSkill.KNOWLEDGE_RELIGION.toString(), 0);
+                    playerSkills.put(PlayerSkill.LINGUISTICS.toString(), 0);
+                    playerSkills.put(PlayerSkill.PERCEPTION.toString(), 0);
+                    playerSkills.put(PlayerSkill.PERFORM.toString(), 0);
+                    playerSkills.put(PlayerSkill.PROFESSION.toString(), 0);
+                    playerSkills.put(PlayerSkill.RIDE.toString(), 0);
+                    playerSkills.put(PlayerSkill.SENSE_MOTIVE.toString(), 0);
+                    playerSkills.put(PlayerSkill.SLEIGHT_OF_HAND.toString(), 0);
+                    playerSkills.put(PlayerSkill.SPELLCRAFT.toString(), 0);
+                    playerSkills.put(PlayerSkill.STEALTH.toString(), 0);
+                    playerSkills.put(PlayerSkill.SURVIVAL.toString(), 0);
+                    playerSkills.put(PlayerSkill.SWIM.toString(), 0);
+                    playerSkills.put(PlayerSkill.USE_MAGIC_DEVICE.toString(), 0);
                     rp.setSkills(playerSkills);
-                    List<Spell> playerSpells = rp.getSpells();
-                    playerSpells.add(Spell.PRESTIDIGITATION);
+                    List<String> playerSpells = rp.getSpells();
+                    playerSpells.add(Spell.PRESTIDIGITATION.toString());
                     rp.setSpells(playerSpells);
                     Map<String, Integer> spellsPerLevel = rp.getSpellsPerCombat();
                     spellsPerLevel.put("0", 0);
@@ -569,7 +569,7 @@ public class RpgPlayerBuilder {
                 }
                 if (RpgAPI.reputationOn){
                     Map<String, Integer> repLevel = rp.getReputationLevels();
-                    List<Reputation> repDiscovered = rp.getFactionsDiscovered();
+                    List<String> repDiscovered = rp.getFactionsDiscovered();
                     rp.setReputationLevels(repLevel);
                     rp.setFactionsDiscovered(repDiscovered);
                 }
@@ -585,7 +585,7 @@ public class RpgPlayerBuilder {
                 //player TP invite state
                 rp.setTpInviteState(playerFile.getBoolean(p + ".Tp Invite State"));
                 //get wether a player has moved from a previous position
-                playerFile.set(p + ".Location Changed", rp.locationHasChanged());
+                rp.setLocationChanged(playerFile.getBoolean(p + ".Location Changed"));
 
 
             	/*
@@ -593,19 +593,19 @@ public class RpgPlayerBuilder {
 	            */
                 //players race name
                 if (RpgAPI.racesOn){
-                    playerFile.set(p + ".RpgRace.Race Name", rp.getRace());
+                    rp.setRace(playerFile.getString(p + ".RpgRace.Race Name"));
                     //is the player immune to poison
-                    playerFile.set(p + ".RpgRace.Poison Proof", rp.isPoisonProof());
+                    rp.setPoisonProof(playerFile.getBoolean(p + ".RpgRace.Poison Proof"));
                     //is the player currently poisoned
-                    playerFile.set(p + ".RpgRace.Poisoned", rp.isPoisoned());
+                    rp.setPoisoned(playerFile.getBoolean(p + ".RpgRace.Poisoned"));
                 }
                 /*
             	 * rpgfood variables
 	            */
                 //does the player already have a food buff
                 if (RpgAPI.foodOn){
-                    playerFile.set(p + ".RpgFood.Food Buffed", rp.isBuffed());
-                    playerFile.set(p + ".RpgFood.Food Consumed", rp.getEatenItems());
+                    rp.setBuffed(playerFile.getBoolean(p + ".RpgFood.Food Buffed"));
+                    rp.setEatenItems(playerFile.getStringList(p + ".RpgFood.Food Consumed"));
                 }
 
                 /*
@@ -613,225 +613,281 @@ public class RpgPlayerBuilder {
 	            */
                 if (RpgAPI.partyOn){
                     //does the player have a pending party invite
-                    playerFile.set(p + ".RpgParty.Party Invite Pending", rp.hasPartyInvitePending());
+                    rp.setPartyInvitePending(playerFile.getBoolean(p + ".RpgParty.Party Invite Pending"));
                     //does the player want a gui to automatically
                     //open when being invited to partys
-                    playerFile.set(p + ".RpgParty.Show Party Gui", rp.showPartyGui());
+                    rp.setPartyGui(playerFile.getBoolean(p + ".RpgParty.Show Party Gui"));
                     //is the player in a party
-                    playerFile.set(p + ".RpgParty.In Party", rp.isInParty());
+                    rp.setInParty(playerFile.getBoolean(p + ".RpgParty.In Party"));
                     //auto pass on rolls
-                    playerFile.set(p + ".RpgParty.Passing On All Rolls", rp.isPassingRolls());
+                    rp.setPassingRolls(playerFile.getBoolean(p + ".RpgParty.Passing On All Rolls"));
                     //auto need on rolls
-                    playerFile.set(p + ".RpgParty.Needing On All Rolls", rp.isNeedingRolls());
+                    rp.setNeedingRolls(playerFile.getBoolean(p + ".RpgParty.Needing On All Rolls"));
                     //auto greed on rolls
-                    playerFile.set(p + ".RpgParty.Greeding On All Rolls", rp.isGreedingRolls());
+                    rp.setGreedingRolls(playerFile.getBoolean(p + ".RpgParty.Greeding On All Rolls"));
                     //auto open loot window for player
-                    playerFile.set(p + ".RpgParty.Show Loot Gui", rp.showLootGui());
+                    rp.setLootGui(playerFile.getBoolean(p + ".RpgParty.Show Loot Gui"));
                 }
                 /*
 	            * rpg guilds variables
 	            */
                 if (RpgAPI.guildsOn){
                     //does the player have a pending guild invite
-                    playerFile.set(p + ".RpgGuilds.Has Pending Guild Invite", rp.hasGuildInvite());
+                    rp.setGuildInvite(playerFile.getBoolean(p + ".RpgGuilds.Has Pending Guild Invite"));
                     //should the guild accept gui auto open on a guild invitation
-                    playerFile.set(p + ".RpgGuilds.Show Guild Gui", rp.showGuildGui());
+                    rp.setGuildGui(playerFile.getBoolean(p + ".RpgGuilds.Show Guild Gui"));
                     //is the player in a guild
-                    playerFile.set(p + ".RpgGuilds.Is In A Guild", rp.isInGuild());
+                    rp.setInGuild(playerFile.getBoolean(p + ".RpgGuilds.Is In A Guild"));
                     //what is the players guild name
-                    playerFile.set(p + ".RpgGuilds.Guild Name", rp.getGuild());
+                    rp.setGuild(playerFile.getString(p + ".RpgGuilds.Guild Name"));
                     //what is the players rank within a guild
-                    playerFile.set(p + ".RpgGuilds.Guild Rank", rp.getGuildRank());
+                    rp.setGuildRank(playerFile.getString(p + ".RpgGuilds.Guild Rank"));
                 }
 	            /*
 	            * rpg friends variables
 	            */
                 if (RpgAPI.friendsOn){
                     //should the friend gui auto open on friend invite?
-                    playerFile.set(p + ".RpgFriends.Show Friends Gui", rp.showFriendsGui());
+                    rp.setFriendsGui(playerFile.getBoolean(p + ".RpgFriends.Show Friends Gui"));
                     //player friends list
-                    playerFile.set(p + ".RpgFriends.Friends List", rp.getFriendsList());
+                    rp.setFriendsList((List<String>)playerFile.getList(p + ".RpgFriends.Friends List"));
                 }
                 /*
 	            * trade variables
 	            */
                 if (RpgAPI.tradeOn){
                     //the players total Copper
-                    playerFile.set(p + ".RpgTrade.Copper", rp.getCopper());
+                    rp.setCopper(playerFile.getInt(p + ".RpgTrade.Copper"));
                     //the player total Silver
-                    playerFile.set(p + ".RpgTrade.Silver", rp.getSilver());
+                    rp.setSilver(playerFile.getInt(p + ".RpgTrade.Silver"));
                     //the players total Gold
-                    playerFile.set(p + ".RpgTrade.Gold", rp.getGold());
+                    rp.setGold(playerFile.getInt(p + ".RpgTrade.Gold"));
                     //the players total Platinum
-                    playerFile.set(p + ".RpgTrade.Platinum", rp.getPlatinum());
+                    rp.setPlatinum(playerFile.getInt(p + ".RpgTrade.Platinum"));
                 }
                 /*
 	            * chat variables
 	            */
                 if (RpgAPI.chatOn){
                     //colors of chat channel mapped to channel name
-                    playerFile.set(p + ".RpgChat.Chat Channels", rp.getChannelColor());
+                    Map <String, String> colorMap = rp.getChannelColor();
+                    for( String key : playerFile.getConfigurationSection(p + ".RpgChat.Chat Channels").getKeys(false)){
+                        colorMap.put(key, playerFile.getString(p + ".RpgChat.Chat Channels." + key));
+                    }
+                    rp.setChannelColor(colorMap);
                     //active channel a player is talking in
-                    playerFile.set(p + ".RpgChat.Active Channel", rp.getActiveChannel());
+                    rp.setActiveChannel(playerFile.getString(p + ".RpgChat.Active Channel"));
                     //all players on ignore
-                    playerFile.set(p + ".RpgChat.Ignore List", rp.getIgnoreList());
+                    rp.setIgnoreList((List<String>)playerFile.getList(p + ".RpgChat.Ignore List"));
                     //does the player have a pending chat invite
-                    playerFile.set(p + ".RpgChat.Chat Invite Pending", rp.hasChatInvite());
+                    rp.setChatInvite(playerFile.getBoolean(p + ".RpgChat.Chat Invite Pending"));
                     //list of channels the player has invites for
-                    playerFile.set(p + ".RpgChat.Invited Chats", rp.getInvitedChats());
+                    rp.setInvitedChats((List<String>) playerFile.getList(p + ".RpgChat.Invited Chats"));
                     //list of channels the player is banned from
-                    playerFile.set(p + ".RpgChat.Banned Chats", rp.getBannedChats());
+                    rp.setBannedChats((List<String>) playerFile.getList(p + ".RpgChat.Banned Chats"));
                     //list of channels the player is muted in
-                    playerFile.set(p + ".RpgChat.Muted Chats", rp.getMutedChats());
+                    rp.setMutedChats((List<String>) playerFile.getList(p + ".RpgChat.Muted Chats"));
                     //list of channels the player owns
-                    playerFile.set(p + ".RpgChat.Owned Chats", rp.getOwnedChats());
+                    rp.setOwnedChats((List<String>) playerFile.getList(p + ".RpgChat.Owned Chats"));
                     //list of channels the player is a mod in
-                    playerFile.set(p + ".RpgChat.Moderated Chats", rp.getModChats());
+                    rp.setModChats((List<String>) playerFile.getList(p + ".RpgChat.Moderated Chats"));
                     //is chat spy toggled on or off
-                    playerFile.set(p + ".RpgChat.Spying On Chats", rp.isSpyingOnChats());
+                    rp.setSpyingOnChats(playerFile.getBoolean(p + ".RpgChat.Spying On Chats"));
                     /*
                     * booleans for which message prefixes are shown in chat
                     */
-                    playerFile.set(p + ".RpgChat.Showing Guild Tags", rp.isShowingGuildTags());
-                    playerFile.set(p + ".RpgChat.Showing Achieve Titles", rp.isShowingAchieveTitles());
-                    playerFile.set(p + ".RpgChat.Showing Channel Names", rp.isShowingChannelNames());
-                    playerFile.set(p + ".RpgChat.Showing Language Names", rp.isShowingLanguageNames());
-                    playerFile.set(p + ".RpgChat.Showing World Name", rp.isShowingWorldNames());
+                    rp.setShowingGuildTags(playerFile.getBoolean(p + ".RpgChat.Showing Guild Tags"));
+                    rp.setShowingAchieveTitles(playerFile.getBoolean(p + ".RpgChat.Showing Achieve Titles"));
+                    rp.setShowingChannelNames(playerFile.getBoolean(p + ".RpgChat.Showing Channel Names"));
+                    rp.setShowingLanguageNames(playerFile.getBoolean(p + ".RpgChat.Showing Language Names"));
+                    rp.setShowingWorldName(playerFile.getBoolean(p + ".RpgChat.Showing World Name"));
                 }
 	            /*
 	            * rpg achievements variables
 	            */
                 if (RpgAPI.achievementsOn){
                     //players active prefix title
-                    playerFile.set(p + ".RpgAchievements.Active Prefix", rp.getActivePrefix());
+                    rp.setActivePrefix(playerFile.getString(p + ".RpgAchievements.Active Prefix"));
                     //players active suffix title
-                    playerFile.set(p + ".RpgAchievements.Active Suffix", rp.getActiveSuffix());
+                    rp.setActiveSuffix(playerFile.getString(p + ".RpgAchievements.Active Suffix"));
                     //list of all titles a player has earned
-                    playerFile.set(p + ".RpgAchievements.Titles", rp.getTitles());
+                    rp.setTitles((List<String>) playerFile.getList(p + ".RpgAchievements.Titles"));
                 }
             	/*
 	            * rpg click variables
 	            */
                 if (RpgAPI.clickOn){
                     //should the player use the default shift click on player behavior
-                    playerFile.set(p + ".RpgClick.Use Click", rp.usesClick());
+                    rp.setClick(playerFile.getBoolean(p + ".RpgClick.Use Click"));
                 }
             	/*
 	            * rpg language variables
 	            */
                 if (RpgAPI.chatOn){
                     //players active spoken language
-                    playerFile.set(p + ".RpgLanguages.Active Language", rp.getActiveLanguage());
+                    rp.setActiveLanguage(playerFile.getString(p + ".RpgLanguages.Active Language"));
                     //all languages a player knows
-                    playerFile.set(p + ".RpgLanguages.Known Languages", rp.getKnownLanguages());
+                    rp.setKnownLanguages((List<String>)playerFile.getList(p + ".RpgLanguages.Known Languages"));
                     //should languages a player doesn't know be shown in chat?
-                    playerFile.set(p + ".RpgLangauges.Languages In Chat", rp.showLanguagesInChat());
+                    rp.setLanguagesInChat(playerFile.getBoolean(p + ".RpgLangauges.Languages In Chat"));
                 }
                 /*
 	            * rpg lobby variables
 	            */
                 if (RpgAPI.lobbyOn){
                     //is the player in a lobby?
-                    playerFile.set(p + ".RpgLobby.In Lobby", rp.isInLobby());
+                    rp.setInLobby(playerFile.getBoolean(p + ".RpgLobby.In Lobby"));
                     //serialised armor inventory for a player
-                    playerFile.set(p + ".RpgLobby.Armor Inventory", rp.getArmorInventory());
+                    rp.setArmorInventory(playerFile.getString(p + ".RpgLobby.Armor Inventory"));
                     //serialised inventory for a player
-                    playerFile.set(p + ".RpgLobby.Inventory Contents", rp.getInventoryContents());
+                    rp.setInventoryContents(playerFile.getString(p + ".RpgLobby.Inventory Contents"));
                     //players current health upon entering a lobby
-                    playerFile.set(p + ".RpgLobby.Current Health", rp.getCurrentHealth());
+                    rp.setCurrentHealth(playerFile.getInt(p + ".RpgLobby.Current Health"));
                     //a players x coords before entering lobby
-                    playerFile.set(p + ".RpgLobby.OldX", rp.getOldX());
+                    rp.setOldX(playerFile.getDouble(p + ".RpgLobby.OldX"));
                     //a players y coords before entering lobby
-                    playerFile.set(p + ".RpgLobby.OldY", rp.getOldY());
+                    rp.setOldY(playerFile.getDouble(p + ".RpgLobby.OldY"));
                     //a players z coords before entering lobby
-                    playerFile.set(p + ".RpgLobby.OldZ", rp.getOldZ());
+                    rp.setOldZ(playerFile.getDouble(p + ".RpgLobby.OldZ"));
                     //a players world name before entering lobby
-                    playerFile.set(p + ".RpgLobby.Old World", rp.getOldWorld());
+                    rp.setOldWorld(playerFile.getString(p + ".RpgLobby.Old World"));
                 }
 	            /*
             	 * rpg minions
 	            */
                 if (RpgAPI.minionsOn){
                     //list of all p-ets a player owns
-                    playerFile.set(p + ".RpgMinions.Pets Owned", rp.getPetsOwned());
+                    rp.setPetsOwned((List<String>) playerFile.getList(p + ".RpgMinions.Pets Owned"));
                     //does the player have an active pet
-                    playerFile.set(p + ".RpgMinions.Is Pet Active", rp.hasPetActive());
+                    rp.setPetActive(playerFile.getBoolean(p + ".RpgMinions.Is Pet Active"));
                     //active pets name
-                    playerFile.set(p + ".RpgMinions.Active Pet", rp.getActivePet());
+                    rp.setActivePet(playerFile.getString(p + ".RpgMinions.Active Pet"));
                     //does the player have agro
-                    playerFile.set(p + ".RpgMinions.Agro", rp.hasAgro());
+                    rp.setAgroTarget(playerFile.getBoolean(p + ".RpgMinions.Agro"));
                     //is the player in combat
-                    playerFile.set(p + ".RpgMinions.Is In Combat", rp.isInCombat());
+                    rp.setInCombat(playerFile.getBoolean(p + ".RpgMinions.Is In Combat"));
                     //a players current agro rating
-                    playerFile.set(p + ".RpgMinions.Agro Level", rp.getAgroLevel());
+                    rp.setAgroLevel(playerFile.getInt(p + ".RpgMinions.Agro Level"));
                 }
 	            /*
             	 * rpg Quest variables - comming soon?
 	            */
                 if (RpgAPI.questOn){
                     //players quests that are currently active
-                    playerFile.set(p + ".RpgQuests.Current Quests", rp.getCurrentQuests());
+                    rp.setCurrentQuests((List<String>)playerFile.getList(p + ".RpgQuests.Current Quests"));
                     //quests a player has completed
-                    playerFile.set(p + ".RpgQuests.Completed Quests", rp.getCompletedQuests());
+                    rp.setCompletedQuests((List<String>) playerFile.getList(p + ".RpgQuests.Completed Quests"));
                     //stages of each quest a player is on
-                    playerFile.set(p + ".RpgQuests.Quest Stages", rp.getQuestStages());
+                    Map<String, Integer> qStage = rp.getQuestStages();
+                    for (String quest : playerFile.getConfigurationSection(p + ".RpgQuests.Quest Stages").getKeys(false)){
+                        qStage.put(quest, playerFile.getInt(p + ".RpgQuests.Quest Stages." + quest));
+                    }
+                    rp.setQuestStages(qStage);
                     //players "activated" quest
-                    playerFile.set(p + ".RpgQuests.Active Quest", rp.getActiveQuest());
+                    rp.setActiveQuest(playerFile.getString(p + ".RpgQuests.Active Quest"));
                     //how many counter based goals are completed for quest - String
-                    playerFile.set(p + ".RpgQuests.Quest Goal Count", rp.getQuestGoalCount());
+                    Map<String, Integer> gCount = rp.getQuestGoalCount();
+                    for (String quest : playerFile.getConfigurationSection(p + ".RpgQuests.Quest Goal Count").getKeys(false)){
+                        gCount.put(quest, playerFile.getInt(p + ".RpgQuests.Quest Goal Count." + quest));
+                    }
+                    rp.setQuestGoalCount(gCount);
                 }
                 /*
                 * Reputations variables
                 */
                 if (RpgAPI.reputationOn){
                     //number for current reputation with a faction
-                    playerFile.set(p + ".RpgReputations.Reputation Levels", rp.getReputationLevels());
+                    Map<String, Integer> repMap = rp.getReputationLevels();
+                    for(String reputation : playerFile.getConfigurationSection(p + ".RpgReputations.Reputation Levels").getKeys(false)){
+                        repMap.put(reputation, playerFile.getInt(p + ".RpgReputations.Reputation Levels." + reputation));
+                    }
+                    rp.setReputationLevels(repMap);
+
                     //wether or not a player has discovered a factions existance
-                    playerFile.set(p + ".RpgReputations.Factions Discovered", rp.getFactionsDiscovered());
+                    rp.setFactionsDiscovered((List<String>) playerFile.getList(p + ".RpgReputations.Factions Discovered"));
                 }
             	/*
 	            * rpg Spawns
 	            */
                 if (RpgAPI.spawnsOn){
                     //does the player have a pending rez?
-                    playerFile.set(p + ".RpgSpawns.Ressurection Pending", rp.hasRessurectionPending());
+                    rp.setRessurectionPending(playerFile.getBoolean(p + ".RpgSpawns.Ressurection Pending"));
                     //is the player currently rezz'ing someone
-                    playerFile.set(p + ".RpgSpawns.Ressurecting", rp.isRessurecting());
+                    rp.setRessurecting(playerFile.getBoolean(p + ".RpgSpawns.Ressurecting"));
                     //is the player dead
-                    playerFile.set(p + ".RpgSpawns.Is Dead", rp.isDead());
+                    rp.setDead(playerFile.getBoolean(p + ".RpgSpawns.Is Dead"));
                 }
 	            /*
             	 * rpgclasses variables
             	 */
                  if (RpgAPI.classesOn){
                     //players class name
-                     playerFile.set(p + ".RpgClasses.Class Name", rp.getClassName());
+                     rp.setClassName(playerFile.getString(p + ".RpgClasses.Class Name"));
                      //player Lawful / neutral / chaotic alignment
-                     playerFile.set(p + ".RpgClasses.Lawful Alignment", rp.getLawfulAlignment());
+                     rp.setLawfulAlignment(playerFile.getString(p + ".RpgClasses.Lawful Alignment"));
                      //players Good Neutral Evil Alignment
-                     playerFile.set(p + ".RpgClasses.Good Alignment", rp.getGoodAlignment());
+                     rp.setGoodAlignment(playerFile.getString(p + ".RpgClasses.Good Alignment"));
                     //a map of the values for every player stat (sorted by enum)
-                     playerFile.set(p + ".RpgClasses.Stats", rp.getStats());
+                     Map<String, Integer> statMap = rp.getStats();
+                     for (String stat : playerFile.getConfigurationSection(p + ".RpgClasses.Stats").getKeys(false)){
+                         statMap.put(stat, playerFile.getInt(p + ".RpgClasses.Stats." + stat));
+                     }
+                     rp.setStats(statMap);
+
                     //a map of the strings for all a players text bassed stats (sorted by enum)
-                     playerFile.set(p + ".RpgClasses.Player Text", rp.getPlayerText());
+                     Map<String, String> textMap = rp.getPlayerText();
+                     for (String stat : playerFile.getConfigurationSection(p + ".RpgClasses.Player Text").getKeys(false)){
+                         textMap.put(stat, playerFile.getString(p + ".RpgClasses.Player Text." + stat));
+                     }
+                     rp.setPlayerText(textMap);
+
                     //true or false for each type of damage a player is resistant to
-                     playerFile.set(p + ".RpgClasses.Damage Reduction Types", rp.getDrTypes());
+                     Map<String, Integer> drMap = rp.getDrTypes();
+                     for (String dr : playerFile.getConfigurationSection(p + ".RpgClasses.Damage Reduction Types").getKeys(false)){
+                         drMap.put(dr, playerFile.getInt(p + ".RpgClasses.Damage Reduction Types." + dr));
+                     }
+                     rp.setDrTypes(drMap);
+
                     //true or false for the damage types a player is currently doing
-                     playerFile.set(p + ".RpgClasses.Damage Types", rp.getDmgTypes());
+                     Map<String, Integer> dtMap = rp.getDmgTypes();
+                     for (String dt : playerFile.getConfigurationSection(p + ".RpgClasses.Damage Types").getKeys(false)){
+                         dtMap.put(dt, playerFile.getInt(p + ".RpgClasses.Damage Types." + dt));
+                     }
+                     rp.setDmgTypes(dtMap);
+
                     //true or false for the elemental damage types a player is currently doing
-                     playerFile.set(p + ".RpgClasses.Elemental Damage Types", rp.getElemDmgTypes());
+                     Map<String, Integer> elemMap = rp.getElemDmgTypes();
+                     for (String elem : playerFile.getConfigurationSection(p + ".RpgClasses.Elemental Damage Types").getKeys(false)){
+                         elemMap.put(elem, playerFile.getInt(p + ".RpgClasses.Elemental Damage Types." + elem));
+                     }
+                     rp.setElemDmgTypes(elemMap);
+
                     //true or false for each type of elemental damage a player is resistant to
-                     playerFile.set(p + ".RpgClasses.Elemental Resistance Types", rp.getElemResTypes());
-                    //list of all feats a player has
-                     playerFile.set(p + ".RpgClasses.Feats", rp.getFeats());
+                     Map<String, Integer> eResMap = rp.getElemResTypes();
+                     for (String eRes : playerFile.getConfigurationSection(p + ".RpgClasses.Elemental Resistance Types").getKeys(false)){
+                         eResMap.put(eRes, playerFile.getInt(p + ".RpgClasses.Elemental Resistance Types." + eRes));
+                     }
+                     rp.setElemResTypes(eResMap);
+                     //list of all feats a player has
+                     rp.setFeats((List<String>)playerFile.getList(p + ".RpgClasses.Feats"));
                     //skills a player has ranks in and how many ranks they have
-                     playerFile.set(p + ".RpgClasses.Skills", rp.getSkills());
+                     Map<String, Integer> skillMap = rp.getSkills();
+                     for (String skill : playerFile.getConfigurationSection(p + ".RpgClasses.Skills").getKeys(false)){
+                         skillMap.put(skill,  playerFile.getInt(p + ".RpgClasses.Skills." + skill));
+                     }
+                     rp.setSkills(skillMap);
+
                     //true or false list of all spells for which a player knows
-                     playerFile.set(p + ".RpgClasses.Spells", rp.getSpells());
+                     rp.setSpells((List<String>)playerFile.getList(p + ".RpgClasses.Spells"));
                     //spells per level per combat
-                     playerFile.set(p + ".RpgClasses.Spells Per Combat", rp.getSpellsPerCombat());
+                     Map<String, Integer> spcMap = rp.getSpellsPerCombat();
+                     for (String spell : playerFile.getConfigurationSection(p + ".RpgClasses.Spells Per Combat").getKeys(false)){
+                         spcMap.put(spell,  playerFile.getInt(p + ".RpgClasses.Spells Per Combat." + spell));
+                     }
+                     rp.setSpellsPerCombat(spcMap);
+
                     //is the player wearing aromor he isn't proficient with
-                     playerFile.set(p + ".RpgClasses.Encumbered", rp.isEncumbered());
+                     rp.setEncumbered(playerFile.getBoolean(p + ".RpgClasses.Encumbered"));
                  }
                 return rp;
             }

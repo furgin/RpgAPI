@@ -303,7 +303,7 @@ public class RpgPlayer {
     private Map<String, Integer> reputationLevels = new HashMap<>();
 
     //wether or not a player has discovered a factions existance
-    private List<Reputation> factionsDiscovered = new ArrayList<Reputation>();
+    private List<String> factionsDiscovered = new ArrayList<String>();
 	
 	
 	/*
@@ -327,31 +327,31 @@ public class RpgPlayer {
 	private String className = "";
 
     //a map of the values for every player stat (sorted by enum)
-	private Map<PlayerStat, Integer> stats = new HashMap<>();
+	private Map<String, Integer> stats = new HashMap<>();
 
     //a map of the strings for all a players text bassed stats (sorted by enum)
-    private Map<PlayerText, String> playerText = new HashMap<>();
+    private Map<String, String> playerText = new HashMap<>();
 
     //true or false for each type of damage a player is resistant to
-	private Map<DamageType, Integer> drTypes = new HashMap<>();
+	private Map<String, Integer> drTypes = new HashMap<>();
 
     //true or false for the damage types a player is currently doing
-	private Map<DamageType, Integer> dmgTypes = new HashMap<>();
+	private Map<String, Integer> dmgTypes = new HashMap<>();
 
     //true or false for the elemental damage types a player is currently doing
-	private Map<ElementalType, Integer> elemDmgTypes = new HashMap<>();
+	private Map<String, Integer> elemDmgTypes = new HashMap<>();
 
     //true or false for each type of elemental damage a player is resistant to
-    private Map<ElementalType, Integer> elemResTypes = new HashMap<>();
+    private Map<String, Integer> elemResTypes = new HashMap<>();
 
     //list of all feats a player has
-	private List<Feat> feats = new ArrayList<Feat>();
+	private List<String> feats = new ArrayList<String>();
 
     //skills a player has ranks in and how many ranks they have
-	private Map<PlayerSkill, Integer> skills = new HashMap<>();
+	private Map<String, Integer> skills = new HashMap<>();
 
     //true or false list of all spells for which a player knows
-	private List<Spell> spells = new ArrayList<Spell>();
+	private List<String> spells = new ArrayList<String>();
 
     //spells per level per combat
 	private Map<String, Integer> spellsPerCombat = new HashMap<>();
@@ -386,75 +386,75 @@ public class RpgPlayer {
         this.spellsPerCombat = spellsPerCombat;
     }
 
-    public List<Spell> getSpells() {
+    public List<String> getSpells() {
         return spells;
     }
 
-    public void setSpells(List<Spell> spells) {
+    public void setSpells(List<String> spells) {
         this.spells = spells;
     }
 
-    public Map<PlayerSkill, Integer> getSkills() {
+    public Map<String, Integer> getSkills() {
         return skills;
     }
 
-    public void setSkills(Map<PlayerSkill, Integer> skills) {
+    public void setSkills(Map<String, Integer> skills) {
         this.skills = skills;
     }
 
-    public List<Feat> getFeats() {
+    public List<String> getFeats() {
         return feats;
     }
 
-    public void setFeats(List<Feat> feats) {
+    public void setFeats(List<String> feats) {
         this.feats = feats;
     }
 
-    public Map<ElementalType, Integer> getElemResTypes() {
+    public Map<String, Integer> getElemResTypes() {
         return elemResTypes;
     }
 
-    public void setElemResTypes(Map<ElementalType, Integer> elemResTypes) {
+    public void setElemResTypes(Map<String, Integer> elemResTypes) {
         this.elemResTypes = elemResTypes;
     }
 
-    public Map<ElementalType, Integer> getElemDmgTypes() {
+    public Map<String, Integer> getElemDmgTypes() {
         return elemDmgTypes;
     }
 
-    public void setElemDmgTypes(Map<ElementalType, Integer> elemDmgTypes) {
+    public void setElemDmgTypes(Map<String, Integer> elemDmgTypes) {
         this.elemDmgTypes = elemDmgTypes;
     }
 
-    public Map<DamageType, Integer> getDmgTypes() {
+    public Map<String, Integer> getDmgTypes() {
         return dmgTypes;
     }
 
-    public void setDmgTypes(Map<DamageType, Integer> dmgTypes) {
+    public void setDmgTypes(Map<String, Integer> dmgTypes) {
         this.dmgTypes = dmgTypes;
     }
 
-    public Map<DamageType, Integer> getDrTypes() {
+    public Map<String, Integer> getDrTypes() {
         return drTypes;
     }
 
-    public void setDrTypes(Map<DamageType, Integer> drTypes) {
+    public void setDrTypes(Map<String, Integer> drTypes) {
         this.drTypes = drTypes;
     }
 
-    public Map<PlayerText, String> getPlayerText() {
+    public Map<String, String> getPlayerText() {
         return playerText;
     }
 
-    public void setPlayerText(Map<PlayerText, String> playerText) {
+    public void setPlayerText(Map<String, String> playerText) {
         this.playerText = playerText;
     }
 
-    public Map<PlayerStat, Integer> getStats() {
+    public Map<String, Integer> getStats() {
         return stats;
     }
 
-    public void setStats(Map<PlayerStat, Integer> stats) {
+    public void setStats(Map<String, Integer> stats) {
         this.stats = stats;
     }
 
@@ -490,11 +490,11 @@ public class RpgPlayer {
         this.ressurectionPending = ressurectionPending;
     }
 
-    public List<Reputation> getFactionsDiscovered() {
+    public List<String> getFactionsDiscovered() {
         return factionsDiscovered;
     }
 
-    public void setFactionsDiscovered(List<Reputation> factionsDiscovered) {
+    public void setFactionsDiscovered(List<String> factionsDiscovered) {
         this.factionsDiscovered = factionsDiscovered;
     }
 

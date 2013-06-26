@@ -28,10 +28,10 @@ import org.bukkit.entity.Player;
 public class SpeedHandler {
     public static void SetWalkSpeed(RpgPlayer rp, String play){
         Player p = Bukkit.getPlayer(play);
-        Integer walkingSpeed = rp.getStats().get(PlayerStat.SPEED_LAND);
-        Integer encumberedSpeed = rp.getStats().get(PlayerStat.SPEED_LAND_WITH_ARMOR);
+        Integer walkingSpeed = rp.getStats().get(PlayerStat.SPEED_LAND.toString());
+        Integer encumberedSpeed = rp.getStats().get(PlayerStat.SPEED_LAND_WITH_ARMOR.toString());
         Integer speed = 0;
-        if (rp.getEncumbered()){
+        if (rp.isEncumbered()){
            speed = encumberedSpeed;
         } else {
             speed = walkingSpeed;
@@ -109,7 +109,7 @@ public class SpeedHandler {
 
     public static void SetFlySpeed(RpgPlayer rp, String play){
         Player p = Bukkit.getPlayer(play);
-        Integer speed = rp.getStats().get(PlayerStat.SPEED_FLY);
+        Integer speed = rp.getStats().get(PlayerStat.SPEED_FLY.toString());
         if (speed >= 110){
             p.setFlySpeed(0.84f);
         }

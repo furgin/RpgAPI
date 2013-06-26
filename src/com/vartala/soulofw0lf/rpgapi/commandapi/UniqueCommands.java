@@ -249,11 +249,11 @@ public class UniqueCommands {
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Test Command"))){
             String activeNick = RpgAPI.activeNicks.get(p.getName());
             RpgPlayer rp = RpgAPI.rpgPlayers.get(activeNick);
-            Map<PlayerStat, Integer> statMap = rp.getStats();
-            Integer speed = statMap.get(PlayerStat.SPEED_LAND);
+            Map<String, Integer> statMap = rp.getStats();
+            Integer speed = statMap.get(PlayerStat.SPEED_LAND.toString());
             speed += 5;
-            statMap.put(PlayerStat.SPEED_LAND, speed);
-            statMap.put(PlayerStat.SPEED_FLY, speed);
+            statMap.put(PlayerStat.SPEED_LAND.toString(), speed);
+            statMap.put(PlayerStat.SPEED_FLY.toString(), speed);
             rp.setStats(statMap);
             SpeedHandler.SetWalkSpeed(rp, p.getName());
             SpeedHandler.SetFlySpeed(rp, p.getName());
@@ -275,9 +275,9 @@ public class UniqueCommands {
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Player Info"))){
             String activeNick = RpgAPI.activeNicks.get(p.getName());
             RpgPlayer rp = RpgAPI.rpgPlayers.get(activeNick);
-            Map<PlayerStat, Integer> statMap = rp.getStats();
-            statMap.put(PlayerStat.SPEED_LAND, 0);
-            statMap.put(PlayerStat.SPEED_FLY, 0);
+            Map<String, Integer> statMap = rp.getStats();
+            statMap.put(PlayerStat.SPEED_LAND.toString(), 0);
+            statMap.put(PlayerStat.SPEED_FLY.toString(), 0);
             rp.setStats(statMap);
             SpeedHandler.SetWalkSpeed(rp, p.getName());
             SpeedHandler.SetFlySpeed(rp, p.getName());
