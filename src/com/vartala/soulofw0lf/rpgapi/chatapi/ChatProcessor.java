@@ -39,7 +39,7 @@ public class ChatProcessor {
             if (rp.isInGuild()){
                 u = u.replaceAll("@Guild", RpgAPI.guilds.get(rp.getGuild()).getDisplayName());
             } else {
-                u = u.replace("[@Guild]", "");
+                u = u.replace("@Guild", "");
             }
         }
         String w = u;
@@ -60,6 +60,7 @@ public class ChatProcessor {
             t = t.replaceAll("@Channel", rp.getActiveChannel());
         }
         String r = ChatColors.ChatString(t);
-      return r + ": ";
+        String m = r.replace("[]", "");
+      return m + ": ";
     }
 }

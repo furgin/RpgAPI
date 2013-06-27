@@ -317,7 +317,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
             guildConfig.set("Guilds Info", "This File will save all guild info, Mysql is highly recommended!");
         }}
         if (chatOn){if (chatConfig.get("Channels") == null) {
-            chatConfig.set("Titles and Names", "&F[&7@World&F][&2@Guild&F][&3@Channel&f][@Prefix @Pname @Suffix&F]");
+            chatConfig.set("Titles and Names", "&7[@World]&2[@Guild]&3[@Channel]&r[@Prefix @Pname @Suffix&F]");
         }}
         if (foodOn){if (foodConfig.get("Rpg Foods") == null) {
             foodConfig.set("Rpg Foods", "This file will save all your Rpg Food Items");
