@@ -72,7 +72,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static YamlConfiguration playerConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayers.yml"));
     public static YamlConfiguration localeConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale.yml"));
     public static YamlConfiguration guildConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Guilds.yml"));
-    public static YamlConfiguration chatConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/ChatChannels.yml"));
+    public static YamlConfiguration chatConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat.yml"));
     public static YamlConfiguration foodConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Food.yml"));
     public static YamlConfiguration clickConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Clicks.yml"));
     public static YamlConfiguration settingsConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Settings.yml"));
@@ -122,20 +122,20 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
     //Variables
     public static ArrayList<RpgClickInv> rpgClicks = new ArrayList<RpgClickInv>();
-    public Map<String, GuildObject> guilds = new HashMap<>();
-    public Map<String, PartyGroup> partys = new HashMap<>();
-    public Map<String, LFGPlayer> lookingForGroup = new HashMap<>();
-    public Map<String, GuildRank> guildRanks = new HashMap<>();
-    public Integer partyQue = 0;
-    public Map<Integer, MinionEntity> activeMinions = new HashMap<>();
-    public Map<String, FactionLevel> allFactions = new HashMap<>();
-    public Map<String, TitleAchievement> titleAchievs = new HashMap<>();
-    public Map<Spell, MagicSpell> allSpells = new HashMap<>();
+    public static Map<String, GuildObject> guilds = new HashMap<>();
+    public static Map<String, PartyGroup> partys = new HashMap<>();
+    public static Map<String, LFGPlayer> lookingForGroup = new HashMap<>();
+    public static Map<String, GuildRank> guildRanks = new HashMap<>();
+    public static Integer partyQue = 0;
+    public static Map<Integer, MinionEntity> activeMinions = new HashMap<>();
+    public static Map<String, FactionLevel> allFactions = new HashMap<>();
+    public static Map<String, TitleAchievement> titleAchievs = new HashMap<>();
+    public static Map<Spell, MagicSpell> allSpells = new HashMap<>();
     public static Map<String, RpgPlayer> rpgPlayers = new HashMap<>();
-    public Map<ClassName, RpgClasses> rpgClasses = new HashMap<>();
+    public static Map<ClassName, RpgClasses> rpgClasses = new HashMap<>();
     public static List<ChatClass> chatClasses = new ArrayList<ChatClass>();
     public static Map<String, String> activeNicks = new HashMap<>();
-    public Map<String, CustomFood> foodItems = new HashMap<>();
+    public static Map<String, CustomFood> foodItems = new HashMap<>();
     public static boolean rpgStyleFood = true;
     public static String dBUserName = "";
     public static String dBPassword = "";
@@ -155,6 +155,8 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<String, RpgWarp> savedWarps = new HashMap<>();
     public static List<ItemStack> warpItems = new ArrayList<ItemStack>();
     public static Map<String, List<String>> warpCds = new HashMap<>();
+    public static String nameDisplays = "";
+    public static Map<String, String> playerColors = new HashMap<>();
 
 
     @Override
@@ -246,7 +248,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
         localeConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale.yml"));
         if (guildsOn){guildConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Guilds.yml"));}
-        if (chatOn){chatConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/ChatChannels.yml"));}
+        if (chatOn){chatConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat.yml"));}
         if (foodOn){foodConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Food.yml"));}
         if (clickOn){clickConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Clicks.yml"));}
         settingsConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Settings.yml"));
@@ -280,6 +282,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }
         if (playerConfig.get("Active Nicks") == null) {
             playerConfig.set("Active Nicks.Sample Player", "Sample Nick");
+            playerConfig.set("Player Colors.soulofw0lf", "&4");
         }
         for (String players : playerConfig.getConfigurationSection("Active Nicks").getKeys(false)){
             String currentNick = playerConfig.getString("Active Nicks." + players);
@@ -314,7 +317,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
             guildConfig.set("Guilds Info", "This File will save all guild info, Mysql is highly recommended!");
         }}
         if (chatOn){if (chatConfig.get("Channels") == null) {
-            chatConfig.set("Channels", "This config will save all your chat channel data.");
+            chatConfig.set("Titles and Names", "&F[&7@World&F][&2@Guild&F][&3@Channel&f][@Prefix @Pname @Suffix&F]");
         }}
         if (foodOn){if (foodConfig.get("Rpg Foods") == null) {
             foodConfig.set("Rpg Foods", "This file will save all your Rpg Food Items");
@@ -374,7 +377,13 @@ public class RpgAPI extends JavaPlugin implements Listener {
         if (poisonedEarthOn){
         PoisonBuilder.newPoison();
         PoisonTimeChecker.PoisonRegionTimer();
+        for (String pName : playerConfig.getConfigurationSection("Player Colors").getKeys(false)){
+            playerColors.put(pName, playerConfig.getString("Player Colors." + pName));
+        }
 
+        if (chatOn){
+            nameDisplays = chatConfig.getString("Titles and Names");
+        }
         }
     }
 
@@ -383,8 +392,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
         for (String thisWarp : RpgAPI.savedWarps.keySet()){
         if (warpsOn){WarpBuilder.SaveWarp(thisWarp);WarpSetBuilder.SaveSets();}
         }
+        playerConfig.set("Player Colors", playerColors);
         try {
             if (warpsOn){warpConfig.save(new File("plugins/RpgAPI/WarpConfig.yml"));}
+            playerConfig.save(new File("plugins/RpgAPI/RpgPlayers.yml"));
         } catch (IOException e) {
         }
 

@@ -48,6 +48,9 @@ public class GuildObject {
     //guilds name
     private String guildName = "";
 
+    //guild displayname for chat
+    private String displayName = "";
+
     //guild bank section will be changed
     private Inventory guildBank1 = Bukkit.createInventory(null, 45, "Gbank: Tab 1");
     private Inventory guildBank2 = Bukkit.createInventory(null, 45, "Gbank: Tab 2");
@@ -182,5 +185,13 @@ public class GuildObject {
 
     public void setGuildHQ(GuildHQ guildHQ) {
         this.guildHQ = guildHQ;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

@@ -44,7 +44,13 @@ public class playerLogIn implements Listener {
         player.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Active Character") + p));
         RpgPlayer rp = RpgPlayerBuilder.RpgBuilder(p);
         RpgAPI.rpgPlayers.put(p, rp);
-
+        if (!(RpgAPI.playerColors.containsKey(pName))){
+            if (player.isOp()){
+                RpgAPI.playerColors.put(pName, "&4");
+            } else {
+                RpgAPI.playerColors.put(pName, "&2");
+            }
+        }
         final String playerN = pName;
         new BukkitRunnable(){
 

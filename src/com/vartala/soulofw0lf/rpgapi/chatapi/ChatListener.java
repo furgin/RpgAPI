@@ -2,6 +2,8 @@ package com.vartala.soulofw0lf.rpgapi.chatapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
+import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -32,11 +34,18 @@ public class ChatListener implements Listener {
     RpgAPI Rpgapi;
     public ChatListener (RpgAPI rpgapi){
         this.Rpgapi = rpgapi;
+        Bukkit.getPluginManager().registerEvents(this, this.Rpgapi);
     }
     //
     @EventHandler(priority = EventPriority.HIGHEST)
     public void channelChat(AsyncPlayerChatEvent event){
-        if (!(RpgAPI.chatOn)){
+        Player p = event.getPlayer();
+        String m = event.getMessage();
+        event.setCancelled(true);
+        for (Player r : event.getRecipients()){
+            r.sendMessage(ChatProcessor.TitleString(RpgAPI.nameDisplays, p.getName()) + ChatColors.ChatString(m));
+        }
+       /* if (!(RpgAPI.chatOn)){
             return;
         }
         String senderName = event.getPlayer().getName();
@@ -69,6 +78,7 @@ public class ChatListener implements Listener {
                  behavior.chatChannel(activeChat, receiveName, language, event.getMessage(), spyChat);
              }
         }
+        */
         }
 
 }
