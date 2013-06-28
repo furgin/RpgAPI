@@ -82,6 +82,9 @@ public class RpgPlayer {
     //is the player in a party
 	private boolean inParty = false;
 
+    //party leader of the party
+    private String leaderName = "";
+
     //auto pass on rolls
 	private boolean passingRolls = false;
 
@@ -1115,5 +1118,13 @@ public class RpgPlayer {
 
     public void setItemsUsed(Map<String, Integer> itemsUsed) {
         this.itemsUsed = itemsUsed;
+    }
+
+    public String getLeaderName() {
+        return leaderName;
+    }
+
+    public void setLeaderName(String leaderName) {
+        this.leaderName = leaderName;
     }
 }

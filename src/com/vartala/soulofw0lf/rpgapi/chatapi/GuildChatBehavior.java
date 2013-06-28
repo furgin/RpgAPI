@@ -1,6 +1,8 @@
 package com.vartala.soulofw0lf.rpgapi.chatapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import com.vartala.soulofw0lf.rpgapi.guildapi.GuildObject;
+import com.vartala.soulofw0lf.rpgapi.partyapi.PartyGroup;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
 import org.bukkit.Bukkit;
@@ -8,7 +10,7 @@ import org.bukkit.Bukkit;
 /**
  * Created by: soulofw0lf
  * Date: 6/28/13
- * Time: 2:13 AM
+ * Time: 2:49 PM
  * <p/>
  * This file is part of the Rpg Suite Created by Soulofw0lf and Linksy.
  * <p/>
@@ -25,31 +27,25 @@ import org.bukkit.Bukkit;
  * You should have received a copy of the GNU General Public License
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class BasicChatBehavior implements ChatBehavior{
-    //
+public class GuildChatBehavior implements ChatBehavior {
     @Override
     public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy){
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(receiveName));
-        String color = rp.getChannelColor().get(chatName);
-        message = ChatColors.ChatString(color + message);
-        if (rp.getIgnoreList().contains(sendName)){
-            message = "";
-            return message;
-        }
+        RpgPlayer rp2 = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(sendName));
+
         if (chatSpy && rp.isSpyingOnChats()){
-                return message;
-        }
-        Boolean isInChannel = false;
-        for (String inChannel : rp.getChannelColor().keySet()){
-            if (inChannel.equalsIgnoreCase(chatName)){
-                isInChannel = true;
-            }
-        }
-        if (!(isInChannel)){
-            message = "";
+
             return message;
         }
 
+        if (rp.isInGuild()){
+        GuildObject g = RpgAPI.guilds.get(rp2.getGuild());
+        if (g.getMembers().contains(RpgAPI.activeNicks.get(receiveName))){
+
+            return message;
+        }
+        }
+        message = "";
         return message;
     }
 }

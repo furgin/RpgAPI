@@ -85,6 +85,8 @@ public class RpgPlayerBuilder {
                     playerFile.set(p + ".RpgParty.Show Party Gui", rp.showPartyGui());
                     //is the player in a party
                     playerFile.set(p + ".RpgParty.In Party", rp.isInParty());
+                    //player party leaders name
+                    playerFile.set(p + ".RpgParty.Leader Name", rp.getLeaderName());
                     //auto pass on rolls
                     playerFile.set(p + ".RpgParty.Passing On All Rolls", rp.isPassingRolls());
                     //auto need on rolls
@@ -566,7 +568,7 @@ public class RpgPlayerBuilder {
                 if (RpgAPI.clickOn){rp.setClick(true);}
                 if (RpgAPI.lobbyOn){
                     rp.setInLobby(false);
-                    rp.setArmorInventory("NONR");
+                    rp.setArmorInventory("NONE");
                     rp.setInventoryContents("NONE");
                     rp.setCurrentHealth(0);
                     rp.setOldX(0);
@@ -644,6 +646,8 @@ public class RpgPlayerBuilder {
                     rp.setPartyGui(playerFile.getBoolean(p + ".RpgParty.Show Party Gui"));
                     //is the player in a party
                     rp.setInParty(playerFile.getBoolean(p + ".RpgParty.In Party"));
+                    //name of the party leader of the players party
+                    rp.setLeaderName(p + ".RpgParty.Leader Name");
                     //auto pass on rolls
                     rp.setPassingRolls(playerFile.getBoolean(p + ".RpgParty.Passing On All Rolls"));
                     //auto need on rolls

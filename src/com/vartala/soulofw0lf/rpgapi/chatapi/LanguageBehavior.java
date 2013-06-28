@@ -8,7 +8,7 @@ import org.bukkit.Bukkit;
 /**
  * Created by: soulofw0lf
  * Date: 6/28/13
- * Time: 2:13 AM
+ * Time: 3:40 PM
  * <p/>
  * This file is part of the Rpg Suite Created by Soulofw0lf and Linksy.
  * <p/>
@@ -25,31 +25,28 @@ import org.bukkit.Bukkit;
  * You should have received a copy of the GNU General Public License
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class BasicChatBehavior implements ChatBehavior{
-    //
+public class LanguageBehavior implements ChatBehavior {
     @Override
-    public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy){
+    public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(receiveName));
-        String color = rp.getChannelColor().get(chatName);
-        message = ChatColors.ChatString(color + message);
-        if (rp.getIgnoreList().contains(sendName)){
-            message = "";
+        Boolean languageKnown = false;
+        if (chatSpy && rp.isSpyingOnChats()){
             return message;
         }
-        if (chatSpy && rp.isSpyingOnChats()){
-                return message;
-        }
-        Boolean isInChannel = false;
-        for (String inChannel : rp.getChannelColor().keySet()){
-            if (inChannel.equalsIgnoreCase(chatName)){
-                isInChannel = true;
+        for (String lang : rp.getKnownLanguages()){
+            if (lang.equalsIgnoreCase(language)){
+                languageKnown = true;
             }
         }
-        if (!(isInChannel)){
-            message = "";
-            return message;
+        if (!(languageKnown)){
+            if (rp.showLanguagesInChat()){
+                message = LanguageProcessor.LanguageDecoder(message, language);
+                return message;
+            } else {
+                message = "";
+                return message;
+            }
         }
-
         return message;
     }
 }

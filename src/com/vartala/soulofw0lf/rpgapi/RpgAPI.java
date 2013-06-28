@@ -161,6 +161,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<String, List<String>> languageCypher = new HashMap<>();
     public static Map<String, List<String>> languageKey = new HashMap<>();
     public static Map<String, List<String>> pluginCommand = new HashMap<>();
+    public static Map<String, Integer> chatDistances = new HashMap<>();
 
 
     @Override
@@ -335,6 +336,128 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }}
         if (chatOn){if (chatConfig.get("Channels") == null) {
             chatConfig.set("Titles and Names", "&7[@World]&2[@Guild]&3[@Channel]&r[@Prefix @Pname @Suffix&F]");
+            //whisper Chat
+            chatConfig.set("Chats.Whisper.Name", "Whisper");
+            chatConfig.set("Chats.Whisper.Enabled", true);
+            chatConfig.set("Chats.Whisper.Spy Enabled", true);
+            chatConfig.set("Chats.Whisper.Use Basic", true);
+            chatConfig.set("Chats.Whisper.Use Language", true);
+            chatConfig.set("Chats.Whisper.Use Distance", true);
+            chatConfig.set("Chats.Whisper.Distance", 5);
+            chatConfig.set("Chats.Whisper.Use Party", false);
+            chatConfig.set("Chats.Whisper.Use Guild", false);
+            chatConfig.set("Chats.Whisper.Use Region", false);
+            chatConfig.set("Chats.Whisper.Use City", false);
+            chatConfig.set("Chats.Whisper.Use World", false);
+
+            //local chat
+            chatConfig.set("Chats.Local.Name", "Local");
+            chatConfig.set("Chats.Local.Enabled", true);
+            chatConfig.set("Chats.Local.Spy Enabled", true);
+            chatConfig.set("Chats.Local.Use Basic", true);
+            chatConfig.set("Chats.Local.Use Language", true);
+            chatConfig.set("Chats.Local.Use Distance", true);
+            chatConfig.set("Chats.Local.Distance", 50);
+            chatConfig.set("Chats.Local.Use Party", false);
+            chatConfig.set("Chats.Local.Use Guild", false);
+            chatConfig.set("Chats.Local.Use Region", false);
+            chatConfig.set("Chats.Local.Use City", false);
+            chatConfig.set("Chats.Local.Use World", false);
+
+            //shout Chat
+            chatConfig.set("Chats.Shout.Name", "Shout");
+            chatConfig.set("Chats.Shout.Enabled", true);
+            chatConfig.set("Chats.Shout.Spy Enabled", true);
+            chatConfig.set("Chats.Shout.Use Basic", true);
+            chatConfig.set("Chats.Shout.Use Language", true);
+            chatConfig.set("Chats.Shout.Use Distance", true);
+            chatConfig.set("Chats.Shout.Distance", 150);
+            chatConfig.set("Chats.Shout.Use Party", false);
+            chatConfig.set("Chats.Shout.Use Guild", false);
+            chatConfig.set("Chats.Shout.Use Region", false);
+            chatConfig.set("Chats.Shout.Use City", false);
+            chatConfig.set("Chats.Shout.Use World", false);
+
+            //General chat
+            chatConfig.set("Chats.General.Name", "General");
+            chatConfig.set("Chats.General.Enabled", true);
+            chatConfig.set("Chats.General.Spy Enabled", true);
+            chatConfig.set("Chats.General.Use Basic", true);
+            chatConfig.set("Chats.General.Use Language", true);
+            chatConfig.set("Chats.General.Use Distance", false);
+            chatConfig.set("Chats.General.Use Party", false);
+            chatConfig.set("Chats.General.Use Guild", false);
+            chatConfig.set("Chats.General.Use Region", false);
+            chatConfig.set("Chats.General.Use City", false);
+            chatConfig.set("Chats.General.Use World", false);
+
+            //party Chat
+            chatConfig.set("Chats.Party.Name", "Party");
+            chatConfig.set("Chats.Party.Enabled", true);
+            chatConfig.set("Chats.Party.Spy Enabled", true);
+            chatConfig.set("Chats.Party.Use Basic", true);
+            chatConfig.set("Chats.Party.Use Language", true);
+            chatConfig.set("Chats.Party.Use Distance", false);
+            chatConfig.set("Chats.Party.Use Party", true);
+            chatConfig.set("Chats.Party.Use Guild", false);
+            chatConfig.set("Chats.Party.Use Region", false);
+            chatConfig.set("Chats.Party.Use City", false);
+            chatConfig.set("Chats.Party.Use World", false);
+
+            //guild chat
+            chatConfig.set("Chats.Guild.Name", "Guild");
+            chatConfig.set("Chats.Guild.Enabled", true);
+            chatConfig.set("Chats.Guild.Spy Enabled", true);
+            chatConfig.set("Chats.Guild.Use Basic", true);
+            chatConfig.set("Chats.Guild.Use Language", true);
+            chatConfig.set("Chats.Guild.Use Distance", false);
+            chatConfig.set("Chats.Guild.Use Party", false);
+            chatConfig.set("Chats.Guild.Use Guild", true);
+            chatConfig.set("Chats.Guild.Use Region", false);
+            chatConfig.set("Chats.Guild.Use City", false);
+            chatConfig.set("Chats.Guild.Use World", false);
+
+            //world chat
+            chatConfig.set("Chats.World.Name", "World");
+            chatConfig.set("Chats.World.Enabled", true);
+            chatConfig.set("Chats.World.Spy Enabled", true);
+            chatConfig.set("Chats.World.Use Basic", true);
+            chatConfig.set("Chats.World.Use Language", true);
+            chatConfig.set("Chats.World.Use Distance", false);
+            chatConfig.set("Chats.World.Use Party", false);
+            chatConfig.set("Chats.World.Use Guild", false);
+            chatConfig.set("Chats.World.Use Region", false);
+            chatConfig.set("Chats.World.Use City", false);
+            chatConfig.set("Chats.World.Use World", true);
+
+            //region Chat
+            chatConfig.set("Chats.Region.Name", "Region");
+            chatConfig.set("Chats.Region.Enabled", true);
+            chatConfig.set("Chats.Region.Spy Enabled", true);
+            chatConfig.set("Chats.Region.Use Basic", true);
+            chatConfig.set("Chats.Region.Use Language", true);
+            chatConfig.set("Chats.Region.Use Distance", false);
+            chatConfig.set("Chats.Region.Use Party", false);
+            chatConfig.set("Chats.Region.Use Guild", false);
+            chatConfig.set("Chats.Region.Use Region", true);
+            chatConfig.set("Chats.Region.Use City", false);
+            chatConfig.set("Chats.Region.Use World", true);
+
+            //trade chat
+            chatConfig.set("Chats.Trade.Name", "Trade");
+            chatConfig.set("Chats.Trade.Enabled", true);
+            chatConfig.set("Chats.Trade.Spy Enabled", true);
+            chatConfig.set("Chats.Trade.Use Basic", true);
+            chatConfig.set("Chats.Trade.Use Language", true);
+            chatConfig.set("Chats.Trade.Use Distance", false);
+            chatConfig.set("Chats.Trade.Use Party", false);
+            chatConfig.set("Chats.Trade.Use Guild", false);
+            chatConfig.set("Chats.Trade.Use Region", false);
+            chatConfig.set("Chats.Trade.Use City", true);
+            chatConfig.set("Chats.Trade.Use World", false);
+
+
+
         }}
         if (foodOn){if (foodConfig.get("Rpg Foods") == null) {
             foodConfig.set("Rpg Foods", "This file will save all your Rpg Food Items");
@@ -411,16 +534,47 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }
         if (chatOn){
             nameDisplays = chatConfig.getString("Titles and Names");
-            ChatClass gC = new ChatClass();
-            gC.setChannelName("General Chat");
-            gC.setChatSpy(true);
-
-            gC.addBehavior(new BasicChatBehavior());
-            chatClasses.add(gC);
-
+            for (String chats : chatConfig.getConfigurationSection("Chats").getKeys(false)){
+            //general chat
+                if (chatConfig.getBoolean("Chats."+chats+".Enabled")){
+                    ChatClass chatClass = new ChatClass();
+                    chatClass.setChannelName(chatConfig.getString("Chats." + chats + ".Name"));
+                    chatClass.setChatSpy(chatConfig.getBoolean("Chats." + chats + ".Spy Enabled"));
+                    if (chatConfig.getBoolean("Chats." + chats + ".Use Basic")){
+                        chatClass.addBehavior(new BasicChatBehavior());
+                    }
+                    if (chatConfig.getBoolean("Chats." + chats + ".Use Language")){
+                        chatClass.addBehavior(new LanguageBehavior());
+                    }
+                    if (chatConfig.getBoolean("Chats." + chats + ".Use Distance")){
+                        chatClass.addBehavior(new DistanceChatBehavior());
+                        chatDistances.put(chats, chatConfig.getInt("Chats." + chats + ".Distance"));
+                    }
+                    if (chatConfig.getBoolean("Chats." + chats + ".Use Party")){
+                        chatClass.addBehavior(new PartyChatBehavior());
+                    }
+                    if (chatConfig.getBoolean("Chats." + chats + ".Use Guild")){
+                        chatClass.addBehavior(new GuildChatBehavior());
+                    }
+                    if (chatConfig.getBoolean("Chats." + chats + ".Use Region")){
+                        chatClass.addBehavior(new RegionChatBehavior());
+                    }
+                    if (chatConfig.getBoolean("Chats." + chats + ".Use City")){
+                        chatClass.addBehavior(new CityChatBehavior());
+                    }
+                    if (chatConfig.getBoolean("Chats." + chats + ".Use World")){
+                        chatClass.addBehavior(new WorldChatBehavior());
+                    }
+                    chatClasses.add(chatClass);
+                }
+            }
         }
+    }
 
-
+    public static RpgPlayer getRp(String name){
+        String nick = activeNicks.get(name);
+        RpgPlayer rp = rpgPlayers.get(nick);
+        return rp;
     }
 
     @Override
