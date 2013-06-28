@@ -32,8 +32,8 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
  */
 public class ChatListener implements Listener {
     RpgAPI Rpgapi;
-    public ChatListener (RpgAPI rpgapi){
-        this.Rpgapi = rpgapi;
+    public ChatListener(RpgAPI rpgAPI){
+        this.Rpgapi = rpgAPI;
         Bukkit.getPluginManager().registerEvents(this, this.Rpgapi);
     }
     //
@@ -41,26 +41,34 @@ public class ChatListener implements Listener {
     public void channelChat(AsyncPlayerChatEvent event){
         Player p = event.getPlayer();
         String m = event.getMessage();
-        event.setCancelled(true);
+
+        if (!(RpgAPI.chatOn)){
+       event.setCancelled(true);
         for (Player r : event.getRecipients()){
-            r.sendMessage(ChatProcessor.TitleString(RpgAPI.nameDisplays, p.getName()) + ChatColors.ChatString(m));
+            r.sendMessage(ChatProcessor.TitleString(RpgAPI.nameDisplays, p.getName(), r.getName()) + ChatColors.ChatString(m));
         }
-       /* if (!(RpgAPI.chatOn)){
             return;
         }
         String senderName = event.getPlayer().getName();
-        RpgPlayer sendPlayer = this.Rpgapi.rpgPlayers.get(this.Rpgapi.activeNicks.get(senderName));
+        RpgPlayer sendPlayer = Rpgapi.rpgPlayers.get(Rpgapi.activeNicks.get(senderName));
         if (sendPlayer.getActiveChannel().isEmpty()){
             return;
         }
         String activeChat = sendPlayer.getActiveChannel();
         ChatClass thisChat = null;
-        if (!(RpgAPI.chatClasses.contains(activeChat))){
+        Boolean channelExists = false;
+        for (ChatClass cc : RpgAPI.chatClasses){
+        if (cc.getChannelName().equalsIgnoreCase(activeChat)){
+            channelExists = true;
+        }
+        }
+        if (!(channelExists)){
             return;
         }
         String language = "";
         if (sendPlayer.getActiveLanguage().isEmpty()){
             language = "Common";
+            sendPlayer.setActiveLanguage("Common");
         } else {
             language = sendPlayer.getActiveLanguage();
         }
@@ -69,16 +77,21 @@ public class ChatListener implements Listener {
             thisChat = cl;
          }
         }
+        if (thisChat.getMutedPlayers().contains(senderName)){
+            Bukkit.getPlayer(senderName).sendMessage("You are muted in this chat.");
+            return;
+        }
+        if (thisChat.getBannedPlayers().contains(senderName)){
+            Bukkit.getPlayer(senderName).sendMessage("You are banned from this chat.");
+            return;
+        }
         Boolean spyChat = thisChat.isChatSpy();
         event.setCancelled(true);
-        for (Player p : event.getRecipients()){
-             RpgPlayer receivePlayer = this.Rpgapi.rpgPlayers.get(this.Rpgapi.activeNicks.get(p.getName()));
-             String receiveName = this.Rpgapi.activeNicks.get(p.getName());
+        for (Player pl : event.getRecipients()){
+             String receiveName = Rpgapi.activeNicks.get(pl.getName());
              for (ChatBehavior behavior : thisChat.getChannelBehaviors()){
-                 behavior.chatChannel(activeChat, receiveName, language, event.getMessage(), spyChat);
+                 behavior.chatChannel(activeChat, receiveName, senderName, language, event.getMessage(), spyChat);
              }
         }
-        */
-        }
-
+    }
 }

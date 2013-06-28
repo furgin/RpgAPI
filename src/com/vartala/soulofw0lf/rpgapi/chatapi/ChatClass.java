@@ -56,6 +56,13 @@ public class ChatClass {
     public void  ChatClass(){
 
     }
+    public void addBehavior(ChatBehavior behavior){
+
+        channelBehaviors.add(behavior);
+    }
+    public void clearBehavior(){
+        channelBehaviors.clear();
+    }
 
     public String getChannelName() {
         return channelName;

@@ -30,36 +30,50 @@ import java.util.regex.Pattern;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class ChatProcessor {
-    public static String TitleString (String s, String name){
+    public static String TitleString (String s, String name, String rName){
         Player p = Bukkit.getPlayer(name);
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(name));
+        RpgPlayer rp2 = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(rName));
         String q = ChatColors.ChatString(s);
-        String u = q.replaceAll("@World", p.getWorld().getName());
+        if (rp2.isShowingWorldNames()){
+            q = q.replaceAll("@World", p.getWorld().getName());
+        } else {
+            q = q.replaceAll("@World", "");
+        }
         if (RpgAPI.guildsOn){
-            if (rp.isInGuild()){
-                u = u.replaceAll("@Guild", RpgAPI.guilds.get(rp.getGuild()).getDisplayName());
+            if (rp.isInGuild() && rp2.isShowingGuildTags()){
+                q = q.replaceAll("@Guild", RpgAPI.guilds.get(rp.getGuild()).getDisplayName());
             } else {
-                u = u.replace("@Guild", "");
+                q = q.replace("@Guild", "");
             }
         }
-        String w = u;
+
         if (RpgAPI.achievementsOn){
-            if (!(rp.getActivePrefix().equalsIgnoreCase("None"))){
-                w = w.replaceAll("@Prefix", rp.getActivePrefix());
+            if (!(rp.getActivePrefix().equalsIgnoreCase("None")) && rp2.isShowingAchieveTitles()){
+                q = q.replaceAll("@Prefix", rp.getActivePrefix());
             } else {
-                w = w.replaceAll("@Prefix", "");
+                q = q.replaceAll("@Prefix", "");
             }
-            if (!(rp.getActiveSuffix().equalsIgnoreCase("None"))){
-                w = w.replaceAll("@Suffix", "");
+            if (!(rp.getActiveSuffix().equalsIgnoreCase("None")) && rp2.isShowingAchieveTitles()){
+                q = q.replaceAll("@Suffix", "");
             }else{
-                w = w.replaceAll(" @Suffix","");
+                q = q.replaceAll(" @Suffix","");
             }
         }
-        String t = w.replaceAll("@Pname", RpgAPI.playerColors.get(name) + RpgAPI.activeNicks.get(name) + "&F");
+        q = q.replaceAll("@Pname", RpgAPI.playerColors.get(name) + RpgAPI.activeNicks.get(name) + "&F");
         if (RpgAPI.chatOn){
-            t = t.replaceAll("@Channel", rp.getActiveChannel());
+            if (rp2.isShowingChannelNames()){
+            q = q.replaceAll("@Channel", rp.getActiveChannel());
+            } else {
+                q = q.replaceAll("@Channel", "");
+            }
+            if (RpgAPI.languagesOn && rp2.isShowingLanguageNames()){
+                q = q.replaceAll("@Language", rp.getActiveLanguage());
+            } else {
+                q = q.replaceAll("@Language", "");
+            }
         }
-        String r = ChatColors.ChatString(t);
+        String r = ChatColors.ChatString(q);
         String m = r.replace("[]", "");
       return m + ": ";
     }

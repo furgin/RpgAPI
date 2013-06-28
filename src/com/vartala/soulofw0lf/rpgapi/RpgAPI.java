@@ -11,8 +11,7 @@ import java.util.logging.Logger;
 
 import com.vartala.soulofw0lf.rpgapi.achievementapi.TitleAchievement;
 import com.vartala.soulofw0lf.rpgapi.borderapi.BorderCheck;
-import com.vartala.soulofw0lf.rpgapi.chatapi.ChatClass;
-import com.vartala.soulofw0lf.rpgapi.chatapi.ChatListener;
+import com.vartala.soulofw0lf.rpgapi.chatapi.*;
 import com.vartala.soulofw0lf.rpgapi.classapi.RpgClasses;
 import com.vartala.soulofw0lf.rpgapi.commandapi.UniqueCommands;
 import com.vartala.soulofw0lf.rpgapi.enumapi.ClassName;
@@ -85,6 +84,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static YamlConfiguration testPlayer = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayer/TestPlayer.yml"));
     public static YamlConfiguration worldBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgBorders.yml"));
     public static YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/WarpConfig.yml"));
+    public static YamlConfiguration languageConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgLanguages.yml"));
 
 
     //Listeners
@@ -115,6 +115,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static boolean tradeOn = true;
     public static boolean borderOn = true;
     public static boolean reputationOn = true;
+    public static boolean languagesOn = true;
 
 
     //Utilities
@@ -157,6 +158,9 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<String, List<String>> warpCds = new HashMap<>();
     public static String nameDisplays = "";
     public static Map<String, String> playerColors = new HashMap<>();
+    public static Map<String, List<String>> languageCypher = new HashMap<>();
+    public static Map<String, List<String>> languageKey = new HashMap<>();
+    public static Map<String, List<String>> pluginCommand = new HashMap<>();
 
 
     @Override
@@ -182,6 +186,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
         tradeOn = getConfig().getBoolean("Plugins.Trade");
         borderOn = getConfig().getBoolean("Plugins.Border");
         reputationOn = getConfig().getBoolean("Plugins.Reputation");
+        languagesOn = getConfig().getBoolean("Plugins.Languages");
         Bukkit.getPluginManager().registerEvents(this, this);
         this.MapListen = new MapListener(this);
         this.PlayerListener = new playerLogIn(this);
@@ -191,6 +196,17 @@ public class RpgAPI extends JavaPlugin implements Listener {
             for (File playerFile : files)
             {
                 YamlConfiguration.loadConfiguration(playerFile);
+            }
+        }
+        if (languagesOn){
+            File l = new File("plugins/RpgAPI/RpgLanguages");
+            File[] lFiles = l.listFiles();
+            if (!(lFiles == null)){
+                for (File languageFile : lFiles)
+                {
+                    YamlConfiguration lang = YamlConfiguration.loadConfiguration(languageFile);
+                    LanguageProcessor.LanguageLoader(lang);
+                }
             }
         }
         if (clickOn){this.clickListener = new ClickInvListener(this);}
@@ -297,19 +313,20 @@ public class RpgAPI extends JavaPlugin implements Listener {
                     " &8Dark Grey &9 Blue &aGreen &bAqua &cRed &dLight Purple &eYellow &fWhite" +
                     "&lBold &mStrikeThrough &nUnderlined &oitalic &kObfuscated &rreset");
             localeConfig.set("Translations.Active Character", "&F[&4Rpg Player&F] &2Your Active Character Name is &6");
-            localeConfig.set("Commands.Test Command", "test");
-            localeConfig.set("Commands.Player Info", "pinfo");
+            localeConfig.set("General Commands.Test Command", "test");
+            localeConfig.set("General Commands.Player Info", "pinfo");
+            localeConfig.set("General Commands.Help Command", "RpgHelp");
             if (warpsOn){
-                localeConfig.set("Commands.Set Warp", "setwarp");
-                localeConfig.set("Commands.Delete Warp", "delwarp");
-                localeConfig.set("Commands.Use Warp", "warp");
-                localeConfig.set("Commands.Save Warp", "savewarp");
-                localeConfig.set("Commands.Edit Warp", "editwarp");
-                localeConfig.set("Commands.Edit set", "editset");
-                localeConfig.set("Commands.Make Set", "makeset");
-                localeConfig.set("Commands.Delete set", "delset");
-                localeConfig.set("Commands.Load Warps", "loadwarps");
-                localeConfig.set("Commands.Edit Warp Values", "warpvalues");
+                localeConfig.set("Warp Commands.Set Warp", "setwarp");
+                localeConfig.set("Warp Commands.Delete Warp", "delwarp");
+                localeConfig.set("Warp Commands.Use Warp", "warp");
+                localeConfig.set("Warp Commands.Save Warp", "savewarp");
+                localeConfig.set("Warp Commands.Edit Warp", "editwarp");
+                localeConfig.set("Warp Commands.Edit set", "editset");
+                localeConfig.set("Warp Commands.Make Set", "makeset");
+                localeConfig.set("Warp Commands.Delete set", "delset");
+                localeConfig.set("Warp Commands.Load Warps", "loadwarps");
+                localeConfig.set("Warp Commands.Edit Warp Values", "warpvalues");
             }
 
         }
@@ -358,11 +375,22 @@ public class RpgAPI extends JavaPlugin implements Listener {
         for (String s : localeConfig.getConfigurationSection("Translations").getKeys(false)){
             localeSettings.put(s, localeConfig.getString("Translations." + s));
         }
-        for (String command : localeConfig.getConfigurationSection("Commands").getKeys(false)){
-            String commandRT = localeConfig.getString("Commands." + command);
+        List<String> generalCommands = new ArrayList<String>();
+        for (String command : localeConfig.getConfigurationSection("General Commands").getKeys(false)){
+            String commandRT = localeConfig.getString("General Commands." + command);
             commands.add(commandRT);
             commandSettings.put(command, commandRT);
+            generalCommands.add(commandRT);
         }
+        pluginCommand.put("General Commands", generalCommands);
+        List<String> warpCommands = new ArrayList<String>();
+        for (String command : localeConfig.getConfigurationSection("Warp Commands").getKeys(false)){
+            String commandRT = localeConfig.getString("Warp Commands." + command);
+            commands.add(commandRT);
+            commandSettings.put(command, commandRT);
+            warpCommands.add(commandRT);
+        }
+        pluginCommand.put("Warp Commands", warpCommands);
         //SetBuilder.minionCommand();
 
         if (warpsOn){
@@ -380,11 +408,19 @@ public class RpgAPI extends JavaPlugin implements Listener {
         for (String pName : playerConfig.getConfigurationSection("Player Colors").getKeys(false)){
             playerColors.put(pName, playerConfig.getString("Player Colors." + pName));
         }
-
+        }
         if (chatOn){
             nameDisplays = chatConfig.getString("Titles and Names");
+            ChatClass gC = new ChatClass();
+            gC.setChannelName("General Chat");
+            gC.setChatSpy(true);
+
+            gC.addBehavior(new BasicChatBehavior());
+            chatClasses.add(gC);
+
         }
-        }
+
+
     }
 
     @Override
@@ -424,5 +460,6 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }
         }
     }
+
 
 }

@@ -1,6 +1,7 @@
 package com.vartala.soulofw0lf.rpgapi.commandapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import com.vartala.soulofw0lf.rpgapi.chatapi.LanguageProcessor;
 import com.vartala.soulofw0lf.rpgapi.enumapi.PlayerStat;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayerBuilder;
@@ -247,18 +248,16 @@ public class UniqueCommands {
             }
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Test Command"))){
-            String activeNick = RpgAPI.activeNicks.get(p.getName());
-            RpgPlayer rp = RpgAPI.rpgPlayers.get(activeNick);
-            Map<String, Integer> statMap = rp.getStats();
-            Integer speed = statMap.get(PlayerStat.SPEED_LAND.toString());
-            speed += 5;
-            statMap.put(PlayerStat.SPEED_LAND.toString(), speed);
-            statMap.put(PlayerStat.SPEED_FLY.toString(), speed);
-            rp.setStats(statMap);
-            SpeedHandler.SetWalkSpeed(rp, p.getName());
-            SpeedHandler.SetFlySpeed(rp, p.getName());
-            p.sendMessage("You are going " + p.getWalkSpeed() + " fast, with a movement speed of " + speed + ".");
-            RpgAPI.commands.add("nick");
+            StringBuilder buffer = new StringBuilder();
+
+            // change the starting i value to pick what argument to start
+            // from
+            // 1 is the 2nd argument.
+            for (int i = 1; i < command.length; i++) {
+                buffer.append(' ').append(command[i]);
+            }
+            String s = buffer.toString();
+            p.sendMessage(LanguageProcessor.LanguageDecoder(s, "Undead"));
             return;
         }
         if (command[0].equalsIgnoreCase("nick")){
@@ -351,6 +350,17 @@ public class UniqueCommands {
                 p.sendMessage(""+rm2.isSpawned());
                 break;
 
+
+        }
+        if (command[0].equalsIgnoreCase("RpgHelp")){
+        String commandList = "";
+            p.sendMessage("Available commands are:");
+        for(String commandSection : RpgAPI.pluginCommand.keySet()){
+            p.sendMessage(ChatColors.ChatString("&4") + commandSection);
+            for (String subCommand : RpgAPI.pluginCommand.get(commandSection)){
+                p.sendMessage(ChatColors.ChatString("&2") + "    /" + subCommand);
+            }
+        }
 
         }
     }
