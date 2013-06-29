@@ -291,13 +291,14 @@ public class UniqueCommands {
         if (command[0].equalsIgnoreCase("RpgHelp")){
 
             p.sendMessage("Available commands are:");
-            for(String commandSection : RpgAPI.pluginCommand.keySet()){
-                p.sendMessage(ChatColors.ChatString("&4") + commandSection);
-                for (String subCommand : RpgAPI.pluginCommand.get(commandSection)){
-                    p.sendMessage(ChatColors.ChatString("&2") + "    /" + subCommand);
-                }
-            }
+
         }
+
+
+
+        /*
+        *Leave this section below all other command codes!!!!! we don't want chat channels overwritting other commands!!!
+         */
         Boolean subChat = false;
 
             for (String chatNames : RpgAPI.chatRealNames.keySet()){

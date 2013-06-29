@@ -35,6 +35,8 @@ import com.vartala.soulofw0lf.rpgapi.poisonapi.PoisonTimeChecker;
 import com.vartala.soulofw0lf.rpgapi.poisonapi.RpgPoison;
 import com.vartala.soulofw0lf.rpgapi.spellapi.MagicSpell;
 import com.vartala.soulofw0lf.rpgapi.sqlapi.SQLHandler;
+import com.vartala.soulofw0lf.rpgapi.util.HelpFile;
+import com.vartala.soulofw0lf.rpgapi.util.HelpPage;
 import com.vartala.soulofw0lf.rpgapi.util.RPGLogging;
 import com.vartala.soulofw0lf.rpgapi.warpsapi.RpgWarp;
 import com.vartala.soulofw0lf.rpgapi.warpsapi.WarpBuilder;
@@ -167,6 +169,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static List<ChatRegions> chatRegions = new ArrayList<ChatRegions>();
     public static List<RpgCities> rpgCities = new ArrayList<RpgCities>();
     public static Map<String, String> chatRealNames = new HashMap<>();
+    public static List<HelpFile> helpMap = new ArrayList<HelpFile>();
+    public static Map<String, List<HelpFile>> helpPages = new HashMap<>();
+    public static Map<Integer, HelpPage> helpDisplay = new HashMap<>();
+
 
 
     @Override
@@ -321,20 +327,59 @@ public class RpgAPI extends JavaPlugin implements Listener {
                     " &8Dark Grey &9 Blue &aGreen &bAqua &cRed &dLight Purple &eYellow &fWhite" +
                     "&lBold &mStrikeThrough &nUnderlined &oitalic &kObfuscated &rreset");
             localeConfig.set("Translations.Active Character", "&F[&4Rpg Player&F] &2Your Active Character Name is &6");
-            localeConfig.set("General Commands.Test Command", "test");
-            localeConfig.set("General Commands.Player Info", "pinfo");
-            localeConfig.set("General Commands.Help Command", "RpgHelp");
+            //test command
+            localeConfig.set("General Commands.Test Command.Alias", "test");
+            localeConfig.set("General Commands.Test Command.Help Color", "&2");
+            localeConfig.set("General Commands.Test Command.Description", "&fThis command will be going away soon. &2Usage: &f/test");
+            //Player Info Command
+            localeConfig.set("General Commands.Player Info.Alias", "pinfo");
+            localeConfig.set("General Commands.Player Info.Help Color", "&2");
+            localeConfig.set("General Commands.Player Info.Description", "&fA way of freezing yourself in one place. &2Usage: &f/setwarp warpname");
+            //help Command
+            localeConfig.set("General Commands.Help Command.Alias", "Help");
+            localeConfig.set("General Commands.Help Command.Help Color", "&2");
+            localeConfig.set("General Commands.Help Command.Description", "&fShow the different help Pages. &2Usage: &f/help page#");
             if (warpsOn){
-                localeConfig.set("Warp Commands.Set Warp", "setwarp");
-                localeConfig.set("Warp Commands.Delete Warp", "delwarp");
-                localeConfig.set("Warp Commands.Use Warp", "warp");
-                localeConfig.set("Warp Commands.Save Warp", "savewarp");
-                localeConfig.set("Warp Commands.Edit Warp", "editwarp");
-                localeConfig.set("Warp Commands.Edit set", "editset");
-                localeConfig.set("Warp Commands.Make Set", "makeset");
-                localeConfig.set("Warp Commands.Delete set", "delset");
-                localeConfig.set("Warp Commands.Load Warps", "loadwarps");
-                localeConfig.set("Warp Commands.Edit Warp Values", "warpvalues");
+                localeConfig.set("Warp Commands.Set Warp.Alias", "setwarp");
+                localeConfig.set("Warp Commands.Set Warp.Help Color", "&2");
+                localeConfig.set("Warp Commands.Set Warp.Description", "&fSet a new Warp Point. &2Usage: &f/setwarp warpname");
+
+                localeConfig.set("Warp Commands.Delete Warp.Alias", "delwarp");
+                localeConfig.set("Warp Commands.Delete Warp.Help Color", "&2");
+                localeConfig.set("Warp Commands.Delete Warp.Description", "&fDelete a Warp Point. &2Usage: &f/delwarp warpname");
+
+                localeConfig.set("Warp Commands.Use Warp.Alias", "warp");
+                localeConfig.set("Warp Commands.Use Warp.Help Color", "&2");
+                localeConfig.set("Warp Commands.Use Warp.Description", "&fUse a Warp Point. &2Usage: &f/warp warpname");
+
+                localeConfig.set("Warp Commands.Save Warp.Alias", "savewarp");
+                localeConfig.set("Warp Commands.Save Warp.Help Color", "&2");
+                localeConfig.set("Warp Commands.Save Warp.Description", "&fSave a specific Warp Point to config. &2Usage: &f/savewarp warpname");
+
+                localeConfig.set("Warp Commands.Edit Warp.Alias", "editwarp");
+                localeConfig.set("Warp Commands.Edit Warp.Help Color", "&2");
+                localeConfig.set("Warp Commands.Edit Warp.Description", "&fEdit the attributes of a Warp Point. &2Usage: &f/editwarp warpname <Cd | World | Level | Perm | Variance | item> <true/false>");
+
+                localeConfig.set("Warp Commands.Edit set.Alias", "editset");
+                localeConfig.set("Warp Commands.Edit set.Help Color", "&2");
+                localeConfig.set("Warp Commands.Edit set.Description", "&fEdit the attributes of a Warp Set. &2Usage: &f/editset setname <values coming soon>");
+
+                localeConfig.set("Warp Commands.Make Set.Alias", "makeset");
+                localeConfig.set("Warp Commands.Make Set.Help Color", "&2");
+                localeConfig.set("Warp Commands.Make Set.Description", "&fMake a new Warp Set. &2Usage: &f/makeset setname");
+
+                localeConfig.set("Warp Commands.Delete set.Alias", "delset");
+                localeConfig.set("Warp Commands.Delete set.Help Color", "&2");
+                localeConfig.set("Warp Commands.Delete set.Description", "&fdelete a warp set &4Warning!!! This deletes all Warps in the set!!!. &2Usage: &f/delset setname");
+
+                localeConfig.set("Warp Commands.Load Warps.Alias", "loadwarps");
+                localeConfig.set("Warp Commands.Load Warps.Help Color", "&2");
+                localeConfig.set("Warp Commands.Load Warps.Description", "&fLoad all warps and sets from config: &f/loadwarps");
+
+                localeConfig.set("Warp Commands.Edit Warp Values.Alias", "warpvalues");
+                localeConfig.set("Warp Commands.Edit Warp Values.Help Color", "&2");
+                localeConfig.set("Warp Commands.Edit Warp Values.Description", "Edit the attributes of a Warp Point. &2Usage: &f/editwarp warpname <Cd |Level | Perm | Variance | Material | iName | iLore> <Value_settings>");
+
             }
 
         }
@@ -532,8 +577,17 @@ public class RpgAPI extends JavaPlugin implements Listener {
             localeSettings.put(s, localeConfig.getString("Translations." + s));
         }
         List<String> generalCommands = new ArrayList<String>();
+
         for (String command : localeConfig.getConfigurationSection("General Commands").getKeys(false)){
-            String commandRT = localeConfig.getString("General Commands." + command);
+            String commandRT = localeConfig.getString("General Commands." + command + ".Alias");
+            String helpColor = localeConfig.getString("General Commands." + command + ".Help Color");
+            String descText = localeConfig.getString("General Commands." + command + ".Description");
+            HelpFile cmd = new HelpFile();
+            cmd.setCmdAlias(commandRT);
+            cmd.setAliasColor(helpColor);
+            cmd.setDescription(descText);
+            cmd.setHelpGroup("General Commands");
+            helpMap.add(cmd);
             commands.add(commandRT);
             commandSettings.put(command, commandRT);
             generalCommands.add(commandRT);
@@ -541,7 +595,15 @@ public class RpgAPI extends JavaPlugin implements Listener {
         pluginCommand.put("General Commands", generalCommands);
         List<String> warpCommands = new ArrayList<String>();
         for (String command : localeConfig.getConfigurationSection("Warp Commands").getKeys(false)){
-            String commandRT = localeConfig.getString("Warp Commands." + command);
+            String commandRT = localeConfig.getString("Warp Commands." + command + ".Alias");
+            String helpColor = localeConfig.getString("Warp Commands." + command + ".Help Color");
+            String descText = localeConfig.getString("Warp Commands." + command + ".Description");
+            HelpFile cmd = new HelpFile();
+            cmd.setCmdAlias(commandRT);
+            cmd.setAliasColor(helpColor);
+            cmd.setDescription(descText);
+            cmd.setHelpGroup("Warp Commands");
+            helpMap.add(cmd);
             commands.add(commandRT);
             commandSettings.put(command, commandRT);
             warpCommands.add(commandRT);
