@@ -88,7 +88,7 @@ public class ChatListener implements Listener {
         Boolean spyChat = thisChat.isChatSpy();
         event.setCancelled(true);
         for (Player pl : event.getRecipients()){
-             String receiveName = Rpgapi.activeNicks.get(pl.getName());
+             String receiveName = pl.getName();
             String message = "";
              for (ChatBehavior behavior : thisChat.getChannelBehaviors()){
                  message = behavior.chatChannel(activeChat, receiveName, senderName, language, event.getMessage(), spyChat);

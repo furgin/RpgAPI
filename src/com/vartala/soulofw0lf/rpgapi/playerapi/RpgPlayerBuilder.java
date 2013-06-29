@@ -504,7 +504,12 @@ public class RpgPlayerBuilder {
                     channelColors.put("Party", ChatColor.BLUE.toString());
                     channelColors.put("Region", ChatColor.WHITE.toString());
                     channelColors.put("Guild", ChatColor.DARK_GREEN.toString());
-                    channelColors.put("General Chat", ChatColor.DARK_RED.toString());
+                    channelColors.put("General", ChatColor.DARK_RED.toString());
+                    channelColors.put("Shout", ChatColor.AQUA.toString());
+                    channelColors.put("Local", ChatColor.DARK_PURPLE.toString());
+                    channelColors.put("Whisper", ChatColor.LIGHT_PURPLE.toString());
+                    channelColors.put("World", ChatColor.GRAY.toString());
+                    channelColors.put("Trade", ChatColor.YELLOW.toString());
                     rp.setChannelColor(channelColors);
                     List<String> ignoreList = rp.getIgnoreList();
                     ignoreList.add("Notch");
@@ -537,7 +542,7 @@ public class RpgPlayerBuilder {
                     rp.setShowingLanguageNames(true);
                     rp.setShowingWorldName(true);
                     rp.setActiveLanguage("Common");
-                    rp.setActiveChannel("General Chat");
+                    rp.setActiveChannel("General");
                     List<String> languages = rp.getKnownLanguages();
                     languages.add("Common");
                     languages.add("Out of Game");

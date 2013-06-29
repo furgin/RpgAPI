@@ -94,13 +94,13 @@ public class SpeedHandler {
             p.setWalkSpeed(0.12f);
         }
         if (speed == 15){
-            p.setWalkSpeed(0.8f);
+            p.setWalkSpeed(0.08f);
         }
         if (speed == 10){
-            p.setWalkSpeed(0.4f);
+            p.setWalkSpeed(0.04f);
         }
         if (speed == 5){
-            p.setWalkSpeed(0.1f);
+            p.setWalkSpeed(0.01f);
         }
         if (speed == 0){
             p.setWalkSpeed(0.0f);

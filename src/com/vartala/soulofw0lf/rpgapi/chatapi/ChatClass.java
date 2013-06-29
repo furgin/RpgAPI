@@ -27,6 +27,9 @@ public class ChatClass {
     //name of the chat channel
     private String channelName = "";
 
+    //nickname of the channel for command useage
+    private String channelNick = "";
+
     //should chat spying be allowed in this channel
     private boolean chatSpy = true;
 
@@ -134,5 +137,13 @@ public class ChatClass {
 
     public void setInvitedPlayers(List<String> invitedPlayers) {
         this.invitedPlayers = invitedPlayers;
+    }
+
+    public String getChannelNick() {
+        return channelNick;
+    }
+
+    public void setChannelNick(String channelNick) {
+        this.channelNick = channelNick;
     }
 }

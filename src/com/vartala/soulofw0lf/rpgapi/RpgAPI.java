@@ -166,6 +166,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<String, Integer> chatDistances = new HashMap<>();
     public static List<ChatRegions> chatRegions = new ArrayList<ChatRegions>();
     public static List<RpgCities> rpgCities = new ArrayList<RpgCities>();
+    public static Map<String, String> chatRealNames = new HashMap<>();
 
 
     @Override
@@ -359,6 +360,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
             chatConfig.set("Titles and Names", "&7[@World]&2[@Guild]&3[@Channel]&r[@Prefix @Pname @Suffix&F]");
             //whisper Chat
             chatConfig.set("Chats.Whisper.Name", "Whisper");
+            chatConfig.set("Chats.Whisper.Nick Name", "W");
             chatConfig.set("Chats.Whisper.Enabled", true);
             chatConfig.set("Chats.Whisper.Spy Enabled", true);
             chatConfig.set("Chats.Whisper.Use Basic", true);
@@ -373,6 +375,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
             //local chat
             chatConfig.set("Chats.Local.Name", "Local");
+            chatConfig.set("Chats.Local.Nick Name", "L");
             chatConfig.set("Chats.Local.Enabled", true);
             chatConfig.set("Chats.Local.Spy Enabled", true);
             chatConfig.set("Chats.Local.Use Basic", true);
@@ -387,6 +390,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
             //shout Chat
             chatConfig.set("Chats.Shout.Name", "Shout");
+            chatConfig.set("Chats.Shout.Nick Name", "Yell");
             chatConfig.set("Chats.Shout.Enabled", true);
             chatConfig.set("Chats.Shout.Spy Enabled", true);
             chatConfig.set("Chats.Shout.Use Basic", true);
@@ -401,6 +405,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
             //General chat
             chatConfig.set("Chats.General.Name", "General");
+            chatConfig.set("Chats.General.Nick Name", "Gen");
             chatConfig.set("Chats.General.Enabled", true);
             chatConfig.set("Chats.General.Spy Enabled", true);
             chatConfig.set("Chats.General.Use Basic", true);
@@ -414,6 +419,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
             //party Chat
             chatConfig.set("Chats.Party.Name", "Party");
+            chatConfig.set("Chats.Party.Nick Name", "Pc");
             chatConfig.set("Chats.Party.Enabled", true);
             chatConfig.set("Chats.Party.Spy Enabled", true);
             chatConfig.set("Chats.Party.Use Basic", true);
@@ -426,7 +432,8 @@ public class RpgAPI extends JavaPlugin implements Listener {
             chatConfig.set("Chats.Party.Use World", false);
 
             //guild chat
-            chatConfig.set("Chats.Guild.Name", "Guild");
+                chatConfig.set("Chats.Guild.Name", "Guild");
+                chatConfig.set("Chats.Guild.Nick Name", "G");
             chatConfig.set("Chats.Guild.Enabled", true);
             chatConfig.set("Chats.Guild.Spy Enabled", true);
             chatConfig.set("Chats.Guild.Use Basic", true);
@@ -440,6 +447,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
             //world chat
             chatConfig.set("Chats.World.Name", "World");
+                chatConfig.set("Chats.Guild.Nick Name", "world");
             chatConfig.set("Chats.World.Enabled", true);
             chatConfig.set("Chats.World.Spy Enabled", true);
             chatConfig.set("Chats.World.Use Basic", true);
@@ -452,7 +460,8 @@ public class RpgAPI extends JavaPlugin implements Listener {
             chatConfig.set("Chats.World.Use World", true);
 
             //region Chat
-            chatConfig.set("Chats.Region.Name", "Region");
+                chatConfig.set("Chats.Region.Name", "Region");
+                chatConfig.set("Chats.Region.Nick Name", "Reg");
             chatConfig.set("Chats.Region.Enabled", true);
             chatConfig.set("Chats.Region.Spy Enabled", true);
             chatConfig.set("Chats.Region.Use Basic", true);
@@ -465,7 +474,8 @@ public class RpgAPI extends JavaPlugin implements Listener {
             chatConfig.set("Chats.Region.Use World", true);
 
             //trade chat
-            chatConfig.set("Chats.Trade.Name", "Trade");
+                chatConfig.set("Chats.Trade.Name", "Trade");
+                chatConfig.set("Chats.Trade.Nick Name", "Tr");
             chatConfig.set("Chats.Trade.Enabled", true);
             chatConfig.set("Chats.Trade.Spy Enabled", true);
             chatConfig.set("Chats.Trade.Use Basic", true);
@@ -563,7 +573,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
             //general chat
                 if (chatConfig.getBoolean("Chats."+chats+".Enabled")){
                     ChatClass chatClass = new ChatClass();
-                    chatClass.setChannelName(chatConfig.getString("Chats." + chats + ".Name"));
+                    chatClass.setChannelName(chats);
+                    chatClass.setChannelNick(chatConfig.getString("Chats." + chats + ".Nick Name"));
+                    chatRealNames.put(chatConfig.getString("Chats." + chats + ".Nick Name"), chats);
+                    commands.add(chatClass.getChannelNick());
                     chatClass.setChatSpy(chatConfig.getBoolean("Chats." + chats + ".Spy Enabled"));
                     if (chatConfig.getBoolean("Chats." + chats + ".Use Basic")){
                         chatClass.addBehavior(new BasicChatBehavior());

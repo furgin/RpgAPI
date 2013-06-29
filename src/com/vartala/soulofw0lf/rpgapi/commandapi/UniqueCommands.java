@@ -1,6 +1,9 @@
 package com.vartala.soulofw0lf.rpgapi.commandapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import com.vartala.soulofw0lf.rpgapi.chatapi.ChatBehavior;
+import com.vartala.soulofw0lf.rpgapi.chatapi.ChatClass;
+import com.vartala.soulofw0lf.rpgapi.chatapi.ChatProcessor;
 import com.vartala.soulofw0lf.rpgapi.chatapi.LanguageProcessor;
 import com.vartala.soulofw0lf.rpgapi.enumapi.PlayerStat;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
@@ -20,6 +23,7 @@ import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtNearest;
 import de.kumpelblase2.remoteentities.persistence.EntityData;
 import de.kumpelblase2.remoteentities.persistence.serializers.PreparationSerializer;
 import de.kumpelblase2.remoteentities.persistence.serializers.YMLSerializer;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -283,87 +287,81 @@ public class UniqueCommands {
 
             return;
         }
-        switch(command[0])
-        {
-            case "body":
-                p.sendMessage(ChatColors.ChatString("&2sup man, &4 how's it going?"));
 
-                break;
-            case "addnpc":
-                RemoteEntity ed = RpgAPI.entityManager.createNamedEntity(RemoteEntityType.Human, p.getLocation(), "soulofw0lf", false);
-                //ed.getMind().addMovementDesire(new DesireLookAtSpecific(ed, p, 8), 10);
-                ed.getMind().addMovementDesire(new DesireLookAtNearest(ed, Player.class, 8F), 10);
-                ed.getMind().addBehaviour(new InteractBehavior(ed) {
-                    @Override
-                    public void onInteract(Player inPlayer) {
-                        inPlayer.sendMessage("yo");
-                    }
-                });
-                ed.getMind().addBehaviour(new DamageBehavior(ed) {
-                    @Override
-                    public void onDamage(EntityDamageEvent entityDamageEvent) {
-                        entityDamageEvent.setCancelled(true);
-                    }
-                });
-                ed.getMind().addMovementDesire(new DesireFollowSpecific(ed, p, 2, 3), 9);
-                p.sendMessage("" + ed.getID());
-                ed.getBukkitEntity().getEquipment().setBoots(new ItemStack(309, 1));
-                ed.getBukkitEntity().getEquipment().setLeggings(new ItemStack(308, 1));
-                ed.getBukkitEntity().getEquipment().setChestplate(new ItemStack(307, 1));
-                ed.getBukkitEntity().getEquipment().setHelmet(new ItemStack(306, 1));
-                ed.getBukkitEntity().getEquipment().setItemInHand(new ItemStack(267, 1));
-                //RpgAPI.entityManager.saveEntities();
-                break;
-            case "removenpc":
-                RpgAPI.entityManager.removeEntity(Integer.parseInt(command[1]));
-                break;
-            case "addtochain":
-                RemoteEntity ed2 = RpgAPI.entityManager.createNamedEntity(RemoteEntityType.Human, p.getLocation(), "Skahl"+command[1], false);
-                ed2.getMind().addMovementDesire(new DesireLookAtSpecific(ed2, RpgAPI.entityManager.getRemoteEntityByID(Integer.parseInt(command[1])).getBukkitEntity(), 8), 10);
-                ed2.getMind().addMovementDesire(new DesireFollowSpecific(ed2, RpgAPI.entityManager.getRemoteEntityByID(Integer.parseInt(command[1])).getBukkitEntity(), 2, 3), 9);
-                ed2.getBukkitEntity().getEquipment().setBoots(new ItemStack(309, 1));
-                ed2.getBukkitEntity().getEquipment().setLeggings(new ItemStack(308, 1));
-                ed2.getBukkitEntity().getEquipment().setChestplate(new ItemStack(307, 1));
-                ed2.getBukkitEntity().getEquipment().setHelmet(new ItemStack(306, 1));
-                ed2.getBukkitEntity().getEquipment().setItemInHand(new ItemStack((int)(Math.random()*200), 1));
-                break;
-            case "movetome":
-                RemoteEntity re = RpgAPI.entityManager.getRemoteEntityByID(Integer.parseInt(command[1]));
-                re.setStationary(false, false);
-                re.move(p);
-                re.setStationary(true, false);
-                break;
-            case "savenpc":
-               RemoteEntity rm = RpgAPI.entityManager.getRemoteEntityByID(Integer.parseInt(command[1]));
-                rm.getMind().clearBehaviours();
-                rm.getMind().clearMovementDesires();
-                rm.getMind().clearTargetingDesires();
-                rm.save();
-                p.sendMessage("Saved? ");
-                break;
-            case "loadnpc":
-                RpgAPI.entityManager.loadEntities();
-                break;
-            case "infonpc":
-                RemoteEntity rm2 = RpgAPI.entityManager.getRemoteEntityByID(Integer.parseInt(command[1]));
-                p.sendMessage(rm2.getNativeEntityName());
-                p.sendMessage(""+rm2.isSpawned());
-                break;
-
-
-        }
         if (command[0].equalsIgnoreCase("RpgHelp")){
-        String commandList = "";
+
             p.sendMessage("Available commands are:");
-        for(String commandSection : RpgAPI.pluginCommand.keySet()){
-            p.sendMessage(ChatColors.ChatString("&4") + commandSection);
-            for (String subCommand : RpgAPI.pluginCommand.get(commandSection)){
-                p.sendMessage(ChatColors.ChatString("&2") + "    /" + subCommand);
+            for(String commandSection : RpgAPI.pluginCommand.keySet()){
+                p.sendMessage(ChatColors.ChatString("&4") + commandSection);
+                for (String subCommand : RpgAPI.pluginCommand.get(commandSection)){
+                    p.sendMessage(ChatColors.ChatString("&2") + "    /" + subCommand);
+                }
             }
         }
+        Boolean subChat = false;
 
+            for (String chatNames : RpgAPI.chatRealNames.keySet()){
+                if (chatNames == null){
+                    continue;
+                }
+                if (chatNames.equalsIgnoreCase(command[0])){
+                    command[0] = chatNames;
+                    subChat = true;
+                }
+            }
+
+        if (subChat){
+
+            String activeChat = RpgAPI.chatRealNames.get(command[0]);
+
+            ChatClass cC = new ChatClass();
+            for (ChatClass chatClass : RpgAPI.chatClasses){
+                if (activeChat.equalsIgnoreCase(chatClass.getChannelName())){
+                    cC = chatClass;
+                }
+            }
+            String senderName = p.getName();
+            RpgPlayer sendPlayer = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(senderName));
+
+            String language = "";
+            if (sendPlayer.getActiveLanguage().isEmpty()){
+                language = "Common";
+                sendPlayer.setActiveLanguage("Common");
+            } else {
+                language = sendPlayer.getActiveLanguage();
+            }
+            if (cC.getMutedPlayers().contains(senderName)){
+                Bukkit.getPlayer(senderName).sendMessage("You are muted in this chat.");
+                return;
+            }
+            if (cC.getBannedPlayers().contains(senderName)){
+                Bukkit.getPlayer(senderName).sendMessage("You are banned from this chat.");
+                return;
+            }
+            Boolean spyChat = cC.isChatSpy();
+            String oldChat = sendPlayer.getActiveChannel();
+            sendPlayer.setActiveChannel(activeChat);
+            for (Player pl : Bukkit.getOnlinePlayers()){
+                String receiveName = pl.getName();
+                StringBuilder buffer = new StringBuilder();
+                for (int i = 1; i < command.length; i++) {
+                    buffer.append(' ').append(command[i]);
+                }
+                String s = buffer.toString();
+                for (ChatBehavior behavior : cC.getChannelBehaviors()){
+                    s = behavior.chatChannel(activeChat, receiveName, senderName, language, s, spyChat);
+                }
+                if (s.isEmpty()){
+                    continue;
+                }
+                pl.sendMessage(ChatProcessor.TitleString(RpgAPI.nameDisplays, RpgAPI.activeNicks.get(senderName), receiveName) + s);
+            }
+
+            sendPlayer.setActiveChannel(oldChat);
         }
     }
+
+
 
     private static Boolean ItemProcessor(Player p, RpgWarp rpgWarp) {
         Boolean useWarp = false;
