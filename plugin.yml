@@ -4,3 +4,7 @@ version: 0.2
 author: Soulofw0lf
 description: rpg Api designed by soulofw0lf and Linksy
 depend: [RemoteEntities]
+
+commands:
+  RpgHelp:
+    description: §4Rpg suite §2Use /RpgHelp to view rpg commands and Descriptions!
