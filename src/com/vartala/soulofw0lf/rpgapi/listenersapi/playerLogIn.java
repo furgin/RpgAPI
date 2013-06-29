@@ -17,6 +17,7 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
+import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
@@ -44,6 +45,7 @@ public class playerLogIn implements Listener {
         player.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Active Character") + p));
         RpgPlayer rp = RpgPlayerBuilder.RpgBuilder(p);
         RpgAPI.rpgPlayers.put(p, rp);
+        PermissionAttachment attach = rp.addAttachment(RpgAPI.plugin);
         if (!(RpgAPI.playerColors.containsKey(pName))){
             if (player.isOp()){
                 RpgAPI.playerColors.put(pName, "&4");

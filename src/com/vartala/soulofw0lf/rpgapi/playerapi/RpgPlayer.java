@@ -1,19 +1,21 @@
 package com.vartala.soulofw0lf.rpgapi.playerapi;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.vartala.soulofw0lf.rpgapi.enumapi.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.permissions.Permissible;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionAttachment;
+import org.bukkit.permissions.PermissionAttachmentInfo;
+import org.bukkit.plugin.Plugin;
 
 /*
  * main player wrapper class
  * holds all variables related to the online player
  */
-public class RpgPlayer {
+public class RpgPlayer implements Permissible{
     //
 	/*
 	 * all vars go above the player method
@@ -1126,5 +1128,70 @@ public class RpgPlayer {
 
     public void setLeaderName(String leaderName) {
         this.leaderName = leaderName;
+    }
+
+    @Override
+    public boolean isPermissionSet(String s) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean isPermissionSet(Permission permission) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean hasPermission(String s) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean hasPermission(Permission permission) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public PermissionAttachment addAttachment(Plugin plugin, String s, boolean b) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public PermissionAttachment addAttachment(Plugin plugin) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public PermissionAttachment addAttachment(Plugin plugin, String s, boolean b, int i) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public PermissionAttachment addAttachment(Plugin plugin, int i) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void removeAttachment(PermissionAttachment permissionAttachment) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void recalculatePermissions() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Set<PermissionAttachmentInfo> getEffectivePermissions() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean isOp() {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void setOp(boolean b) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

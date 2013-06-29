@@ -54,6 +54,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -179,6 +180,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public void onEnable() {
         plugin = this;
         saveDefaultConfig();
+
         useMySql = getConfig().getBoolean("Use Mysql");
         guildsOn = getConfig().getBoolean("Plugins.Guilds");
         chatOn = getConfig().getBoolean("Plugins.Chat");
