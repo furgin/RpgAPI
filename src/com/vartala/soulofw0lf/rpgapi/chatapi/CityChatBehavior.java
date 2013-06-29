@@ -2,6 +2,8 @@ package com.vartala.soulofw0lf.rpgapi.chatapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 
 /**
  * Created by: soulofw0lf
@@ -30,6 +32,24 @@ public class CityChatBehavior implements ChatBehavior{
         if (chatSpy && rp.isSpyingOnChats()){
             return message;
         }
+        Boolean inCity = false;
+        for (RpgCities cReg : RpgAPI.rpgCities){
+            Integer radius = cReg.getRegionRadius();
+            Double X = cReg.getRegionX();
+            Double Y = cReg.getRegionY();
+            Double Z = cReg.getRegionZ();
+            String World = cReg.getRegionWorld();
+            Location regionLoc = new Location(Bukkit.getWorld(World), X, Y, Z);
+            if (regionLoc.distance(Bukkit.getPlayer(receiveName).getLocation()) <= radius){
+                inCity = true;
+            }
+
+        }
+
+        if (inCity){
+            return message;
+        }
+        message = "";
         return message;
     }
 }

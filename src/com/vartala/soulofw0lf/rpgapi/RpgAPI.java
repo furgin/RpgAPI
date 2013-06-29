@@ -85,6 +85,8 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static YamlConfiguration worldBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgBorders.yml"));
     public static YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/WarpConfig.yml"));
     public static YamlConfiguration languageConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgLanguages.yml"));
+    public static YamlConfiguration cityConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat/RpgCities.yml"));
+    public static YamlConfiguration regionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat/RpgRegions.yml"));
 
 
     //Listeners
@@ -162,6 +164,8 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<String, List<String>> languageKey = new HashMap<>();
     public static Map<String, List<String>> pluginCommand = new HashMap<>();
     public static Map<String, Integer> chatDistances = new HashMap<>();
+    public static List<ChatRegions> chatRegions = new ArrayList<ChatRegions>();
+    public static List<RpgCities> rpgCities = new ArrayList<RpgCities>();
 
 
     @Override
@@ -265,7 +269,9 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
         localeConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale.yml"));
         if (guildsOn){guildConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Guilds.yml"));}
-        if (chatOn){chatConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat.yml"));}
+        if (chatOn){chatConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat.yml"));
+            cityConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat/RpgCities.yml"));
+            regionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat/RpgRegions.yml"));}
         if (foodOn){foodConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Food.yml"));}
         if (clickOn){clickConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Clicks.yml"));}
         settingsConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Settings.yml"));
@@ -334,7 +340,22 @@ public class RpgAPI extends JavaPlugin implements Listener {
         if (guildsOn){if (guildConfig.get("Guilds Info") == null) {
             guildConfig.set("Guilds Info", "This File will save all guild info, Mysql is highly recommended!");
         }}
-        if (chatOn){if (chatConfig.get("Channels") == null) {
+        if (chatOn){
+            if (cityConfig.get("Rpg Cities") == null){
+                RpgAPI.cityConfig.set("Rpg Cities.Example City.Radius", 100);
+                RpgAPI.cityConfig.set("Rpg Cities.Example City.X", 0.0);
+                RpgAPI.cityConfig.set("Rpg Cities.Example City.Y", 0.0);
+                RpgAPI.cityConfig.set("Rpg Cities.Example City.Z", 0.0);
+                RpgAPI.cityConfig.set("Rpg Cities.Example City.World", "World");
+            }
+            if (regionConfig.get("Rpg Regions") == null){
+                RpgAPI.regionConfig.set("Rpg Regions.Example Region.Radius", 100);
+                RpgAPI.regionConfig.set("Rpg Regions.Example Region.X", 0.0);
+                RpgAPI.regionConfig.set("Rpg Regions.Example Region.Y", 0.0);
+                RpgAPI.regionConfig.set("Rpg Regions.Example Region.Z", 0.0);
+                RpgAPI.regionConfig.set("Rpg Regions.Example Region.World", "World");
+            }
+            if (chatConfig.get("Channels") == null) {
             chatConfig.set("Titles and Names", "&7[@World]&2[@Guild]&3[@Channel]&r[@Prefix @Pname @Suffix&F]");
             //whisper Chat
             chatConfig.set("Chats.Whisper.Name", "Whisper");
@@ -483,7 +504,9 @@ public class RpgAPI extends JavaPlugin implements Listener {
             localeConfig.save(new File("plugins/RpgAPI/Locale.yml"));
             testPlayer.save(new File("plugins/RpgAPI/RpgPlayer/TestPlayer.yml"));
             if (guildsOn){guildConfig.save(new File("plugins/RpgAPI/Guilds.yml"));}
-            if (chatOn){chatConfig.save(new File("plugins/RpgAPI/ChatChannels.yml"));}
+            if (chatOn){chatConfig.save(new File("plugins/RpgAPI/ChatChannels.yml"));
+                cityConfig.save((new File("plugins/RpgAPI/RpgChat/RpgCities.yml")));
+                regionConfig.save((new File("plugins/RpgAPI/RpgChat/RpgRegions.yml")));}
             if (foodOn){foodConfig.save(new File("plugins/RpgAPI/Food.yml"));}
             if (clickOn){clickConfig.save(new File("plugins/RpgAPI/Clicks.yml"));}
             settingsConfig.save(new File("plugins/RpgAPI/Settings.yml"));
@@ -533,6 +556,8 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }
         }
         if (chatOn){
+            LoadCities.FromFile();
+            LoadRegions.FromFile();
             nameDisplays = chatConfig.getString("Titles and Names");
             for (String chats : chatConfig.getConfigurationSection("Chats").getKeys(false)){
             //general chat
@@ -579,6 +604,8 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable(){
+        LoadCities.ToFile();
+        LoadRegions.ToFile();
         for (String thisWarp : RpgAPI.savedWarps.keySet()){
         if (warpsOn){WarpBuilder.SaveWarp(thisWarp);WarpSetBuilder.SaveSets();}
         }

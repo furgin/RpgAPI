@@ -2,6 +2,8 @@ package com.vartala.soulofw0lf.rpgapi.chatapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 
 /**
  * Created by: soulofw0lf
@@ -30,6 +32,29 @@ public class RegionChatBehavior implements ChatBehavior {
         if (chatSpy && rp.isSpyingOnChats()){
             return message;
         }
+            ChatRegions currenRegion = new ChatRegions();
+        for (ChatRegions cReg : RpgAPI.chatRegions){
+            Integer radius = cReg.getRegionRadius();
+            Double X = cReg.getRegionX();
+            Double Y = cReg.getRegionY();
+            Double Z = cReg.getRegionZ();
+            String World = cReg.getRegionWorld();
+            Location regionLoc = new Location(Bukkit.getWorld(World), X, Y, Z);
+            if (regionLoc.distance(Bukkit.getPlayer(sendName).getLocation()) <= radius){
+                currenRegion = cReg;
+            }
+
+        }
+        Integer radius = currenRegion.getRegionRadius();
+        Double X = currenRegion.getRegionX();
+        Double Y = currenRegion.getRegionY();
+        Double Z = currenRegion.getRegionZ();
+        String World = currenRegion.getRegionWorld();
+        Location regionLoc = new Location(Bukkit.getWorld(World), X, Y, Z);
+        if (regionLoc.distance(Bukkit.getPlayer(receiveName).getLocation()) <= radius){
              return message;
+        }
+        message = "";
+        return message;
     }
 }
