@@ -7,4 +7,4 @@ depend: [RemoteEntities]
 
 commands:
   RpgHelp:
-    description: §4Rpg suite §2Use /RpgHelp to view rpg commands and Descriptions!
+    description: Rpg suite - Use /RpgHelp to view rpg commands and Descriptions!
