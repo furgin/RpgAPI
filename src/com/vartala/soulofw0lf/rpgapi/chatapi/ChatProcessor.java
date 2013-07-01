@@ -30,44 +30,44 @@ import java.util.regex.Pattern;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class ChatProcessor {
-    public static String TitleString (String s, String name, String rName){
+    public static String TitleString(String s, String name, String rName) {
         Player p = Bukkit.getPlayer(name);
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(name));
         RpgPlayer rp2 = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(rName));
         String q = ChatColors.ChatString(s);
-        if (rp2.isShowingWorldNames()){
+        if (rp2.isShowingWorldNames()) {
             q = q.replaceAll("@World", p.getWorld().getName());
         } else {
             q = q.replaceAll("@World", "");
         }
-        if (RpgAPI.guildsOn){
-            if (rp.isInGuild() && rp2.isShowingGuildTags()){
+        if (RpgAPI.guildsOn) {
+            if (rp.isInGuild() && rp2.isShowingGuildTags()) {
                 q = q.replaceAll("@Guild", RpgAPI.guilds.get(rp.getGuild()).getDisplayName());
             } else {
                 q = q.replace("@Guild", "");
             }
         }
 
-        if (RpgAPI.achievementsOn){
-            if (!(rp.getActivePrefix().equalsIgnoreCase("None")) && rp2.isShowingAchieveTitles()){
+        if (RpgAPI.achievementsOn) {
+            if (!(rp.getActivePrefix().equalsIgnoreCase("None")) && rp2.isShowingAchieveTitles()) {
                 q = q.replaceAll("@Prefix", rp.getActivePrefix());
             } else {
                 q = q.replaceAll("@Prefix", "");
             }
-            if (!(rp.getActiveSuffix().equalsIgnoreCase("None")) && rp2.isShowingAchieveTitles()){
+            if (!(rp.getActiveSuffix().equalsIgnoreCase("None")) && rp2.isShowingAchieveTitles()) {
                 q = q.replaceAll("@Suffix", "");
-            }else{
-                q = q.replaceAll(" @Suffix","");
+            } else {
+                q = q.replaceAll(" @Suffix", "");
             }
         }
         q = q.replaceAll("@Pname", RpgAPI.playerColors.get(name) + RpgAPI.activeNicks.get(name) + "&F");
-        if (RpgAPI.chatOn){
-            if (rp2.isShowingChannelNames()){
-            q = q.replaceAll("@Channel", rp.getActiveChannel());
+        if (RpgAPI.chatOn) {
+            if (rp2.isShowingChannelNames()) {
+                q = q.replaceAll("@Channel", rp.getActiveChannel());
             } else {
                 q = q.replaceAll("@Channel", "");
             }
-            if (RpgAPI.languagesOn && rp2.isShowingLanguageNames()){
+            if (RpgAPI.languagesOn && rp2.isShowingLanguageNames()) {
                 q = q.replaceAll("@Language", rp.getActiveLanguage());
             } else {
                 q = q.replaceAll("@Language", "");
@@ -75,6 +75,6 @@ public class ChatProcessor {
         }
         String r = ChatColors.ChatString(q);
         String m = r.replace("[]", "");
-      return m + ": ";
+        return m + ": ";
     }
 }

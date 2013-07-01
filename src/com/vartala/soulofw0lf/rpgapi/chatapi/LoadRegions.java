@@ -23,8 +23,8 @@ import com.vartala.soulofw0lf.rpgapi.RpgAPI;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class LoadRegions {
-    public static void FromFile(){
-        for (String region : RpgAPI.regionConfig.getConfigurationSection("Rpg Regions").getKeys(false)){
+    public static void FromFile() {
+        for (String region : RpgAPI.regionConfig.getConfigurationSection("Rpg Regions").getKeys(false)) {
             ChatRegions rpC = new ChatRegions();
             rpC.setRegionName(region);
             rpC.setRegionRadius(RpgAPI.regionConfig.getInt("Rpg Regions." + region + ".Radius"));
@@ -35,8 +35,9 @@ public class LoadRegions {
             RpgAPI.chatRegions.add(rpC);
         }
     }
-    public static void ToFile(){
-        for (ChatRegions rpC : RpgAPI.chatRegions){
+
+    public static void ToFile() {
+        for (ChatRegions rpC : RpgAPI.chatRegions) {
             RpgAPI.regionConfig.set("Rpg Regions." + rpC.getRegionName() + ".Radius", rpC.getRegionRadius());
             RpgAPI.regionConfig.set("Rpg Regions." + rpC.getRegionName() + ".X", rpC.getRegionX());
             RpgAPI.regionConfig.set("Rpg Regions." + rpC.getRegionName() + ".Y", rpC.getRegionY());

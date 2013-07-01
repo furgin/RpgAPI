@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 public class SQLHandler extends SQLOps {
     private String host, database, username, password;
     private Connection connection;
+
     /**
      * Reopens the SQL connection if it is closed. This is invoked upon every
      * query.

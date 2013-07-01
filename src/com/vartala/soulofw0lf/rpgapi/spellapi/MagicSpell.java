@@ -46,7 +46,8 @@ public class MagicSpell {
     private Integer spellDuration = 0;
     private List<SpellTarget> targetsOfSpell = new ArrayList<SpellTarget>();
     private List<SpellBehaviors> spellBehavior = new ArrayList<SpellBehaviors>();
-    public MagicSpell(){
+
+    public MagicSpell() {
 
     }
 

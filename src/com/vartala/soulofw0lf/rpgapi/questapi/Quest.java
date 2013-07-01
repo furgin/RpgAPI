@@ -23,22 +23,24 @@ package com.vartala.soulofw0lf.rpgapi.questapi;
 public interface Quest {
     /**
      * Gets the name of the quest.
+     *
      * @return The name of this quest.
      */
     public abstract String getName();
 
     /**
      * Gets the requirements for the quest.
+     *
      * @return The requirements of this quest.
      */
     public abstract boolean getRequirements();
+
     /**
      * @return returns the quest id number
      */
     public abstract int getQuestID();
 
     /**
-     *
      * @return if the quest is repeatable
      */
     public abstract boolean isRepeatable();

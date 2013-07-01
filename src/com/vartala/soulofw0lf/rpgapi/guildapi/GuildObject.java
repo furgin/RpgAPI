@@ -72,9 +72,10 @@ public class GuildObject {
      * all getters and setters
      */
 
-    public GuildObject(){
+    public GuildObject() {
 
     }
+
     public String getGuildName() {
         return guildName;
     }

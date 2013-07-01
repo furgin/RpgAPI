@@ -38,7 +38,7 @@ public class FactionLevel {
      * all getters and setters
      */
 
-    public FactionLevel(){
+    public FactionLevel() {
 
     }
 

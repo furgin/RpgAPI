@@ -25,12 +25,13 @@ import java.util.logging.Logger;
 public class RPGLogging {
     private static final Logger log = Logger.getLogger("RPGAPI");
     private static final String prefix = "[RPGAPI] ";
+
     /**
      * Logs a message to the console, with the severity level of "info" or, not that important.
      *
      * @param message the message to be logged to console
      */
-    public static void logInfo(String message){
+    public static void logInfo(String message) {
         log.info(prefix + message);
     }
 
@@ -39,18 +40,18 @@ public class RPGLogging {
      *
      * @param message message to be logged to console
      */
-    public static void logWarning(String message){
+    public static void logWarning(String message) {
         log.warning(prefix + message);
     }
 
     /**
      * Logs a message to the console with the severity level of "severe" or, critical error.
-     * <p>
+     * <p/>
      * Any process that logs a severe warning is at great risk of failing.
      *
      * @param message message to be logged to console
      */
-    public static void logSevere(String message){
+    public static void logSevere(String message) {
         log.severe(prefix + message);
     }
 }

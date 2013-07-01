@@ -31,14 +31,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class basicFoodBehavior implements FoodBehavior {
     //
     @Override
-    public void ConsumptionEffect(RpgPlayer player, CustomFood foodItem){
+    public void ConsumptionEffect(RpgPlayer player, CustomFood foodItem) {
         final RpgPlayer p = player;
         Bukkit.getPlayer(p.getRealName()).setFoodLevel(0);
         final Double addHunger = 20 / foodItem.getTimeToEat();
         Integer addhealth = foodItem.getFoodHealth();
         final Integer smallAdd = (int) (addhealth / foodItem.getTimeToEat());
         final CustomFood itemEaten = foodItem;
-        new BukkitRunnable(){
+        new BukkitRunnable() {
             Double count = itemEaten.getTimeToEat();
             Boolean locset = false;
             Double addFood = 0.00;
@@ -46,99 +46,99 @@ public class basicFoodBehavior implements FoodBehavior {
             Double oldZ = 0.00;
 
             @Override
-            public void run(){
-                if (locset != null && !locset){
+            public void run() {
+                if (locset != null && !locset) {
                     oldX = Bukkit.getPlayer(p.getRealName()).getLocation().getX();
                     oldZ = Bukkit.getPlayer(p.getRealName()).getLocation().getZ();
                 }
                 locset = true;
                 double newFood = addFood + addHunger;
                 Integer currentFood = (int) newFood;
-                if (currentFood <= 1){
+                if (currentFood <= 1) {
                     currentFood = 1;
                 }
-                if (count <=0){
+                if (count <= 0) {
                     Bukkit.getPlayer(p.getRealName()).setFoodLevel(20);
-                    if (itemEaten.isHasBuff()){
+                    if (itemEaten.isHasBuff()) {
                         String buff = itemEaten.getFoodBuff();
                         Integer dura = itemEaten.getBuffDuration() * 20;
                         Integer amp = itemEaten.getBuffAmp();
-                        if (buff.equalsIgnoreCase("Blindness")){
+                        if (buff.equalsIgnoreCase("Blindness")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Confusion")){
+                        if (buff.equalsIgnoreCase("Confusion")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Damage_Resistance")){
+                        if (buff.equalsIgnoreCase("Damage_Resistance")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Fast_Digging")){
+                        if (buff.equalsIgnoreCase("Fast_Digging")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Fire_Resistance")){
+                        if (buff.equalsIgnoreCase("Fire_Resistance")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Harm")){
+                        if (buff.equalsIgnoreCase("Harm")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.HARM, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Heal")){
+                        if (buff.equalsIgnoreCase("Heal")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.HEAL, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Increase_Damage")){
+                        if (buff.equalsIgnoreCase("Increase_Damage")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Invisibility")){
+                        if (buff.equalsIgnoreCase("Invisibility")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Jump")){
+                        if (buff.equalsIgnoreCase("Jump")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.JUMP, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Night_Vision")){
+                        if (buff.equalsIgnoreCase("Night_Vision")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Poison")){
+                        if (buff.equalsIgnoreCase("Poison")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.POISON, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Regeneration")){
+                        if (buff.equalsIgnoreCase("Regeneration")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Slow")){
+                        if (buff.equalsIgnoreCase("Slow")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Slow_Digging")){
+                        if (buff.equalsIgnoreCase("Slow_Digging")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Speed")){
+                        if (buff.equalsIgnoreCase("Speed")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.SPEED, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Water_Breathing")){
+                        if (buff.equalsIgnoreCase("Water_Breathing")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Weakness")){
+                        if (buff.equalsIgnoreCase("Weakness")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, dura, amp), true);
                         }
-                        if (buff.equalsIgnoreCase("Wither")){
+                        if (buff.equalsIgnoreCase("Wither")) {
                             Bukkit.getPlayer(p.getRealName()).addPotionEffect(new PotionEffect(PotionEffectType.WITHER, dura, amp), true);
                         }
                     }
                     locset = false;
                     p.setEating(false);
                     cancel();
-                } else{
-                    if (Bukkit.getPlayer(p.getRealName()).getFoodLevel() == 20){
+                } else {
+                    if (Bukkit.getPlayer(p.getRealName()).getFoodLevel() == 20) {
                         Bukkit.getPlayer(p.getRealName()).setFoodLevel(20);
                         p.setEating(false);
                         locset = false;
                         cancel();
                     } else {
-                        if ((Bukkit.getPlayer(p.getRealName()).getLocation().getX() != oldX) || (Bukkit.getPlayer(p.getRealName()).getLocation().getZ() != oldZ)){
+                        if ((Bukkit.getPlayer(p.getRealName()).getLocation().getX() != oldX) || (Bukkit.getPlayer(p.getRealName()).getLocation().getZ() != oldZ)) {
                             Bukkit.getPlayer(p.getRealName()).sendMessage(ChatColor.DARK_PURPLE + "[Rpg Food]" + ChatColor.YELLOW + " You must stand still to eat!");
                             Bukkit.getPlayer(p.getRealName()).setFoodLevel(20);
                             p.setEating(false);
                             locset = false;
                             cancel();
                         } else {
-                            if (Bukkit.getPlayer(p.getRealName()).getHealth() + smallAdd >= Bukkit.getPlayer(p.getRealName()).getMaxHealth()){
+                            if (Bukkit.getPlayer(p.getRealName()).getHealth() + smallAdd >= Bukkit.getPlayer(p.getRealName()).getMaxHealth()) {
                                 Bukkit.getPlayer(p.getRealName()).setHealth(Bukkit.getPlayer(p.getRealName()).getMaxHealth());
                                 Bukkit.getPlayer(p.getRealName()).setFoodLevel(currentFood);
                                 addFood = newFood;

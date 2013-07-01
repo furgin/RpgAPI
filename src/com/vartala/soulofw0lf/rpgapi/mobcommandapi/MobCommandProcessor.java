@@ -30,25 +30,24 @@ import org.bukkit.entity.Player;
  */
 public class MobCommandProcessor {
     /**
-     * Processes command. To have user input, use rp.chatLock = "commandName:mobID" and see MobEditingChatListener
-     * @param cmd [commandName, clicktype, sender (console, player), (args)]
+     * Processes command. To have user input, use rp.chatLock = "hookName:mobID" and see MobEditingChatListener
+     *
+     * @param cmd   [commandName, clicktype, sender (console, player), (args)]
      * @param mobID the id of the RemoteEntity mob
      */
-    public static void process(String[] cmd, int mobID, Player p)
-    {
+    public static void process(String[] cmd, int mobID, Player p) {
         RemoteEntity rm = RpgAPI.entityManager.getRemoteEntityByID(mobID);
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(p.getName()));
-        switch(cmd[0].toLowerCase())
-        {
+        switch (cmd[0].toLowerCase()) {
             case "followme":
-                rm.getMind().addMovementDesire(new DesireFollowSpecific(rm, p, 1F, 2F),rm.getMind().getHighestMovementPriority()+1);
+                rm.getMind().addMovementDesire(new DesireFollowSpecific(rm, p, 1F, 2F), rm.getMind().getHighestMovementPriority() + 1);
                 break;
             case "unfollowme":
                 rm.getMind().getMovementDesire(DesireFollowSpecific.class).stopExecuting();
                 break;
             case "setname":
-                p.sendMessage(ChatColor.YELLOW+"Enter the name of the NPC: ");
-                rp.chatLock = "setname:"+mobID;
+                p.sendMessage(ChatColor.YELLOW + "Enter the name of the NPC:");
+                rp.chatLock = "setname:" + mobID;
                 break;
         }
     }

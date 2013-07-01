@@ -25,28 +25,28 @@ import org.bukkit.Location;
  * You should have received a copy of the GNU General Public License
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class CityChatBehavior implements ChatBehavior{
+public class CityChatBehavior implements ChatBehavior {
     @Override
     public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
         RpgPlayer rp = RpgAPI.getRp(receiveName);
-        if (chatSpy && rp.isSpyingOnChats()){
+        if (chatSpy && rp.isSpyingOnChats()) {
             return message;
         }
         Boolean inCity = false;
-        for (RpgCities cReg : RpgAPI.rpgCities){
+        for (RpgCities cReg : RpgAPI.rpgCities) {
             Integer radius = cReg.getRegionRadius();
             Double X = cReg.getRegionX();
             Double Y = cReg.getRegionY();
             Double Z = cReg.getRegionZ();
             String World = cReg.getRegionWorld();
             Location regionLoc = new Location(Bukkit.getWorld(World), X, Y, Z);
-            if (regionLoc.distance(Bukkit.getPlayer(receiveName).getLocation()) <= radius){
+            if (regionLoc.distance(Bukkit.getPlayer(receiveName).getLocation()) <= radius) {
                 inCity = true;
             }
 
         }
 
-        if (inCity){
+        if (inCity) {
             return message;
         }
         message = "";

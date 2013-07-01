@@ -32,7 +32,7 @@ public class HelpPage {
     private String line9 = "";
     private String line10 = "";
 
-    public void HelpPage(){
+    public void HelpPage() {
 
     }
 

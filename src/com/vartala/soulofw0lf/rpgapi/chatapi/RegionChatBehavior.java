@@ -29,18 +29,18 @@ public class RegionChatBehavior implements ChatBehavior {
     @Override
     public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
         RpgPlayer rp = RpgAPI.getRp(receiveName);
-        if (chatSpy && rp.isSpyingOnChats()){
+        if (chatSpy && rp.isSpyingOnChats()) {
             return message;
         }
-            ChatRegions currenRegion = new ChatRegions();
-        for (ChatRegions cReg : RpgAPI.chatRegions){
+        ChatRegions currenRegion = new ChatRegions();
+        for (ChatRegions cReg : RpgAPI.chatRegions) {
             Integer radius = cReg.getRegionRadius();
             Double X = cReg.getRegionX();
             Double Y = cReg.getRegionY();
             Double Z = cReg.getRegionZ();
             String World = cReg.getRegionWorld();
             Location regionLoc = new Location(Bukkit.getWorld(World), X, Y, Z);
-            if (regionLoc.distance(Bukkit.getPlayer(sendName).getLocation()) <= radius){
+            if (regionLoc.distance(Bukkit.getPlayer(sendName).getLocation()) <= radius) {
                 currenRegion = cReg;
             }
 
@@ -51,8 +51,8 @@ public class RegionChatBehavior implements ChatBehavior {
         Double Z = currenRegion.getRegionZ();
         String World = currenRegion.getRegionWorld();
         Location regionLoc = new Location(Bukkit.getWorld(World), X, Y, Z);
-        if (regionLoc.distance(Bukkit.getPlayer(receiveName).getLocation()) <= radius){
-             return message;
+        if (regionLoc.distance(Bukkit.getPlayer(receiveName).getLocation()) <= radius) {
+            return message;
         }
         message = "";
         return message;

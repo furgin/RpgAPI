@@ -55,15 +55,16 @@ public class ChatClass {
     private List<String> invitedPlayers = new ArrayList<String>();
 
 
-
-    public void  ChatClass(){
+    public void ChatClass() {
 
     }
-    public void addBehavior(ChatBehavior behavior){
+
+    public void addBehavior(ChatBehavior behavior) {
 
         channelBehaviors.add(behavior);
     }
-    public void clearBehavior(){
+
+    public void clearBehavior() {
         channelBehaviors.clear();
     }
 

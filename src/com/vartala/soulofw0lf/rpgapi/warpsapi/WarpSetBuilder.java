@@ -26,21 +26,22 @@ import java.util.List;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class WarpSetBuilder {
-    public static void BuildSets(){
-        if (RpgAPI.warpConfig.get("Warp Sets") != null){
-        for (String warpSet : RpgAPI.warpConfig.getConfigurationSection("Warp Sets").getKeys(false)){
-            WarpSets warpS = new WarpSets();
-            warpS.setSetName(warpSet);
-            List<RpgWarp> setWarps = new ArrayList<RpgWarp>();
-            warpS.setSetWarps(setWarps);
-            warpS.setWarpsRandom(RpgAPI.warpConfig.getBoolean("Warp Sets." + warpSet + ".Is Random"));
-            warpS.setSetPermission(RpgAPI.warpConfig.getString("Warp Sets." + warpSet + ".Permission Needed"));
-            RpgAPI.savedSets.put(warpSet, warpS);
+    public static void BuildSets() {
+        if (RpgAPI.warpConfig.get("Warp Sets") != null) {
+            for (String warpSet : RpgAPI.warpConfig.getConfigurationSection("Warp Sets").getKeys(false)) {
+                WarpSets warpS = new WarpSets();
+                warpS.setSetName(warpSet);
+                List<RpgWarp> setWarps = new ArrayList<RpgWarp>();
+                warpS.setSetWarps(setWarps);
+                warpS.setWarpsRandom(RpgAPI.warpConfig.getBoolean("Warp Sets." + warpSet + ".Is Random"));
+                warpS.setSetPermission(RpgAPI.warpConfig.getString("Warp Sets." + warpSet + ".Permission Needed"));
+                RpgAPI.savedSets.put(warpSet, warpS);
             }
         }
     }
-    public static void SaveSets(){
-        for (String setNames : RpgAPI.savedSets.keySet()){
+
+    public static void SaveSets() {
+        for (String setNames : RpgAPI.savedSets.keySet()) {
             WarpSets warpS = RpgAPI.savedSets.get(setNames);
             RpgAPI.warpConfig.set("Warp Sets." + setNames + ".Is Random", warpS.getWarpsRandom());
             RpgAPI.warpConfig.set("Warp Sets." + setNames + ".Permission Needed", warpS.getSetPermission());

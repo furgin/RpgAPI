@@ -43,73 +43,74 @@ import org.bukkit.scheduler.BukkitRunnable;
  */
 public class FoodListener implements Listener {
     RpgAPI Rpgapi;
-    public FoodListener(RpgAPI rpgapi){
+
+    public FoodListener(RpgAPI rpgapi) {
         this.Rpgapi = rpgapi;
     }
+
     //
     @EventHandler
-    public void onRestore(EntityRegainHealthEvent event)
-    {
-        if (!RpgAPI.foodOn){
+    public void onRestore(EntityRegainHealthEvent event) {
+        if (!RpgAPI.foodOn) {
             return;
         }
         if ((event.getRegainReason() == EntityRegainHealthEvent.RegainReason.REGEN) ||
-                (event.getRegainReason() == EntityRegainHealthEvent.RegainReason.SATIATED))
-        {
-            if ((event.getEntity() instanceof Player))
-            {
-                if (RpgAPI.rpgStyleFood){
-                event.setCancelled(true);
+                (event.getRegainReason() == EntityRegainHealthEvent.RegainReason.SATIATED)) {
+            if ((event.getEntity() instanceof Player)) {
+                if (RpgAPI.rpgStyleFood) {
+                    event.setCancelled(true);
                 }
             }
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onEntityDamage(EntityDamageEvent event){
-        if (!RpgAPI.foodOn){
+    public void onEntityDamage(EntityDamageEvent event) {
+        if (!RpgAPI.foodOn) {
             return;
         }
         if (!(event.getEntity() instanceof Player)) {
             return;
         }
         if (event.getCause() == EntityDamageEvent.DamageCause.STARVATION) {
-            if (RpgAPI.rpgStyleFood){
-            event.setCancelled(true);
-            return;
+            if (RpgAPI.rpgStyleFood) {
+                event.setCancelled(true);
+                return;
             }
         }
     }
+
     @EventHandler(priority = EventPriority.LOW)
-    public void onFoodLevelChange(FoodLevelChangeEvent event){
-        if (!RpgAPI.foodOn){
+    public void onFoodLevelChange(FoodLevelChangeEvent event) {
+        if (!RpgAPI.foodOn) {
             return;
         }
         Player p = (Player) event.getEntity();
-        if (RpgAPI.rpgStyleFood){
-        event.setCancelled(true);
-        p.setSaturation(5.0F);
+        if (RpgAPI.rpgStyleFood) {
+            event.setCancelled(true);
+            p.setSaturation(5.0F);
         }
     }
-    @EventHandler(priority=EventPriority.HIGH)
-    public void onPlayerUse(PlayerInteractEvent event){
-        if (!RpgAPI.foodOn){
+
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onPlayerUse(PlayerInteractEvent event) {
+        if (!RpgAPI.foodOn) {
             return;
         }
         Player p = event.getPlayer();
         ItemStack item = p.getItemInHand();
-        if(item == null || item.getTypeId() == 0){
+        if (item == null || item.getTypeId() == 0) {
             return;
         } else {
             ItemMeta im = item.getItemMeta();
-            if (im == null){
+            if (im == null) {
                 return;
             }
-            if (!(im.hasDisplayName())){
+            if (!(im.hasDisplayName())) {
                 return;
             }
             String foodName = im.getDisplayName();
-            if (!(this.Rpgapi.foodItems.containsKey(foodName))){
+            if (!(this.Rpgapi.foodItems.containsKey(foodName))) {
                 return;
             }
             event.setCancelled(true);
@@ -117,30 +118,29 @@ public class FoodListener implements Listener {
             RpgPlayer sendPlayer = this.Rpgapi.rpgPlayers.get(this.Rpgapi.activeNicks.get(senderName));
             Integer health = sendPlayer.getCurrentHealth();
             Integer maxHealth = sendPlayer.getStats().get(PlayerStat.TOTAL_HIT_POINTS);
-            if ((event.getAction() == Action.RIGHT_CLICK_AIR) || (event.getAction() == Action.RIGHT_CLICK_BLOCK)){
-                if (health.equals(maxHealth)){
+            if ((event.getAction() == Action.RIGHT_CLICK_AIR) || (event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
+                if (health.equals(maxHealth)) {
                     p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Eating Health Full")));
                     return;
-                } else
-                {
-                    if (sendPlayer.isEating()){
+                } else {
+                    if (sendPlayer.isEating()) {
                         p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Already Eating")));
                         return;
                     } else {
                         sendPlayer.setEating(true);
-                        Integer inHand = item.getAmount() -1;
+                        Integer inHand = item.getAmount() - 1;
                         ItemStack newItem = new ItemStack(item.getType(), inHand);
                         newItem.setItemMeta(im);
                         p.setItemInHand(newItem);
                         CustomFood thisFood = this.Rpgapi.foodItems.get(im.getDisplayName());
-                        for(FoodBehavior behavior :  thisFood.getFoodBehaviors()){
+                        for (FoodBehavior behavior : thisFood.getFoodBehaviors()) {
                             behavior.ConsumptionEffect(sendPlayer, thisFood);
                         }
-                     }
+                    }
                 }
             }
         }
     }
 
 
-    }
+}

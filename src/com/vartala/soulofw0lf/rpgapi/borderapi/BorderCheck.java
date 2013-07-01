@@ -24,20 +24,18 @@ public class BorderCheck {
         final double Y = loc.getY();
         final double Z = loc.getZ();
         final Integer radius = rad;
-        new BukkitRunnable(){
+        new BukkitRunnable() {
 
             @Override
             public void run() {
-                for (Player player : Bukkit.getOnlinePlayers())
-                {
-                    if (player.getLocation().getWorld().getName().equalsIgnoreCase(worldName))
-                    {
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    if (player.getLocation().getWorld().getName().equalsIgnoreCase(worldName)) {
                         Location loc = player.getLocation();
                         loc.setY(Y);
-                        Location Center = new Location(Bukkit.getWorld(worldName),X,Y,Z);
-                        if (loc.distance(Center) >= radius){
+                        Location Center = new Location(Bukkit.getWorld(worldName), X, Y, Z);
+                        if (loc.distance(Center) >= radius) {
                             loc.setX(loc.getX() * -0.995);
-                            loc.setY(player.getLocation().getY()+1);
+                            loc.setY(player.getLocation().getY() + 1);
                             loc.setZ(loc.getZ() * -0.995);
                             loc.setPitch(loc.getPitch());
                             loc.setYaw(loc.getYaw());

@@ -30,16 +30,16 @@ public class LanguageBehavior implements ChatBehavior {
     public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(receiveName));
         Boolean languageKnown = false;
-        if (chatSpy && rp.isSpyingOnChats()){
+        if (chatSpy && rp.isSpyingOnChats()) {
             return message;
         }
-        for (String lang : rp.getKnownLanguages()){
-            if (lang.equalsIgnoreCase(language)){
+        for (String lang : rp.getKnownLanguages()) {
+            if (lang.equalsIgnoreCase(language)) {
                 languageKnown = true;
             }
         }
-        if (!(languageKnown)){
-            if (rp.showLanguagesInChat()){
+        if (!(languageKnown)) {
+            if (rp.showLanguagesInChat()) {
                 message = LanguageProcessor.LanguageDecoder(message, language);
                 return message;
             } else {

@@ -32,69 +32,71 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
  */
 public class ChatListener implements Listener {
     RpgAPI Rpgapi;
-    public ChatListener(RpgAPI rpgAPI){
+
+    public ChatListener(RpgAPI rpgAPI) {
         this.Rpgapi = rpgAPI;
         Bukkit.getPluginManager().registerEvents(this, this.Rpgapi);
     }
+
     //
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void channelChat(AsyncPlayerChatEvent event){
+    public void channelChat(AsyncPlayerChatEvent event) {
         Player p = event.getPlayer();
         String m = event.getMessage();
 
-        if (!(RpgAPI.chatOn)){
-       event.setCancelled(true);
-        for (Player r : event.getRecipients()){
-            r.sendMessage(ChatProcessor.TitleString(RpgAPI.nameDisplays, p.getName(), r.getName()) + ChatColors.ChatString(m));
-        }
+        if (!(RpgAPI.chatOn)) {
+            event.setCancelled(true);
+            for (Player r : event.getRecipients()) {
+                r.sendMessage(ChatProcessor.TitleString(RpgAPI.nameDisplays, p.getName(), r.getName()) + ChatColors.ChatString(m));
+            }
             return;
         }
         String senderName = event.getPlayer().getName();
         RpgPlayer sendPlayer = Rpgapi.rpgPlayers.get(Rpgapi.activeNicks.get(senderName));
-        if (sendPlayer.getActiveChannel().isEmpty()){
+        if (sendPlayer.getActiveChannel().isEmpty()) {
             return;
         }
         String activeChat = sendPlayer.getActiveChannel();
         ChatClass thisChat = null;
         Boolean channelExists = false;
-        for (ChatClass cc : RpgAPI.chatClasses){
-        if (cc.getChannelName().equalsIgnoreCase(activeChat)){
-            channelExists = true;
+        for (ChatClass cc : RpgAPI.chatClasses) {
+            if (cc.getChannelName().equalsIgnoreCase(activeChat)) {
+                channelExists = true;
+            }
         }
-        }
-        if (!(channelExists)){
+        if (!(channelExists)) {
             return;
         }
         String language = "";
-        if (sendPlayer.getActiveLanguage().isEmpty()){
+        if (sendPlayer.getActiveLanguage().isEmpty()) {
             language = "Common";
             sendPlayer.setActiveLanguage("Common");
         } else {
             language = sendPlayer.getActiveLanguage();
         }
-        for (ChatClass cl : RpgAPI.chatClasses){
-         if(cl.getChannelName().equalsIgnoreCase(activeChat)){
-            thisChat = cl;
-         }
+        for (ChatClass cl : RpgAPI.chatClasses) {
+            if (cl.getChannelName().equalsIgnoreCase(activeChat)) {
+                thisChat = cl;
+            }
         }
-        if (thisChat.getMutedPlayers().contains(senderName)){
+        if (thisChat.getMutedPlayers().contains(senderName)) {
             Bukkit.getPlayer(senderName).sendMessage("You are muted in this chat.");
             return;
         }
-        if (thisChat.getBannedPlayers().contains(senderName)){
+        if (thisChat.getBannedPlayers().contains(senderName)) {
             Bukkit.getPlayer(senderName).sendMessage("You are banned from this chat.");
             return;
         }
         Boolean spyChat = thisChat.isChatSpy();
         event.setCancelled(true);
-        for (Player pl : event.getRecipients()){
-             String receiveName = pl.getName();
+        for (Player pl : event.getRecipients()) {
+            String receiveName = pl.getName();
             String message = "";
-             for (ChatBehavior behavior : thisChat.getChannelBehaviors()){
-                 message = behavior.chatChannel(activeChat, receiveName, senderName, language, event.getMessage(), spyChat);
+            for (ChatBehavior behavior : thisChat.getChannelBehaviors()) {
+                message = behavior.chatChannel(activeChat, receiveName, senderName, language, event.getMessage(), spyChat);
 
-             }
-            if (message.isEmpty()){
+            }
+            if (message.isEmpty()) {
                 return;
             }
             pl.sendMessage(ChatProcessor.TitleString(RpgAPI.nameDisplays, senderName, receiveName) + message);

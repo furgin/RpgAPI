@@ -25,27 +25,27 @@ import org.bukkit.Bukkit;
  * You should have received a copy of the GNU General Public License
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class BasicChatBehavior implements ChatBehavior{
+public class BasicChatBehavior implements ChatBehavior {
     //
     @Override
-    public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy){
+    public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(receiveName));
         String color = rp.getChannelColor().get(chatName);
         message = ChatColors.ChatString(color + message);
-        if (rp.getIgnoreList().contains(sendName)){
+        if (rp.getIgnoreList().contains(sendName)) {
             message = "";
             return message;
         }
-        if (chatSpy && rp.isSpyingOnChats()){
-                return message;
+        if (chatSpy && rp.isSpyingOnChats()) {
+            return message;
         }
         Boolean isInChannel = false;
-        for (String inChannel : rp.getChannelColor().keySet()){
-            if (inChannel.equalsIgnoreCase(chatName)){
+        for (String inChannel : rp.getChannelColor().keySet()) {
+            if (inChannel.equalsIgnoreCase(chatName)) {
                 isInChannel = true;
             }
         }
-        if (!(isInChannel)){
+        if (!(isInChannel)) {
             message = "";
             return message;
         }

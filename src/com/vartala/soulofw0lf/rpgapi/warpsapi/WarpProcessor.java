@@ -33,22 +33,22 @@ import java.util.Random;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class WarpProcessor {
-    public static void WarpHandler(String p, RpgWarp rpgWarp){
+    public static void WarpHandler(String p, RpgWarp rpgWarp) {
         WarpSets wSet = RpgAPI.savedSets.get(rpgWarp.getWarpSet());
-         RpgWarp thisWarp = rpgWarp;
+        RpgWarp thisWarp = rpgWarp;
         Integer i = 0;
-        if (wSet.getWarpsRandom()){
+        if (wSet.getWarpsRandom()) {
             Player pl = Bukkit.getPlayer(p);
             pl.sendMessage("set is random");
             List<RpgWarp> newList = wSet.getSetWarps();
             Boolean warpPerms = false;
-            for (RpgWarp warp1 : newList){
+            for (RpgWarp warp1 : newList) {
                 Bukkit.getPlayer(p).sendMessage(warp1.getWarpName());
             }
-            while (warpPerms == false){
-                i = (int)(Math.random() * newList.size() );
-                thisWarp = newList.get( i );
-                pl.sendMessage("location on list is "+i);
+            while (warpPerms == false) {
+                i = (int) (Math.random() * newList.size());
+                thisWarp = newList.get(i);
+                pl.sendMessage("location on list is " + i);
                 warpPerms = WarpRequirements(Bukkit.getPlayer(p), thisWarp);
             }
 
@@ -60,15 +60,15 @@ public class WarpProcessor {
         Float yaw = thisWarp.getWarpYaw();
         Float pitch = thisWarp.getWarpPitch();
         Location l = new Location(Bukkit.getWorld(world), X, Y, Z, yaw, pitch);
-        if (thisWarp.getVariance()){
+        if (thisWarp.getVariance()) {
             Integer variance = thisWarp.getWarpVariance();
-            l.setX(X-variance+((Math.random() * ((variance * 2)+1))));
-            l.setZ(Z-variance+((Math.random() * ((variance * 2)+1))));
+            l.setX(X - variance + ((Math.random() * ((variance * 2) + 1))));
+            l.setZ(Z - variance + ((Math.random() * ((variance * 2) + 1))));
             Boolean aboveGround = false;
-            while (aboveGround == false){
+            while (aboveGround == false) {
                 Block b = l.getBlock();
-                if (!(b.getType().equals(Material.AIR))){
-                    l.setY(l.getY()+3);
+                if (!(b.getType().equals(Material.AIR))) {
+                    l.setY(l.getY() + 3);
                 } else {
                     aboveGround = true;
                 }
@@ -76,24 +76,24 @@ public class WarpProcessor {
         }
         Player pl = Bukkit.getPlayer(p);
         pl.teleport(l);
-        if (thisWarp.getUseCD()){
-        if (RpgAPI.warpCds.containsKey(p)){
-            List<String> warps = RpgAPI.warpCds.get(p);
-            warps.add(thisWarp.getWarpName());
-            RpgAPI.warpCds.remove(p);
-            RpgAPI.warpCds.put(p, warps);
-        } else {
-            List<String> warps = new ArrayList<String>();
-            warps.add(thisWarp.getWarpName());
-            RpgAPI.warpCds.put(p, warps);
-        }
+        if (thisWarp.getUseCD()) {
+            if (RpgAPI.warpCds.containsKey(p)) {
+                List<String> warps = RpgAPI.warpCds.get(p);
+                warps.add(thisWarp.getWarpName());
+                RpgAPI.warpCds.remove(p);
+                RpgAPI.warpCds.put(p, warps);
+            } else {
+                List<String> warps = new ArrayList<String>();
+                warps.add(thisWarp.getWarpName());
+                RpgAPI.warpCds.put(p, warps);
+            }
             final String warpName = thisWarp.getWarpName();
             final Integer cdTimer = thisWarp.getWarpCoolDown() * 20;
             final String playerName = p;
-            new BukkitRunnable(){
+            new BukkitRunnable() {
 
                 @Override
-                public void run(){
+                public void run() {
                     List<String> warps = RpgAPI.warpCds.get(playerName);
                     warps.remove(warpName);
                     RpgAPI.warpCds.remove(playerName);
@@ -101,28 +101,28 @@ public class WarpProcessor {
                 }
             }.runTaskLater(RpgAPI.plugin, cdTimer);
         }
-        for ( WarpBehavior behavior : thisWarp.getWarpBehaviors()){
+        for (WarpBehavior behavior : thisWarp.getWarpBehaviors()) {
             behavior.onWarp(p);
         }
 
     }
 
-    public static Boolean WarpRequirements(Player p, RpgWarp rWarp){
+    public static Boolean WarpRequirements(Player p, RpgWarp rWarp) {
         Boolean requirements = true;
-        if (rWarp.getLevelNeeded()){
-            if (p.getLevel() < rWarp.getWarpLevel()){
+        if (rWarp.getLevelNeeded()) {
+            if (p.getLevel() < rWarp.getWarpLevel()) {
                 requirements = false;
             }
 
         }
-        if (rWarp.getSinglePerm()){
-            if (!(p.hasPermission(rWarp.getPermNeeded()))){
+        if (rWarp.getSinglePerm()) {
+            if (!(p.hasPermission(rWarp.getPermNeeded()))) {
                 requirements = false;
             }
         }
-        if (RpgAPI.warpCds.containsKey(p.getName())){
-            for (String warpName : RpgAPI.warpCds.get(p.getName())){
-                if (warpName.equalsIgnoreCase(rWarp.getWarpName())){
+        if (RpgAPI.warpCds.containsKey(p.getName())) {
+            for (String warpName : RpgAPI.warpCds.get(p.getName())) {
+                if (warpName.equalsIgnoreCase(rWarp.getWarpName())) {
                     requirements = false;
                 }
             }

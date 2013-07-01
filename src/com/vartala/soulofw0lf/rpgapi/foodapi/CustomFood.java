@@ -54,7 +54,7 @@ public class CustomFood {
     //food buff strength
     private Integer buffAmp = 0;
 
-    public CustomFood(){
+    public CustomFood() {
 
     }
 

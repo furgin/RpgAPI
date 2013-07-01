@@ -177,7 +177,6 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<Integer, HelpPage> helpDisplay = new HashMap<>();
 
 
-
     @Override
     public void onEnable() {
         plugin = this;
@@ -209,31 +208,39 @@ public class RpgAPI extends JavaPlugin implements Listener {
         this.mobEditingChatListener = new MobEditingChatListener(this);
         File f = new File("plugins/RpgAPI/RpgPLayers");
         File[] files = f.listFiles();
-        if (!(files == null)){
-            for (File playerFile : files)
-            {
+        if (!(files == null)) {
+            for (File playerFile : files) {
                 YamlConfiguration.loadConfiguration(playerFile);
             }
         }
-        if (languagesOn){
+        if (languagesOn) {
             File l = new File("plugins/RpgAPI/RpgLanguages");
             File[] lFiles = l.listFiles();
-            if (!(lFiles == null)){
-                for (File languageFile : lFiles)
-                {
+            if (!(lFiles == null)) {
+                for (File languageFile : lFiles) {
                     YamlConfiguration lang = YamlConfiguration.loadConfiguration(languageFile);
                     LanguageProcessor.LanguageLoader(lang);
                 }
             }
         }
-        if (clickOn){this.clickListener = new ClickInvListener(this);}
-        if (chatOn){this.chatListener = new ChatListener(this);}
-        if (foodOn){this.foodListener = new FoodListener(this);}
-        if (minionsOn){this.entityManager = RemoteEntities.createManager(this);}
-        if (poisonedEarthOn){this.poisonlistener = new PoisonListener(this);}
-        if (borderOn){
+        if (clickOn) {
+            this.clickListener = new ClickInvListener(this);
+        }
+        if (chatOn) {
+            this.chatListener = new ChatListener(this);
+        }
+        if (foodOn) {
+            this.foodListener = new FoodListener(this);
+        }
+        if (minionsOn) {
+            this.entityManager = RemoteEntities.createManager(this);
+        }
+        if (poisonedEarthOn) {
+            this.poisonlistener = new PoisonListener(this);
+        }
+        if (borderOn) {
             worldBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgBorders.yml"));
-            if (worldBorder.get("Worlds") == null){
+            if (worldBorder.get("Worlds") == null) {
                 worldBorder.set("Worlds.World.X", 0);
                 worldBorder.set("Worlds.World.Y", 0);
                 worldBorder.set("Worlds.World.Z", 0);
@@ -249,15 +256,15 @@ public class RpgAPI extends JavaPlugin implements Listener {
             Double Z = 0.0;
             Location loc = null;
             Integer radius = 0;
-            for (String worlds : worldBorder.getConfigurationSection("Worlds").getKeys(false)){
+            for (String worlds : worldBorder.getConfigurationSection("Worlds").getKeys(false)) {
                 X = worldBorder.getDouble("Worlds." + worlds + ".X");
                 Y = worldBorder.getDouble("Worlds." + worlds + ".Y");
                 Z = worldBorder.getDouble("Worlds." + worlds + ".Z");
                 radius = worldBorder.getInt("Worlds." + worlds + ".Radius");
                 World world = Bukkit.getWorld(worlds);
-                if (world != null){
-                loc = new Location(world, X, Y, Z);
-                BorderCheck.cycleCheck(this, loc, radius);
+                if (world != null) {
+                    loc = new Location(world, X, Y, Z);
+                    BorderCheck.cycleCheck(this, loc, radius);
                 }
             }
 
@@ -268,58 +275,76 @@ public class RpgAPI extends JavaPlugin implements Listener {
             dBPassword = getConfig().getString("Mysql Database.Password");
             dBURL = getConfig().getString("Mysql Database.URL");
             sqlHandler = new SQLHandler();
-            if (!sqlHandler.initialise())
-            {
+            if (!sqlHandler.initialise()) {
                 RPGLogging.logSevere("Failed to initialize the SQL connection. Check connection settings in RPGAPI config files. Otherwise please disable mysql as storage system.");
-            }
-            else
+            } else
                 RPGLogging.logInfo("SQL connection initialised.");
         }
         //load yml files and set a value to each of them if they don't exist.
         playerConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayers.yml"));
-        testPlayer =  YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayer/TestPlayer.yml"));
+        testPlayer = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayer/TestPlayer.yml"));
 
         localeConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale.yml"));
-        if (guildsOn){guildConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Guilds.yml"));}
-        if (chatOn){chatConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat.yml"));
+        if (guildsOn) {
+            guildConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Guilds.yml"));
+        }
+        if (chatOn) {
+            chatConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat.yml"));
             cityConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat/RpgCities.yml"));
-            regionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat/RpgRegions.yml"));}
-        if (foodOn){foodConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Food.yml"));}
-        if (clickOn){clickConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Clicks.yml"));}
+            regionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat/RpgRegions.yml"));
+        }
+        if (foodOn) {
+            foodConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Food.yml"));
+        }
+        if (clickOn) {
+            clickConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Clicks.yml"));
+        }
         settingsConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Settings.yml"));
-        if (achievementsOn){achievementConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Achievements.yml"));}
-        if (minionsOn){minionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Minions.yml"));}
-        if (classesOn){classConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Classes.yml"));}
+        if (achievementsOn) {
+            achievementConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Achievements.yml"));
+        }
+        if (minionsOn) {
+            minionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Minions.yml"));
+        }
+        if (classesOn) {
+            classConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Classes.yml"));
+        }
         commandConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Commands.yml"));
-        if (minionsOn){mobCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/MobCommands.yml"));}
-        if (poisonedEarthOn){poisonCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Poisons.yml"));
-        if (poisonCommand.get("Poisons") == null){
-            poisonCommand.set("Poisons.Sickening Ground.Potion Effects.POISON.Duration", 15);
-            poisonCommand.set("Poisons.Sickening Ground.Potion Effects.POISON.Strength", 2);
-            poisonCommand.set("Poisons.Sickening Ground.Potion Effects.WEAKNESS.Duration", 30);
-            poisonCommand.set("Poisons.Sickening Ground.Potion Effects.WEAKNESS.Strength", 4);
-            poisonCommand.set("Poisons.Sickening Ground.World", "Kardegah");
-            poisonCommand.set("Poisons.Sickening Ground.Potion X", -2587);
-            poisonCommand.set("Poisons.Sickening Ground.Potion Z", -3060);
-            poisonCommand.set("Poisons.Sickening Ground.Potion Y", 162);
-            poisonCommand.set("Poisons.Sickening Ground.Above Y", true);
-            poisonCommand.set("Poisons.Sickening Ground.Reset Length", 10);
-            poisonCommand.set("Poisons.Sickening Ground.Radius", 38);
-        }}
-        if (minionsOn){if (mobCommand.get("Mob Commands") == null){
-            mobCommand.set("Mob Commands.Set 1.Item 1.Commands.1.ClickType", "right");
-        }}
-        if (commandConfig.get("Commands") == null){
+        if (minionsOn) {
+            mobCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/MobCommands.yml"));
+        }
+        if (poisonedEarthOn) {
+            poisonCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Poisons.yml"));
+            if (poisonCommand.get("Poisons") == null) {
+                poisonCommand.set("Poisons.Sickening Ground.Potion Effects.POISON.Duration", 15);
+                poisonCommand.set("Poisons.Sickening Ground.Potion Effects.POISON.Strength", 2);
+                poisonCommand.set("Poisons.Sickening Ground.Potion Effects.WEAKNESS.Duration", 30);
+                poisonCommand.set("Poisons.Sickening Ground.Potion Effects.WEAKNESS.Strength", 4);
+                poisonCommand.set("Poisons.Sickening Ground.World", "Kardegah");
+                poisonCommand.set("Poisons.Sickening Ground.Potion X", -2587);
+                poisonCommand.set("Poisons.Sickening Ground.Potion Z", -3060);
+                poisonCommand.set("Poisons.Sickening Ground.Potion Y", 162);
+                poisonCommand.set("Poisons.Sickening Ground.Above Y", true);
+                poisonCommand.set("Poisons.Sickening Ground.Reset Length", 10);
+                poisonCommand.set("Poisons.Sickening Ground.Radius", 38);
+            }
+        }
+        if (minionsOn) {
+            if (mobCommand.get("Mob Commands") == null) {
+                mobCommand.set("Mob Commands.Set 1.Item 1.Commands.1.ClickType", "right");
+            }
+        }
+        if (commandConfig.get("Commands") == null) {
             commandConfig.set("Commands.SetNick", "nick");
         }
-        for (String command : commandConfig.getConfigurationSection("Commands").getKeys(false)){
-             commands.add(command);
+        for (String command : commandConfig.getConfigurationSection("Commands").getKeys(false)) {
+            commands.add(command);
         }
         if (playerConfig.get("Active Nicks") == null) {
             playerConfig.set("Active Nicks.Sample Player", "Sample Nick");
             playerConfig.set("Player Colors.soulofw0lf", "&4");
         }
-        for (String players : playerConfig.getConfigurationSection("Active Nicks").getKeys(false)){
+        for (String players : playerConfig.getConfigurationSection("Active Nicks").getKeys(false)) {
             String currentNick = playerConfig.getString("Active Nicks." + players);
             activeNicks.put(players, currentNick);
         }
@@ -344,7 +369,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
             localeConfig.set("General Commands.Help Command.Alias", "Help");
             localeConfig.set("General Commands.Help Command.Help Color", "&2");
             localeConfig.set("General Commands.Help Command.Description", "&fShow the different help Pages. &2Usage: &f/help page#");
-            if (warpsOn){
+            if (warpsOn) {
                 localeConfig.set("Warp Commands.Set Warp.Alias", "setwarp");
                 localeConfig.set("Warp Commands.Set Warp.Help Color", "&2");
                 localeConfig.set("Warp Commands.Set Warp.Description", "&fSet a new Warp Point. &2Usage: &f/setwarp warpname");
@@ -388,18 +413,20 @@ public class RpgAPI extends JavaPlugin implements Listener {
             }
 
         }
-        if (guildsOn){if (guildConfig.get("Guilds Info") == null) {
-            guildConfig.set("Guilds Info", "This File will save all guild info, Mysql is highly recommended!");
-        }}
-        if (chatOn){
-            if (cityConfig.get("Rpg Cities") == null){
+        if (guildsOn) {
+            if (guildConfig.get("Guilds Info") == null) {
+                guildConfig.set("Guilds Info", "This File will save all guild info, Mysql is highly recommended!");
+            }
+        }
+        if (chatOn) {
+            if (cityConfig.get("Rpg Cities") == null) {
                 RpgAPI.cityConfig.set("Rpg Cities.Example City.Radius", 100);
                 RpgAPI.cityConfig.set("Rpg Cities.Example City.X", 0.0);
                 RpgAPI.cityConfig.set("Rpg Cities.Example City.Y", 0.0);
                 RpgAPI.cityConfig.set("Rpg Cities.Example City.Z", 0.0);
                 RpgAPI.cityConfig.set("Rpg Cities.Example City.World", "World");
             }
-            if (regionConfig.get("Rpg Regions") == null){
+            if (regionConfig.get("Rpg Regions") == null) {
                 RpgAPI.regionConfig.set("Rpg Regions.Example Region.Radius", 100);
                 RpgAPI.regionConfig.set("Rpg Regions.Example Region.X", 0.0);
                 RpgAPI.regionConfig.set("Rpg Regions.Example Region.Y", 0.0);
@@ -407,183 +434,215 @@ public class RpgAPI extends JavaPlugin implements Listener {
                 RpgAPI.regionConfig.set("Rpg Regions.Example Region.World", "World");
             }
             if (chatConfig.get("Channels") == null) {
-            chatConfig.set("Titles and Names", "&7[@World]&2[@Guild]&3[@Channel]&r[@Prefix @Pname @Suffix&F]");
-            //whisper Chat
-            chatConfig.set("Chats.Whisper.Name", "Whisper");
-            chatConfig.set("Chats.Whisper.Nick Name", "W");
-            chatConfig.set("Chats.Whisper.Enabled", true);
-            chatConfig.set("Chats.Whisper.Spy Enabled", true);
-            chatConfig.set("Chats.Whisper.Use Basic", true);
-            chatConfig.set("Chats.Whisper.Use Language", true);
-            chatConfig.set("Chats.Whisper.Use Distance", true);
-            chatConfig.set("Chats.Whisper.Distance", 5);
-            chatConfig.set("Chats.Whisper.Use Party", false);
-            chatConfig.set("Chats.Whisper.Use Guild", false);
-            chatConfig.set("Chats.Whisper.Use Region", false);
-            chatConfig.set("Chats.Whisper.Use City", false);
-            chatConfig.set("Chats.Whisper.Use World", false);
+                chatConfig.set("Titles and Names", "&7[@World]&2[@Guild]&3[@Channel]&r[@Prefix @Pname @Suffix&F]");
+                //whisper Chat
+                chatConfig.set("Chats.Whisper.Name", "Whisper");
+                chatConfig.set("Chats.Whisper.Nick Name", "W");
+                chatConfig.set("Chats.Whisper.Enabled", true);
+                chatConfig.set("Chats.Whisper.Spy Enabled", true);
+                chatConfig.set("Chats.Whisper.Use Basic", true);
+                chatConfig.set("Chats.Whisper.Use Language", true);
+                chatConfig.set("Chats.Whisper.Use Distance", true);
+                chatConfig.set("Chats.Whisper.Distance", 5);
+                chatConfig.set("Chats.Whisper.Use Party", false);
+                chatConfig.set("Chats.Whisper.Use Guild", false);
+                chatConfig.set("Chats.Whisper.Use Region", false);
+                chatConfig.set("Chats.Whisper.Use City", false);
+                chatConfig.set("Chats.Whisper.Use World", false);
 
-            //local chat
-            chatConfig.set("Chats.Local.Name", "Local");
-            chatConfig.set("Chats.Local.Nick Name", "L");
-            chatConfig.set("Chats.Local.Enabled", true);
-            chatConfig.set("Chats.Local.Spy Enabled", true);
-            chatConfig.set("Chats.Local.Use Basic", true);
-            chatConfig.set("Chats.Local.Use Language", true);
-            chatConfig.set("Chats.Local.Use Distance", true);
-            chatConfig.set("Chats.Local.Distance", 50);
-            chatConfig.set("Chats.Local.Use Party", false);
-            chatConfig.set("Chats.Local.Use Guild", false);
-            chatConfig.set("Chats.Local.Use Region", false);
-            chatConfig.set("Chats.Local.Use City", false);
-            chatConfig.set("Chats.Local.Use World", false);
+                //local chat
+                chatConfig.set("Chats.Local.Name", "Local");
+                chatConfig.set("Chats.Local.Nick Name", "L");
+                chatConfig.set("Chats.Local.Enabled", true);
+                chatConfig.set("Chats.Local.Spy Enabled", true);
+                chatConfig.set("Chats.Local.Use Basic", true);
+                chatConfig.set("Chats.Local.Use Language", true);
+                chatConfig.set("Chats.Local.Use Distance", true);
+                chatConfig.set("Chats.Local.Distance", 50);
+                chatConfig.set("Chats.Local.Use Party", false);
+                chatConfig.set("Chats.Local.Use Guild", false);
+                chatConfig.set("Chats.Local.Use Region", false);
+                chatConfig.set("Chats.Local.Use City", false);
+                chatConfig.set("Chats.Local.Use World", false);
 
-            //shout Chat
-            chatConfig.set("Chats.Shout.Name", "Shout");
-            chatConfig.set("Chats.Shout.Nick Name", "Yell");
-            chatConfig.set("Chats.Shout.Enabled", true);
-            chatConfig.set("Chats.Shout.Spy Enabled", true);
-            chatConfig.set("Chats.Shout.Use Basic", true);
-            chatConfig.set("Chats.Shout.Use Language", true);
-            chatConfig.set("Chats.Shout.Use Distance", true);
-            chatConfig.set("Chats.Shout.Distance", 150);
-            chatConfig.set("Chats.Shout.Use Party", false);
-            chatConfig.set("Chats.Shout.Use Guild", false);
-            chatConfig.set("Chats.Shout.Use Region", false);
-            chatConfig.set("Chats.Shout.Use City", false);
-            chatConfig.set("Chats.Shout.Use World", false);
+                //shout Chat
+                chatConfig.set("Chats.Shout.Name", "Shout");
+                chatConfig.set("Chats.Shout.Nick Name", "Yell");
+                chatConfig.set("Chats.Shout.Enabled", true);
+                chatConfig.set("Chats.Shout.Spy Enabled", true);
+                chatConfig.set("Chats.Shout.Use Basic", true);
+                chatConfig.set("Chats.Shout.Use Language", true);
+                chatConfig.set("Chats.Shout.Use Distance", true);
+                chatConfig.set("Chats.Shout.Distance", 150);
+                chatConfig.set("Chats.Shout.Use Party", false);
+                chatConfig.set("Chats.Shout.Use Guild", false);
+                chatConfig.set("Chats.Shout.Use Region", false);
+                chatConfig.set("Chats.Shout.Use City", false);
+                chatConfig.set("Chats.Shout.Use World", false);
 
-            //General chat
-            chatConfig.set("Chats.General.Name", "General");
-            chatConfig.set("Chats.General.Nick Name", "Gen");
-            chatConfig.set("Chats.General.Enabled", true);
-            chatConfig.set("Chats.General.Spy Enabled", true);
-            chatConfig.set("Chats.General.Use Basic", true);
-            chatConfig.set("Chats.General.Use Language", true);
-            chatConfig.set("Chats.General.Use Distance", false);
-            chatConfig.set("Chats.General.Use Party", false);
-            chatConfig.set("Chats.General.Use Guild", false);
-            chatConfig.set("Chats.General.Use Region", false);
-            chatConfig.set("Chats.General.Use City", false);
-            chatConfig.set("Chats.General.Use World", false);
+                //General chat
+                chatConfig.set("Chats.General.Name", "General");
+                chatConfig.set("Chats.General.Nick Name", "Gen");
+                chatConfig.set("Chats.General.Enabled", true);
+                chatConfig.set("Chats.General.Spy Enabled", true);
+                chatConfig.set("Chats.General.Use Basic", true);
+                chatConfig.set("Chats.General.Use Language", true);
+                chatConfig.set("Chats.General.Use Distance", false);
+                chatConfig.set("Chats.General.Use Party", false);
+                chatConfig.set("Chats.General.Use Guild", false);
+                chatConfig.set("Chats.General.Use Region", false);
+                chatConfig.set("Chats.General.Use City", false);
+                chatConfig.set("Chats.General.Use World", false);
 
-            //party Chat
-            chatConfig.set("Chats.Party.Name", "Party");
-            chatConfig.set("Chats.Party.Nick Name", "Pc");
-            chatConfig.set("Chats.Party.Enabled", true);
-            chatConfig.set("Chats.Party.Spy Enabled", true);
-            chatConfig.set("Chats.Party.Use Basic", true);
-            chatConfig.set("Chats.Party.Use Language", true);
-            chatConfig.set("Chats.Party.Use Distance", false);
-            chatConfig.set("Chats.Party.Use Party", true);
-            chatConfig.set("Chats.Party.Use Guild", false);
-            chatConfig.set("Chats.Party.Use Region", false);
-            chatConfig.set("Chats.Party.Use City", false);
-            chatConfig.set("Chats.Party.Use World", false);
+                //party Chat
+                chatConfig.set("Chats.Party.Name", "Party");
+                chatConfig.set("Chats.Party.Nick Name", "Pc");
+                chatConfig.set("Chats.Party.Enabled", true);
+                chatConfig.set("Chats.Party.Spy Enabled", true);
+                chatConfig.set("Chats.Party.Use Basic", true);
+                chatConfig.set("Chats.Party.Use Language", true);
+                chatConfig.set("Chats.Party.Use Distance", false);
+                chatConfig.set("Chats.Party.Use Party", true);
+                chatConfig.set("Chats.Party.Use Guild", false);
+                chatConfig.set("Chats.Party.Use Region", false);
+                chatConfig.set("Chats.Party.Use City", false);
+                chatConfig.set("Chats.Party.Use World", false);
 
-            //guild chat
+                //guild chat
                 chatConfig.set("Chats.Guild.Name", "Guild");
                 chatConfig.set("Chats.Guild.Nick Name", "G");
-            chatConfig.set("Chats.Guild.Enabled", true);
-            chatConfig.set("Chats.Guild.Spy Enabled", true);
-            chatConfig.set("Chats.Guild.Use Basic", true);
-            chatConfig.set("Chats.Guild.Use Language", true);
-            chatConfig.set("Chats.Guild.Use Distance", false);
-            chatConfig.set("Chats.Guild.Use Party", false);
-            chatConfig.set("Chats.Guild.Use Guild", true);
-            chatConfig.set("Chats.Guild.Use Region", false);
-            chatConfig.set("Chats.Guild.Use City", false);
-            chatConfig.set("Chats.Guild.Use World", false);
+                chatConfig.set("Chats.Guild.Enabled", true);
+                chatConfig.set("Chats.Guild.Spy Enabled", true);
+                chatConfig.set("Chats.Guild.Use Basic", true);
+                chatConfig.set("Chats.Guild.Use Language", true);
+                chatConfig.set("Chats.Guild.Use Distance", false);
+                chatConfig.set("Chats.Guild.Use Party", false);
+                chatConfig.set("Chats.Guild.Use Guild", true);
+                chatConfig.set("Chats.Guild.Use Region", false);
+                chatConfig.set("Chats.Guild.Use City", false);
+                chatConfig.set("Chats.Guild.Use World", false);
 
-            //world chat
-            chatConfig.set("Chats.World.Name", "World");
+                //world chat
+                chatConfig.set("Chats.World.Name", "World");
                 chatConfig.set("Chats.Guild.Nick Name", "world");
-            chatConfig.set("Chats.World.Enabled", true);
-            chatConfig.set("Chats.World.Spy Enabled", true);
-            chatConfig.set("Chats.World.Use Basic", true);
-            chatConfig.set("Chats.World.Use Language", true);
-            chatConfig.set("Chats.World.Use Distance", false);
-            chatConfig.set("Chats.World.Use Party", false);
-            chatConfig.set("Chats.World.Use Guild", false);
-            chatConfig.set("Chats.World.Use Region", false);
-            chatConfig.set("Chats.World.Use City", false);
-            chatConfig.set("Chats.World.Use World", true);
+                chatConfig.set("Chats.World.Enabled", true);
+                chatConfig.set("Chats.World.Spy Enabled", true);
+                chatConfig.set("Chats.World.Use Basic", true);
+                chatConfig.set("Chats.World.Use Language", true);
+                chatConfig.set("Chats.World.Use Distance", false);
+                chatConfig.set("Chats.World.Use Party", false);
+                chatConfig.set("Chats.World.Use Guild", false);
+                chatConfig.set("Chats.World.Use Region", false);
+                chatConfig.set("Chats.World.Use City", false);
+                chatConfig.set("Chats.World.Use World", true);
 
-            //region Chat
+                //region Chat
                 chatConfig.set("Chats.Region.Name", "Region");
                 chatConfig.set("Chats.Region.Nick Name", "Reg");
-            chatConfig.set("Chats.Region.Enabled", true);
-            chatConfig.set("Chats.Region.Spy Enabled", true);
-            chatConfig.set("Chats.Region.Use Basic", true);
-            chatConfig.set("Chats.Region.Use Language", true);
-            chatConfig.set("Chats.Region.Use Distance", false);
-            chatConfig.set("Chats.Region.Use Party", false);
-            chatConfig.set("Chats.Region.Use Guild", false);
-            chatConfig.set("Chats.Region.Use Region", true);
-            chatConfig.set("Chats.Region.Use City", false);
-            chatConfig.set("Chats.Region.Use World", true);
+                chatConfig.set("Chats.Region.Enabled", true);
+                chatConfig.set("Chats.Region.Spy Enabled", true);
+                chatConfig.set("Chats.Region.Use Basic", true);
+                chatConfig.set("Chats.Region.Use Language", true);
+                chatConfig.set("Chats.Region.Use Distance", false);
+                chatConfig.set("Chats.Region.Use Party", false);
+                chatConfig.set("Chats.Region.Use Guild", false);
+                chatConfig.set("Chats.Region.Use Region", true);
+                chatConfig.set("Chats.Region.Use City", false);
+                chatConfig.set("Chats.Region.Use World", true);
 
-            //trade chat
+                //trade chat
                 chatConfig.set("Chats.Trade.Name", "Trade");
                 chatConfig.set("Chats.Trade.Nick Name", "Tr");
-            chatConfig.set("Chats.Trade.Enabled", true);
-            chatConfig.set("Chats.Trade.Spy Enabled", true);
-            chatConfig.set("Chats.Trade.Use Basic", true);
-            chatConfig.set("Chats.Trade.Use Language", true);
-            chatConfig.set("Chats.Trade.Use Distance", false);
-            chatConfig.set("Chats.Trade.Use Party", false);
-            chatConfig.set("Chats.Trade.Use Guild", false);
-            chatConfig.set("Chats.Trade.Use Region", false);
-            chatConfig.set("Chats.Trade.Use City", true);
-            chatConfig.set("Chats.Trade.Use World", false);
+                chatConfig.set("Chats.Trade.Enabled", true);
+                chatConfig.set("Chats.Trade.Spy Enabled", true);
+                chatConfig.set("Chats.Trade.Use Basic", true);
+                chatConfig.set("Chats.Trade.Use Language", true);
+                chatConfig.set("Chats.Trade.Use Distance", false);
+                chatConfig.set("Chats.Trade.Use Party", false);
+                chatConfig.set("Chats.Trade.Use Guild", false);
+                chatConfig.set("Chats.Trade.Use Region", false);
+                chatConfig.set("Chats.Trade.Use City", true);
+                chatConfig.set("Chats.Trade.Use World", false);
 
 
-
-        }}
-        if (foodOn){if (foodConfig.get("Rpg Foods") == null) {
-            foodConfig.set("Rpg Foods", "This file will save all your Rpg Food Items");
-        }}
-        if (clickOn){if (clickConfig.get("Click File") == null) {
-            clickConfig.set("Click File", "This File is used to save all your click menu's");
-        }}
+            }
+        }
+        if (foodOn) {
+            if (foodConfig.get("Rpg Foods") == null) {
+                foodConfig.set("Rpg Foods", "This file will save all your Rpg Food Items");
+            }
+        }
+        if (clickOn) {
+            if (clickConfig.get("Click File") == null) {
+                clickConfig.set("Click File", "This File is used to save all your click menu's");
+            }
+        }
         if (settingsConfig.get("Settings") == null) {
             settingsConfig.set("Settings", "this file is used for all plugin settings!");
         }
-        if (achievementsOn){if (achievementConfig.get("Achievements") == null) {
-            achievementConfig.set("Achievements", "This file stores all your servers saved Achievements");
-        }}
-        if (minionsOn){if (minionConfig.get("Minions") == null) {
-            minionConfig.set("Minions", "this file is used to store all minion and monster data (Mysql is highly recommended!");
-        }}
-        if (classesOn){if (classConfig.get("Classes") == null) {
-            classConfig.set("Classes", "This file is used to save all Rpg Classes");
-        }}
-        if (warpsOn){warpConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/WarpConfig.yml"));}
+        if (achievementsOn) {
+            if (achievementConfig.get("Achievements") == null) {
+                achievementConfig.set("Achievements", "This file stores all your servers saved Achievements");
+            }
+        }
+        if (minionsOn) {
+            if (minionConfig.get("Minions") == null) {
+                minionConfig.set("Minions", "this file is used to store all minion and monster data (Mysql is highly recommended!");
+            }
+        }
+        if (classesOn) {
+            if (classConfig.get("Classes") == null) {
+                classConfig.set("Classes", "This file is used to save all Rpg Classes");
+            }
+        }
+        if (warpsOn) {
+            warpConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/WarpConfig.yml"));
+        }
         try {
             playerConfig.save(new File("plugins/RpgAPI/RpgPlayers.yml"));
             localeConfig.save(new File("plugins/RpgAPI/Locale.yml"));
             testPlayer.save(new File("plugins/RpgAPI/RpgPlayer/TestPlayer.yml"));
-            if (guildsOn){guildConfig.save(new File("plugins/RpgAPI/Guilds.yml"));}
-            if (chatOn){chatConfig.save(new File("plugins/RpgAPI/ChatChannels.yml"));
+            if (guildsOn) {
+                guildConfig.save(new File("plugins/RpgAPI/Guilds.yml"));
+            }
+            if (chatOn) {
+                chatConfig.save(new File("plugins/RpgAPI/ChatChannels.yml"));
                 cityConfig.save((new File("plugins/RpgAPI/RpgChat/RpgCities.yml")));
-                regionConfig.save((new File("plugins/RpgAPI/RpgChat/RpgRegions.yml")));}
-            if (foodOn){foodConfig.save(new File("plugins/RpgAPI/Food.yml"));}
-            if (clickOn){clickConfig.save(new File("plugins/RpgAPI/Clicks.yml"));}
+                regionConfig.save((new File("plugins/RpgAPI/RpgChat/RpgRegions.yml")));
+            }
+            if (foodOn) {
+                foodConfig.save(new File("plugins/RpgAPI/Food.yml"));
+            }
+            if (clickOn) {
+                clickConfig.save(new File("plugins/RpgAPI/Clicks.yml"));
+            }
             settingsConfig.save(new File("plugins/RpgAPI/Settings.yml"));
-            if (achievementsOn){achievementConfig.save(new File("plugins/RpgAPI/Achievements.yml"));}
-            if (minionsOn){minionConfig.save(new File("plugins/RpgAPI/Minions.yml"));}
-            if (classesOn){classConfig.save(new File("plugins/RpgAPI/Classes.yml"));}
-            if (minionsOn){mobCommand.save(new File("plugins/RpgAPI/MobCommands.yml"));}
-            if (poisonedEarthOn){poisonCommand.save(new File("plugins/RpgAPI/Poisons.yml"));}
-            if (warpsOn){warpConfig.save(new File("plugins/RpgAPI/WarpConfig.yml"));}
+            if (achievementsOn) {
+                achievementConfig.save(new File("plugins/RpgAPI/Achievements.yml"));
+            }
+            if (minionsOn) {
+                minionConfig.save(new File("plugins/RpgAPI/Minions.yml"));
+            }
+            if (classesOn) {
+                classConfig.save(new File("plugins/RpgAPI/Classes.yml"));
+            }
+            if (minionsOn) {
+                mobCommand.save(new File("plugins/RpgAPI/MobCommands.yml"));
+            }
+            if (poisonedEarthOn) {
+                poisonCommand.save(new File("plugins/RpgAPI/Poisons.yml"));
+            }
+            if (warpsOn) {
+                warpConfig.save(new File("plugins/RpgAPI/WarpConfig.yml"));
+            }
         } catch (IOException e) {
         }
-        for (String s : localeConfig.getConfigurationSection("Translations").getKeys(false)){
+        for (String s : localeConfig.getConfigurationSection("Translations").getKeys(false)) {
             localeSettings.put(s, localeConfig.getString("Translations." + s));
         }
         List<String> generalCommands = new ArrayList<String>();
 
-        for (String command : localeConfig.getConfigurationSection("General Commands").getKeys(false)){
+        for (String command : localeConfig.getConfigurationSection("General Commands").getKeys(false)) {
             String commandRT = localeConfig.getString("General Commands." + command + ".Alias");
             String helpColor = localeConfig.getString("General Commands." + command + ".Help Color");
             String descText = localeConfig.getString("General Commands." + command + ".Description");
@@ -599,7 +658,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }
         pluginCommand.put("General Commands", generalCommands);
         List<String> warpCommands = new ArrayList<String>();
-        for (String command : localeConfig.getConfigurationSection("Warp Commands").getKeys(false)){
+        for (String command : localeConfig.getConfigurationSection("Warp Commands").getKeys(false)) {
             String commandRT = localeConfig.getString("Warp Commands." + command + ".Alias");
             String helpColor = localeConfig.getString("Warp Commands." + command + ".Help Color");
             String descText = localeConfig.getString("Warp Commands." + command + ".Description");
@@ -616,58 +675,58 @@ public class RpgAPI extends JavaPlugin implements Listener {
         pluginCommand.put("Warp Commands", warpCommands);
         //SetBuilder.minionCommand();
 
-        if (warpsOn){
+        if (warpsOn) {
             WarpSetBuilder.BuildSets();
-            new BukkitRunnable(){
+            new BukkitRunnable() {
                 @Override
-                public void run(){
+                public void run() {
                     WarpBuilder.WarpLoader();
                 }
             }.runTaskLater(plugin, 5);
         }
-        if (poisonedEarthOn){
-        PoisonBuilder.newPoison();
-        PoisonTimeChecker.PoisonRegionTimer();
-        for (String pName : playerConfig.getConfigurationSection("Player Colors").getKeys(false)){
-            playerColors.put(pName, playerConfig.getString("Player Colors." + pName));
+        if (poisonedEarthOn) {
+            PoisonBuilder.newPoison();
+            PoisonTimeChecker.PoisonRegionTimer();
+            for (String pName : playerConfig.getConfigurationSection("Player Colors").getKeys(false)) {
+                playerColors.put(pName, playerConfig.getString("Player Colors." + pName));
+            }
         }
-        }
-        if (chatOn){
+        if (chatOn) {
             LoadCities.FromFile();
             LoadRegions.FromFile();
             nameDisplays = chatConfig.getString("Titles and Names");
-            for (String chats : chatConfig.getConfigurationSection("Chats").getKeys(false)){
-            //general chat
-                if (chatConfig.getBoolean("Chats."+chats+".Enabled")){
+            for (String chats : chatConfig.getConfigurationSection("Chats").getKeys(false)) {
+                //general chat
+                if (chatConfig.getBoolean("Chats." + chats + ".Enabled")) {
                     ChatClass chatClass = new ChatClass();
                     chatClass.setChannelName(chats);
                     chatClass.setChannelNick(chatConfig.getString("Chats." + chats + ".Nick Name"));
                     chatRealNames.put(chatConfig.getString("Chats." + chats + ".Nick Name"), chats);
                     commands.add(chatClass.getChannelNick());
                     chatClass.setChatSpy(chatConfig.getBoolean("Chats." + chats + ".Spy Enabled"));
-                    if (chatConfig.getBoolean("Chats." + chats + ".Use Basic")){
+                    if (chatConfig.getBoolean("Chats." + chats + ".Use Basic")) {
                         chatClass.addBehavior(new BasicChatBehavior());
                     }
-                    if (chatConfig.getBoolean("Chats." + chats + ".Use Language")){
+                    if (chatConfig.getBoolean("Chats." + chats + ".Use Language")) {
                         chatClass.addBehavior(new LanguageBehavior());
                     }
-                    if (chatConfig.getBoolean("Chats." + chats + ".Use Distance")){
+                    if (chatConfig.getBoolean("Chats." + chats + ".Use Distance")) {
                         chatClass.addBehavior(new DistanceChatBehavior());
                         chatDistances.put(chats, chatConfig.getInt("Chats." + chats + ".Distance"));
                     }
-                    if (chatConfig.getBoolean("Chats." + chats + ".Use Party")){
+                    if (chatConfig.getBoolean("Chats." + chats + ".Use Party")) {
                         chatClass.addBehavior(new PartyChatBehavior());
                     }
-                    if (chatConfig.getBoolean("Chats." + chats + ".Use Guild")){
+                    if (chatConfig.getBoolean("Chats." + chats + ".Use Guild")) {
                         chatClass.addBehavior(new GuildChatBehavior());
                     }
-                    if (chatConfig.getBoolean("Chats." + chats + ".Use Region")){
+                    if (chatConfig.getBoolean("Chats." + chats + ".Use Region")) {
                         chatClass.addBehavior(new RegionChatBehavior());
                     }
-                    if (chatConfig.getBoolean("Chats." + chats + ".Use City")){
+                    if (chatConfig.getBoolean("Chats." + chats + ".Use City")) {
                         chatClass.addBehavior(new CityChatBehavior());
                     }
-                    if (chatConfig.getBoolean("Chats." + chats + ".Use World")){
+                    if (chatConfig.getBoolean("Chats." + chats + ".Use World")) {
                         chatClass.addBehavior(new WorldChatBehavior());
                     }
                     chatClasses.add(chatClass);
@@ -677,25 +736,31 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
     }
 
-    public static RpgPlayer getRp(String name){
+    public static RpgPlayer getRp(String name) {
         String nick = activeNicks.get(name);
         RpgPlayer rp = rpgPlayers.get(nick);
         return rp;
     }
-    public static RpgPlayer getRp(Player p){
+
+    public static RpgPlayer getRp(Player p) {
         return getRp(p.getName());
     }
 
     @Override
-    public void onDisable(){
+    public void onDisable() {
         LoadCities.ToFile();
         LoadRegions.ToFile();
-        for (String thisWarp : RpgAPI.savedWarps.keySet()){
-        if (warpsOn){WarpBuilder.SaveWarp(thisWarp);WarpSetBuilder.SaveSets();}
+        for (String thisWarp : RpgAPI.savedWarps.keySet()) {
+            if (warpsOn) {
+                WarpBuilder.SaveWarp(thisWarp);
+                WarpSetBuilder.SaveSets();
+            }
         }
         playerConfig.set("Player Colors", playerColors);
         try {
-            if (warpsOn){warpConfig.save(new File("plugins/RpgAPI/WarpConfig.yml"));}
+            if (warpsOn) {
+                warpConfig.save(new File("plugins/RpgAPI/WarpConfig.yml"));
+            }
             playerConfig.save(new File("plugins/RpgAPI/RpgPlayers.yml"));
         } catch (IOException e) {
         }
@@ -712,17 +777,18 @@ public class RpgAPI extends JavaPlugin implements Listener {
             ScrollMap.getScrollMap(event.getMapID()).update(event.getPlayer().getName());
         }
     }
+
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void playerCommand(PlayerCommandPreprocessEvent event){
+    public void playerCommand(PlayerCommandPreprocessEvent event) {
         Player p = event.getPlayer();
         String s = event.getMessage();
         String[] args = s.split(" ");
-        String cmdAlias = args[0].replaceAll("/","");
-        for (String command : commands){
-        if (cmdAlias.equalsIgnoreCase(command)){
-            UniqueCommands.BaseCommandHandler(p, args);
-            event.setCancelled(true);
-        }
+        String cmdAlias = args[0].replaceAll("/", "");
+        for (String command : commands) {
+            if (cmdAlias.equalsIgnoreCase(command)) {
+                UniqueCommands.BaseCommandHandler(p, args);
+                event.setCancelled(true);
+            }
         }
     }
 

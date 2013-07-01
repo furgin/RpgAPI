@@ -24,7 +24,8 @@ public class PoisonEffects {
     private String effectName = "";
     private Integer duration = 0;
     private Integer strength = 0;
-    public PoisonEffects(){
+
+    public PoisonEffects() {
 
     }
 

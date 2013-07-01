@@ -28,10 +28,10 @@ public class WorldChatBehavior implements ChatBehavior {
     @Override
     public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
         RpgPlayer rp = RpgAPI.getRp(receiveName);
-        if (chatSpy && rp.isSpyingOnChats()){
+        if (chatSpy && rp.isSpyingOnChats()) {
             return message;
         }
-        if (Bukkit.getPlayer(receiveName).getLocation().getWorld().getName().equalsIgnoreCase(Bukkit.getPlayer(sendName).getLocation().getWorld().getName())){
+        if (Bukkit.getPlayer(receiveName).getLocation().getWorld().getName().equalsIgnoreCase(Bukkit.getPlayer(sendName).getLocation().getWorld().getName())) {
             return message;
         }
         message = "";

@@ -26,20 +26,20 @@ import org.bukkit.Bukkit;
  * You should have received a copy of the GNU General Public License
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class PartyChatBehavior implements ChatBehavior{
+public class PartyChatBehavior implements ChatBehavior {
     @Override
-    public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy){
+    public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(receiveName));
         RpgPlayer rp2 = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(sendName));
-        if (chatSpy && rp.isSpyingOnChats()){
+        if (chatSpy && rp.isSpyingOnChats()) {
 
             return message;
         }
-        if (rp.isInParty()){
-        PartyGroup pg = RpgAPI.partys.get(rp2.getLeaderName());
-        if (pg.getPlayersInParty().contains(RpgAPI.activeNicks.get(receiveName))){
-            return message;
-        }
+        if (rp.isInParty()) {
+            PartyGroup pg = RpgAPI.partys.get(rp2.getLeaderName());
+            if (pg.getPlayersInParty().contains(RpgAPI.activeNicks.get(receiveName))) {
+                return message;
+            }
         }
         message = "";
         return message;

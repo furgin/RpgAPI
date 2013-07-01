@@ -27,19 +27,23 @@ public class ExampleQuest extends AbstractQuest {
 
     /**
      * Used to create the quest object for the RpgPlayer p
+     *
      * @param p RpgPlayer object
      */
     public ExampleQuest(RpgPlayer p) {
         player = p;
     }
+
     @Override
     public String getName() {
         return "ExmapleQuest";
     }
+
     @Override
     public boolean getRequirements() {
         return player.getKnownLanguages().contains("Elvish");
     }
+
     @Override
     public int getQuestID() {
         return 1;

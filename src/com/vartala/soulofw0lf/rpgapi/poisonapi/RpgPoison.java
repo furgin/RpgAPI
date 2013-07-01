@@ -40,7 +40,7 @@ public class RpgPoison {
     private List<PoisonBehavior> poisonBehaviors = new ArrayList<PoisonBehavior>();
     private Map<PotionEffectType, PoisonEffects> effectStats = new HashMap<>();
 
-    public void RpgPoison(){
+    public void RpgPoison() {
 
     }
 

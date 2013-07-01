@@ -34,7 +34,7 @@ public class PartyGroup {
     /*
      *  all getters and setters
      */
-    public PartyGroup(){
+    public PartyGroup() {
 
     }
 

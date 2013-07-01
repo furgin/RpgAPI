@@ -43,19 +43,16 @@ public class MobCommand {
 
     public ArrayList<ItemStack> toItemStack() {
         ArrayList<ItemStack> itemStackList = new ArrayList<>();
-        for (String name : itemNames)
-        {
-            ItemStack is = InventoryMaker.itemStackMaker(name, Material.getMaterial(idMap.get(name)), 1, (short)0, loreMap.get(name));
+        for (String name : itemNames) {
+            ItemStack is = InventoryMaker.itemStackMaker(name, Material.getMaterial(idMap.get(name)), 1, (short) 0, loreMap.get(name));
             itemStackList.add(is);
         }
         return itemStackList;
     }
 
-    public Map<ItemStack,List<String>> toCommandMap(ArrayList<ItemStack> itemStacks)
-    {
-        Map<ItemStack,List<String>> returnMap = new HashMap<>();
-        for (ItemStack is : itemStacks)
-        {
+    public Map<ItemStack, List<String>> toCommandMap(ArrayList<ItemStack> itemStacks) {
+        Map<ItemStack, List<String>> returnMap = new HashMap<>();
+        for (ItemStack is : itemStacks) {
             returnMap.put(is, commandMap.get(is.getItemMeta().getDisplayName()));
         }
         return returnMap;

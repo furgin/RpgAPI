@@ -61,8 +61,8 @@ public class MinionGuiBehavior implements InventoryClickBehavior {
             RpgAPI.logger.severe("Couldn't process customClick, commandInt == -1");
         }
         String[] cArr = command.get(commandIndex).split(":");
-        int mobID = Integer.parseInt(inv.getInvName().substring(inv.getInvName().indexOf(":")+1).trim());
-        MobCommandProcessor.process(cArr,mobID, player);
+        int mobID = Integer.parseInt(inv.getInvName().substring(inv.getInvName().indexOf(":") + 1).trim());
+        MobCommandProcessor.process(cArr, mobID, player);
 
 
     }

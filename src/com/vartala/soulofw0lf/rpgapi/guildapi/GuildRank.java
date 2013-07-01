@@ -42,7 +42,7 @@ public class GuildRank {
      * All getters and setters
      */
 
-    public GuildRank(){
+    public GuildRank() {
 
     }
 

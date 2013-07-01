@@ -27,14 +27,14 @@ import java.util.List;
  */
 public class HelpBuilder {
 
-    public void MakeHelpPages(){
+    public void MakeHelpPages() {
         List<HelpFile> gc = new ArrayList<>();
         List<HelpFile> wc = new ArrayList<>();
-        for(HelpFile hF : RpgAPI.helpMap){
-            if (hF.getHelpGroup().equalsIgnoreCase("General Commands")){
+        for (HelpFile hF : RpgAPI.helpMap) {
+            if (hF.getHelpGroup().equalsIgnoreCase("General Commands")) {
                 gc.add(hF);
             }
-            if (hF.getHelpGroup().equalsIgnoreCase("Warp Commands")){
+            if (hF.getHelpGroup().equalsIgnoreCase("Warp Commands")) {
                 wc.add(hF);
             }
         }
@@ -42,20 +42,21 @@ public class HelpBuilder {
         RpgAPI.helpPages.put("Warp Commands", wc);
         SeperatePages();
     }
-    public void SeperatePages(){
-       Integer i = 0;
+
+    public void SeperatePages() {
+        Integer i = 0;
         Integer y = 1;
         List<String> helpLines = new ArrayList<String>();
-        while (i <= RpgAPI.helpPages.get("General Commands").size()){
-            if (i == 0){
+        while (i <= RpgAPI.helpPages.get("General Commands").size()) {
+            if (i == 0) {
                 helpLines.add("General Commands");
             } else {
                 helpLines.add(RpgAPI.helpPages.get("General Commands").get(i).getCmdAlias());
             }
             i++;
         }
-        while (i <= RpgAPI.helpPages.get("Warp Commands").size() + RpgAPI.helpPages.get("General Commands").size()){
-            if (i == RpgAPI.helpPages.get("General Commands").size() + 1){
+        while (i <= RpgAPI.helpPages.get("Warp Commands").size() + RpgAPI.helpPages.get("General Commands").size()) {
+            if (i == RpgAPI.helpPages.get("General Commands").size() + 1) {
                 helpLines.add("Warp Commands");
             } else {
                 helpLines.add(RpgAPI.helpPages.get("Warp Commands").get(i).getCmdAlias());

@@ -28,7 +28,7 @@ public class ChatRegions {
     private String regionWorld = "";
     private Integer regionRadius = 0;
 
-    public ChatRegions(){
+    public ChatRegions() {
 
     }
 

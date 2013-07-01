@@ -34,7 +34,7 @@ public class GuildHQ {
      * All getters and setters
      */
 
-    public GuildHQ(){
+    public GuildHQ() {
 
     }
 

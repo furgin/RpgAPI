@@ -15,9 +15,9 @@ import org.bukkit.plugin.Plugin;
  * main player wrapper class
  * holds all variables related to the online player
  */
-public class RpgPlayer implements Permissible{
+public class RpgPlayer implements Permissible {
     //
-	/*
+    /*
 	 * all vars go above the player method
 	 */
 	
@@ -32,13 +32,13 @@ public class RpgPlayer implements Permissible{
     private String realName = "";
 
     //player TP invite state
-	private boolean tpInviteState = false;
+    private boolean tpInviteState = false;
 
     //is the player currently in a menu
-	private boolean menuOpen = false;
+    private boolean menuOpen = false;
 
     //get wether a player has moved from a previous position
-	private boolean locationChanged = false;
+    private boolean locationChanged = false;
 
     //player Lawful / neutral / chaotic alignment
     private String lawfulAlignment = "";
@@ -52,53 +52,51 @@ public class RpgPlayer implements Permissible{
     //is the player currently poisoned
     private boolean poisoned = false;
 
-	
-	/*
-	 * Rpg Races Variables
-	 */
-    //players race name
-	private String race = "";
 
-	
-	/*
-	 * rpgfood variables
-	 */
+    /*
+     * Rpg Races Variables
+     */
+    //players race name
+    private String race = "";
+
+
+    /*
+     * rpgfood variables
+     */
     //is the player currently eatting
-	private boolean eating = false;
+    private boolean eating = false;
 
     //does the player already have a food buff
-	private boolean buffed = false;
+    private boolean buffed = false;
 
 
-
-	
-	/*
-	 * rpg party variables
-	 */
+    /*
+     * rpg party variables
+     */
     //does the player have a pending party invite
-	private boolean partyInvite = false;
+    private boolean partyInvite = false;
 
     //does the player want a gui to automatically
     //open when being invited to partys
-	private boolean partyGui = true;
+    private boolean partyGui = true;
 
     //is the player in a party
-	private boolean inParty = false;
+    private boolean inParty = false;
 
     //party leader of the party
     private String leaderName = "";
 
     //auto pass on rolls
-	private boolean passingRolls = false;
+    private boolean passingRolls = false;
 
     //auto need on rolls
-	private boolean needingRolls = false;
+    private boolean needingRolls = false;
 
     //auto greed on rolls
     private boolean greedingRolls = false;
 
     //auto open loot window for player
-	private boolean lootGui = true;
+    private boolean lootGui = true;
 
 
 	/*
@@ -106,36 +104,36 @@ public class RpgPlayer implements Permissible{
 	 */
 
     //does the player have a pending guild invite
-	private boolean guildInvite = false;
+    private boolean guildInvite = false;
 
     //should the guild accept gui auto open on a guild invitation
-	private boolean guildGui = true;
+    private boolean guildGui = true;
 
     //is the player in a guild
-	private boolean inGuild = false;
+    private boolean inGuild = false;
 
     //what is the players guild name
-	private String guild = "";
+    private String guild = "";
 
     //what is the players rank within a guild
-	private String guildRank = "";
+    private String guildRank = "";
 
-	
-	/*
-	 * rpg friends variables
-	 */
+
+    /*
+     * rpg friends variables
+     */
     //should the friend gui auto open on friend invite?
-	private boolean friendsGui = true;
+    private boolean friendsGui = true;
 
     //player friends list
-	private List<String> friendsList = new ArrayList<String>();
+    private List<String> friendsList = new ArrayList<String>();
 
-	
-	/*
-	 * trade variables
-	 */
+
+    /*
+     * trade variables
+     */
     //is the player currently in trade
-	private boolean inTrade = false;
+    private boolean inTrade = false;
 
     //the players total Copper
     private int copper = 0;
@@ -155,19 +153,19 @@ public class RpgPlayer implements Permissible{
 	 */
 
     //colors of chat channel mapped to channel name
-	private Map<String, String> channelColor = new HashMap<>();
+    private Map<String, String> channelColor = new HashMap<>();
 
     //active channel a player is talking in
-	private String activeChannel = "";
+    private String activeChannel = "";
 
     //all players on ignore
-	private List<String> ignoreList = new ArrayList<String>();
+    private List<String> ignoreList = new ArrayList<String>();
 
-	//does the player have a pending chat invite
-	private boolean chatInvite = false;
+    //does the player have a pending chat invite
+    private boolean chatInvite = false;
 
-	//list of channels the player has invites for
-	private List<String> invitedChats = new ArrayList<String>();
+    //list of channels the player has invites for
+    private List<String> invitedChats = new ArrayList<String>();
 
     //list of channels the player is banned from
     private List<String> bannedChats = new ArrayList<String>();
@@ -198,13 +196,13 @@ public class RpgPlayer implements Permissible{
 	 */
 
     //players active prefix title
-	private String activePrefix = "";
+    private String activePrefix = "";
 
     //players active suffix title
-	private String activeSuffix = "";
+    private String activeSuffix = "";
 
     //list of all titles a player has earned
-	private List<String> titles = new ArrayList<String>();
+    private List<String> titles = new ArrayList<String>();
 
     //list of mobs killed with counter
     private Map<String, Integer> mobKills = new HashMap<>();
@@ -218,12 +216,12 @@ public class RpgPlayer implements Permissible{
     //Items used
     private Map<String, Integer> itemsUsed = new HashMap<>();
 
-	
-	/*
-	 * rpg click variables
-	 */
+
+    /*
+     * rpg click variables
+     */
     //should the player use the default shift click on player behavior
-	private boolean UseClick = true;
+    private boolean UseClick = true;
 
 	
 	/*
@@ -231,13 +229,13 @@ public class RpgPlayer implements Permissible{
 	 */
 
     //players active spoken language
-	private String activeLanguage = "Common";
+    private String activeLanguage = "Common";
 
     //all languages a player knows
-	private List<String> knownLanguages = new ArrayList<String>();
+    private List<String> knownLanguages = new ArrayList<String>();
 
     //should languages a player doesn't know be shown in chat?
-	private boolean languagesInChat = true;
+    private boolean languagesInChat = true;
 
 		
 	
@@ -246,7 +244,7 @@ public class RpgPlayer implements Permissible{
 	 */
 
     //is the player in a lobby?
-	private boolean inLobby = false;
+    private boolean inLobby = false;
 
     //serialised armor inventory for a player
     private String armorInventory = "";
@@ -275,13 +273,13 @@ public class RpgPlayer implements Permissible{
 	 */
 
     //list of all p-ets a player owns
-	private List<String> petsOwned = new ArrayList<String>();
+    private List<String> petsOwned = new ArrayList<String>();
 
     //does the player have an active pet
-	private boolean petActive = false;
+    private boolean petActive = false;
 
     //active pets name
-	private String activePet = "";
+    private String activePet = "";
 
     //does the player have agro
     private boolean agro = false;
@@ -297,7 +295,7 @@ public class RpgPlayer implements Permissible{
 	 */
 
     //players quests that are currently active
-	private List<String> currentQuests = new ArrayList<String>();
+    private List<String> currentQuests = new ArrayList<String>();
 
     //quests a player has completed
     private List<String> completedQuests = new ArrayList<String>();
@@ -328,50 +326,50 @@ public class RpgPlayer implements Permissible{
 	 */
 
     //does the player have a pending rez?
-	private boolean ressurectionPending = false;
+    private boolean ressurectionPending = false;
 
     //is the player currently rezz'ing someone
-	private boolean ressurecting = false;
+    private boolean ressurecting = false;
 
     //is the player dead
-	private boolean dead = false;
+    private boolean dead = false;
 
 	/*
 	 * rpgclasses variables
 	 */
-	
+
     //players class name
-	private String className = "";
+    private String className = "";
 
     //a map of the values for every player stat (sorted by enum)
-	private Map<String, Integer> stats = new HashMap<>();
+    private Map<String, Integer> stats = new HashMap<>();
 
     //a map of the strings for all a players text bassed stats (sorted by enum)
     private Map<String, String> playerText = new HashMap<>();
 
     //true or false for each type of damage a player is resistant to
-	private Map<String, Integer> drTypes = new HashMap<>();
+    private Map<String, Integer> drTypes = new HashMap<>();
 
     //true or false for the damage types a player is currently doing
-	private Map<String, Integer> dmgTypes = new HashMap<>();
+    private Map<String, Integer> dmgTypes = new HashMap<>();
 
     //true or false for the elemental damage types a player is currently doing
-	private Map<String, Integer> elemDmgTypes = new HashMap<>();
+    private Map<String, Integer> elemDmgTypes = new HashMap<>();
 
     //true or false for each type of elemental damage a player is resistant to
     private Map<String, Integer> elemResTypes = new HashMap<>();
 
     //list of all feats a player has
-	private List<String> feats = new ArrayList<String>();
+    private List<String> feats = new ArrayList<String>();
 
     //skills a player has ranks in and how many ranks they have
-	private Map<String, Integer> skills = new HashMap<>();
+    private Map<String, Integer> skills = new HashMap<>();
 
     //true or false list of all spells for which a player knows
-	private List<String> spells = new ArrayList<String>();
+    private List<String> spells = new ArrayList<String>();
 
     //spells per level per combat
-	private Map<String, Integer> spellsPerCombat = new HashMap<>();
+    private Map<String, Integer> spellsPerCombat = new HashMap<>();
 
     //is the player wearing aromor he isn't proficient with
     private Boolean encumbered = false;
@@ -380,12 +378,11 @@ public class RpgPlayer implements Permissible{
     /*
      *  all getters and setters
      */
-		
-	
-	public RpgPlayer()
-	{
-		
-	}
+
+
+    public RpgPlayer() {
+
+    }
 
     public Boolean isEncumbered() {
         return encumbered;

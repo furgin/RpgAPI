@@ -23,7 +23,7 @@ import java.sql.*;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class SQLOps {
-    protected synchronized int standardQuery(String query, Connection connection) throws SQLException{
+    protected synchronized int standardQuery(String query, Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
         int rowsUpdated = statement.executeUpdate(query);
         statement.close();

@@ -36,12 +36,11 @@ public class WarpSets {
     /**
      *
      */
-    public WarpSets(){
+    public WarpSets() {
 
     }
 
     /**
-     *
      * @return
      */
     public String getSetPermission() {
@@ -49,7 +48,6 @@ public class WarpSets {
     }
 
     /**
-     *
      * @param setPermission
      */
     public void setSetPermission(String setPermission) {
@@ -57,7 +55,6 @@ public class WarpSets {
     }
 
     /**
-     *
      * @return
      */
     public Boolean getWarpsRandom() {
@@ -65,7 +62,6 @@ public class WarpSets {
     }
 
     /**
-     *
      * @param warpsRandom
      */
     public void setWarpsRandom(Boolean warpsRandom) {
@@ -73,7 +69,6 @@ public class WarpSets {
     }
 
     /**
-     *
      * @return
      */
     public String getSetName() {
@@ -81,7 +76,6 @@ public class WarpSets {
     }
 
     /**
-     *
      * @param setName
      */
     public void setSetName(String setName) {
@@ -89,7 +83,6 @@ public class WarpSets {
     }
 
     /**
-     *
      * @return
      */
     public List<RpgWarp> getSetWarps() {
@@ -97,7 +90,6 @@ public class WarpSets {
     }
 
     /**
-     *
      * @param setWarps
      */
     public void setSetWarps(List<RpgWarp> setWarps) {

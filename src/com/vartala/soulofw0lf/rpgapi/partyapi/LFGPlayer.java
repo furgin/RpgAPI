@@ -44,7 +44,7 @@ public class LFGPlayer {
      *  all getters and setters
      */
 
-    public LFGPlayer(){
+    public LFGPlayer() {
 
     }
 

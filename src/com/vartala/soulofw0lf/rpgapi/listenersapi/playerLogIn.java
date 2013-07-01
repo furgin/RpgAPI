@@ -23,19 +23,19 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class playerLogIn implements Listener {
     RpgAPI Rpgapi;
-    public playerLogIn(RpgAPI rpga){
+
+    public playerLogIn(RpgAPI rpga) {
         this.Rpgapi = rpga;
         Bukkit.getPluginManager().registerEvents(this, this.Rpgapi);
     }
 
 
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onPlayerJoin(PlayerJoinEvent event)
-	{
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-		String pName = player.getName();
+        String pName = player.getName();
         String p = RpgAPI.activeNicks.get(pName);
-        if (p == null){
+        if (p == null) {
             p = pName;
             RpgAPI.activeNicks.put(p, p);
         }
@@ -46,15 +46,15 @@ public class playerLogIn implements Listener {
         RpgPlayer rp = RpgPlayerBuilder.RpgBuilder(p);
         RpgAPI.rpgPlayers.put(p, rp);
         PermissionAttachment attach = rp.addAttachment(RpgAPI.plugin);
-        if (!(RpgAPI.playerColors.containsKey(pName))){
-            if (player.isOp()){
+        if (!(RpgAPI.playerColors.containsKey(pName))) {
+            if (player.isOp()) {
                 RpgAPI.playerColors.put(pName, "&4");
             } else {
                 RpgAPI.playerColors.put(pName, "&2");
             }
         }
         final String playerN = pName;
-        new BukkitRunnable(){
+        new BukkitRunnable() {
 
             @Override
             public void run() {
@@ -72,31 +72,32 @@ public class playerLogIn implements Listener {
          */
 
 
-		//try {
-		//	String nick = SQLLoading.getActiveNick(p);
-		//	RpgPlayer rp = new RpgPlayer();
-		//	if(SQLLoading.loadNick(rp, nick))
-		//	{
-		//		//RpgAPI.playerList.put(p,rp);
-		//	}
-		//	else
-		//	{
-		//		//kick player..loading went wrong
-		//		event.getPlayer().kickPlayer("Error Logging in. Please try again later.");
-		//	}
-		//} catch (SQLException e) {
-		//	e.printStackTrace();
-		//}
-	}
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onPlayerKick(PlayerKickEvent event){
+        //try {
+        //	String nick = SQLLoading.getActiveNick(p);
+        //	RpgPlayer rp = new RpgPlayer();
+        //	if(SQLLoading.loadNick(rp, nick))
+        //	{
+        //		//RpgAPI.playerList.put(p,rp);
+        //	}
+        //	else
+        //	{
+        //		//kick player..loading went wrong
+        //		event.getPlayer().kickPlayer("Error Logging in. Please try again later.");
+        //	}
+        //} catch (SQLException e) {
+        //	e.printStackTrace();
+        //}
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerKick(PlayerKickEvent event) {
         Player p = event.getPlayer();
         String pName = p.getName();
         String rpname = RpgAPI.activeNicks.get(pName);
         RpgPlayer rp = RpgAPI.rpgPlayers.get(rpname);
         RpgPlayerBuilder.RpgSaver(rpname, rp);
         final String rName = rpname;
-        new BukkitRunnable(){
+        new BukkitRunnable() {
 
             @Override
             public void run() {
@@ -105,19 +106,19 @@ public class playerLogIn implements Listener {
         }.runTaskLater(RpgAPI.plugin, 40);
 
 		/*
-		 * save active nickname to table
+         * save active nickname to table
 		 */
-	}
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onPlayerQuit(PlayerQuitEvent event)
-	{
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerQuit(PlayerQuitEvent event) {
         Player p = event.getPlayer();
         String pName = p.getName();
         String rpName = RpgAPI.activeNicks.get(pName);
         RpgPlayer rp = RpgAPI.rpgPlayers.get(rpName);
         RpgPlayerBuilder.RpgSaver(rpName, rp);
         final String rName = rpName;
-        new BukkitRunnable(){
+        new BukkitRunnable() {
 
             @Override
             public void run() {
@@ -127,6 +128,6 @@ public class playerLogIn implements Listener {
 		/*
 		 * save active nickname to table
 		 */
-	}
-	
+    }
+
 }

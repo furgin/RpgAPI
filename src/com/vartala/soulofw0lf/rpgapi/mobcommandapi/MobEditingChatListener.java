@@ -38,24 +38,26 @@ public class MobEditingChatListener implements Listener {
 
     /**
      * Chat listener for mob editing. Only executed if chatLock isn't empty.
+     *
      * @param event
      */
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onChat(AsyncPlayerChatEvent event)
-    {
+    public void onChat(AsyncPlayerChatEvent event) {
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(event.getPlayer().getName()));
-        if (!rp.chatLock.equals(""))
-        {
+        if (!rp.chatLock.equals("")) {
             Player p = event.getPlayer();
             String[] chatLockArr = rp.chatLock.split(":");
-            if (chatLockArr[0].equalsIgnoreCase("setname"))
-            {
-                RemoteEntity rm = RpgAPI.entityManager.getRemoteEntityByID(Integer.parseInt(chatLockArr[1]));
-                rm.getBukkitEntity().setCustomName(event.getMessage());
-                rm.getBukkitEntity().setCustomNameVisible(true);
-                p.sendMessage(ChatColor.YELLOW+"Set mob "+chatLockArr[1]+" name to "+event.getMessage());
-                rp.chatLock = "";
+            switch (chatLockArr[0].toLowerCase()) {
+
+                case "setname":
+                    RemoteEntity rm = RpgAPI.entityManager.getRemoteEntityByID(Integer.parseInt(chatLockArr[1]));
+                    rm.getBukkitEntity().setCustomName(event.getMessage());
+                    rm.getBukkitEntity().setCustomNameVisible(true);
+                    p.sendMessage(ChatColor.YELLOW + "Set mob " + chatLockArr[1] + " name to " + event.getMessage());
+                    rp.chatLock = "";
+                    break;
             }
+
         }
     }
 }

@@ -87,7 +87,6 @@ public class MinionEntity {
     private Map<Integer, Integer> spellsPerCombat = new HashMap<>();
 
     /**
-     *
      * @return returns the Location of the minion's spawn
      */
     public Location getMinionSpawn() {
@@ -122,7 +121,6 @@ public class MinionEntity {
     }
 
     /**
-     *
      * @return a map of the minion's stats
      */
     public Map<PlayerStat, Integer> getStats() {
@@ -139,7 +137,6 @@ public class MinionEntity {
     }
 
     /**
-     *
      * @return drTypes
      */
     public Map<DamageType, Boolean> getDrTypes() {
@@ -156,7 +153,6 @@ public class MinionEntity {
     }
 
     /**
-     *
      * @return map of DamageType and value
      */
     public Map<DamageType, Boolean> getDmgType() {
@@ -173,7 +169,6 @@ public class MinionEntity {
     }
 
     /**
-     *
      * @return map of elemental damage types and values
      */
     public Map<ElementalType, Boolean> getElemDmgtype() {
@@ -190,7 +185,6 @@ public class MinionEntity {
     }
 
     /**
-     *
      * @return map of elemental damage types and values
      */
     public Map<ElementalType, Boolean> getElemRestype() {
@@ -207,7 +201,6 @@ public class MinionEntity {
     }
 
     /**
-     *
      * @return a list of all Feats the minion has
      */
     public List<Feat> getHasFeats() {
@@ -224,7 +217,6 @@ public class MinionEntity {
     }
 
     /**
-     *
      * @return map of PlayerSkill and values
      */
     public Map<PlayerSkill, Integer> getSkills() {
@@ -241,7 +233,6 @@ public class MinionEntity {
     }
 
     /**
-     *
      * @return spells and values
      */
     public Map<Spell, Boolean> getSpells() {
@@ -258,7 +249,6 @@ public class MinionEntity {
     }
 
     /**
-     *
      * @return map of spells per combat cycle
      */
     public Map<Integer, Integer> getSpellsPerCombat() {
@@ -275,7 +265,6 @@ public class MinionEntity {
     }
 
     /**
-     *
      * @return the minion timer
      */
     public Integer getMinionTimer() {
@@ -292,7 +281,6 @@ public class MinionEntity {
     }
 
     /**
-     *
      * @return the name of the minion owner
      */
     public String getMinionOwner() {
@@ -309,7 +297,6 @@ public class MinionEntity {
     }
 
     /**
-     *
      * @return if the minion is friendly or not
      */
     public boolean isFriendly() {
@@ -344,7 +331,6 @@ public class MinionEntity {
     }
 
     /**
-     *
      * @return List of RpgPlayers the minion is currently aggroing
      */
     public List<RpgPlayer> getAgroList() {
@@ -361,7 +347,6 @@ public class MinionEntity {
     }
 
     /**
-     *
      * @return if the minion has an owner
      */
     public boolean isHasOwner() {
@@ -378,7 +363,6 @@ public class MinionEntity {
     }
 
     /**
-     *
      * @return the miniontype of the minion
      */
     public String getMinionType() {

@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 
-
 /**
  * Created by: soulofw0lf
  * Date: 6/22/13
@@ -35,288 +34,289 @@ import java.util.Map;
 public class RpgPlayerBuilder {
     /**
      * Used to save an RpgPlayer object to a player's account
-     * @param p Nickname to save the RpgPlayer object to
+     *
+     * @param p  Nickname to save the RpgPlayer object to
      * @param rp RpgPlayer object to be saved
      */
-    public static void RpgSaver(String p, RpgPlayer rp){
-        if (RpgAPI.useMySql){
+    public static void RpgSaver(String p, RpgPlayer rp) {
+        if (RpgAPI.useMySql) {
             //TODO do stuff here LinksBro
         } else {
             YamlConfiguration playerFile = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayers/" + p + ".yml"));
                 /*
-	             * general variables
+                 * general variables
 	            */
-                //the players actual name
-                playerFile.set(p + ".Real Name", rp.getRealName());
-                //player TP invite state
-                playerFile.set(p + ".Tp Invite State", rp.hasTpInvitePending());
-                //get wether a player has moved from a previous position
-                playerFile.set(p + ".Location Changed", rp.locationHasChanged());
+            //the players actual name
+            playerFile.set(p + ".Real Name", rp.getRealName());
+            //player TP invite state
+            playerFile.set(p + ".Tp Invite State", rp.hasTpInvitePending());
+            //get wether a player has moved from a previous position
+            playerFile.set(p + ".Location Changed", rp.locationHasChanged());
 
 
             	/*
 	            * Rpg Races Variables
 	            */
-                //players race name
-                if (RpgAPI.racesOn){
-                    playerFile.set(p + ".RpgRace.Race Name", rp.getRace());
-                    //is the player immune to poison
-                    playerFile.set(p + ".RpgRace.Poison Proof", rp.isPoisonProof());
-                    //is the player currently poisoned
-                    playerFile.set(p + ".RpgRace.Poisoned", rp.isPoisoned());
-                }
+            //players race name
+            if (RpgAPI.racesOn) {
+                playerFile.set(p + ".RpgRace.Race Name", rp.getRace());
+                //is the player immune to poison
+                playerFile.set(p + ".RpgRace.Poison Proof", rp.isPoisonProof());
+                //is the player currently poisoned
+                playerFile.set(p + ".RpgRace.Poisoned", rp.isPoisoned());
+            }
                 /*
             	 * rpgfood variables
 	            */
-                //does the player already have a food buff
-                if (RpgAPI.foodOn){
-                    playerFile.set(p + ".RpgFood.Food Buffed", rp.isBuffed());
+            //does the player already have a food buff
+            if (RpgAPI.foodOn) {
+                playerFile.set(p + ".RpgFood.Food Buffed", rp.isBuffed());
 
-                }
+            }
 
                 /*
             	 * rpg party variables
 	            */
-                if (RpgAPI.partyOn){
-                    //does the player have a pending party invite
-                    playerFile.set(p + ".RpgParty.Party Invite Pending", rp.hasPartyInvitePending());
-                    //does the player want a gui to automatically
-                    //open when being invited to partys
-                    playerFile.set(p + ".RpgParty.Show Party Gui", rp.showPartyGui());
-                    //is the player in a party
-                    playerFile.set(p + ".RpgParty.In Party", rp.isInParty());
-                    //player party leaders name
-                    playerFile.set(p + ".RpgParty.Leader Name", rp.getLeaderName());
-                    //auto pass on rolls
-                    playerFile.set(p + ".RpgParty.Passing On All Rolls", rp.isPassingRolls());
-                    //auto need on rolls
-                    playerFile.set(p + ".RpgParty.Needing On All Rolls", rp.isNeedingRolls());
-                    //auto greed on rolls
-                    playerFile.set(p + ".RpgParty.Greeding On All Rolls", rp.isGreedingRolls());
-                    //auto open loot window for player
-                    playerFile.set(p + ".RpgParty.Show Loot Gui", rp.showLootGui());
-                }
+            if (RpgAPI.partyOn) {
+                //does the player have a pending party invite
+                playerFile.set(p + ".RpgParty.Party Invite Pending", rp.hasPartyInvitePending());
+                //does the player want a gui to automatically
+                //open when being invited to partys
+                playerFile.set(p + ".RpgParty.Show Party Gui", rp.showPartyGui());
+                //is the player in a party
+                playerFile.set(p + ".RpgParty.In Party", rp.isInParty());
+                //player party leaders name
+                playerFile.set(p + ".RpgParty.Leader Name", rp.getLeaderName());
+                //auto pass on rolls
+                playerFile.set(p + ".RpgParty.Passing On All Rolls", rp.isPassingRolls());
+                //auto need on rolls
+                playerFile.set(p + ".RpgParty.Needing On All Rolls", rp.isNeedingRolls());
+                //auto greed on rolls
+                playerFile.set(p + ".RpgParty.Greeding On All Rolls", rp.isGreedingRolls());
+                //auto open loot window for player
+                playerFile.set(p + ".RpgParty.Show Loot Gui", rp.showLootGui());
+            }
                 /*
 	            * rpg guilds variables
 	            */
-                if (RpgAPI.guildsOn){
-                    //does the player have a pending guild invite
-                    playerFile.set(p + ".RpgGuilds.Has Pending Guild Invite", rp.hasGuildInvite());
-                    //should the guild accept gui auto open on a guild invitation
-                    playerFile.set(p + ".RpgGuilds.Show Guild Gui", rp.showGuildGui());
-                    //is the player in a guild
-                    playerFile.set(p + ".RpgGuilds.Is In A Guild", rp.isInGuild());
-                    //what is the players guild name
-                    playerFile.set(p + ".RpgGuilds.Guild Name", rp.getGuild());
-                    //what is the players rank within a guild
-                    playerFile.set(p + ".RpgGuilds.Guild Rank", rp.getGuildRank());
-                }
+            if (RpgAPI.guildsOn) {
+                //does the player have a pending guild invite
+                playerFile.set(p + ".RpgGuilds.Has Pending Guild Invite", rp.hasGuildInvite());
+                //should the guild accept gui auto open on a guild invitation
+                playerFile.set(p + ".RpgGuilds.Show Guild Gui", rp.showGuildGui());
+                //is the player in a guild
+                playerFile.set(p + ".RpgGuilds.Is In A Guild", rp.isInGuild());
+                //what is the players guild name
+                playerFile.set(p + ".RpgGuilds.Guild Name", rp.getGuild());
+                //what is the players rank within a guild
+                playerFile.set(p + ".RpgGuilds.Guild Rank", rp.getGuildRank());
+            }
 	            /*
 	            * rpg friends variables
 	            */
-                if (RpgAPI.friendsOn){
-                    //should the friend gui auto open on friend invite?
-                    playerFile.set(p + ".RpgFriends.Show Friends Gui", rp.showFriendsGui());
-                    //player friends list
-                    playerFile.set(p + ".RpgFriends.Friends List", rp.getFriendsList());
-                }
+            if (RpgAPI.friendsOn) {
+                //should the friend gui auto open on friend invite?
+                playerFile.set(p + ".RpgFriends.Show Friends Gui", rp.showFriendsGui());
+                //player friends list
+                playerFile.set(p + ".RpgFriends.Friends List", rp.getFriendsList());
+            }
                 /*
 	            * trade variables
 	            */
-                if (RpgAPI.tradeOn){
-                    //the players total Copper
-                    playerFile.set(p + ".RpgTrade.Copper", rp.getCopper());
-                    //the player total Silver
-                    playerFile.set(p + ".RpgTrade.Silver", rp.getSilver());
-                    //the players total Gold
-                    playerFile.set(p + ".RpgTrade.Gold", rp.getGold());
-                    //the players total Platinum
-                    playerFile.set(p + ".RpgTrade.Platinum", rp.getPlatinum());
-                }
+            if (RpgAPI.tradeOn) {
+                //the players total Copper
+                playerFile.set(p + ".RpgTrade.Copper", rp.getCopper());
+                //the player total Silver
+                playerFile.set(p + ".RpgTrade.Silver", rp.getSilver());
+                //the players total Gold
+                playerFile.set(p + ".RpgTrade.Gold", rp.getGold());
+                //the players total Platinum
+                playerFile.set(p + ".RpgTrade.Platinum", rp.getPlatinum());
+            }
                 /*
 	            * chat variables
 	            */
-                if (RpgAPI.chatOn){
-                    //colors of chat channel mapped to channel name
-                    playerFile.set(p + ".RpgChat.Chat Channels", rp.getChannelColor());
-                    //active channel a player is talking in
-                    playerFile.set(p + ".RpgChat.Active Channel", rp.getActiveChannel());
-                    //all players on ignore
-                    playerFile.set(p + ".RpgChat.Ignore List", rp.getIgnoreList());
-                    //does the player have a pending chat invite
-                    playerFile.set(p + ".RpgChat.Chat Invite Pending", rp.hasChatInvite());
-                    //list of channels the player has invites for
-                    playerFile.set(p + ".RpgChat.Invited Chats", rp.getInvitedChats());
-                    //list of channels the player is banned from
-                    playerFile.set(p + ".RpgChat.Banned Chats", rp.getBannedChats());
-                    //list of channels the player is muted in
-                    playerFile.set(p + ".RpgChat.Muted Chats", rp.getMutedChats());
-                    //list of channels the player owns
-                    playerFile.set(p + ".RpgChat.Owned Chats", rp.getOwnedChats());
-                    //list of channels the player is a mod in
-                    playerFile.set(p + ".RpgChat.Moderated Chats", rp.getModChats());
-                    //is chat spy toggled on or off
-                    playerFile.set(p + ".RpgChat.Spying On Chats", rp.isSpyingOnChats());
+            if (RpgAPI.chatOn) {
+                //colors of chat channel mapped to channel name
+                playerFile.set(p + ".RpgChat.Chat Channels", rp.getChannelColor());
+                //active channel a player is talking in
+                playerFile.set(p + ".RpgChat.Active Channel", rp.getActiveChannel());
+                //all players on ignore
+                playerFile.set(p + ".RpgChat.Ignore List", rp.getIgnoreList());
+                //does the player have a pending chat invite
+                playerFile.set(p + ".RpgChat.Chat Invite Pending", rp.hasChatInvite());
+                //list of channels the player has invites for
+                playerFile.set(p + ".RpgChat.Invited Chats", rp.getInvitedChats());
+                //list of channels the player is banned from
+                playerFile.set(p + ".RpgChat.Banned Chats", rp.getBannedChats());
+                //list of channels the player is muted in
+                playerFile.set(p + ".RpgChat.Muted Chats", rp.getMutedChats());
+                //list of channels the player owns
+                playerFile.set(p + ".RpgChat.Owned Chats", rp.getOwnedChats());
+                //list of channels the player is a mod in
+                playerFile.set(p + ".RpgChat.Moderated Chats", rp.getModChats());
+                //is chat spy toggled on or off
+                playerFile.set(p + ".RpgChat.Spying On Chats", rp.isSpyingOnChats());
                     /*
                     * booleans for which message prefixes are shown in chat
                     */
-                    playerFile.set(p + ".RpgChat.Showing Guild Tags", rp.isShowingGuildTags());
-                    playerFile.set(p + ".RpgChat.Showing Achieve Titles", rp.isShowingAchieveTitles());
-                    playerFile.set(p + ".RpgChat.Showing Channel Names", rp.isShowingChannelNames());
-                    playerFile.set(p + ".RpgChat.Showing Language Names", rp.isShowingLanguageNames());
-                    playerFile.set(p + ".RpgChat.Showing World Name", rp.isShowingWorldNames());
-                }
+                playerFile.set(p + ".RpgChat.Showing Guild Tags", rp.isShowingGuildTags());
+                playerFile.set(p + ".RpgChat.Showing Achieve Titles", rp.isShowingAchieveTitles());
+                playerFile.set(p + ".RpgChat.Showing Channel Names", rp.isShowingChannelNames());
+                playerFile.set(p + ".RpgChat.Showing Language Names", rp.isShowingLanguageNames());
+                playerFile.set(p + ".RpgChat.Showing World Name", rp.isShowingWorldNames());
+            }
 	            /*
 	            * rpg achievements variables
 	            */
-                if (RpgAPI.achievementsOn){
-                    //players active prefix title
-                    playerFile.set(p + ".RpgAchievements.Active Prefix", rp.getActivePrefix());
-                    //players active suffix title
-                    playerFile.set(p + ".RpgAchievements.Active Suffix", rp.getActiveSuffix());
-                    //list of all titles a player has earned
-                    playerFile.set(p + ".RpgAchievements.Titles", rp.getTitles());
-                    //list of mobs killed with counter
-                    playerFile.set(p + ".RpgAchievements.Mob Kills", rp.getMobKills());
+            if (RpgAPI.achievementsOn) {
+                //players active prefix title
+                playerFile.set(p + ".RpgAchievements.Active Prefix", rp.getActivePrefix());
+                //players active suffix title
+                playerFile.set(p + ".RpgAchievements.Active Suffix", rp.getActiveSuffix());
+                //list of all titles a player has earned
+                playerFile.set(p + ".RpgAchievements.Titles", rp.getTitles());
+                //list of mobs killed with counter
+                playerFile.set(p + ".RpgAchievements.Mob Kills", rp.getMobKills());
 
-                    //list of players killed with counter
-                    playerFile.set(p + ".RpgAchievements.Player Kills", rp.getPlayerKills());
+                //list of players killed with counter
+                playerFile.set(p + ".RpgAchievements.Player Kills", rp.getPlayerKills());
 
-                    //food items a player has eaten
-                    playerFile.set(p + ".RpgAchievements.Food Consumed", rp.getEatenItems());
+                //food items a player has eaten
+                playerFile.set(p + ".RpgAchievements.Food Consumed", rp.getEatenItems());
 
-                    //Items used
-                    playerFile.set(p + ".RpgAchievements.Items Used", rp.getItemsUsed());
-                }
+                //Items used
+                playerFile.set(p + ".RpgAchievements.Items Used", rp.getItemsUsed());
+            }
             	/*
 	            * rpg click variables
 	            */
-                if (RpgAPI.clickOn){
-                    //should the player use the default shift click on player behavior
-                    playerFile.set(p + ".RpgClick.Use Click", rp.usesClick());
-                }
+            if (RpgAPI.clickOn) {
+                //should the player use the default shift click on player behavior
+                playerFile.set(p + ".RpgClick.Use Click", rp.usesClick());
+            }
             	/*
 	            * rpg language variables
 	            */
-                if (RpgAPI.chatOn){
-                    //players active spoken language
-                    playerFile.set(p + ".RpgLanguages.Active Language", rp.getActiveLanguage());
-                    //all languages a player knows
-                    playerFile.set(p + ".RpgLanguages.Known Languages", rp.getKnownLanguages());
-                    //should languages a player doesn't know be shown in chat?
-                    playerFile.set(p + ".RpgLanguages.Languages In Chat", rp.showLanguagesInChat());
-                }
+            if (RpgAPI.chatOn) {
+                //players active spoken language
+                playerFile.set(p + ".RpgLanguages.Active Language", rp.getActiveLanguage());
+                //all languages a player knows
+                playerFile.set(p + ".RpgLanguages.Known Languages", rp.getKnownLanguages());
+                //should languages a player doesn't know be shown in chat?
+                playerFile.set(p + ".RpgLanguages.Languages In Chat", rp.showLanguagesInChat());
+            }
                 /*
 	            * rpg lobby variables
 	            */
-                if (RpgAPI.lobbyOn){
-                    //is the player in a lobby?
-                    playerFile.set(p + ".RpgLobby.In Lobby", rp.isInLobby());
-                    //serialised armor inventory for a player
-                    playerFile.set(p + ".RpgLobby.Armor Inventory", rp.getArmorInventory());
-                    //serialised inventory for a player
-                    playerFile.set(p + ".RpgLobby.Inventory Contents", rp.getInventoryContents());
-                    //players current health upon entering a lobby
-                    playerFile.set(p + ".RpgLobby.Current Health", rp.getCurrentHealth());
-                    //a players x coords before entering lobby
-                    playerFile.set(p + ".RpgLobby.OldX", rp.getOldX());
-                    //a players y coords before entering lobby
-                    playerFile.set(p + ".RpgLobby.OldY", rp.getOldY());
-                    //a players z coords before entering lobby
-                    playerFile.set(p + ".RpgLobby.OldZ", rp.getOldZ());
-                    //a players world name before entering lobby
-                    playerFile.set(p + ".RpgLobby.Old World", rp.getOldWorld());
-                }
+            if (RpgAPI.lobbyOn) {
+                //is the player in a lobby?
+                playerFile.set(p + ".RpgLobby.In Lobby", rp.isInLobby());
+                //serialised armor inventory for a player
+                playerFile.set(p + ".RpgLobby.Armor Inventory", rp.getArmorInventory());
+                //serialised inventory for a player
+                playerFile.set(p + ".RpgLobby.Inventory Contents", rp.getInventoryContents());
+                //players current health upon entering a lobby
+                playerFile.set(p + ".RpgLobby.Current Health", rp.getCurrentHealth());
+                //a players x coords before entering lobby
+                playerFile.set(p + ".RpgLobby.OldX", rp.getOldX());
+                //a players y coords before entering lobby
+                playerFile.set(p + ".RpgLobby.OldY", rp.getOldY());
+                //a players z coords before entering lobby
+                playerFile.set(p + ".RpgLobby.OldZ", rp.getOldZ());
+                //a players world name before entering lobby
+                playerFile.set(p + ".RpgLobby.Old World", rp.getOldWorld());
+            }
 	            /*
             	 * rpg minions
 	            */
-                if (RpgAPI.minionsOn){
-                    //list of all p-ets a player owns
-                    playerFile.set(p + ".RpgMinions.Pets Owned", rp.getPetsOwned());
-                    //does the player have an active pet
-                    playerFile.set(p + ".RpgMinions.Is Pet Active", rp.hasPetActive());
-                    //active pets name
-                    playerFile.set(p + ".RpgMinions.Active Pet", rp.getActivePet());
-                    //does the player have agro
-                    playerFile.set(p + ".RpgMinions.Agro", rp.hasAgro());
-                    //is the player in combat
-                    playerFile.set(p + ".RpgMinions.Is In Combat", rp.isInCombat());
-                    //a players current agro rating
-                    playerFile.set(p + ".RpgMinions.Agro Level", rp.getAgroLevel());
-                }
+            if (RpgAPI.minionsOn) {
+                //list of all p-ets a player owns
+                playerFile.set(p + ".RpgMinions.Pets Owned", rp.getPetsOwned());
+                //does the player have an active pet
+                playerFile.set(p + ".RpgMinions.Is Pet Active", rp.hasPetActive());
+                //active pets name
+                playerFile.set(p + ".RpgMinions.Active Pet", rp.getActivePet());
+                //does the player have agro
+                playerFile.set(p + ".RpgMinions.Agro", rp.hasAgro());
+                //is the player in combat
+                playerFile.set(p + ".RpgMinions.Is In Combat", rp.isInCombat());
+                //a players current agro rating
+                playerFile.set(p + ".RpgMinions.Agro Level", rp.getAgroLevel());
+            }
 	            /*
             	 * rpg Quest variables - comming soon?
 	            */
-                if (RpgAPI.questOn){
-                    //players quests that are currently active
-                    playerFile.set(p + ".RpgQuests.Current Quests", rp.getCurrentQuests());
-                    //quests a player has completed
-                    playerFile.set(p + ".RpgQuests.Completed Quests", rp.getCompletedQuests());
-                    //stages of each quest a player is on
-                    playerFile.set(p + ".RpgQuests.Quest Stages", rp.getQuestStages());
-                    //players "activated" quest
-                    playerFile.set(p + ".RpgQuests.Active Quest", rp.getActiveQuest());
-                    //how many counter based goals are completed for quest - String
-                    playerFile.set(p + ".RpgQuests.Quest Goal Count", rp.getQuestGoalCount());
-                }
+            if (RpgAPI.questOn) {
+                //players quests that are currently active
+                playerFile.set(p + ".RpgQuests.Current Quests", rp.getCurrentQuests());
+                //quests a player has completed
+                playerFile.set(p + ".RpgQuests.Completed Quests", rp.getCompletedQuests());
+                //stages of each quest a player is on
+                playerFile.set(p + ".RpgQuests.Quest Stages", rp.getQuestStages());
+                //players "activated" quest
+                playerFile.set(p + ".RpgQuests.Active Quest", rp.getActiveQuest());
+                //how many counter based goals are completed for quest - String
+                playerFile.set(p + ".RpgQuests.Quest Goal Count", rp.getQuestGoalCount());
+            }
                 /*
                 * Reputations variables
                 */
-                if (RpgAPI.reputationOn){
-                    //number for current reputation with a faction
-                    playerFile.set(p + ".RpgReputations.Reputation Levels", rp.getReputationLevels());
-                    //wether or not a player has discovered a factions existance
-                    playerFile.set(p + ".RpgReputations.Factions Discovered", rp.getFactionsDiscovered());
-                }
+            if (RpgAPI.reputationOn) {
+                //number for current reputation with a faction
+                playerFile.set(p + ".RpgReputations.Reputation Levels", rp.getReputationLevels());
+                //wether or not a player has discovered a factions existance
+                playerFile.set(p + ".RpgReputations.Factions Discovered", rp.getFactionsDiscovered());
+            }
             	/*
 	            * rpg Spawns
 	            */
-                if (RpgAPI.spawnsOn){
-                    //does the player have a pending rez?
-                    playerFile.set(p + ".RpgSpawns.Ressurection Pending", rp.hasRessurectionPending());
-                    //is the player currently rezz'ing someone
-                    playerFile.set(p + ".RpgSpawns.Ressurecting", rp.isRessurecting());
-                    //is the player dead
-                    playerFile.set(p + ".RpgSpawns.Is Dead", rp.isDead());
-                }
+            if (RpgAPI.spawnsOn) {
+                //does the player have a pending rez?
+                playerFile.set(p + ".RpgSpawns.Ressurection Pending", rp.hasRessurectionPending());
+                //is the player currently rezz'ing someone
+                playerFile.set(p + ".RpgSpawns.Ressurecting", rp.isRessurecting());
+                //is the player dead
+                playerFile.set(p + ".RpgSpawns.Is Dead", rp.isDead());
+            }
 	            /*
             	 * rpgclasses variables
             	 */
-                if (RpgAPI.classesOn){
-                    //players class name
-                    playerFile.set(p + ".RpgClasses.Class Name", rp.getClassName());
-                    //player Lawful / neutral / chaotic alignment
-                    playerFile.set(p + ".RpgClasses.Lawful Alignment", rp.getLawfulAlignment());
-                    //players Good Neutral Evil Alignment
-                    playerFile.set(p + ".RpgClasses.Good Alignment", rp.getGoodAlignment());
-                    //a map of the values for every player stat (sorted by enum)
-                    playerFile.set(p + ".RpgClasses.Stats", rp.getStats());
-                    //a map of the strings for all a players text bassed stats (sorted by enum)
-                    playerFile.set(p + ".RpgClasses.Player Text", rp.getPlayerText());
-                    //true or false for each type of damage a player is resistant to
-                    playerFile.set(p + ".RpgClasses.Damage Reduction Types", rp.getDrTypes());
-                    //true or false for the damage types a player is currently doing
-                    playerFile.set(p + ".RpgClasses.Damage Types", rp.getDmgTypes());
-                    //true or false for the elemental damage types a player is currently doing
-                    playerFile.set(p + ".RpgClasses.Elemental Damage Types", rp.getElemDmgTypes());
-                    //true or false for each type of elemental damage a player is resistant to
-                    playerFile.set(p + ".RpgClasses.Elemental Resistance Types", rp.getElemResTypes());
-                    //list of all feats a player has
-                    playerFile.set(p + ".RpgClasses.Feats", rp.getFeats());
-                    //skills a player has ranks in and how many ranks they have
-                    playerFile.set(p + ".RpgClasses.Skills", rp.getSkills());
-                    //true or false list of all spells for which a player knows
-                    playerFile.set(p + ".RpgClasses.Spells", rp.getSpells());
-                    //spells per level per combat
-                    playerFile.set(p + ".RpgClasses.Spells Per Combat", rp.getSpellsPerCombat());
-                    //is the player wearing aromor he isn't proficient with
-                    playerFile.set(p + ".RpgClasses.Encumbered", rp.isEncumbered());
-                }
-        try {
-            playerFile.save(new File("plugins/RpgAPI/RpgPlayer/" + p + ".yml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            if (RpgAPI.classesOn) {
+                //players class name
+                playerFile.set(p + ".RpgClasses.Class Name", rp.getClassName());
+                //player Lawful / neutral / chaotic alignment
+                playerFile.set(p + ".RpgClasses.Lawful Alignment", rp.getLawfulAlignment());
+                //players Good Neutral Evil Alignment
+                playerFile.set(p + ".RpgClasses.Good Alignment", rp.getGoodAlignment());
+                //a map of the values for every player stat (sorted by enum)
+                playerFile.set(p + ".RpgClasses.Stats", rp.getStats());
+                //a map of the strings for all a players text bassed stats (sorted by enum)
+                playerFile.set(p + ".RpgClasses.Player Text", rp.getPlayerText());
+                //true or false for each type of damage a player is resistant to
+                playerFile.set(p + ".RpgClasses.Damage Reduction Types", rp.getDrTypes());
+                //true or false for the damage types a player is currently doing
+                playerFile.set(p + ".RpgClasses.Damage Types", rp.getDmgTypes());
+                //true or false for the elemental damage types a player is currently doing
+                playerFile.set(p + ".RpgClasses.Elemental Damage Types", rp.getElemDmgTypes());
+                //true or false for each type of elemental damage a player is resistant to
+                playerFile.set(p + ".RpgClasses.Elemental Resistance Types", rp.getElemResTypes());
+                //list of all feats a player has
+                playerFile.set(p + ".RpgClasses.Feats", rp.getFeats());
+                //skills a player has ranks in and how many ranks they have
+                playerFile.set(p + ".RpgClasses.Skills", rp.getSkills());
+                //true or false list of all spells for which a player knows
+                playerFile.set(p + ".RpgClasses.Spells", rp.getSpells());
+                //spells per level per combat
+                playerFile.set(p + ".RpgClasses.Spells Per Combat", rp.getSpellsPerCombat());
+                //is the player wearing aromor he isn't proficient with
+                playerFile.set(p + ".RpgClasses.Encumbered", rp.isEncumbered());
+            }
+            try {
+                playerFile.save(new File("plugins/RpgAPI/RpgPlayer/" + p + ".yml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -327,19 +327,19 @@ public class RpgPlayerBuilder {
      * @return returns the newly created RpgPlayer, initialised with loaded data
      */
 
-    public static RpgPlayer RpgBuilder(String p){
+    public static RpgPlayer RpgBuilder(String p) {
         RpgPlayer rp = new RpgPlayer();
-        if (RpgAPI.useMySql){
-                  //TODO do stuff here LinksBro
+        if (RpgAPI.useMySql) {
+            //TODO do stuff here LinksBro
         } else {
             Boolean fileExists = false;
-             File pFile = new File("plugins/RpgAPI/RpgPlayer/" + p + ".yml");
-                   if (pFile.exists()){
+            File pFile = new File("plugins/RpgAPI/RpgPlayer/" + p + ".yml");
+            if (pFile.exists()) {
 
-                        fileExists = true;
-                   }
-            if (!(fileExists)){
-                if (RpgAPI.classesOn){
+                fileExists = true;
+            }
+            if (!(fileExists)) {
+                if (RpgAPI.classesOn) {
                     rp.setLawfulAlignment("NEUTRAL");
                     rp.setGoodAlignment("NEUTRAL");
                     rp.setClassName("NONE");
@@ -480,26 +480,26 @@ public class RpgPlayerBuilder {
                     rp.setSpellsPerCombat(spellsPerLevel);
 
                 }
-                if (RpgAPI.racesOn){
+                if (RpgAPI.racesOn) {
                     rp.setRace("NONE");
                 }
-                if (RpgAPI.guildsOn){
+                if (RpgAPI.guildsOn) {
                     rp.setGuild("NONE");
                     rp.setGuildRank("NONE");
                 }
-                if (RpgAPI.friendsOn){
+                if (RpgAPI.friendsOn) {
                     List<String> friendList = rp.getFriendsList();
                     friendList.add("soulofw0lf");
                     friendList.add("Blokroq");
                     rp.setFriendsList(friendList);
                 }
-                if (RpgAPI.tradeOn){
+                if (RpgAPI.tradeOn) {
                     rp.setCopper(5);
                     rp.setSilver(0);
                     rp.setGold(0);
                     rp.setPlatinum(0);
                 }
-                if (RpgAPI.chatOn){
+                if (RpgAPI.chatOn) {
                     Map<String, String> channelColors = rp.getChannelColor();
                     channelColors.put("Party", ChatColor.BLUE.toString());
                     channelColors.put("Region", ChatColor.WHITE.toString());
@@ -549,7 +549,7 @@ public class RpgPlayerBuilder {
                     rp.setKnownLanguages(languages);
                     rp.setLanguagesInChat(true);
                 }
-                if (RpgAPI.achievementsOn){
+                if (RpgAPI.achievementsOn) {
                     rp.setActivePrefix("The Recruit");
                     rp.setActiveSuffix("NONE");
                     List<String> playerTitles = rp.getTitles();
@@ -570,8 +570,10 @@ public class RpgPlayerBuilder {
                     rp.setItemsUsed(iu);
 
                 }
-                if (RpgAPI.clickOn){rp.setClick(true);}
-                if (RpgAPI.lobbyOn){
+                if (RpgAPI.clickOn) {
+                    rp.setClick(true);
+                }
+                if (RpgAPI.lobbyOn) {
                     rp.setInLobby(false);
                     rp.setArmorInventory("NONE");
                     rp.setInventoryContents("NONE");
@@ -581,7 +583,7 @@ public class RpgPlayerBuilder {
                     rp.setOldZ(0);
                     rp.setOldWorld("World");
                 }
-                if (RpgAPI.minionsOn){
+                if (RpgAPI.minionsOn) {
                     List<String> petsOwned = rp.getPetsOwned();
                     petsOwned.add("Mugli");
                     petsOwned.add("Ilgum");
@@ -589,7 +591,7 @@ public class RpgPlayerBuilder {
                     rp.setActivePet("Mugli");
                 }
                 rp.setRealName(p);
-                if (RpgAPI.questOn){
+                if (RpgAPI.questOn) {
                     List<String> currentQuests = rp.getCurrentQuests();
                     Map<String, Integer> questStage = rp.getQuestStages();
                     Map<String, Integer> stageCounter = rp.getQuestGoalCount();
@@ -599,7 +601,7 @@ public class RpgPlayerBuilder {
                     List<String> completedQuests = rp.getCompletedQuests();
                     rp.setCompletedQuests(completedQuests);
                 }
-                if (RpgAPI.reputationOn){
+                if (RpgAPI.reputationOn) {
                     Map<String, Integer> repLevel = rp.getReputationLevels();
                     List<String> repDiscovered = rp.getFactionsDiscovered();
                     rp.setReputationLevels(repLevel);
@@ -624,7 +626,7 @@ public class RpgPlayerBuilder {
 	            * Rpg Races Variables
 	            */
                 //players race name
-                if (RpgAPI.racesOn){
+                if (RpgAPI.racesOn) {
                     rp.setRace(playerFile.getString(p + ".RpgRace.Race Name"));
                     //is the player immune to poison
                     rp.setPoisonProof(playerFile.getBoolean(p + ".RpgRace.Poison Proof"));
@@ -635,7 +637,7 @@ public class RpgPlayerBuilder {
             	 * rpgfood variables
 	            */
                 //does the player already have a food buff
-                if (RpgAPI.foodOn){
+                if (RpgAPI.foodOn) {
                     rp.setBuffed(playerFile.getBoolean(p + ".RpgFood.Food Buffed"));
 
                 }
@@ -643,7 +645,7 @@ public class RpgPlayerBuilder {
                 /*
             	 * rpg party variables
 	            */
-                if (RpgAPI.partyOn){
+                if (RpgAPI.partyOn) {
                     //does the player have a pending party invite
                     rp.setPartyInvitePending(playerFile.getBoolean(p + ".RpgParty.Party Invite Pending"));
                     //does the player want a gui to automatically
@@ -665,7 +667,7 @@ public class RpgPlayerBuilder {
                 /*
 	            * rpg guilds variables
 	            */
-                if (RpgAPI.guildsOn){
+                if (RpgAPI.guildsOn) {
                     //does the player have a pending guild invite
                     rp.setGuildInvite(playerFile.getBoolean(p + ".RpgGuilds.Has Pending Guild Invite"));
                     //should the guild accept gui auto open on a guild invitation
@@ -680,16 +682,16 @@ public class RpgPlayerBuilder {
 	            /*
 	            * rpg friends variables
 	            */
-                if (RpgAPI.friendsOn){
+                if (RpgAPI.friendsOn) {
                     //should the friend gui auto open on friend invite?
                     rp.setFriendsGui(playerFile.getBoolean(p + ".RpgFriends.Show Friends Gui"));
                     //player friends list
-                    rp.setFriendsList((List<String>)playerFile.getList(p + ".RpgFriends.Friends List"));
+                    rp.setFriendsList((List<String>) playerFile.getList(p + ".RpgFriends.Friends List"));
                 }
                 /*
 	            * trade variables
 	            */
-                if (RpgAPI.tradeOn){
+                if (RpgAPI.tradeOn) {
                     //the players total Copper
                     rp.setCopper(playerFile.getInt(p + ".RpgTrade.Copper"));
                     //the player total Silver
@@ -702,17 +704,17 @@ public class RpgPlayerBuilder {
                 /*
 	            * chat variables
 	            */
-                if (RpgAPI.chatOn){
+                if (RpgAPI.chatOn) {
                     //colors of chat channel mapped to channel name
-                    Map <String, String> colorMap = rp.getChannelColor();
-                    for( String key : playerFile.getConfigurationSection(p + ".RpgChat.Chat Channels").getKeys(false)){
+                    Map<String, String> colorMap = rp.getChannelColor();
+                    for (String key : playerFile.getConfigurationSection(p + ".RpgChat.Chat Channels").getKeys(false)) {
                         colorMap.put(key, playerFile.getString(p + ".RpgChat.Chat Channels." + key));
                     }
                     rp.setChannelColor(colorMap);
                     //active channel a player is talking in
                     rp.setActiveChannel(playerFile.getString(p + ".RpgChat.Active Channel"));
                     //all players on ignore
-                    rp.setIgnoreList((List<String>)playerFile.getList(p + ".RpgChat.Ignore List"));
+                    rp.setIgnoreList((List<String>) playerFile.getList(p + ".RpgChat.Ignore List"));
                     //does the player have a pending chat invite
                     rp.setChatInvite(playerFile.getBoolean(p + ".RpgChat.Chat Invite Pending"));
                     //list of channels the player has invites for
@@ -739,7 +741,7 @@ public class RpgPlayerBuilder {
 	            /*
 	            * rpg achievements variables
 	            */
-                if (RpgAPI.achievementsOn){
+                if (RpgAPI.achievementsOn) {
                     //players active prefix title
                     rp.setActivePrefix(playerFile.getString(p + ".RpgAchievements.Active Prefix"));
                     //players active suffix title
@@ -748,25 +750,25 @@ public class RpgPlayerBuilder {
                     rp.setTitles((List<String>) playerFile.getList(p + ".RpgAchievements.Titles"));
 
                     Map<String, Integer> t = rp.getEatenItems();
-                    for (String key : playerFile.getConfigurationSection(p + ".RpgAchievements.Food Consumed").getKeys(false)){
+                    for (String key : playerFile.getConfigurationSection(p + ".RpgAchievements.Food Consumed").getKeys(false)) {
                         t.put(key, playerFile.getInt(p + ".RpgAchievements.Food Consumed." + key));
                     }
                     rp.setEatenItems(t);
 
                     Map<String, Integer> r = rp.getMobKills();
-                    for (String key : playerFile.getConfigurationSection(p + ".RpgAchievements.Mob Kills").getKeys(false)){
+                    for (String key : playerFile.getConfigurationSection(p + ".RpgAchievements.Mob Kills").getKeys(false)) {
                         r.put(key, playerFile.getInt(p + ".RpgAchievements.Mob Kills." + key));
                     }
                     rp.setMobKills(r);
 
                     Map<String, Integer> v = rp.getPlayerKills();
-                    for (String key : playerFile.getConfigurationSection(p + ".RpgAchievements.Player Kills").getKeys(false)){
+                    for (String key : playerFile.getConfigurationSection(p + ".RpgAchievements.Player Kills").getKeys(false)) {
                         v.put(key, playerFile.getInt(p + ".RpgAchievements.Player Kills." + key));
                     }
                     rp.setPlayerKills(v);
 
                     Map<String, Integer> q = rp.getItemsUsed();
-                    for (String key : playerFile.getConfigurationSection(p + ".RpgAchievements.Items Used").getKeys(false)){
+                    for (String key : playerFile.getConfigurationSection(p + ".RpgAchievements.Items Used").getKeys(false)) {
                         q.put(key, playerFile.getInt(p + ".RpgAchievements.Items Used." + key));
                     }
                     rp.setItemsUsed(q);
@@ -775,25 +777,25 @@ public class RpgPlayerBuilder {
             	/*
 	            * rpg click variables
 	            */
-                if (RpgAPI.clickOn){
+                if (RpgAPI.clickOn) {
                     //should the player use the default shift click on player behavior
                     rp.setClick(playerFile.getBoolean(p + ".RpgClick.Use Click"));
                 }
             	/*
 	            * rpg language variables
 	            */
-                if (RpgAPI.chatOn){
+                if (RpgAPI.chatOn) {
                     //players active spoken language
                     rp.setActiveLanguage(playerFile.getString(p + ".RpgLanguages.Active Language"));
                     //all languages a player knows
-                    rp.setKnownLanguages((List<String>)playerFile.getList(p + ".RpgLanguages.Known Languages"));
+                    rp.setKnownLanguages((List<String>) playerFile.getList(p + ".RpgLanguages.Known Languages"));
                     //should languages a player doesn't know be shown in chat?
                     rp.setLanguagesInChat(playerFile.getBoolean(p + ".RpgLanguages.Languages In Chat"));
                 }
                 /*
 	            * rpg lobby variables
 	            */
-                if (RpgAPI.lobbyOn){
+                if (RpgAPI.lobbyOn) {
                     //is the player in a lobby?
                     rp.setInLobby(playerFile.getBoolean(p + ".RpgLobby.In Lobby"));
                     //serialised armor inventory for a player
@@ -814,7 +816,7 @@ public class RpgPlayerBuilder {
 	            /*
             	 * rpg minions
 	            */
-                if (RpgAPI.minionsOn){
+                if (RpgAPI.minionsOn) {
                     //list of all p-ets a player owns
                     rp.setPetsOwned((List<String>) playerFile.getList(p + ".RpgMinions.Pets Owned"));
                     //does the player have an active pet
@@ -831,14 +833,14 @@ public class RpgPlayerBuilder {
 	            /*
             	 * rpg Quest variables - comming soon?
 	            */
-                if (RpgAPI.questOn){
+                if (RpgAPI.questOn) {
                     //players quests that are currently active
-                    rp.setCurrentQuests((List<String>)playerFile.getList(p + ".RpgQuests.Current Quests"));
+                    rp.setCurrentQuests((List<String>) playerFile.getList(p + ".RpgQuests.Current Quests"));
                     //quests a player has completed
                     rp.setCompletedQuests((List<String>) playerFile.getList(p + ".RpgQuests.Completed Quests"));
                     //stages of each quest a player is on
                     Map<String, Integer> qStage = rp.getQuestStages();
-                    for (String quest : playerFile.getConfigurationSection(p + ".RpgQuests.Quest Stages").getKeys(false)){
+                    for (String quest : playerFile.getConfigurationSection(p + ".RpgQuests.Quest Stages").getKeys(false)) {
                         qStage.put(quest, playerFile.getInt(p + ".RpgQuests.Quest Stages." + quest));
                     }
                     rp.setQuestStages(qStage);
@@ -846,7 +848,7 @@ public class RpgPlayerBuilder {
                     rp.setActiveQuest(playerFile.getString(p + ".RpgQuests.Active Quest"));
                     //how many counter based goals are completed for quest - String
                     Map<String, Integer> gCount = rp.getQuestGoalCount();
-                    for (String quest : playerFile.getConfigurationSection(p + ".RpgQuests.Quest Goal Count").getKeys(false)){
+                    for (String quest : playerFile.getConfigurationSection(p + ".RpgQuests.Quest Goal Count").getKeys(false)) {
                         gCount.put(quest, playerFile.getInt(p + ".RpgQuests.Quest Goal Count." + quest));
                     }
                     rp.setQuestGoalCount(gCount);
@@ -854,10 +856,10 @@ public class RpgPlayerBuilder {
                 /*
                 * Reputations variables
                 */
-                if (RpgAPI.reputationOn){
+                if (RpgAPI.reputationOn) {
                     //number for current reputation with a faction
                     Map<String, Integer> repMap = rp.getReputationLevels();
-                    for(String reputation : playerFile.getConfigurationSection(p + ".RpgReputations.Reputation Levels").getKeys(false)){
+                    for (String reputation : playerFile.getConfigurationSection(p + ".RpgReputations.Reputation Levels").getKeys(false)) {
                         repMap.put(reputation, playerFile.getInt(p + ".RpgReputations.Reputation Levels." + reputation));
                     }
                     rp.setReputationLevels(repMap);
@@ -868,7 +870,7 @@ public class RpgPlayerBuilder {
             	/*
 	            * rpg Spawns
 	            */
-                if (RpgAPI.spawnsOn){
+                if (RpgAPI.spawnsOn) {
                     //does the player have a pending rez?
                     rp.setRessurectionPending(playerFile.getBoolean(p + ".RpgSpawns.Ressurection Pending"));
                     //is the player currently rezz'ing someone
@@ -879,79 +881,79 @@ public class RpgPlayerBuilder {
 	            /*
             	 * rpgclasses variables
             	 */
-                 if (RpgAPI.classesOn){
+                if (RpgAPI.classesOn) {
                     //players class name
-                     rp.setClassName(playerFile.getString(p + ".RpgClasses.Class Name"));
-                     //player Lawful / neutral / chaotic alignment
-                     rp.setLawfulAlignment(playerFile.getString(p + ".RpgClasses.Lawful Alignment"));
-                     //players Good Neutral Evil Alignment
-                     rp.setGoodAlignment(playerFile.getString(p + ".RpgClasses.Good Alignment"));
+                    rp.setClassName(playerFile.getString(p + ".RpgClasses.Class Name"));
+                    //player Lawful / neutral / chaotic alignment
+                    rp.setLawfulAlignment(playerFile.getString(p + ".RpgClasses.Lawful Alignment"));
+                    //players Good Neutral Evil Alignment
+                    rp.setGoodAlignment(playerFile.getString(p + ".RpgClasses.Good Alignment"));
                     //a map of the values for every player stat (sorted by enum)
-                     Map<String, Integer> statMap = rp.getStats();
-                     for (String stat : playerFile.getConfigurationSection(p + ".RpgClasses.Stats").getKeys(false)){
-                         statMap.put(stat, playerFile.getInt(p + ".RpgClasses.Stats." + stat));
-                     }
-                     rp.setStats(statMap);
+                    Map<String, Integer> statMap = rp.getStats();
+                    for (String stat : playerFile.getConfigurationSection(p + ".RpgClasses.Stats").getKeys(false)) {
+                        statMap.put(stat, playerFile.getInt(p + ".RpgClasses.Stats." + stat));
+                    }
+                    rp.setStats(statMap);
 
                     //a map of the strings for all a players text bassed stats (sorted by enum)
-                     Map<String, String> textMap = rp.getPlayerText();
-                     for (String stat : playerFile.getConfigurationSection(p + ".RpgClasses.Player Text").getKeys(false)){
-                         textMap.put(stat, playerFile.getString(p + ".RpgClasses.Player Text." + stat));
-                     }
-                     rp.setPlayerText(textMap);
+                    Map<String, String> textMap = rp.getPlayerText();
+                    for (String stat : playerFile.getConfigurationSection(p + ".RpgClasses.Player Text").getKeys(false)) {
+                        textMap.put(stat, playerFile.getString(p + ".RpgClasses.Player Text." + stat));
+                    }
+                    rp.setPlayerText(textMap);
 
                     //true or false for each type of damage a player is resistant to
-                     Map<String, Integer> drMap = rp.getDrTypes();
-                     for (String dr : playerFile.getConfigurationSection(p + ".RpgClasses.Damage Reduction Types").getKeys(false)){
-                         drMap.put(dr, playerFile.getInt(p + ".RpgClasses.Damage Reduction Types." + dr));
-                     }
-                     rp.setDrTypes(drMap);
+                    Map<String, Integer> drMap = rp.getDrTypes();
+                    for (String dr : playerFile.getConfigurationSection(p + ".RpgClasses.Damage Reduction Types").getKeys(false)) {
+                        drMap.put(dr, playerFile.getInt(p + ".RpgClasses.Damage Reduction Types." + dr));
+                    }
+                    rp.setDrTypes(drMap);
 
                     //true or false for the damage types a player is currently doing
-                     Map<String, Integer> dtMap = rp.getDmgTypes();
-                     for (String dt : playerFile.getConfigurationSection(p + ".RpgClasses.Damage Types").getKeys(false)){
-                         dtMap.put(dt, playerFile.getInt(p + ".RpgClasses.Damage Types." + dt));
-                     }
-                     rp.setDmgTypes(dtMap);
+                    Map<String, Integer> dtMap = rp.getDmgTypes();
+                    for (String dt : playerFile.getConfigurationSection(p + ".RpgClasses.Damage Types").getKeys(false)) {
+                        dtMap.put(dt, playerFile.getInt(p + ".RpgClasses.Damage Types." + dt));
+                    }
+                    rp.setDmgTypes(dtMap);
 
                     //true or false for the elemental damage types a player is currently doing
-                     Map<String, Integer> elemMap = rp.getElemDmgTypes();
-                     for (String elem : playerFile.getConfigurationSection(p + ".RpgClasses.Elemental Damage Types").getKeys(false)){
-                         elemMap.put(elem, playerFile.getInt(p + ".RpgClasses.Elemental Damage Types." + elem));
-                     }
-                     rp.setElemDmgTypes(elemMap);
+                    Map<String, Integer> elemMap = rp.getElemDmgTypes();
+                    for (String elem : playerFile.getConfigurationSection(p + ".RpgClasses.Elemental Damage Types").getKeys(false)) {
+                        elemMap.put(elem, playerFile.getInt(p + ".RpgClasses.Elemental Damage Types." + elem));
+                    }
+                    rp.setElemDmgTypes(elemMap);
 
                     //true or false for each type of elemental damage a player is resistant to
-                     Map<String, Integer> eResMap = rp.getElemResTypes();
-                     for (String eRes : playerFile.getConfigurationSection(p + ".RpgClasses.Elemental Resistance Types").getKeys(false)){
-                         eResMap.put(eRes, playerFile.getInt(p + ".RpgClasses.Elemental Resistance Types." + eRes));
-                     }
-                     rp.setElemResTypes(eResMap);
-                     //list of all feats a player has
-                     rp.setFeats((List<String>)playerFile.getList(p + ".RpgClasses.Feats"));
+                    Map<String, Integer> eResMap = rp.getElemResTypes();
+                    for (String eRes : playerFile.getConfigurationSection(p + ".RpgClasses.Elemental Resistance Types").getKeys(false)) {
+                        eResMap.put(eRes, playerFile.getInt(p + ".RpgClasses.Elemental Resistance Types." + eRes));
+                    }
+                    rp.setElemResTypes(eResMap);
+                    //list of all feats a player has
+                    rp.setFeats((List<String>) playerFile.getList(p + ".RpgClasses.Feats"));
                     //skills a player has ranks in and how many ranks they have
-                     Map<String, Integer> skillMap = rp.getSkills();
-                     for (String skill : playerFile.getConfigurationSection(p + ".RpgClasses.Skills").getKeys(false)){
-                         skillMap.put(skill,  playerFile.getInt(p + ".RpgClasses.Skills." + skill));
-                     }
-                     rp.setSkills(skillMap);
+                    Map<String, Integer> skillMap = rp.getSkills();
+                    for (String skill : playerFile.getConfigurationSection(p + ".RpgClasses.Skills").getKeys(false)) {
+                        skillMap.put(skill, playerFile.getInt(p + ".RpgClasses.Skills." + skill));
+                    }
+                    rp.setSkills(skillMap);
 
                     //true or false list of all spells for which a player knows
-                     rp.setSpells((List<String>)playerFile.getList(p + ".RpgClasses.Spells"));
+                    rp.setSpells((List<String>) playerFile.getList(p + ".RpgClasses.Spells"));
                     //spells per level per combat
-                     Map<String, Integer> spcMap = rp.getSpellsPerCombat();
-                     for (String spell : playerFile.getConfigurationSection(p + ".RpgClasses.Spells Per Combat").getKeys(false)){
-                         spcMap.put(spell,  playerFile.getInt(p + ".RpgClasses.Spells Per Combat." + spell));
-                     }
-                     rp.setSpellsPerCombat(spcMap);
+                    Map<String, Integer> spcMap = rp.getSpellsPerCombat();
+                    for (String spell : playerFile.getConfigurationSection(p + ".RpgClasses.Spells Per Combat").getKeys(false)) {
+                        spcMap.put(spell, playerFile.getInt(p + ".RpgClasses.Spells Per Combat." + spell));
+                    }
+                    rp.setSpellsPerCombat(spcMap);
 
                     //is the player wearing aromor he isn't proficient with
-                     rp.setEncumbered(playerFile.getBoolean(p + ".RpgClasses.Encumbered"));
-                 }
+                    rp.setEncumbered(playerFile.getBoolean(p + ".RpgClasses.Encumbered"));
+                }
                 return rp;
             }
         }
         return rp;
-        }
+    }
 
 }

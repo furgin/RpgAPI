@@ -55,39 +55,37 @@ import java.util.Map;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class UniqueCommands {
-    public static void BaseCommandHandler(Player p, String[] command){
-        command[0] = command[0].replace("/","");
-        if(command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Load Warps"))){
-            WarpSetBuilder.BuildSets();WarpBuilder.WarpLoader();
+    public static void BaseCommandHandler(Player p, String[] command) {
+        command[0] = command[0].replace("/", "");
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Load Warps"))) {
+            WarpSetBuilder.BuildSets();
+            WarpBuilder.WarpLoader();
             p.sendMessage("you have loaded all warps");
         }
-        if (command[0].equalsIgnoreCase("testloads"))
-        {
+        if (command[0].equalsIgnoreCase("testloads")) {
             long before;
             long after;
             System.out.println("With String param");
             before = System.currentTimeMillis();
-            for (int i = 0; i<200; i++)
-            {
+            for (int i = 0; i < 200; i++) {
                 RpgAPI.getRp(p.getName());
             }
             after = System.currentTimeMillis();
-            System.out.println("Test completed, took "+(after-before)+" millis to perform 200 getRp with STRING.");
+            System.out.println("Test completed, took " + (after - before) + " millis to perform 200 getRp with STRING.");
             System.out.println("With Player param");
             before = System.currentTimeMillis();
-            for (int i = 0; i<200; i++)
-            {
+            for (int i = 0; i < 200; i++) {
                 RpgAPI.getRp(p);
             }
             after = System.currentTimeMillis();
-            System.out.println("Test completed, took "+(after-before)+" millis to perform 200 getRp with PLAYER.");
+            System.out.println("Test completed, took " + (after - before) + " millis to perform 200 getRp with PLAYER.");
 
         }
-        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Set Warp"))){
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Set Warp"))) {
             RpgWarp rWarp = new RpgWarp();
             rWarp.setWarpName(command[1]);
             rWarp.setWarpSet("Default");
-            if (!(RpgAPI.savedSets.containsKey("Default"))){
+            if (!(RpgAPI.savedSets.containsKey("Default"))) {
                 WarpSets wSet = new WarpSets();
                 wSet.setSetName("Default");
                 wSet.setWarpsRandom(false);
@@ -107,38 +105,38 @@ public class UniqueCommands {
             thisSet.setSetWarps(thisList);
             p.sendMessage("you have set a warp named " + command[1] + ".");
         }
-        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Save Warp"))){
-            if (command.length != 2){
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Save Warp"))) {
+            if (command.length != 2) {
                 p.sendMessage("Proper formatting /saveWarpCommand <warp name>");
                 return;
             }
-            if (!(RpgAPI.savedWarps.containsKey(command[1]))){
+            if (!(RpgAPI.savedWarps.containsKey(command[1]))) {
                 p.sendMessage("That Warp Doesn't Exist!!!");
                 return;
             }
             WarpBuilder.SaveWarp(command[1]);
             p.sendMessage("you have saved a warp named " + command[1] + ".");
         }
-        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Use Warp"))){
-            if (command.length != 2){
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Use Warp"))) {
+            if (command.length != 2) {
                 p.sendMessage("Proper formatting /useWarpCommand <warp name>");
                 return;
             }
-            if (!(RpgAPI.savedWarps.containsKey(command[1]))){
+            if (!(RpgAPI.savedWarps.containsKey(command[1]))) {
                 p.sendMessage("That Warp Doesn't Exist!!!");
                 return;
             }
-            if (RpgAPI.warpCds.containsKey(p.getName())){
-                for (String warpName : RpgAPI.warpCds.get(p.getName())){
-                    if (warpName.equalsIgnoreCase(command[1])){
+            if (RpgAPI.warpCds.containsKey(p.getName())) {
+                for (String warpName : RpgAPI.warpCds.get(p.getName())) {
+                    if (warpName.equalsIgnoreCase(command[1])) {
                         p.sendMessage("You must wait longer before using that Warp");
                         return;
                     }
                 }
             }
-            if (RpgAPI.savedWarps.get(command[1]).getItemNeeded()){
+            if (RpgAPI.savedWarps.get(command[1]).getItemNeeded()) {
                 Boolean useWarp = ItemProcessor(p, RpgAPI.savedWarps.get(command[1]));
-                if (!(useWarp)){
+                if (!(useWarp)) {
                     p.sendMessage("You do not have the required item to use this warp");
                     return;
                 }
@@ -146,112 +144,112 @@ public class UniqueCommands {
             }
             WarpProcessor.WarpHandler(p.getName(), RpgAPI.savedWarps.get(command[1]));
         }
-        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Edit Warp Values"))){
-            if (command.length != 4){
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Edit Warp Values"))) {
+            if (command.length != 4) {
                 p.sendMessage("Proper use /" + RpgAPI.commandSettings.get("Edit Warp Values") + " <warp name> <Cd |Level | Perm | Variance | Material | iName | iLore> <Value_settings>");
                 return;
             }
-            if (!(RpgAPI.savedWarps.containsKey(command[1]))){
+            if (!(RpgAPI.savedWarps.containsKey(command[1]))) {
                 p.sendMessage("That warp does not exist!");
                 return;
             }
-            if (command[2].equalsIgnoreCase("level")){
+            if (command[2].equalsIgnoreCase("level")) {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 Integer i = Integer.parseInt(command[3]);
                 rWarp.setWarpLevel(i);
             }
-            if (command[2].equalsIgnoreCase("perm")){
+            if (command[2].equalsIgnoreCase("perm")) {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 rWarp.setPermNeeded(command[3]);
             }
-            if (command[2].equalsIgnoreCase("Variance")){
+            if (command[2].equalsIgnoreCase("Variance")) {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 Integer i = Integer.parseInt(command[3]);
                 rWarp.setWarpVariance(i);
             }
-            if (command[2].equalsIgnoreCase("Material")){
+            if (command[2].equalsIgnoreCase("Material")) {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 Material mat = Material.valueOf(command[3]);
                 List<Material> mats = rWarp.getItemMaterial();
                 mats.add(mat);
                 rWarp.setItemMaterial(mats);
             }
-            if (command[2].equalsIgnoreCase("iName")){
+            if (command[2].equalsIgnoreCase("iName")) {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 List<String> names = rWarp.getItemNames();
                 names.add(command[3].replaceAll("_", " "));
                 rWarp.setItemNames(names);
             }
-            if (command[2].equalsIgnoreCase("iLore")){
+            if (command[2].equalsIgnoreCase("iLore")) {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 List<String> lores = rWarp.getLoreNeeded();
                 lores.add(command[3].replaceAll("_", " "));
                 rWarp.setLoreNeeded(lores);
             }
-            if (command[2].equalsIgnoreCase("cd")){
+            if (command[2].equalsIgnoreCase("cd")) {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 Integer i = Integer.parseInt(command[3]);
                 rWarp.setWarpCoolDown(i);
             }
         }
-        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Edit Warp"))){
-            if (command.length != 4){
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Edit Warp"))) {
+            if (command.length != 4) {
                 p.sendMessage("Proper use /" + RpgAPI.commandSettings.get("Edit Warp") + " <warp name> <Cd | World | Level | Perm | Variance | item> <true/false>");
                 return;
             }
-            if (!(RpgAPI.savedWarps.containsKey(command[1]))){
+            if (!(RpgAPI.savedWarps.containsKey(command[1]))) {
                 p.sendMessage("That warp does not exist!");
                 return;
             }
-            if (command[2].equalsIgnoreCase("World")){
+            if (command[2].equalsIgnoreCase("World")) {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 Boolean c3 = false;
-                if (command[3].equalsIgnoreCase("true")){
+                if (command[3].equalsIgnoreCase("true")) {
                     c3 = true;
                 }
                 rWarp.setSameWorld(c3);
                 p.sendMessage("Warp " + command[1] + " now has Same world required set to " + c3 + ".");
             }
-            if (command[2].equalsIgnoreCase("level")){
+            if (command[2].equalsIgnoreCase("level")) {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 Boolean c3 = false;
-                if (command[3].equalsIgnoreCase("true")){
+                if (command[3].equalsIgnoreCase("true")) {
                     c3 = true;
                 }
                 rWarp.setLevelNeeded(c3);
                 p.sendMessage("Warp " + command[1] + " now has Level Needed set to " + c3 + ".");
             }
-            if (command[2].equalsIgnoreCase("Perm")){
+            if (command[2].equalsIgnoreCase("Perm")) {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 Boolean c3 = false;
-                if (command[3].equalsIgnoreCase("true")){
+                if (command[3].equalsIgnoreCase("true")) {
                     c3 = true;
                 }
                 rWarp.setSinglePerm(c3);
                 p.sendMessage("Warp " + command[1] + " now has Same world required set to " + c3 + ".");
             }
-            if (command[2].equalsIgnoreCase("Variance")){
+            if (command[2].equalsIgnoreCase("Variance")) {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 Boolean c3 = false;
-                if (command[3].equalsIgnoreCase("true")){
+                if (command[3].equalsIgnoreCase("true")) {
                     c3 = true;
                 }
                 rWarp.setVariance(c3);
                 p.sendMessage("Warp " + command[1] + " now has Variance set to " + c3 + ".");
             }
-            if (command[2].equalsIgnoreCase("cd")){
+            if (command[2].equalsIgnoreCase("cd")) {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 Boolean c3 = false;
-                if (command[3].equalsIgnoreCase("true")){
+                if (command[3].equalsIgnoreCase("true")) {
                     c3 = true;
                 }
                 rWarp.setUseCD(c3);
                 p.sendMessage("Warp " + command[1] + " now has Use Cool down set to " + c3 + ".");
             }
-            if (command[2].equalsIgnoreCase("Item")){
+            if (command[2].equalsIgnoreCase("Item")) {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 Boolean c3 = false;
-                if (command[3].equalsIgnoreCase("true")){
+                if (command[3].equalsIgnoreCase("true")) {
                     c3 = true;
                 }
 
@@ -259,7 +257,7 @@ public class UniqueCommands {
                 p.sendMessage("Warp " + command[1] + " now has Item required set to " + c3 + ".");
             }
         }
-        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Test Command"))){
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Test Command"))) {
             StringBuilder buffer = new StringBuilder();
 
             // change the starting i value to pick what argument to start
@@ -272,7 +270,7 @@ public class UniqueCommands {
             p.sendMessage(LanguageProcessor.LanguageDecoder(s, "Undead"));
             return;
         }
-        if (command[0].equalsIgnoreCase("nick")){
+        if (command[0].equalsIgnoreCase("nick")) {
             String name = p.getName();
             String newName = command[1];
             RpgAPI.activeNicks.remove(name);
@@ -283,7 +281,7 @@ public class UniqueCommands {
             SpeedHandler.SetWalkSpeed(rp, name);
             SpeedHandler.SetFlySpeed(rp, name);
         }
-        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Player Info"))){
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Player Info"))) {
             String activeNick = RpgAPI.activeNicks.get(p.getName());
             RpgPlayer rp = RpgAPI.rpgPlayers.get(activeNick);
             Map<String, Integer> statMap = rp.getStats();
@@ -296,7 +294,7 @@ public class UniqueCommands {
             return;
         }
 
-        if (command[0].equalsIgnoreCase("RpgHelp")){
+        if (command[0].equalsIgnoreCase("RpgHelp")) {
 
             p.sendMessage("Available commands are:");
 
@@ -309,23 +307,23 @@ public class UniqueCommands {
          */
         Boolean subChat = false;
 
-            for (String chatNames : RpgAPI.chatRealNames.keySet()){
-                if (chatNames == null){
-                    continue;
-                }
-                if (chatNames.equalsIgnoreCase(command[0])){
-                    command[0] = chatNames;
-                    subChat = true;
-                }
+        for (String chatNames : RpgAPI.chatRealNames.keySet()) {
+            if (chatNames == null) {
+                continue;
             }
+            if (chatNames.equalsIgnoreCase(command[0])) {
+                command[0] = chatNames;
+                subChat = true;
+            }
+        }
 
-        if (subChat){
+        if (subChat) {
 
             String activeChat = RpgAPI.chatRealNames.get(command[0]);
 
             ChatClass cC = new ChatClass();
-            for (ChatClass chatClass : RpgAPI.chatClasses){
-                if (activeChat.equalsIgnoreCase(chatClass.getChannelName())){
+            for (ChatClass chatClass : RpgAPI.chatClasses) {
+                if (activeChat.equalsIgnoreCase(chatClass.getChannelName())) {
                     cC = chatClass;
                 }
             }
@@ -333,34 +331,34 @@ public class UniqueCommands {
             RpgPlayer sendPlayer = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(senderName));
 
             String language = "";
-            if (sendPlayer.getActiveLanguage().isEmpty()){
+            if (sendPlayer.getActiveLanguage().isEmpty()) {
                 language = "Common";
                 sendPlayer.setActiveLanguage("Common");
             } else {
                 language = sendPlayer.getActiveLanguage();
             }
-            if (cC.getMutedPlayers().contains(senderName)){
+            if (cC.getMutedPlayers().contains(senderName)) {
                 Bukkit.getPlayer(senderName).sendMessage("You are muted in this chat.");
                 return;
             }
-            if (cC.getBannedPlayers().contains(senderName)){
+            if (cC.getBannedPlayers().contains(senderName)) {
                 Bukkit.getPlayer(senderName).sendMessage("You are banned from this chat.");
                 return;
             }
             Boolean spyChat = cC.isChatSpy();
             String oldChat = sendPlayer.getActiveChannel();
             sendPlayer.setActiveChannel(activeChat);
-            for (Player pl : Bukkit.getOnlinePlayers()){
+            for (Player pl : Bukkit.getOnlinePlayers()) {
                 String receiveName = pl.getName();
                 StringBuilder buffer = new StringBuilder();
                 for (int i = 1; i < command.length; i++) {
                     buffer.append(' ').append(command[i]);
                 }
                 String s = buffer.toString();
-                for (ChatBehavior behavior : cC.getChannelBehaviors()){
+                for (ChatBehavior behavior : cC.getChannelBehaviors()) {
                     s = behavior.chatChannel(activeChat, receiveName, senderName, language, s, spyChat);
                 }
-                if (s.isEmpty()){
+                if (s.isEmpty()) {
                     continue;
                 }
                 pl.sendMessage(ChatProcessor.TitleString(RpgAPI.nameDisplays, RpgAPI.activeNicks.get(senderName), receiveName) + s);
@@ -371,60 +369,59 @@ public class UniqueCommands {
     }
 
 
-
     private static Boolean ItemProcessor(Player p, RpgWarp rpgWarp) {
         Boolean useWarp = false;
         Inventory inv = p.getInventory();
-        for (ItemStack is : inv.getContents()){
-            for (Material mat : rpgWarp.getItemMaterial()){
-                if (is == null || is.getType().equals(Material.AIR)){
+        for (ItemStack is : inv.getContents()) {
+            for (Material mat : rpgWarp.getItemMaterial()) {
+                if (is == null || is.getType().equals(Material.AIR)) {
                     continue;
                 }
-                if (!(is.getType().equals(mat))){
+                if (!(is.getType().equals(mat))) {
                     continue;
                 }
                 ItemMeta im = is.getItemMeta();
-                if ((rpgWarp.getItemNeedsName() || rpgWarp.getNeedsLore()) && im == null){
+                if ((rpgWarp.getItemNeedsName() || rpgWarp.getNeedsLore()) && im == null) {
                     continue;
                 }
-                if (rpgWarp.getNeedsLore() && im.getLore() == null){
+                if (rpgWarp.getNeedsLore() && im.getLore() == null) {
                     continue;
                 }
-                if (rpgWarp.getItemNeedsName() && im.getDisplayName() == null){
+                if (rpgWarp.getItemNeedsName() && im.getDisplayName() == null) {
                     continue;
                 }
-                if (rpgWarp.getItemNeedsName() || rpgWarp.getNeedsLore()){
-                    if (rpgWarp.getNeedsLore()){
+                if (rpgWarp.getItemNeedsName() || rpgWarp.getNeedsLore()) {
+                    if (rpgWarp.getNeedsLore()) {
                         Boolean lorePresent = false;
-                        for (String lore : rpgWarp.getLoreNeeded()){
-                             for (String lores : im.getLore()){
-                                 if(lore.equalsIgnoreCase(lores)){
-                                     lorePresent = true;
-                                 }
-                             }
-                        }
-                        if (lorePresent == false){
-                            continue;
-                        }
-                    }
-                    if (rpgWarp.getItemNeedsName()){
-                        Boolean namePresent = false;
-                        for (String iName : rpgWarp.getItemNames()){
-                            if (iName.equalsIgnoreCase(im.getDisplayName())){
-                               namePresent = true;
+                        for (String lore : rpgWarp.getLoreNeeded()) {
+                            for (String lores : im.getLore()) {
+                                if (lore.equalsIgnoreCase(lores)) {
+                                    lorePresent = true;
+                                }
                             }
                         }
-                        if (namePresent == false){
+                        if (lorePresent == false) {
+                            continue;
+                        }
+                    }
+                    if (rpgWarp.getItemNeedsName()) {
+                        Boolean namePresent = false;
+                        for (String iName : rpgWarp.getItemNames()) {
+                            if (iName.equalsIgnoreCase(im.getDisplayName())) {
+                                namePresent = true;
+                            }
+                        }
+                        if (namePresent == false) {
                             continue;
                         }
                     }
                 }
-                if (rpgWarp.getItemConsumed()){
+                if (rpgWarp.getItemConsumed()) {
                     Integer a = is.getAmount();
-                    if (a <= 1){
+                    if (a <= 1) {
                         p.getInventory().remove(is);
                     }
-                    is.setAmount(a-1);
+                    is.setAmount(a - 1);
                 }
                 useWarp = true;
                 return useWarp;

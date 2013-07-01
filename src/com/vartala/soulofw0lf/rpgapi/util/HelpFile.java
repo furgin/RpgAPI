@@ -25,7 +25,8 @@ public class HelpFile {
     private String aliasColor = "";
     private String description = "";
     private String helpGroup = "";
-    public void HelpFile(){
+
+    public void HelpFile() {
 
     }
 

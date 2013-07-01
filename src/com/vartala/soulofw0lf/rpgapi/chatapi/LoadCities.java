@@ -23,20 +23,21 @@ import com.vartala.soulofw0lf.rpgapi.RpgAPI;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class LoadCities {
-    public static void FromFile(){
-    for (String city : RpgAPI.cityConfig.getConfigurationSection("Rpg Cities").getKeys(false)){
-        RpgCities rpC = new RpgCities();
-        rpC.setRegionName(city);
-        rpC.setRegionRadius(RpgAPI.cityConfig.getInt("Rpg Cities." + city + ".Radius"));
-        rpC.setRegionX(RpgAPI.cityConfig.getDouble("Rpg Cities." + city + ".X"));
-        rpC.setRegionY(RpgAPI.cityConfig.getDouble("Rpg Cities." + city + ".Y"));
-        rpC.setRegionZ(RpgAPI.cityConfig.getDouble("Rpg Cities." + city + ".Z"));
-        rpC.setRegionWorld(RpgAPI.cityConfig.getString("Rpg Cities." + city + ".World"));
-        RpgAPI.rpgCities.add(rpC);
+    public static void FromFile() {
+        for (String city : RpgAPI.cityConfig.getConfigurationSection("Rpg Cities").getKeys(false)) {
+            RpgCities rpC = new RpgCities();
+            rpC.setRegionName(city);
+            rpC.setRegionRadius(RpgAPI.cityConfig.getInt("Rpg Cities." + city + ".Radius"));
+            rpC.setRegionX(RpgAPI.cityConfig.getDouble("Rpg Cities." + city + ".X"));
+            rpC.setRegionY(RpgAPI.cityConfig.getDouble("Rpg Cities." + city + ".Y"));
+            rpC.setRegionZ(RpgAPI.cityConfig.getDouble("Rpg Cities." + city + ".Z"));
+            rpC.setRegionWorld(RpgAPI.cityConfig.getString("Rpg Cities." + city + ".World"));
+            RpgAPI.rpgCities.add(rpC);
+        }
     }
-    }
-    public static void ToFile(){
-        for (RpgCities rpC : RpgAPI.rpgCities){
+
+    public static void ToFile() {
+        for (RpgCities rpC : RpgAPI.rpgCities) {
             RpgAPI.cityConfig.set("Rpg Cities." + rpC.getRegionName() + ".Radius", rpC.getRegionRadius());
             RpgAPI.cityConfig.set("Rpg Cities." + rpC.getRegionName() + ".X", rpC.getRegionX());
             RpgAPI.cityConfig.set("Rpg Cities." + rpC.getRegionName() + ".Y", rpC.getRegionY());

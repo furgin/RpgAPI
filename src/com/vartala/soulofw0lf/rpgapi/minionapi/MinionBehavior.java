@@ -21,5 +21,5 @@ package com.vartala.soulofw0lf.rpgapi.minionapi;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */     //
 public interface MinionBehavior {
-    public  void minionEvent(MinionEntity minE);
+    public void minionEvent(MinionEntity minE);
 }

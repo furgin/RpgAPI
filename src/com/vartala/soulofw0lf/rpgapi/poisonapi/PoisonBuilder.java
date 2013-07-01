@@ -29,13 +29,13 @@ import java.util.Map;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class PoisonBuilder {
-    public static void newPoison(){
+    public static void newPoison() {
 
-        for (String poisonName : RpgAPI.poisonCommand.getConfigurationSection("Poisons").getKeys(false)){
+        for (String poisonName : RpgAPI.poisonCommand.getConfigurationSection("Poisons").getKeys(false)) {
             RpgPoison rPoison = new RpgPoison();
             Map<PotionEffectType, PoisonEffects> pfm = rPoison.getEffectStats();
             rPoison.setPoisonName(poisonName);
-            for (String effect : RpgAPI.poisonCommand.getConfigurationSection("Poisons." + poisonName + ".Potion Effects").getKeys(false)){
+            for (String effect : RpgAPI.poisonCommand.getConfigurationSection("Poisons." + poisonName + ".Potion Effects").getKeys(false)) {
                 PotionEffectType pType = PotionEffectType.getByName(effect);
                 PoisonEffects pEffect = new PoisonEffects();
                 pEffect.setEffectName(effect);

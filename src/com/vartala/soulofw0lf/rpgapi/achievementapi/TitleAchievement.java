@@ -55,7 +55,7 @@ public class TitleAchievement {
      * all getters and setters
      */
 
-    public TitleAchievement(){
+    public TitleAchievement() {
 
     }
 

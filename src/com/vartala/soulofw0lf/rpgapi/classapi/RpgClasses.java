@@ -81,7 +81,7 @@ public class RpgClasses {
      * all getters and setters
      */
 
-    public RpgClasses(){
+    public RpgClasses() {
 
     }
 
