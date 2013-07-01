@@ -25,7 +25,8 @@ public class RpgPlayer implements Permissible{
 	 * general variables
 	 */
 
-
+    //used for mob editing
+    public String chatLock = "";
 
     //the players actual name
     private String realName = "";

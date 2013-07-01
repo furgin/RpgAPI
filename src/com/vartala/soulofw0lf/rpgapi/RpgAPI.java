@@ -26,6 +26,7 @@ import com.vartala.soulofw0lf.rpgapi.guildapi.GuildRank;
 import com.vartala.soulofw0lf.rpgapi.listenersapi.PoisonListener;
 import com.vartala.soulofw0lf.rpgapi.minionapi.MinionEntity;
 import com.vartala.soulofw0lf.rpgapi.mobcommandapi.MobCommand;
+import com.vartala.soulofw0lf.rpgapi.mobcommandapi.MobEditingChatListener;
 import com.vartala.soulofw0lf.rpgapi.mobcommandapi.SetBuilder;
 import com.vartala.soulofw0lf.rpgapi.partyapi.LFGPlayer;
 import com.vartala.soulofw0lf.rpgapi.partyapi.PartyGroup;
@@ -99,6 +100,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public ChatListener chatListener;
     public FoodListener foodListener;
     public PoisonListener poisonlistener;
+    public MobEditingChatListener mobEditingChatListener;
 
     //plugin booleans
     public static boolean useMySql = false;
@@ -204,6 +206,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
         this.MapListen = new MapListener(this);
         this.PlayerListener = new playerLogIn(this);
+        this.mobEditingChatListener = new MobEditingChatListener(this);
         File f = new File("plugins/RpgAPI/RpgPLayers");
         File[] files = f.listFiles();
         if (!(files == null)){
@@ -671,12 +674,16 @@ public class RpgAPI extends JavaPlugin implements Listener {
                 }
             }
         }
+
     }
 
     public static RpgPlayer getRp(String name){
         String nick = activeNicks.get(name);
         RpgPlayer rp = rpgPlayers.get(nick);
         return rp;
+    }
+    public static RpgPlayer getRp(Player p){
+        return getRp(p.getName());
     }
 
     @Override
