@@ -15,7 +15,6 @@ public class ClickInvListener implements Listener {
 	public ClickInvListener(RpgAPI rpga){
 		this.Rpga = rpga;
 	}
-    //
     //this method handles the actual listener for inventory clicks
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void clickListener(InventoryClickEvent event){

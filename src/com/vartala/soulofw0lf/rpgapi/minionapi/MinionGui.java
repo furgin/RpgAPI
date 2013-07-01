@@ -30,10 +30,11 @@ public class MinionGui {
         RpgClickInv rpgClickInv = new RpgClickInv(RpgAPI.plugin);
         ArrayList<ItemStack> itemStacks = mc.toItemStack();
         Inventory inv = InventoryMaker.invMaker(null, ""+mobId, itemStacks);
-        rpgClickInv.setInvName(""+mobId);
+        rpgClickInv.setInvName("MOB EDITING ID:"+mobId);
         rpgClickInv.setClickInv(inv);
         Map<ItemStack, List<String>> commands = mc.toCommandMap(itemStacks);
         rpgClickInv.setItemCommands(commands);
         p.openInventory(rpgClickInv.getClickInv());
+        RpgAPI.rpgClicks.add(rpgClickInv);
     }
 }

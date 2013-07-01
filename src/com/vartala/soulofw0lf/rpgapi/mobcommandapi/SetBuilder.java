@@ -47,7 +47,7 @@ public class SetBuilder {
                        itemLores.add(itemLore);
                    }
                    for (String command : RpgAPI.mobCommand.getConfigurationSection("Mob Commands." + key + "." + subKey + ".Commands").getKeys(false)){
-                       String itemCommand = RpgAPI.mobCommand.getString("Mob Commands." + key + "." + subKey + ".Commands." + command + ".Command") + ":" + RpgAPI.mobCommand.getString("Mob Commands." + key + "." + subKey + ".Commands." + command + ".Click Type") + ":" + RpgAPI.mobCommand.getString("Mob Commands." + key + "." + subKey + ".Commands." + command + ".Sender");
+                       String itemCommand = RpgAPI.mobCommand.getString("Mob Commands." + key + "." + subKey + ".Commands." + command + ".Command") + ":" + RpgAPI.mobCommand.getString("Mob Commands." + key + "." + subKey + ".Commands." + command + ".Click Type") + ":" + RpgAPI.mobCommand.getString("Mob Commands." + key + "." + subKey + ".Commands." + command + ".Sender") + ":" + RpgAPI.mobCommand.getString("Mob Commands." + key + "." + subKey + ".Commands." + command + ".Args");
                        itemCommands.add(itemCommand);
                    }
                    itemCommandMap.put(itemName, itemCommands);
