@@ -37,4 +37,10 @@ public interface Quest {
      */
     public abstract int getQuestID();
 
+    /**
+     *
+     * @return if the quest is repeatable
+     */
+    public abstract boolean isRepeatable();
+
 }

@@ -27,5 +27,7 @@ public class AbstractQuest implements Quest{
     public boolean getRequirements() { return false; }
     @Override
     public int getQuestID() { return -1; }
+    @Override
+    public boolean isRepeatable(){ return false; }
 
 }
