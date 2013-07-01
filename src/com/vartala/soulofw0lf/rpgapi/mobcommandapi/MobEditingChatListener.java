@@ -48,13 +48,13 @@ public class MobEditingChatListener implements Listener {
             Player p = event.getPlayer();
             String[] chatLockArr = rp.chatLock.split(":");
             switch (chatLockArr[0].toLowerCase()) {
-
                 case "setname":
                     RemoteEntity rm = RpgAPI.entityManager.getRemoteEntityByID(Integer.parseInt(chatLockArr[1]));
                     rm.getBukkitEntity().setCustomName(event.getMessage());
                     rm.getBukkitEntity().setCustomNameVisible(true);
                     p.sendMessage(ChatColor.YELLOW + "Set mob " + chatLockArr[1] + " name to " + event.getMessage());
                     rp.chatLock = "";
+                    event.setCancelled(true);
                     break;
             }
 
