@@ -22,6 +22,7 @@ public enum RaceName {
 	RATFOLK,
 	SYLPH,
 	TENGU,
+    TIEFLING,
 	UNDINE,
 	CHANGELING,
 	DUERGAR,
