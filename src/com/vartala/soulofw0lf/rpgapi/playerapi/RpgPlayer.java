@@ -135,18 +135,11 @@ public class RpgPlayer implements Permissible {
     //is the player currently in trade
     private boolean inTrade = false;
 
-    //the players total Copper
-    private int copper = 0;
+    //the players total copper
+    private int coin = 0;
 
-    //the player total Silver
-    private int silver = 0;
-
-    //the players total Gold
-    private int gold = 0;
-
-    //the players total Platinum
-    private int platinum = 0;
-
+    //if a receiver is waiting for a trade
+    private String waitTrade = "";
 	
 	/*
 	 * chat variables
@@ -848,36 +841,20 @@ public class RpgPlayer implements Permissible {
         this.channelColor = channelColor;
     }
 
-    public int getPlatinum() {
-        return platinum;
+    public int getCoin() {
+        return coin;
     }
 
-    public void setPlatinum(int platinum) {
-        this.platinum = platinum;
+    public void setCoin(int coin) {
+        this.coin = coin;
     }
 
-    public int getGold() {
-        return gold;
+    public String getWaitTrade() {
+        return waitTrade;
     }
 
-    public void setGold(int gold) {
-        this.gold = gold;
-    }
-
-    public int getSilver() {
-        return silver;
-    }
-
-    public void setSilver(int silver) {
-        this.silver = silver;
-    }
-
-    public int getCopper() {
-        return copper;
-    }
-
-    public void setCopper(int copper) {
-        this.copper = copper;
+    public void setWaitTrade(String waitTrade) {
+        this.waitTrade = waitTrade;
     }
 
     public boolean isInTrade() {
@@ -1192,4 +1169,5 @@ public class RpgPlayer implements Permissible {
     public void setOp(boolean b) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
 }
