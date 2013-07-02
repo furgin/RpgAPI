@@ -63,25 +63,6 @@ public class UniqueCommands {
             WarpBuilder.WarpLoader();
             p.sendMessage("you have loaded all warps");
         }
-        if (command[0].equalsIgnoreCase("testloads")) {
-            long before;
-            long after;
-            System.out.println("With String param");
-            before = System.currentTimeMillis();
-            for (int i = 0; i < 200; i++) {
-                RpgAPI.getRp(p.getName());
-            }
-            after = System.currentTimeMillis();
-            System.out.println("Test completed, took " + (after - before) + " millis to perform 200 getRp with STRING.");
-            System.out.println("With Player param");
-            before = System.currentTimeMillis();
-            for (int i = 0; i < 200; i++) {
-                RpgAPI.getRp(p);
-            }
-            after = System.currentTimeMillis();
-            System.out.println("Test completed, took " + (after - before) + " millis to perform 200 getRp with PLAYER.");
-
-        }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Set Warp"))) {
             RpgWarp rWarp = new RpgWarp();
             rWarp.setWarpName(command[1]);
