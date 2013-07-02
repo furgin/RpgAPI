@@ -9,6 +9,7 @@ import com.vartala.soulofw0lf.rpgapi.enumapi.PlayerStat;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayerBuilder;
 import com.vartala.soulofw0lf.rpgapi.speedapi.SpeedHandler;
+import com.vartala.soulofw0lf.rpgapi.tradeapi.TradeCommandProcessor;
 import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
 import com.vartala.soulofw0lf.rpgapi.warpsapi.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -300,6 +301,8 @@ public class UniqueCommands {
 
         }
 
+        // Pass the command info to the trading processor
+        if (RpgAPI.tradeOn) TradeCommandProcessor.process(p, command);
 
 
         /*

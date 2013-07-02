@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
  * User: Mothma
  * Date: 7/2/13
  * Time: 11:45 AM
- * To change this template use File | Settings | File Templates.
  */
 public class RpgTrade {
     private RpgPlayer initiator;

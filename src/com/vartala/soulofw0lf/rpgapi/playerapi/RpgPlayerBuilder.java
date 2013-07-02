@@ -125,13 +125,7 @@ public class RpgPlayerBuilder {
 	            */
             if (RpgAPI.tradeOn) {
                 //the players total Copper
-                playerFile.set(p + ".RpgTrade.Copper", rp.getCopper());
-                //the player total Silver
-                playerFile.set(p + ".RpgTrade.Silver", rp.getSilver());
-                //the players total Gold
-                playerFile.set(p + ".RpgTrade.Gold", rp.getGold());
-                //the players total Platinum
-                playerFile.set(p + ".RpgTrade.Platinum", rp.getPlatinum());
+                playerFile.set(p + ".RpgTrade.Coin", rp.getCoin());
             }
                 /*
 	            * chat variables
@@ -494,10 +488,7 @@ public class RpgPlayerBuilder {
                     rp.setFriendsList(friendList);
                 }
                 if (RpgAPI.tradeOn) {
-                    rp.setCopper(5);
-                    rp.setSilver(0);
-                    rp.setGold(0);
-                    rp.setPlatinum(0);
+
                 }
                 if (RpgAPI.chatOn) {
                     Map<String, String> channelColors = rp.getChannelColor();
@@ -693,13 +684,7 @@ public class RpgPlayerBuilder {
 	            */
                 if (RpgAPI.tradeOn) {
                     //the players total Copper
-                    rp.setCopper(playerFile.getInt(p + ".RpgTrade.Copper"));
-                    //the player total Silver
-                    rp.setSilver(playerFile.getInt(p + ".RpgTrade.Silver"));
-                    //the players total Gold
-                    rp.setGold(playerFile.getInt(p + ".RpgTrade.Gold"));
-                    //the players total Platinum
-                    rp.setPlatinum(playerFile.getInt(p + ".RpgTrade.Platinum"));
+                    rp.setCoin(playerFile.getInt(p + ".RpgTrade.Coin"));
                 }
                 /*
 	            * chat variables

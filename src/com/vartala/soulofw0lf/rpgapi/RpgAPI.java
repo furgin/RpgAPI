@@ -36,6 +36,7 @@ import com.vartala.soulofw0lf.rpgapi.poisonapi.PoisonTimeChecker;
 import com.vartala.soulofw0lf.rpgapi.poisonapi.RpgPoison;
 import com.vartala.soulofw0lf.rpgapi.spellapi.MagicSpell;
 import com.vartala.soulofw0lf.rpgapi.sqlapi.SQLHandler;
+import com.vartala.soulofw0lf.rpgapi.tradeapi.TradeHandler;
 import com.vartala.soulofw0lf.rpgapi.util.HelpFile;
 import com.vartala.soulofw0lf.rpgapi.util.HelpPage;
 import com.vartala.soulofw0lf.rpgapi.util.RPGLogging;
@@ -152,6 +153,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static String dBURL = "";
     public static Logger logger = Logger.getLogger(RpgAPI.class.getName());
     public static SQLHandler sqlHandler = null;
+    public static TradeHandler tradeHandler = null;
     public static List<String> commands = new ArrayList<String>();
     public static Map<String, MobCommand> minionCommands = new HashMap<>();
     public static EntityManager entityManager;
@@ -231,6 +233,9 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }
         if (foodOn) {
             this.foodListener = new FoodListener(this);
+        }
+        if (tradeOn) {
+            this.tradeHandler = new TradeHandler(this);
         }
         if (minionsOn) {
             this.entityManager = RemoteEntities.createManager(this);
