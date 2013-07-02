@@ -140,6 +140,7 @@ public class RpgPlayer implements Permissible {
 
     //if a receiver is waiting for a trade
     private String waitTrade = "";
+
 	
 	/*
 	 * chat variables
@@ -1170,4 +1171,12 @@ public class RpgPlayer implements Permissible {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    public Boolean canTrade() {
+        //insert checks to return null here
+
+        if (this.isDead()){
+            return false;
+        }
+        return true;
+    }
 }
