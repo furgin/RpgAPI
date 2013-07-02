@@ -61,8 +61,8 @@ public class playerLogIn implements Listener {
                 RpgPlayer r = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(playerN));
                 SpeedHandler.SetWalkSpeed(r, playerN);
                 SpeedHandler.SetFlySpeed(r, playerN);
-                Bukkit.getPlayer(playerN).setMaxHealth(r.getStats().get(PlayerStat.TOTAL_HIT_POINTS.toString()));
-                Bukkit.getPlayer(playerN).setHealth(r.getStats().get(PlayerStat.HIT_POINTS.toString()));
+                Bukkit.getPlayer(playerN).setMaxHealth((double)r.getStats().get(PlayerStat.TOTAL_HIT_POINTS.toString()));
+                Bukkit.getPlayer(playerN).setHealth((double)r.getStats().get(PlayerStat.HIT_POINTS.toString()));
                 Bukkit.getPlayer(playerN).setLevel(r.getStats().get(PlayerStat.CHARACTER_LEVEL.toString()));
             }
         }.runTaskLater(RpgAPI.plugin, 4);

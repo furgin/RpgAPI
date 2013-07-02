@@ -138,6 +138,7 @@ public class basicFoodBehavior implements FoodBehavior {
                             locset = false;
                             cancel();
                         } else {
+
                             if (Bukkit.getPlayer(p.getRealName()).getHealth() + smallAdd >= Bukkit.getPlayer(p.getRealName()).getMaxHealth()) {
                                 Bukkit.getPlayer(p.getRealName()).setHealth(Bukkit.getPlayer(p.getRealName()).getMaxHealth());
                                 Bukkit.getPlayer(p.getRealName()).setFoodLevel(currentFood);

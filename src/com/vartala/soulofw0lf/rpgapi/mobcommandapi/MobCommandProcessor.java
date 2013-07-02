@@ -35,7 +35,7 @@ public class MobCommandProcessor {
      * @param cmd   [commandName, clicktype, sender (console, player), (args)]
      * @param mobID the id of the RemoteEntity mob
      */
-    public static void process(String[] cmd, int mobID, Player p) {
+   /* public static void process(String[] cmd, int mobID, Player p) {
         RemoteEntity rm = RpgAPI.entityManager.getRemoteEntityByID(mobID);
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(p.getName()));
         switch (cmd[0].toLowerCase()) {
@@ -50,5 +50,5 @@ public class MobCommandProcessor {
                 rp.chatLock = "setname:" + mobID;
                 break;
         }
-    }
+    }*/
 }
