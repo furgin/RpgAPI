@@ -57,7 +57,7 @@ import java.util.Map;
  */
 public class UniqueCommands {
     public static void BaseCommandHandler(Player p, String[] command) {
-        command[0] = command[0].replace("/", "");
+        command[0] = command[0].replace("/", "").toLowerCase().trim();
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Load Warps"))) {
             WarpSetBuilder.BuildSets();
             WarpBuilder.WarpLoader();

@@ -9,6 +9,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.bukkit:bukkit:1.6.1-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: de.kumpelblase2:remoteentities:1.6" level="project" />
     <orderEntry type="library" name="Maven: org.bukkit:bukkit:1.6.1-R0.1-SNAPSHOT" level="project" />
   </component>
