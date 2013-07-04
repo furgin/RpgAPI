@@ -1,12 +1,14 @@
-package com.vartala.soulofw0lf.rpgapi.spellapi;
+package com.vartala.soulofw0lf.rpgapi.spellbehaviors;
 
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
+import com.vartala.soulofw0lf.rpgapi.spellapi.MagicSpell;
+import com.vartala.soulofw0lf.rpgapi.spellapi.SpellBehaviors;
 import org.bukkit.Location;
 
 /**
- * Created by: soulof
- * Date: 6/4/13
- * Time: 8:15 AM
+ * Created by: soulofw0lf
+ * Date: 7/4/13
+ * Time: 2:20 AM
  * <p/>
  * This file is part of the Rpg Suite Created by Soulofw0lf and Linksy.
  * <p/>
@@ -22,7 +24,15 @@ import org.bukkit.Location;
  * <p/>
  * You should have received a copy of the GNU General Public License
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
- */   //
-public interface SpellBehaviors {
-    public void onSpellCast(RpgPlayer rpgp, RpgPlayer rp, MagicSpell spell, Location loc);
+ */
+public class AoeKnockBackBehavior implements SpellBehaviors {
+    @Override
+    public void onSpellCast(RpgPlayer rpgP, RpgPlayer rp, MagicSpell spell, Location loc){
+        //rpgP should be the caster of the spell
+        //rp is the person being hit, this behavior should be iterated through for each player in its range
+        //spell is the spell being cast where radius will be determined
+        //location is the location the spell hits
+         //TODO: wait until a way to check mobs is set before i can do spell behaviors
+
+    }
 }

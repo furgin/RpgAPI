@@ -1,12 +1,11 @@
-package com.vartala.soulofw0lf.rpgapi.spellapi;
+package com.vartala.soulofw0lf.rpgapi.chatapi;
 
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
-import org.bukkit.Location;
 
 /**
- * Created by: soulof
- * Date: 6/4/13
- * Time: 8:15 AM
+ * Created by: soulofw0lf
+ * Date: 7/4/13
+ * Time: 2:29 AM
  * <p/>
  * This file is part of the Rpg Suite Created by Soulofw0lf and Linksy.
  * <p/>
@@ -22,7 +21,11 @@ import org.bukkit.Location;
  * <p/>
  * You should have received a copy of the GNU General Public License
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
- */   //
-public interface SpellBehaviors {
-    public void onSpellCast(RpgPlayer rpgp, RpgPlayer rp, MagicSpell spell, Location loc);
+ */
+public class ChatCommands {
+    public static Boolean ChatHandler(RpgPlayer rp, String[] command){
+
+
+        return false;
+    }
 }
