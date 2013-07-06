@@ -26,7 +26,7 @@ public class TradeHandler {
 
         // Make sure they are ready
         if (sender.isInTrade()) {
-            sen.sendMessage(ChatColor.RED + "You are already in a Trade.");
+            sen.sendMessage(ChatColor.RED + "You are already in a trade.");
             return;
         }
         if (receiver.isInTrade()) {
@@ -58,7 +58,8 @@ public class TradeHandler {
 
             String name1 = rpgApi.activeNicks.get(sen.getName());
             String name2 = rpgApi.activeNicks.get(rec.getName());
-            new RpgTrade(sender, receiver, name1, name2);
+            RpgTrade trade = new RpgTrade(sender, receiver, name1, name2);
+            trade.startTrade();
             return;
         } else if (!accept) {
             sen.sendMessage(ChatColor.RED + "Your trade request was denied.");

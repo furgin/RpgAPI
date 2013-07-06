@@ -1,6 +1,7 @@
 package com.vartala.soulofw0lf.rpgapi.guiapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -15,11 +16,13 @@ public class ClickInvListener implements Listener {
 
     public ClickInvListener(RpgAPI rpga) {
         this.Rpga = rpga;
+        Bukkit.getPluginManager().registerEvents(this, rpga);
     }
 
     //this method handles the actual listener for inventory clicks
     @EventHandler(priority = EventPriority.HIGHEST)
     public void clickListener(InventoryClickEvent event) {
+
         if (!RpgAPI.clickOn) {
             return;
         }

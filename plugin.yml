@@ -8,3 +8,5 @@ depend: [RemoteEntities]
 commands:
   RpgHelp:
     description: Rpg suite - Use /RpgHelp to view rpg commands and Descriptions!
+  trade:
+    description: /trade <accept/deny/player>

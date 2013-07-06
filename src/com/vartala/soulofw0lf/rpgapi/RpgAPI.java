@@ -36,6 +36,8 @@ import com.vartala.soulofw0lf.rpgapi.poisonapi.PoisonTimeChecker;
 import com.vartala.soulofw0lf.rpgapi.poisonapi.RpgPoison;
 import com.vartala.soulofw0lf.rpgapi.spellapi.MagicSpell;
 import com.vartala.soulofw0lf.rpgapi.sqlapi.SQLHandler;
+import com.vartala.soulofw0lf.rpgapi.tradeapi.TradeCommandProcessor;
+import com.vartala.soulofw0lf.rpgapi.tradeapi.TradeEventListener;
 import com.vartala.soulofw0lf.rpgapi.tradeapi.TradeHandler;
 import com.vartala.soulofw0lf.rpgapi.util.HelpFile;
 import com.vartala.soulofw0lf.rpgapi.util.HelpPage;
@@ -98,6 +100,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public MapListener MapListen;
     public playerLogIn PlayerListener;
     public ClickInvListener clickListener;
+    public TradeEventListener tradeListener;
     public ChatListener chatListener;
     public FoodListener foodListener;
     public PoisonListener poisonlistener;
@@ -227,6 +230,9 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }
         if (clickOn) {
             this.clickListener = new ClickInvListener(this);
+        }
+        if (tradeOn) {
+            this.tradeListener = new TradeEventListener(this);
         }
         if (chatOn) {
             this.chatListener = new ChatListener(this);
@@ -799,6 +805,9 @@ public class RpgAPI extends JavaPlugin implements Listener {
                 event.setCancelled(true);
             }
         }
+        // For testing Trading
+        args[0] = args[0].replace("/", "");
+        TradeCommandProcessor.process(p, args);
     }
 
 

@@ -1,8 +1,10 @@
 package com.vartala.soulofw0lf.rpgapi.tradeapi;
 
+import com.vartala.soulofw0lf.rpgapi.guiapi.InventoryMaker;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,12 +25,18 @@ public class RpgTrade {
         this.recName = recName;
     }
 
-    private void startTrade() {
+    public void startTrade() {
         Player ini = Bukkit.getPlayer(initiator.getRealName());
         Player rec = Bukkit.getPlayer(receiver.getRealName());
 
         initiator.setInTrade(true);
         receiver.setInTrade(true);
+
+        Inventory iniInv = new TradeInventory("Trading with " + recName).getInv();
+        Inventory recInv = new TradeInventory("Trading with " + iniName).getInv();
+
+        ini.openInventory(iniInv);
+        rec.openInventory(recInv);
     }
 
 }
