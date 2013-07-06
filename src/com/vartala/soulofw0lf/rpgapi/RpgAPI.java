@@ -362,6 +362,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
                     " &8Dark Grey &9 Blue &aGreen &bAqua &cRed &dLight Purple &eYellow &fWhite" +
                     "&lBold &mStrikeThrough &nUnderlined &oitalic &kObfuscated &rreset");
             localeConfig.set("Translations.Active Character", "&F[&4Rpg Player&F] &2Your Active Character Name is &6");
+            //chat translations
+            localeConfig.set("Translations.Chat Left Click", "&2Left click to join this channel or switch it's color");
+            localeConfig.set("Translations.Chat Right Click", "&4Right click to leave this channel");
+            localeConfig.set("Translations.Chat Shift Click", "&9Shift click to set this as your active channel");
             //test command
             localeConfig.set("General Commands.Test Command.Alias", "test");
             localeConfig.set("General Commands.Test Command.Help Color", "&2");

@@ -51,6 +51,7 @@ public class ChatListener implements Listener {
             }
             return;
         }
+
         String senderName = event.getPlayer().getName();
         RpgPlayer sendPlayer = Rpgapi.rpgPlayers.get(Rpgapi.activeNicks.get(senderName));
         if (sendPlayer.getActiveChannel().isEmpty()) {

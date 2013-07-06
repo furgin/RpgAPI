@@ -12,14 +12,14 @@
         </repository>
         <repository>
             <id>remoteentities-repo</id>
-            <url>http://repo.infinityblade.de/remoteentities/releases</url>
+            <url>http://repo.infinityblade.de/remoteentities/snapshots</url>
         </repository>
     </repositories>
     <dependencies>
         <dependency>
             <groupId>de.kumpelblase2</groupId>
             <artifactId>remoteentities</artifactId>
-            <version>1.6</version>
+            <version>1.7-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.bukkit</groupId>
