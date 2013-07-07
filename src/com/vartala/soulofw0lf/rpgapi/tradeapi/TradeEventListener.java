@@ -120,11 +120,13 @@ public class TradeEventListener implements Listener{
                 meta = otherBlock.getItemMeta();
                 meta.setDisplayName(meta.getDisplayName().replace(sub, String.valueOf(number)));
                 otherBlock.setItemMeta(meta);
-                otherP.getOpenInventory().setItem(event.getRawSlot(), otherBlock);
 
-
-            } else if (name != null && name.contains("Your Status: Waiting...")) {
+            } else if (name != null && name.contains("Your Status")) {
                 if (event.getClick().isLeftClick()) {
+                    // Further the trade
+                    setReady(clickBlock, (Player) event.getWhoClicked(), otherPlayer, false);
+                } else if (event.getClick().isRightClick()) {
+                    // Cancel the trade
                     setReady(clickBlock, (Player) event.getWhoClicked(), otherPlayer, true);
                 }
             }
@@ -132,34 +134,39 @@ public class TradeEventListener implements Listener{
     }
 
     // Change the status wool on both players' screens
-    private void setReady(ItemStack clickBlock, Player player, String otherPlayer, boolean ready) {
+    private void setReady(ItemStack clickBlock, Player player, String otherPlayer, boolean Cancel) {
         // Set block
         ItemMeta meta = clickBlock.getItemMeta();
-        if (ready) {
-            meta.setDisplayName("Your Status: Accepting Trade");
-            clickBlock.setDurability((short) 5);
-        } else {
+        if (Cancel) {
             meta.setDisplayName("Your Status: Waiting...");
             clickBlock.setDurability((short) 0);
+        } else if (meta.getDisplayName().contains("Wait")) {
+            meta.setDisplayName("Your Status: Accepting Trade");
+            clickBlock.setDurability((short) 5);
+        } else if (meta.getDisplayName().contains("Acc")) {
+            meta.setDisplayName("Your Status: Confirmed Trade");
+            clickBlock.setDurability((short) 13);
         }
         clickBlock.setItemMeta(meta);
         // Set other block
         Player p = Bukkit.getPlayer(RpgAPI.rpgPlayers.get(otherPlayer).getRealName());
         ItemStack otherBlock = p.getOpenInventory().getItem(5);
         meta = otherBlock.getItemMeta();
-        if (ready) {
+        if (Cancel) {
+            meta.setDisplayName("Their Status: Waiting...");
+            otherBlock.setDurability((short) 0);
+        } else if (meta.getDisplayName().contains("Wait")) {
             meta.setDisplayName("Their Status: Accepting Trade");
             otherBlock.setDurability((short) 5);
-        } else {
-            meta.setDisplayName("Their Status: Waiting...");
-            clickBlock.setDurability((short) 0);
+        } else if (meta.getDisplayName().contains("Acc")) {
+            meta.setDisplayName("Their Status: Confirmed Trade");
+            otherBlock.setDurability((short) 13);
+            // If the other person is ready make the trade!
+            if (p.getOpenInventory().getItem(0).getDurability() == 13) {
+                makeTrade(player, p);
+            }
         }
         otherBlock.setItemMeta(meta);
-
-        // If the other person is ready make the trade!
-        if (p.getOpenInventory().getItem(0).getDurability() == 5) {
-            makeTrade(player, p);
-        }
     }
 
     private void makeTrade(Player a, Player b) {
@@ -204,7 +211,7 @@ public class TradeEventListener implements Listener{
             boolean completeTrade = false;
             ItemStack statusOne = event.getInventory().getItem(0);
             ItemStack statusTwo = event.getInventory().getItem(5);
-            if (statusOne.getDurability() == 5 && statusTwo.getDurability() == 5) {
+            if (statusOne.getDurability() == 13 && statusTwo.getDurability() == 13) {
                 completeTrade = true;
             }
 

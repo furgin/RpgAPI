@@ -41,6 +41,7 @@ public class TradeInventory {
         instructions.add("Shift click to add 10");
         ArrayList<String> status = new ArrayList<String>();
         status.add("Left click to confirm trade");
+        status.add("Right click to reset confirmation");
         // Your items
         ItemStack plat = new ItemStack(155);
         ItemStack gold = new ItemStack(41);

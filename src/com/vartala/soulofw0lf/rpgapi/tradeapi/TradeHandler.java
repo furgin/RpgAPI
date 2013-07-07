@@ -53,6 +53,16 @@ public class TradeHandler {
         if (sender == null) {
             rec.sendMessage(ChatColor.RED + "That player is no longer online.");
         } else if (accept) {
+
+            // Must be close together or have permissions
+            if (sen.getLocation().distance(rec.getLocation()) > 15) {
+                if (!sen.hasPermission("rpgapi.trade.distance") && !rec.hasPermission("rpgapi.trade.distance")) {
+                    sen.sendMessage(ChatColor.RED + "You must closer to trade!");
+                    rec.sendMessage(ChatColor.RED + "You must closer to trade!");
+                    return;
+                }
+            }
+
             sen.sendMessage(ChatColor.GREEN + "Your trade request was accepted.");
             rec.sendMessage(ChatColor.GREEN + "Trade request accepted.");
 
