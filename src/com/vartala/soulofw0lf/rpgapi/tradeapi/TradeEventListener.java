@@ -103,11 +103,29 @@ public class TradeEventListener implements Listener{
                 sub = sub.substring(0, sub.indexOf(" "));
                 int number = Integer.valueOf(sub);
                 if (event.getClick().isLeftClick()) {
+                    // Find how much money the need
+                    int neededMoney = findOfferedMoney((Player) event.getWhoClicked());
+                    switch(event.getRawSlot() - 36) {
+                        case 0:
+                            neededMoney += 1000;
+                            break;
+                        case 1:
+                            neededMoney += 100;
+                            break;
+                        case 2:
+                            neededMoney += 10;
+                            break;
+                        case 3:
+                            neededMoney += 1;
+                            break;
+                    }
+                    // Do nothing if they don't have enough money
+                    if (api.rpgPlayers.get(event.getWhoClicked().getName()).getCoin() < neededMoney) {
+                        return;
+                    }
                     number += 1;
                 } else if (event.getClick().isRightClick()) {
                     number -= 1;
-                } else if (event.getClick().isShiftClick()) {
-                    number += 10;
                 }
                 name = name.replace(sub, String.valueOf(number));
                 // Update the name
@@ -183,10 +201,49 @@ public class TradeEventListener implements Listener{
                 }
             }
         }
+        // Find totals of the money traded
+        int aTotal = findOfferedMoney(a);
+        int bTotal = findOfferedMoney(b);
+
+        // Update the traders' accounts
+        RpgPlayer rpgA = api.rpgPlayers.get(a.getName());
+        RpgPlayer rpgB = api.rpgPlayers.get(b.getName());
+        rpgA.setCoin(rpgA.getCoin() + bTotal - aTotal);
+        rpgB.setCoin(rpgB.getCoin() + aTotal - bTotal);
+
         a.closeInventory();
         b.closeInventory();
         a.sendMessage(ChatColor.GREEN + "Trade Accepted.");
         b.sendMessage(ChatColor.GREEN + "Trade Accepted.");
+    }
+
+    private int findOfferedMoney(Player p) {
+        int total = 0;
+        for (int i = 0; i < 4; i++) {
+            ItemStack item = p.getOpenInventory().getItem(36+i);
+            total += findMoney(item.getItemMeta().getDisplayName(), i);
+        }
+        return total;
+    }
+
+    // Get the actual worth of money (i.e. 100 for Gold, 10 for silver...)
+    private int findMoney (String label, int type) {
+        // Find Number
+        String sub = label.substring(10);
+        sub = sub.substring(0, sub.indexOf(" "));
+        int number = Integer.valueOf(sub);
+        switch (type) {
+            case 0:
+                number = number * 1000;
+                break;
+            case 1:
+                number = number * 100;
+                break;
+            case 2:
+                number = number * 10;
+                break;
+        }
+        return number;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

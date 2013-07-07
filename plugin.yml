@@ -10,3 +10,5 @@ commands:
     description: Rpg suite - Use /RpgHelp to view rpg commands and Descriptions!
   trade:
     description: /trade <accept/deny/player>
+  money:
+    description: /money - View your money

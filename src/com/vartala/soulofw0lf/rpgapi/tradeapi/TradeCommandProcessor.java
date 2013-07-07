@@ -2,6 +2,7 @@ package com.vartala.soulofw0lf.rpgapi.tradeapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
+import com.vartala.soulofw0lf.rpgapi.util.TradeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -40,6 +41,19 @@ public class TradeCommandProcessor {
                     }
                 }
             }
+        } else if (command[0].equalsIgnoreCase("money")) {
+            RpgPlayer rpgPlayer = RpgAPI.rpgPlayers.get(p.getName());
+            if (command.length >= 3) {
+                if (command[1].equals("set")) {
+                    try {
+                        int number = Integer.valueOf(command[2]);
+                        rpgPlayer.setCoin(number);
+                    } catch (Exception e) {
+                        p.sendMessage(ChatColor.RED + "Not a valid number.");
+                    }
+                }
+            }
+            p.sendMessage(TradeUtil.expandedMoney(rpgPlayer.getCoin(), true));
         }
     }
 }
