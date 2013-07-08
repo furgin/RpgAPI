@@ -249,6 +249,7 @@ public enum ParticleEffect {
             return packet;
         } catch (Exception e) {
             Bukkit.getLogger().warning("[ParticleEffect] Failed to create a particle packet!");
+            e.printStackTrace();
             return null;
         }
     }
@@ -263,6 +264,7 @@ public enum ParticleEffect {
             ReflectionUtil.getMethod("sendPacket", playerConnection.getClass(), 1).invoke(playerConnection, packet);
         } catch (Exception e) {
             Bukkit.getLogger().warning("[ParticleEffect] Failed to send a particle packet to " + p.getName() + "!");
+            e.printStackTrace();
         }
     }
 
