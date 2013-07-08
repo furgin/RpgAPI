@@ -23,6 +23,11 @@ import org.bukkit.entity.Player;
  * Setting speed value to 0 when playing the "MOB_SPELL" or "MOB_SPELL_AMBIENT" particle effect will cause all particles to be colored black
  * Setting speed value to 0 when playing the "NOTE" particle effect will cause all particles to be colored green
  * Changing speed value of the particle effect "SPELL" won't change it's color (always white)
+ * <p/>
+ * Usage <code>ParticleEffect.EFFECTNAME.play(...);</code>
+ * Usage <code>ParticleEffect.<playTileCrack,playerIconCrack>(...);</code>
+ * Suggested offset usage <code>new Random().nextFloat()</code> will add a slight random offset, creating a more natural
+ * looking effect. Do not use if consistency is wanted!
  *
  * @author DarkBlade12
  * @author Linksbro
@@ -107,6 +112,13 @@ public enum ParticleEffect {
 
     /**
      * Plays a particle effect at a location which is only shown to a specific player.
+     * @param p the player to play the effect to
+     * @param loc the location to display the effect to the player
+     * @param offsetX
+     * @param offsetY
+     * @param offsetZ
+     * @param speed
+     * @param amount
      */
     public void play(Player p, Location loc, float offsetX, float offsetY, float offsetZ, float speed, int amount) {
         sendPacket(p, createNormalPacket(this, loc, offsetX, offsetY, offsetZ, speed, amount));
@@ -114,6 +126,12 @@ public enum ParticleEffect {
 
     /**
      * Plays a particle effect at a location which is shown to all players in the current world.
+     * @param loc the location to play the effect at
+     * @param offsetX
+     * @param offsetY
+     * @param offsetZ
+     * @param speed
+     * @param amount
      */
     public void play(Location loc, float offsetX, float offsetY, float offsetZ, float speed, int amount) {
         Object packet = createNormalPacket(this, loc, offsetX, offsetY, offsetZ, speed, amount);
@@ -124,6 +142,15 @@ public enum ParticleEffect {
 
     /**
      * Plays a particle effect at a location which is shown to all players whitin a certain range in the current world.
+     * This is highly prefered over the play without a range.
+     *
+     * @param loc the location to play the effect at
+     * @param range the radius players have to be within to see the effect
+     * @param offsetX
+     * @param offsetY
+     * @param offsetZ
+     * @param speed
+     * @param amount
      */
     public void play(Location loc, double range, float offsetX, float offsetY, float offsetZ, float speed, int amount) {
         Object packet = createNormalPacket(this, loc, offsetX, offsetY, offsetZ, speed, amount);
