@@ -15,7 +15,11 @@ import org.bukkit.entity.Player;
  */
 public class TradeCommandProcessor {
     public static void process(Player p, String[] command) {
-        if (command[0].equalsIgnoreCase("trade")) {
+        for (int i = 0; i < command.length; i++)
+        {
+            command[i] = command[i].toLowerCase().trim();
+        }
+        if (command[0].equals("trade")) {
             // Too short? Show usage
             if (command.length == 1) {
                 p.sendMessage("Usage: /trade <accept/deny/player>");
@@ -41,12 +45,12 @@ public class TradeCommandProcessor {
                     }
                 }
             }
-        } else if (command[0].equalsIgnoreCase("money")) {
+        } else if (command[0].equals("money")) {
             RpgPlayer rpgPlayer = RpgAPI.rpgPlayers.get(p.getName());
             if (command.length >= 3) {
                 if (command[1].equals("set")) {
                     try {
-                        int number = Integer.valueOf(command[2]);
+                        int number = Integer.parseInt(command[2]);
                         rpgPlayer.setCoin(number);
                     } catch (Exception e) {
                         p.sendMessage(ChatColor.RED + "Not a valid number.");
