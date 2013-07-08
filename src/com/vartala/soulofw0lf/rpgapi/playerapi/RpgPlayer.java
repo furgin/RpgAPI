@@ -2,9 +2,11 @@ package com.vartala.soulofw0lf.rpgapi.playerapi;
 
 import java.util.*;
 
+import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.enumapi.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permissible;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionAttachment;
@@ -51,6 +53,8 @@ public class RpgPlayer implements Permissible {
 
     //is the player currently poisoned
     private boolean poisoned = false;
+
+    private boolean pvp = false;
 
 
     /*
@@ -128,6 +132,11 @@ public class RpgPlayer implements Permissible {
     //player friends list
     private List<String> friendsList = new ArrayList<String>();
 
+    /*
+     *duel variables
+     */
+    private Boolean inDuel = false;
+    private String whoDuelling = "";
 
     /*
      * trade variables
@@ -1170,7 +1179,37 @@ public class RpgPlayer implements Permissible {
     public void setOp(boolean b) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
+    public Boolean noDamage(Player p){
+        RpgPlayer rp = RpgAPI.getRp(p.getName());
+        if (RpgAPI.guildsOn  && rp.isInGuild() && this.isInGuild()){
+            if (rp.getGuild().equals(this.getGuild())){
+                 return false;
+            }
+        }
+        if (RpgAPI.partyOn && rp.isInParty() && this.isInParty()){
+            if (rp.getLeaderName().equals(this.getLeaderName())){
+                return false;
+            }
+        }
+        if (RpgAPI.duelsOn && this.getInDuel()){
+            if (!(rp.getInDuel())){
+                return false;
+            }
+            if (!(rp.getWhoDuelling().equals(this.getWhoDuelling()))){
+                return false;
+            }
+        }
+        if (RpgAPI.duelsOn && rp.getInDuel()){
+            if (!(this.getInDuel())){
+                return false;
+            }
+        }
+        if (!(this.isPvp())){
+            return false;
+        }
 
+        return true;
+    }
     public Boolean canTrade() {
         //insert checks to return null here
 
@@ -1178,5 +1217,29 @@ public class RpgPlayer implements Permissible {
             return false;
         }
         return true;
+    }
+
+    public String getWhoDuelling() {
+        return whoDuelling;
+    }
+
+    public void setWhoDuelling(String whoDuelling) {
+        this.whoDuelling = whoDuelling;
+    }
+
+    public Boolean getInDuel() {
+        return inDuel;
+    }
+
+    public void setInDuel(Boolean inDuel) {
+        this.inDuel = inDuel;
+    }
+
+    public boolean isPvp() {
+        return pvp;
+    }
+
+    public void setPvp(boolean pvp) {
+        this.pvp = pvp;
     }
 }

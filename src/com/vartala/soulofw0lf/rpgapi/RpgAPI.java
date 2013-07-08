@@ -127,6 +127,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static boolean borderOn = true;
     public static boolean reputationOn = true;
     public static boolean languagesOn = true;
+    public static boolean duelsOn = true;
 
 
     //Utilities
