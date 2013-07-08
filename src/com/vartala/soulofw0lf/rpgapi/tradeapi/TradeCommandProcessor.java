@@ -25,7 +25,7 @@ public class TradeCommandProcessor {
                 p.sendMessage("Usage: /trade <accept/deny/player>");
                 return;
             } else { // Else it must be at least 2 arguments
-                RpgPlayer rpgPlayer = RpgAPI.rpgPlayers.get(p.getName());
+                RpgPlayer rpgPlayer = RpgAPI.getRp(p.getName());
 
                 // If its accept or deny answer the request
                 if (command[1].equals("accept")) {
@@ -35,7 +35,7 @@ public class TradeCommandProcessor {
                     RpgAPI.tradeHandler.answerRequest(rpgPlayer, false);
                     return;
                 } else { // Try sending a request to a player
-                    RpgPlayer player = RpgAPI.rpgPlayers.get(command[1]);
+                    RpgPlayer player = RpgAPI.getRp(command[1]);
                     if (player == null || rpgPlayer.getRealName().equals(player.getRealName())) {
                         p.sendMessage(ChatColor.RED + "That player is not online or does not exist!");
                         return;
