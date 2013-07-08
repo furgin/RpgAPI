@@ -672,6 +672,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
             generalCommands.add(commandRT);
         }
         pluginCommand.put("General Commands", generalCommands);
+        if (warpsOn) {
         List<String> warpCommands = new ArrayList<String>();
         for (String command : localeConfig.getConfigurationSection("Warp Commands").getKeys(false)) {
             String commandRT = localeConfig.getString("Warp Commands." + command + ".Alias");
@@ -690,7 +691,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
         pluginCommand.put("Warp Commands", warpCommands);
         //SetBuilder.minionCommand();
 
-        if (warpsOn) {
+
             WarpSetBuilder.BuildSets();
             new BukkitRunnable() {
                 @Override
