@@ -6,6 +6,7 @@ import com.vartala.soulofw0lf.rpgapi.chatapi.ChatClass;
 import com.vartala.soulofw0lf.rpgapi.chatapi.ChatProcessor;
 import com.vartala.soulofw0lf.rpgapi.chatapi.LanguageProcessor;
 import com.vartala.soulofw0lf.rpgapi.enumapi.PlayerStat;
+import com.vartala.soulofw0lf.rpgapi.particleapi.ParticleEffect;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayerBuilder;
 import com.vartala.soulofw0lf.rpgapi.speedapi.SpeedHandler;
@@ -25,12 +26,14 @@ import de.kumpelblase2.remoteentities.persistence.EntityData;
 import de.kumpelblase2.remoteentities.persistence.serializers.PreparationSerializer;
 import de.kumpelblase2.remoteentities.persistence.serializers.YMLSerializer;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 import java.util.Map;
@@ -61,6 +64,27 @@ public class UniqueCommands {
 
         //Pass the command info the the warp command handler
         if (RpgAPI.warpsOn){if (WarpCommands.handler(p, command)){return;}}
+
+        //particle test
+        if (command[0].equalsIgnoreCase("effect"))  {
+
+            final Player pl = p;
+            final String[] commands = command;
+            new BukkitRunnable(){
+                Integer i = 30;
+                @Override
+
+                public void run(){
+                    if (i <= 0){
+                        cancel();
+                    }
+                    Location loc = pl.getLocation();
+                    loc.setY(pl.getLocation().getY() - 4);
+                ParticleEffect.fromId(Integer.parseInt(commands[1])).play(pl, loc, 0f, 0f, 0f, Float.parseFloat(commands[2]), Integer.parseInt(commands[3]));
+                    i--;
+                }
+            }.runTaskTimer(RpgAPI.plugin, 20, 5);
+        }
 
         // Pass the command info to the trading processor
         if (RpgAPI.tradeOn) TradeCommandProcessor.process(p, command);

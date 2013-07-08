@@ -291,6 +291,11 @@ public class RpgAPI extends JavaPlugin implements Listener {
             } else
                 RPGLogging.logInfo("SQL connection initialised.");
         }
+
+        //TODO: testing line remove later
+        commands.add("effect");
+
+
         //load yml files and set a value to each of them if they don't exist.
         playerConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayers.yml"));
         testPlayer = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayer/TestPlayer.yml"));
@@ -802,8 +807,9 @@ public class RpgAPI extends JavaPlugin implements Listener {
         String cmdAlias = args[0].replaceAll("/", "");
         for (String command : commands) {
             if (cmdAlias.equalsIgnoreCase(command)) {
-                UniqueCommands.BaseCommandHandler(p, args);
                 event.setCancelled(true);
+                UniqueCommands.BaseCommandHandler(p, args);
+
             }
         }
         // For testing Trading
