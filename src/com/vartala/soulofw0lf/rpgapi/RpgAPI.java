@@ -286,8 +286,9 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
         //TODO: use the following code to grab commands out of each locale file in their loaders.
         /*
-        for (String command : commandSection.getConfigurationSection("Commands").getKeys(false)) {
-            commands.add(command);
+        for (String command : RpgAPI.pluginPartLocaleConfig.getConfigurationSection("Commands").getKeys(false)) {
+            RpgAPI.commandSection.put(command, RpgAPI.pluginPartLocaleConfig.getString("Commands." + command));
+            RpgAPI.commands.add(RpgAPI.pluginPartLocaleConfig.getString("Commands." + command));
         }
          */
 
