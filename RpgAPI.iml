@@ -13,6 +13,10 @@
     <orderEntry type="library" name="Maven: org.bukkit:bukkit:1.6.2-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: com.comphenix.protocol:ProtocolLib:2.4.7" level="project" />
     <orderEntry type="library" name="Maven: cglib:cglib-nodep:2.2.2" level="project" />
+    <orderEntry type="library" name="Maven: de.kumpelblase2:remoteentities:1.7-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.bukkit:bukkit:1.6.2-R0.1-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: com.comphenix.protocol:ProtocolLib:2.4.7" level="project" />
+    <orderEntry type="library" name="Maven: cglib:cglib-nodep:2.2.2" level="project" />
   </component>
 </module>
 

@@ -1242,4 +1242,28 @@ public class RpgPlayer implements Permissible {
     public void setPvp(boolean pvp) {
         this.pvp = pvp;
     }
+    public boolean addFriend(String s) {
+        if (this.friendsList.contains(s))
+            return false;
+        else
+            return this.friendsList.add(s);
+    }
+    public boolean addIgnore(String s) {
+        if (this.ignoreList.contains(s))
+            return false;
+        else
+            return this.ignoreList.add(s);
+    }
+    public boolean removeFriend(String s) {
+        if (!this.friendsList.contains(s))
+            return false;
+        else
+            return this.friendsList.remove(s);
+    }
+    public boolean removeIgnore(String s) {
+        if (!this.ignoreList.contains(s))
+            return false;
+        else
+            return this.ignoreList.remove(s);
+    }
 }
