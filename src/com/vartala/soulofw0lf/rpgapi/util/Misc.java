@@ -13,7 +13,7 @@ import org.bukkit.World;
  */
 public class Misc {
     /**
-     * Serializes a location
+     * Serializes a location in the form of x|y|z or x|y|z|yaw|pitch if either is not equal to zero
      * @param l location
      * @return serilized string
      */
@@ -25,7 +25,7 @@ public class Misc {
     }
 
     /**
-     * Un-serializes a location
+     * Un-serializes a location in the form of x|y|z or x|y|z|yaw|pitch
      * @param s string
      * @return location
      */
