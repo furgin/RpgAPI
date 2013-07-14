@@ -1,5 +1,6 @@
 package com.vartala.soulofw0lf.rpgapi.util;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
@@ -18,22 +19,21 @@ public class Misc {
      */
     public static String locToString(Location l) {
         if (l.getPitch() == 0 && l.getYaw() == 0)
-            return l.getX()+"|"+l.getY()+"|"+l.getZ();
+            return l.getWorld().getName()+"|"+l.getX()+"|"+l.getY()+"|"+l.getZ();
         else
-            return l.getX()+"|"+l.getY()+"|"+l.getZ()+"|"+l.getYaw()+"|"+l.getPitch();
+            return l.getWorld().getName()+"|"+l.getX()+"|"+l.getY()+"|"+l.getZ()+"|"+l.getYaw()+"|"+l.getPitch();
     }
 
     /**
      * Un-serializes a location
      * @param s string
-     * @param w world
      * @return location
      */
-    public static Location stringToLoc(String s, World w) {
+    public static Location stringToLoc(String s) {
         String[] arr = s.split("|");
-        if (arr.length == 2)
-            return new Location(w, Double.parseDouble(arr[0]), Double.parseDouble(arr[1]), Double.parseDouble(arr[2]));
+        if (arr.length == 3)
+            return new Location(Bukkit.getWorld(arr[0]), Double.parseDouble(arr[1]), Double.parseDouble(arr[2]), Double.parseDouble(arr[3]));
         else
-            return new Location(w, Double.parseDouble(arr[0]), Double.parseDouble(arr[1]), Double.parseDouble(arr[2]), Float.parseFloat(arr[3]), Float.parseFloat(arr[4]));
+            return new Location(Bukkit.getWorld(arr[0]), Double.parseDouble(arr[1]), Double.parseDouble(arr[2]), Double.parseDouble(arr[3]), Float.parseFloat(arr[4]), Float.parseFloat(arr[5]));
     }
 }
