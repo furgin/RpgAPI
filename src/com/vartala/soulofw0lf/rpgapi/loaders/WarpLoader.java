@@ -107,6 +107,6 @@ public class WarpLoader{
             public void run() {
                 WarpBuilder.WarpLoader();
             }
-        }.runTaskLater(RpgAPI.plugin, 5);
+        }.runTaskLater(RpgAPI.getInstance(), 5);
     }
 }

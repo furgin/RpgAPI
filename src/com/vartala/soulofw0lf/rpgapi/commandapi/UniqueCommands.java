@@ -83,7 +83,7 @@ public class UniqueCommands {
                 ParticleEffect.fromId(Integer.parseInt(commands[1])).play(pl, loc, 0f, 0f, 0f, Float.parseFloat(commands[2]), Integer.parseInt(commands[3]));
                     i--;
                 }
-            }.runTaskTimer(RpgAPI.plugin, 20, 5);
+            }.runTaskTimer(RpgAPI.getInstance(), 20, 5);
         }
 
         // Pass the command info to the trading processor

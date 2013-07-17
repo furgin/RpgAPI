@@ -63,7 +63,7 @@ public class PoisonTimeChecker {
                     }
                 }
             }
-        }.runTaskTimer(RpgAPI.plugin, 60, 180);
+        }.runTaskTimer(RpgAPI.getInstance(), 60, 180);
     }
 
     private static void PoisonAplicator(RpgPoison rPoison, String name) {
@@ -88,6 +88,6 @@ public class PoisonTimeChecker {
             public void run() {
                 rp.setPoisoned(false);
             }
-        }.runTaskLater(RpgAPI.plugin, poisonTicks);
+        }.runTaskLater(RpgAPI.getInstance(), poisonTicks);
     }
 }

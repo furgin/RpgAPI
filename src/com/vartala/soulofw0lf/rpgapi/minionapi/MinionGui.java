@@ -26,7 +26,7 @@ public class MinionGui {
     //for the player p, creates entity config with id
     public static void createGui(Player p, int guiId, int mobId) {
         MobCommand mc = RpgAPI.minionCommands.get("Set " + guiId);
-        RpgClickInv rpgClickInv = new RpgClickInv(RpgAPI.plugin);
+        RpgClickInv rpgClickInv = new RpgClickInv(RpgAPI.getInstance());
         ArrayList<ItemStack> itemStacks = mc.toItemStack();
         Inventory inv = InventoryMaker.invMaker(null, "" + mobId, itemStacks);
         rpgClickInv.setInvName("MOB EDITING ID:" + mobId);

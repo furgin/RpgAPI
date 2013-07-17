@@ -99,7 +99,7 @@ public class WarpProcessor {
                     RpgAPI.warpCds.remove(playerName);
                     RpgAPI.warpCds.put(playerName, warps);
                 }
-            }.runTaskLater(RpgAPI.plugin, cdTimer);
+            }.runTaskLater(RpgAPI.getInstance(), cdTimer);
         }
         for (WarpBehavior behavior : thisWarp.getWarpBehaviors()) {
             behavior.onWarp(p);

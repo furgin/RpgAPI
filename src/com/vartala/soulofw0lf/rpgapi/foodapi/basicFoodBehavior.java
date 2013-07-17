@@ -154,6 +154,6 @@ public class basicFoodBehavior implements FoodBehavior {
                     }
                 }
             }
-        }.runTaskTimer(RpgAPI.plugin, 0, 20);
+        }.runTaskTimer(RpgAPI.getInstance(), 0, 20);
     }
 }

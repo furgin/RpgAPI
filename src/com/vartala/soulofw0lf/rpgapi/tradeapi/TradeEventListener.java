@@ -84,7 +84,7 @@ public class TradeEventListener implements Listener{
                                 }
                             }
                         }
-                    }.runTaskLater(api.plugin, 2);
+                    }.runTaskLater(api.getInstance(), 2);
                 }
 
             }

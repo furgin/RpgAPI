@@ -104,7 +104,7 @@ public class BasicInventoryClickBehavior implements InventoryClickBehavior {
                         }
                     }
                 }
-            }.runTaskLater(RpgAPI.plugin, 4);
+            }.runTaskLater(RpgAPI.getInstance(), 4);
         }
         if (click == ClickType.RIGHT) {
             player.closeInventory();
@@ -131,7 +131,7 @@ public class BasicInventoryClickBehavior implements InventoryClickBehavior {
                         }
                     }
                 }
-            }.runTaskLater(RpgAPI.plugin, 4);
+            }.runTaskLater(RpgAPI.getInstance(), 4);
 
         }
         if (click == ClickType.SHIFT_LEFT || click == ClickType.SHIFT_RIGHT) {
@@ -159,7 +159,7 @@ public class BasicInventoryClickBehavior implements InventoryClickBehavior {
                         }
                     }
                 }
-            }.runTaskLater(RpgAPI.plugin, 4);
+            }.runTaskLater(RpgAPI.getInstance(), 4);
         }
 
 

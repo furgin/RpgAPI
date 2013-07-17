@@ -58,7 +58,7 @@ public class BorderLoader {
             World world = Bukkit.getWorld(worlds);
             if (world != null) {
                 loc = new Location(world, X, Y, Z);
-                BorderCheck.cycleCheck(RpgAPI.plugin, loc, radius);
+                BorderCheck.cycleCheck(RpgAPI.getInstance(), loc, radius);
             }
         }
     }

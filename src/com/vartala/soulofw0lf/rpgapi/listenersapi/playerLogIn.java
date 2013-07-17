@@ -45,7 +45,7 @@ public class playerLogIn implements Listener {
         player.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Active Character") + p));
         RpgPlayer rp = RpgPlayerBuilder.RpgBuilder(p);
         RpgAPI.rpgPlayers.put(p, rp);
-        PermissionAttachment attach = rp.addAttachment(RpgAPI.plugin);
+        PermissionAttachment attach = rp.addAttachment(RpgAPI.getInstance());
         if (!(RpgAPI.playerColors.containsKey(pName))) {
             if (player.isOp()) {
                 RpgAPI.playerColors.put(pName, "&4");
@@ -65,7 +65,7 @@ public class playerLogIn implements Listener {
                 //Bukkit.getPlayer(playerN).setHealth((double)r.getStats().get(PlayerStat.HIT_POINTS.toString()));
                 Bukkit.getPlayer(playerN).setLevel(r.getStats().get(PlayerStat.CHARACTER_LEVEL.toString()));
             }
-        }.runTaskLater(RpgAPI.plugin, 4);
+        }.runTaskLater(RpgAPI.getInstance(), 4);
 
         /*
          * Commented out until sql loading is fixed
@@ -103,7 +103,7 @@ public class playerLogIn implements Listener {
             public void run() {
                 RpgAPI.rpgPlayers.remove(rName);
             }
-        }.runTaskLater(RpgAPI.plugin, 40);
+        }.runTaskLater(RpgAPI.getInstance(), 40);
 
 		/*
          * save active nickname to table
@@ -124,7 +124,7 @@ public class playerLogIn implements Listener {
             public void run() {
                 RpgAPI.rpgPlayers.remove(rName);
             }
-        }.runTaskLater(RpgAPI.plugin, 40);
+        }.runTaskLater(RpgAPI.getInstance(), 40);
 		/*
 		 * save active nickname to table
 		 */
