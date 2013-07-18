@@ -37,7 +37,8 @@ public class RespawnHandler {
     public Location getPlayerSpawnLocation(Player p) {
         if (rezQueue.containsKey(p.getName())) {
             return rezQueue.get(p.getName());
-        } else {
+        } else if (spawns.size() > 0) {
+
             SpawnPoint shortestSpawn = spawns.get(0);
             for (SpawnPoint sp : spawns) {
                 if (!sp.getRespawnPoint().getWorld().getName().equals(p.getLocation().getWorld().getName()) || !sp.canSpawn(p)) {
@@ -49,6 +50,8 @@ public class RespawnHandler {
             }
             return shortestSpawn.getRespawnPoint();
         }
+        else
+            return p.getWorld().getSpawnLocation();
     }
 
 }
