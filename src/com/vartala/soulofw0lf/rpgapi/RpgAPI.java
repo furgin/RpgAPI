@@ -74,6 +74,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class RpgAPI extends JavaPlugin implements Listener {
     //Plugins
     public static RpgAPI plugin;
+
     //
     //files
     public static YamlConfiguration playerConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayers.yml"));
