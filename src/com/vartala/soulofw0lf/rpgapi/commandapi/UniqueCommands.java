@@ -1,10 +1,7 @@
 package com.vartala.soulofw0lf.rpgapi.commandapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
-import com.vartala.soulofw0lf.rpgapi.chatapi.ChatBehavior;
-import com.vartala.soulofw0lf.rpgapi.chatapi.ChatClass;
-import com.vartala.soulofw0lf.rpgapi.chatapi.ChatProcessor;
-import com.vartala.soulofw0lf.rpgapi.chatapi.LanguageProcessor;
+import com.vartala.soulofw0lf.rpgapi.chatapi.*;
 import com.vartala.soulofw0lf.rpgapi.enumapi.PlayerStat;
 import com.vartala.soulofw0lf.rpgapi.particleapi.ParticleEffect;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
@@ -33,6 +30,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
@@ -64,8 +62,19 @@ public class UniqueCommands {
 
         //Pass the command info the the warp command handler
         if (RpgAPI.warpsOn){if (WarpCommands.handler(p, command)){return;}}
-
+        if (RpgAPI.chatOn){if (ChatCommands.ChatHandler(p, command)){return;}}
         //particle test
+        if (command[0].equalsIgnoreCase("addperm")){
+            String name = RpgAPI.activeNicks.get(p.getName());
+            if (name == null){
+                p.sendMessage("no name");
+            }
+            PermissionAttachment attachment = RpgAPI.permAttachments.get(name);
+            if (attachment == null){
+                p.sendMessage("can't find it.");
+            }
+            attachment.setPermission(command[1], true);
+        }
         if (command[0].equalsIgnoreCase("effect"))  {
 
             final Player pl = p;
@@ -164,10 +173,11 @@ public class UniqueCommands {
                     buffer.append(' ').append(command[i]);
                 }
                 String s = buffer.toString();
+                Boolean canSee = true;
                 for (ChatBehavior behavior : cC.getChannelBehaviors()) {
-                    s = behavior.chatChannel(activeChat, receiveName, senderName, language, s, spyChat);
+                    canSee = behavior.chatChannel(activeChat, receiveName, senderName, language, s, spyChat);
                 }
-                if (s.isEmpty()) {
+                if (!canSee) {
                     continue;
                 }
                 pl.sendMessage(ChatProcessor.TitleString(RpgAPI.nameDisplays, RpgAPI.activeNicks.get(senderName), receiveName) + s);

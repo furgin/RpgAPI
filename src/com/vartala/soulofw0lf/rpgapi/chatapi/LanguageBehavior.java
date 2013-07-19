@@ -27,11 +27,11 @@ import org.bukkit.Bukkit;
  */
 public class LanguageBehavior implements ChatBehavior {
     @Override
-    public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
+    public Boolean chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(receiveName));
         Boolean languageKnown = false;
         if (chatSpy && rp.isSpyingOnChats()) {
-            return message;
+            return true;
         }
         for (String lang : rp.getKnownLanguages()) {
             if (lang.equalsIgnoreCase(language)) {
@@ -40,13 +40,12 @@ public class LanguageBehavior implements ChatBehavior {
         }
         if (!(languageKnown)) {
             if (rp.showLanguagesInChat()) {
-                message = LanguageProcessor.LanguageDecoder(message, language);
-                return message;
+                ChatListener.eventMessage = LanguageProcessor.LanguageDecoder(message, language);
+                return true;
             } else {
-                message = "";
-                return message;
+                return false;
             }
         }
-        return message;
+        return true;
     }
 }

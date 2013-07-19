@@ -32,7 +32,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
  */
 public class ChatListener implements Listener {
     RpgAPI Rpgapi;
-
+    public static String eventMessage = "";
     public ChatListener(RpgAPI rpgAPI) {
         this.Rpgapi = rpgAPI;
         Bukkit.getPluginManager().registerEvents(this, this.Rpgapi);
@@ -45,15 +45,11 @@ public class ChatListener implements Listener {
         String m = event.getMessage();
 
         if (!(RpgAPI.chatOn)) {
-            event.setCancelled(true);
-            for (Player r : event.getRecipients()) {
-                r.sendMessage(ChatProcessor.TitleString(RpgAPI.nameDisplays, p.getName(), r.getName()) + ChatColors.ChatString(m));
-            }
             return;
         }
 
         String senderName = event.getPlayer().getName();
-        RpgPlayer sendPlayer = Rpgapi.rpgPlayers.get(Rpgapi.activeNicks.get(senderName));
+        RpgPlayer sendPlayer = RpgAPI.getRp(senderName);
         if (sendPlayer.getActiveChannel().isEmpty()) {
             return;
         }
@@ -92,15 +88,22 @@ public class ChatListener implements Listener {
         event.setCancelled(true);
         for (Player pl : event.getRecipients()) {
             String receiveName = pl.getName();
-            String message = "";
+            eventMessage = event.getMessage();
+            boolean receiveChat = true;
             for (ChatBehavior behavior : thisChat.getChannelBehaviors()) {
-                message = behavior.chatChannel(activeChat, receiveName, senderName, language, event.getMessage(), spyChat);
-
+                receiveChat = behavior.chatChannel(activeChat, receiveName, senderName, language, eventMessage, spyChat);
+                if (!receiveChat){
+                    break;
+                }
             }
-            if (message.isEmpty()) {
-                return;
+            if (!receiveChat) {
+                continue;
             }
-            pl.sendMessage(ChatProcessor.TitleString(RpgAPI.nameDisplays, senderName, receiveName) + message);
+            if (receiveChat){
+            RpgPlayer rp = RpgAPI.getRp(receiveName);
+            String color = rp.getChannelColor().get(activeChat);
+            pl.sendMessage(ChatProcessor.TitleString(RpgAPI.nameDisplays, senderName, receiveName) + ChatColors.ChatString(color + eventMessage));
+            }
 
         }
     }

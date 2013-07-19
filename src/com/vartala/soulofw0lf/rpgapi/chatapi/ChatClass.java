@@ -64,6 +64,10 @@ public class ChatClass {
         channelBehaviors.add(behavior);
     }
 
+    public void removeBehavior(ChatBehavior behavior){
+        channelBehaviors.remove(behavior);
+    }
+
     public void clearBehavior() {
         channelBehaviors.clear();
     }

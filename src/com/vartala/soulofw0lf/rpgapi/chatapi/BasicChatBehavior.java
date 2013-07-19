@@ -28,16 +28,13 @@ import org.bukkit.Bukkit;
 public class BasicChatBehavior implements ChatBehavior {
     //
     @Override
-    public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
-        RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(receiveName));
-        String color = rp.getChannelColor().get(chatName);
-        message = ChatColors.ChatString(color + message);
+    public Boolean chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
+        RpgPlayer rp = RpgAPI.getRp(receiveName);
         if (rp.getIgnoreList().contains(sendName)) {
-            message = "";
-            return message;
+            return false;
         }
         if (chatSpy && rp.isSpyingOnChats()) {
-            return message;
+            return true;
         }
         Boolean isInChannel = false;
         for (String inChannel : rp.getChannelColor().keySet()) {
@@ -46,10 +43,9 @@ public class BasicChatBehavior implements ChatBehavior {
             }
         }
         if (!(isInChannel)) {
-            message = "";
-            return message;
+            return false;
         }
 
-        return message;
+        return true;
     }
 }

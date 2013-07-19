@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.enumapi.*;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -55,6 +56,8 @@ public class RpgPlayer implements Permissible {
     private boolean poisoned = false;
 
     private boolean pvp = false;
+
+    private boolean useOp = false;
 
 
     /*
@@ -135,7 +138,7 @@ public class RpgPlayer implements Permissible {
     /*
      *duel variables
      */
-    private Boolean inDuel = false;
+    private boolean inDuel = false;
     private String whoDuelling = "";
 
     /*
@@ -1127,6 +1130,10 @@ public class RpgPlayer implements Permissible {
 
     @Override
     public boolean hasPermission(String s) {
+        PermissionAttachment attachment = RpgAPI.permAttachments.get(RpgAPI.activeNicks.get(realName));
+        if (attachment.getPermissions().containsKey(s)){
+            return true;
+        }
         return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -1142,7 +1149,8 @@ public class RpgPlayer implements Permissible {
 
     @Override
     public PermissionAttachment addAttachment(Plugin plugin) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        PermissionAttachment attachment = new PermissionAttachment(plugin, this);
+        return attachment;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -1172,6 +1180,10 @@ public class RpgPlayer implements Permissible {
 
     @Override
     public boolean isOp() {
+
+        if (Bukkit.getPlayer(realName).isOp() && useOp){
+            return true;
+        }
         return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -1265,5 +1277,11 @@ public class RpgPlayer implements Permissible {
             return false;
         else
             return this.ignoreList.remove(s);
+    }
+    public boolean isUsingOp(){
+        return useOp;
+    }
+    public void setOp(Boolean setIsOp){
+        useOp = setIsOp;
     }
 }

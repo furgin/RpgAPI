@@ -28,20 +28,19 @@ import org.bukkit.Bukkit;
  */
 public class PartyChatBehavior implements ChatBehavior {
     @Override
-    public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
+    public Boolean chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(receiveName));
         RpgPlayer rp2 = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(sendName));
         if (chatSpy && rp.isSpyingOnChats()) {
 
-            return message;
+            return true;
         }
         if (rp.isInParty()) {
             PartyGroup pg = RpgAPI.partys.get(rp2.getLeaderName());
             if (pg.getPlayersInParty().contains(RpgAPI.activeNicks.get(receiveName))) {
-                return message;
+                return true;
             }
         }
-        message = "";
-        return message;
+        return false;
     }
 }

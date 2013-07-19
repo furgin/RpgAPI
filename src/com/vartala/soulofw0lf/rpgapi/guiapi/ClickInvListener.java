@@ -3,11 +3,14 @@ package com.vartala.soulofw0lf.rpgapi.guiapi;
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -18,7 +21,17 @@ public class ClickInvListener implements Listener {
         this.Rpga = rpga;
         Bukkit.getPluginManager().registerEvents(this, rpga);
     }
-
+    @EventHandler
+    public void clickClose(InventoryCloseEvent event){
+        Inventory inv = event.getInventory();
+        for (RpgClickInv rCi : RpgAPI.deleteOnClose){
+            if (rCi.getInvName().equalsIgnoreCase(inv.getName())){
+                RpgAPI.rpgClicks.remove(rCi);
+                RpgAPI.deleteOnClose.remove(rCi);
+                return;
+            }
+        }
+    }
     //this method handles the actual listener for inventory clicks
     @EventHandler(priority = EventPriority.HIGHEST)
     public void clickListener(InventoryClickEvent event) {
@@ -76,7 +89,8 @@ public class ClickInvListener implements Listener {
          * set the click enum to the appropriate type of click used
          */
         click = event.getClick();
-
+        event.setResult(Event.Result.DENY);
+        event.setCancelled(true);
         //process each click behavior saved to this inventory
         for (InventoryClickBehavior behavior : rci.getBehavior()) {
             behavior.onClick(rci, player, is, click);

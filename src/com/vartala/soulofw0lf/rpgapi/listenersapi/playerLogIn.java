@@ -46,6 +46,11 @@ public class playerLogIn implements Listener {
         RpgPlayer rp = RpgPlayerBuilder.RpgBuilder(p);
         RpgAPI.rpgPlayers.put(p, rp);
         PermissionAttachment attach = rp.addAttachment(RpgAPI.getInstance());
+        attach.setPermission("chat.use", true);
+        if (attach == null){
+            System.out.print("no attachment!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
+        RpgAPI.permAttachments.put(p, attach);
         if (!(RpgAPI.playerColors.containsKey(pName))) {
             if (player.isOp()) {
                 RpgAPI.playerColors.put(pName, "&4");

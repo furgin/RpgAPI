@@ -27,10 +27,10 @@ import org.bukkit.Location;
  */
 public class CityChatBehavior implements ChatBehavior {
     @Override
-    public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
+    public Boolean chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
         RpgPlayer rp = RpgAPI.getRp(receiveName);
         if (chatSpy && rp.isSpyingOnChats()) {
-            return message;
+            return true;
         }
         Boolean inCity = false;
         for (RpgCities cReg : RpgAPI.rpgCities) {
@@ -40,6 +40,9 @@ public class CityChatBehavior implements ChatBehavior {
             Double Z = cReg.getRegionZ();
             String World = cReg.getRegionWorld();
             Location regionLoc = new Location(Bukkit.getWorld(World), X, Y, Z);
+            if (!Bukkit.getPlayer(receiveName).getWorld().getName().equalsIgnoreCase(World)){
+                continue;
+            }
             if (regionLoc.distance(Bukkit.getPlayer(receiveName).getLocation()) <= radius) {
                 inCity = true;
             }
@@ -47,9 +50,9 @@ public class CityChatBehavior implements ChatBehavior {
         }
 
         if (inCity) {
-            return message;
+            return true;
         }
-        message = "";
-        return message;
+
+        return false;
     }
 }

@@ -28,18 +28,18 @@ import org.bukkit.Bukkit;
  */
 public class DistanceChatBehavior implements ChatBehavior {
     @Override
-    public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
+    public Boolean chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(receiveName));
         if (chatSpy && rp.isSpyingOnChats()) {
-            return message;
+            return true;
         }
         if (Bukkit.getPlayer(receiveName).getLocation().getWorld().getName().equalsIgnoreCase(Bukkit.getPlayer(sendName).getLocation().getWorld().getName())) {
             if (Bukkit.getPlayer(sendName).getLocation().distance(Bukkit.getPlayer(receiveName).getLocation()) <= (RpgAPI.chatDistances.get(chatName))) {
 
-                return message;
+                return true;
             }
         }
-        message = "";
-        return message;
+
+        return false;
     }
 }

@@ -24,7 +24,7 @@ public class InventoryMaker {
     }
 
     //this method constructs the actual inventory
-    public static Inventory invMaker(InventoryHolder Owner, String name, ArrayList<ItemStack> items) {
+    public static Inventory invMaker(InventoryHolder Owner, String name, List<ItemStack> items) {
         Integer i = 0;
         Integer mapSize = 0;
         i = items.size();

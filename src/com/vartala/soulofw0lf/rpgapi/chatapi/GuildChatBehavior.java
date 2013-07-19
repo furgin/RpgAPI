@@ -29,23 +29,22 @@ import org.bukkit.Bukkit;
  */
 public class GuildChatBehavior implements ChatBehavior {
     @Override
-    public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
+    public Boolean chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(receiveName));
         RpgPlayer rp2 = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(sendName));
 
         if (chatSpy && rp.isSpyingOnChats()) {
 
-            return message;
+            return true;
         }
 
         if (rp.isInGuild()) {
             GuildObject g = RpgAPI.guilds.get(rp2.getGuild());
             if (g.getMembers().contains(RpgAPI.activeNicks.get(receiveName))) {
 
-                return message;
+                return true;
             }
         }
-        message = "";
-        return message;
+        return false;
     }
 }

@@ -25,6 +25,7 @@ import com.vartala.soulofw0lf.rpgapi.guildapi.GuildObject;
 import com.vartala.soulofw0lf.rpgapi.guildapi.GuildRank;
 import com.vartala.soulofw0lf.rpgapi.listenersapi.PoisonListener;
 import com.vartala.soulofw0lf.rpgapi.loaders.*;
+import com.vartala.soulofw0lf.rpgapi.locale.LocaleSetting;
 import com.vartala.soulofw0lf.rpgapi.minionapi.MinionEntity;
 import com.vartala.soulofw0lf.rpgapi.mobcommandapi.MobCommand;
 import com.vartala.soulofw0lf.rpgapi.mobcommandapi.MobEditingChatListener;
@@ -113,6 +114,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static YamlConfiguration cityLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/RpgCities.yml"));
     public static YamlConfiguration regionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat/RpgRegions.yml"));
     public static YamlConfiguration regionLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/RpgRegions.yml"));
+    public static Map<String, PermissionAttachment> permAttachments = new HashMap<>();
 
 
     //Listeners
@@ -166,6 +168,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<String, RpgPlayer> rpgPlayers = new HashMap<>();
     public static Map<ClassName, RpgClasses> rpgClasses = new HashMap<>();
     public static List<ChatClass> chatClasses = new ArrayList<ChatClass>();
+    public static List<RpgClickInv> deleteOnClose = new ArrayList<>();
     public static Map<String, String> activeNicks = new HashMap<>();
     public static Map<String, CustomFood> foodItems = new HashMap<>();
     public static boolean rpgStyleFood = true;
@@ -184,6 +187,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
     public static Map<String, String> localeSettings = new HashMap<>();
     public static Map<String, String> commandSettings = new HashMap<>();
+    public static Map<String, String> permissionSettings = new HashMap<>();
     public static Map<String, WarpSets> savedSets = new HashMap<>();
     public static Map<String, RpgWarp> savedWarps = new HashMap<>();
     public static List<ItemStack> warpItems = new ArrayList<ItemStack>();
@@ -236,7 +240,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
         this.MapListen = new MapListener(this);
         this.PlayerListener = new playerLogIn(this);
-
+        LocaleSetting.localeLoader();
 
         //grab database values if they should be used
         if (useMySql) {
@@ -269,8 +273,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
         //default test player charactor sheet
         testPlayer = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayer/TestPlayer.yml"));
 
-        //locale config (only general localle commands and messages should go in here)
-        localeConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale.yml"));
+
 
         //settings config, i'm sure we'll use ti for something eventually
         settingsConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Settings.yml"));
@@ -339,16 +342,9 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
         //TODO: testing line remove later
         commands.add("effect");
+        commands.add("addperm");
 
-        if (localeConfig.get("Locale Settings") == null) {
-            localeConfig.set("Locale Settings", "This file is used to set all language settings!");
-            localeConfig.set("Translations.Error Message", "&F[&2Rpg API&F] &4This command should be ");
-            localeConfig.set("Translations.Active Character", "&F[&4Rpg Player&F] &2Your Active Character Name is &6");
-            //help Command
-            localeConfig.set("General Commands.Help Command.Alias", "Help");
-            localeConfig.set("General Commands.Help Command.Help Color", "&2");
-            localeConfig.set("General Commands.Help Command.Description", "&fShow the different help Pages. &2Usage: &f/help page#");
-        }
+
         try {
             playerConfig.save(new File("plugins/RpgAPI/RpgPlayers.yml"));
             localeConfig.save(new File("plugins/RpgAPI/Locale.yml"));
@@ -386,10 +382,6 @@ public class RpgAPI extends JavaPlugin implements Listener {
         String nick = activeNicks.get(name);
         RpgPlayer rp = rpgPlayers.get(nick);
         return rp;
-    }
-
-    public static RpgPlayer getRp(Player p) {
-        return getRp(p.getName());
     }
 
     @Override
@@ -443,4 +435,13 @@ public class RpgAPI extends JavaPlugin implements Listener {
     }
 
 
+    public static ChatClass getChatByName(String displayName) {
+        ChatClass thisChat = new ChatClass();
+        for (ChatClass ch : chatClasses){
+            if (ch.getChannelName().equalsIgnoreCase(displayName)){
+                thisChat = ch;
+            }
+        }
+        return thisChat;
+    }
 }

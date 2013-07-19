@@ -26,15 +26,14 @@ import org.bukkit.Bukkit;
  */
 public class WorldChatBehavior implements ChatBehavior {
     @Override
-    public String chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
+    public Boolean chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
         RpgPlayer rp = RpgAPI.getRp(receiveName);
         if (chatSpy && rp.isSpyingOnChats()) {
-            return message;
+            return true;
         }
         if (Bukkit.getPlayer(receiveName).getLocation().getWorld().getName().equalsIgnoreCase(Bukkit.getPlayer(sendName).getLocation().getWorld().getName())) {
-            return message;
+            return true;
         }
-        message = "";
-        return message;
+        return false;
     }
 }
