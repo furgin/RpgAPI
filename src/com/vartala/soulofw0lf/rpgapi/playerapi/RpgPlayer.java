@@ -155,6 +155,9 @@ public class RpgPlayer implements Permissible {
     //is the player currently in trade
     private boolean inTrade = false;
 
+
+    private boolean inConfirm = false;
+
     //the players total copper
     private int coin = 0;
 
@@ -884,6 +887,14 @@ public class RpgPlayer implements Permissible {
 
     public void setInTrade(boolean inTrade) {
         this.inTrade = inTrade;
+    }
+
+    public boolean isInConfirm() {
+        return inConfirm;
+    }
+
+    public void setInConfirm(boolean inConfirm) {
+        this.inConfirm = inConfirm;
     }
 
     public List<String> getFriendsList() {

@@ -384,9 +384,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
     }
 
     public static RpgPlayer getRp(String name) {
-        String nick = activeNicks.get(name);
-        RpgPlayer rp = rpgPlayers.get(nick);
-        return rp;
+        return rpgPlayers.get(activeNicks.get(name));
+    }
+    public static RpgPlayer getRp(Player p) {
+        return rpgPlayers.get(activeNicks.get(p.getName()));
     }
 
     @Override

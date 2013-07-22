@@ -66,8 +66,8 @@ public class TradeEventListener implements Listener{
                     event.setCancelled(true);
                 }
             } else if (event.getRawSlot() < 45) { // Triggered if the put an item in their slot space
-                // Show the items to the other player
-                if (event.getClick().isLeftClick()) {
+                // Show the items to the other player if it's a non-shift, left click, on the left side of the trade inv.
+                if (event.getClick().isLeftClick() && !event.getClick().isShiftClick() && event.getSlot()%9 >= 4) {
                     // Run an update to the inventory a bit later so the event already took place
                     new BukkitRunnable() {
                         @Override
@@ -186,7 +186,11 @@ public class TradeEventListener implements Listener{
         }
         otherBlock.setItemMeta(meta);
     }
-
+    private void confirmTrade(Player a, Player b) {
+        RpgAPI.getRp(a).setInConfirm(true);
+        RpgAPI.getRp(b).setInConfirm(true);
+        //TODO finish this
+    }
     private void makeTrade(Player a, Player b) {
         for (int i =0; i < 45; i++) {
             // Only copy things under index 45, not forbidden, and on the left (less than 4)
