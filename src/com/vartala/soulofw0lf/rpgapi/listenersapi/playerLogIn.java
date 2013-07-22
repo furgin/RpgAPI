@@ -1,9 +1,12 @@
 package com.vartala.soulofw0lf.rpgapi.listenersapi;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.enumapi.PlayerStat;
+import com.vartala.soulofw0lf.rpgapi.permissionsapi.PermissionGroup;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayerBuilder;
 import com.vartala.soulofw0lf.rpgapi.speedapi.SpeedHandler;
 import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
@@ -45,12 +48,34 @@ public class playerLogIn implements Listener {
         player.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Active Character") + p));
         RpgPlayer rp = RpgPlayerBuilder.RpgBuilder(p);
         RpgAPI.rpgPlayers.put(p, rp);
+        if (RpgAPI.permsOn){
+        PermissionAttachment pAttach = player.addAttachment(RpgAPI.getInstance());
         PermissionAttachment attach = rp.addAttachment(RpgAPI.getInstance());
-        attach.setPermission("chat.use", true);
-        if (attach == null){
-            System.out.print("no attachment!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        if (rp.getPermGroups() == null){
+            List<String> groups = new ArrayList<>();
+            groups.add("Default");
+            rp.setPermGroups(groups);
+        }
+        for (String group : rp.getPermGroups()){
+
+            PermissionGroup pG = RpgAPI.permGroups.get(group);
+            RpgAPI.playerColors.put(pName, pG.getRankColor());
+            for (String denyPerm : pG.getDeniedPerms()){
+                pAttach.setPermission(denyPerm, false);
+                attach.setPermission(denyPerm, false);
+            }
+            for (String perm : pG.getPermissions()){
+                pAttach.setPermission(perm, true);
+                attach.setPermission(perm, true);
+            }
+            for (String indPerm : rp.getIndividualPerms()){
+                pAttach.setPermission(indPerm, true);
+                attach.setPermission(indPerm, true);
+            }
         }
         RpgAPI.permAttachments.put(p, attach);
+        RpgAPI.permAttachments.put(pName, pAttach);
+        }
         if (!(RpgAPI.playerColors.containsKey(pName))) {
             if (player.isOp()) {
                 RpgAPI.playerColors.put(pName, "&4");
@@ -66,8 +91,8 @@ public class playerLogIn implements Listener {
                 RpgPlayer r = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(playerN));
                 SpeedHandler.SetWalkSpeed(r, playerN);
                 SpeedHandler.SetFlySpeed(r, playerN);
-                //Bukkit.getPlayer(playerN).setMaxHealth((double)r.getStats().get(PlayerStat.TOTAL_HIT_POINTS.toString()));
-                //Bukkit.getPlayer(playerN).setHealth((double)r.getStats().get(PlayerStat.HIT_POINTS.toString()));
+                Bukkit.getPlayer(playerN).setMaxHealth(r.getStats().get(PlayerStat.TOTAL_HIT_POINTS.toString()));
+                Bukkit.getPlayer(playerN).setHealth(r.getStats().get(PlayerStat.HIT_POINTS.toString()));
                 Bukkit.getPlayer(playerN).setLevel(r.getStats().get(PlayerStat.CHARACTER_LEVEL.toString()));
             }
         }.runTaskLater(RpgAPI.getInstance(), 4);
@@ -98,10 +123,11 @@ public class playerLogIn implements Listener {
     public void onPlayerKick(PlayerKickEvent event) {
         Player p = event.getPlayer();
         String pName = p.getName();
-        String rpname = RpgAPI.activeNicks.get(pName);
-        RpgPlayer rp = RpgAPI.rpgPlayers.get(rpname);
-        RpgPlayerBuilder.RpgSaver(rpname, rp);
-        final String rName = rpname;
+        RpgPlayer rp = RpgAPI.getRp(pName);
+        RpgPlayerBuilder.RpgSaver(rp.getName(), rp);
+        RpgAPI.permAttachments.remove(pName);
+        RpgAPI.permAttachments.remove(rp.getName());
+        final String rName = rp.getName();
         new BukkitRunnable() {
 
             @Override

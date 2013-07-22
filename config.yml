@@ -28,3 +28,4 @@ Plugins:
   Trade: false
   Border: false
   Reputations: false
+  Permissions: false

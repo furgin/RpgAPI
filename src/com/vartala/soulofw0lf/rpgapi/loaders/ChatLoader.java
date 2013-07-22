@@ -264,7 +264,9 @@ public class ChatLoader {
         for (String chats : RpgAPI.chatConfig.getConfigurationSection("Chats").getKeys(false)) {
             //general chat
             if (RpgAPI.chatConfig.getBoolean("Chats." + chats + ".Enabled")) {
+
                 ChatClass chatClass = new ChatClass();
+                chatClass.setEnabled(true);
                 chatClass.setChannelName(chats);
                 chatClass.setChannelNick(RpgAPI.chatConfig.getString("Chats." + chats + ".Nick Name"));
                 RpgAPI.chatRealNames.put(RpgAPI.chatConfig.getString("Chats." + chats + ".Nick Name"), chats);
@@ -274,25 +276,33 @@ public class ChatLoader {
                     chatClass.addBehavior(new BasicChatBehavior());
                 }
                 if (RpgAPI.chatConfig.getBoolean("Chats." + chats + ".Use Language")) {
+                    chatClass.setUseLanguage(true);
                     chatClass.addBehavior(new LanguageBehavior());
                 }
                 if (RpgAPI.chatConfig.getBoolean("Chats." + chats + ".Use Distance")) {
+                    chatClass.setUseDistance(true);
+                    chatClass.setDistance(RpgAPI.chatConfig.getInt("Chats." + chats + ".Distance"));
                     chatClass.addBehavior(new DistanceChatBehavior());
                     RpgAPI.chatDistances.put(chats, RpgAPI.chatConfig.getInt("Chats." + chats + ".Distance"));
                 }
                 if (RpgAPI.chatConfig.getBoolean("Chats." + chats + ".Use Party")) {
+                    chatClass.setUseParty(true);
                     chatClass.addBehavior(new PartyChatBehavior());
                 }
                 if (RpgAPI.chatConfig.getBoolean("Chats." + chats + ".Use Guild")) {
+                    chatClass.setUseGuild(true);
                     chatClass.addBehavior(new GuildChatBehavior());
                 }
                 if (RpgAPI.chatConfig.getBoolean("Chats." + chats + ".Use Region")) {
+                    chatClass.setUseRegion(true);
                     chatClass.addBehavior(new RegionChatBehavior());
                 }
                 if (RpgAPI.chatConfig.getBoolean("Chats." + chats + ".Use City")) {
+                    chatClass.setUseCity(true);
                     chatClass.addBehavior(new CityChatBehavior());
                 }
                 if (RpgAPI.chatConfig.getBoolean("Chats." + chats + ".Use World")) {
+                    chatClass.setUseWorld(true);
                     chatClass.addBehavior(new WorldChatBehavior());
                 }
                 RpgAPI.chatClasses.add(chatClass);

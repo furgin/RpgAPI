@@ -54,6 +54,18 @@ public class ChatClass {
     //invited player
     private List<String> invitedPlayers = new ArrayList<String>();
 
+    //config use booleans
+    private boolean enabled = false;
+    private boolean spyEnabled = false;
+    private boolean useBasic = false;
+    private boolean useLanguage = false;
+    private boolean useDistance = false;
+    private Integer distance = 0;
+    private boolean useParty = false;
+    private boolean useGuild = false;
+    private boolean useRegion = false;
+    private boolean useCity = false;
+    private boolean useWorld = false;
 
     public void ChatClass() {
 
@@ -150,5 +162,93 @@ public class ChatClass {
 
     public void setChannelNick(String channelNick) {
         this.channelNick = channelNick;
+    }
+
+    public boolean isUseWorld() {
+        return useWorld;
+    }
+
+    public void setUseWorld(boolean useWorld) {
+        this.useWorld = useWorld;
+    }
+
+    public boolean isUseCity() {
+        return useCity;
+    }
+
+    public void setUseCity(boolean useCity) {
+        this.useCity = useCity;
+    }
+
+    public boolean isUseRegion() {
+        return useRegion;
+    }
+
+    public void setUseRegion(boolean useRegion) {
+        this.useRegion = useRegion;
+    }
+
+    public boolean isUseGuild() {
+        return useGuild;
+    }
+
+    public void setUseGuild(boolean useGuild) {
+        this.useGuild = useGuild;
+    }
+
+    public boolean isUseParty() {
+        return useParty;
+    }
+
+    public void setUseParty(boolean useParty) {
+        this.useParty = useParty;
+    }
+
+    public Integer getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Integer distance) {
+        this.distance = distance;
+    }
+
+    public boolean isUseDistance() {
+        return useDistance;
+    }
+
+    public void setUseDistance(boolean useDistance) {
+        this.useDistance = useDistance;
+    }
+
+    public boolean isUseLanguage() {
+        return useLanguage;
+    }
+
+    public void setUseLanguage(boolean useLanguage) {
+        this.useLanguage = useLanguage;
+    }
+
+    public boolean isUseBasic() {
+        return useBasic;
+    }
+
+    public void setUseBasic(boolean useBasic) {
+        this.useBasic = useBasic;
+    }
+
+    public boolean isSpyEnabled() {
+        return spyEnabled;
+    }
+
+    public void setSpyEnabled(boolean spyEnabled) {
+        this.spyEnabled = spyEnabled;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

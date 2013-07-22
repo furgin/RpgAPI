@@ -32,10 +32,12 @@ import com.vartala.soulofw0lf.rpgapi.mobcommandapi.MobEditingChatListener;
 import com.vartala.soulofw0lf.rpgapi.mobcommandapi.SetBuilder;
 import com.vartala.soulofw0lf.rpgapi.partyapi.LFGPlayer;
 import com.vartala.soulofw0lf.rpgapi.partyapi.PartyGroup;
+import com.vartala.soulofw0lf.rpgapi.permissionsapi.PermissionGroup;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.poisonapi.PoisonBuilder;
 import com.vartala.soulofw0lf.rpgapi.poisonapi.PoisonTimeChecker;
 import com.vartala.soulofw0lf.rpgapi.poisonapi.RpgPoison;
+import com.vartala.soulofw0lf.rpgapi.savers.ChatSaver;
 import com.vartala.soulofw0lf.rpgapi.spellapi.MagicSpell;
 import com.vartala.soulofw0lf.rpgapi.sqlapi.SQLHandler;
 import com.vartala.soulofw0lf.rpgapi.tradeapi.TradeCommandProcessor;
@@ -149,6 +151,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static boolean reputationOn = true;
     public static boolean languagesOn = true;
     public static boolean duelsOn = true;
+    public static boolean permsOn = true;
 
 
     //Utilities
@@ -204,6 +207,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static List<HelpFile> helpMap = new ArrayList<HelpFile>();
     public static Map<String, List<HelpFile>> helpPages = new HashMap<>();
     public static Map<Integer, HelpPage> helpDisplay = new HashMap<>();
+    public static Map<String, PermissionGroup> permGroups = new HashMap<>();
 
     public static RpgAPI getInstance() {
         return plugin;
@@ -235,6 +239,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
         borderOn = getConfig().getBoolean("Plugins.Border");
         reputationOn = getConfig().getBoolean("Plugins.Reputation");
         languagesOn = getConfig().getBoolean("Plugins.Languages");
+        permsOn = getConfig().getBoolean("Plugins.Permissions");
 
         //register global listeners
         Bukkit.getPluginManager().registerEvents(this, this);
@@ -386,10 +391,13 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        LoadCities.ToFile();
-        LoadRegions.ToFile();
-        for (String thisWarp : RpgAPI.savedWarps.keySet()) {
-            if (warpsOn) {
+        if (chatOn){
+            LoadCities.ToFile();
+            LoadRegions.ToFile();
+            new ChatSaver();
+        }
+        if (warpsOn) {
+            for (String thisWarp : RpgAPI.savedWarps.keySet()) {
                 WarpBuilder.SaveWarp(thisWarp);
                 WarpSetBuilder.SaveSets();
             }

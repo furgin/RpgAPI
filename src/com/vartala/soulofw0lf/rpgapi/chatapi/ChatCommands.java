@@ -279,6 +279,7 @@ public class ChatCommands {
                 p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Chat Help")).replace("@h", RpgAPI.commandSettings.get("Chat Help")).replace("@n", RpgAPI.commandSettings.get("Chat New")).replace("@p", RpgAPI.commandSettings.get("Create Private")).replace("@r", RpgAPI.commandSettings.get("Create Region")).replace("@c", RpgAPI.commandSettings.get("Create City")).replace("@i", RpgAPI.commandSettings.get("Chat Invite")).replace("@a", RpgAPI.commandSettings.get("Chat Accept")).replace("@k", RpgAPI.commandSettings.get("Chat Kick")).replace("@m", RpgAPI.commandSettings.get("Chat Mute")).replace("@v", RpgAPI.commandSettings.get("Chat Voice")).replace("@b", RpgAPI.commandSettings.get("Chat Ban")).replace("@u", RpgAPI.commandSettings.get("Chat Unban")).replace("@d", RpgAPI.commandSettings.get("Chat Delete")).replace("@l", RpgAPI.commandSettings.get("Chat Channel List")).replace("@w", RpgAPI.commandSettings.get("Chat Who")).replace("@o", RpgAPI.commandSettings.get("Chat Owner")).replace("@t", RpgAPI.commandSettings.get("Chat Take")).replace("@s",RpgAPI.commandSettings.get("Chat Supervisor")).replace("@x", RpgAPI.commandSettings.get("Chat XSupervisor")));
                 return true;
             }
+
             return true;
         }
 

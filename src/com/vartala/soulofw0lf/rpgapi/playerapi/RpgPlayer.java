@@ -27,12 +27,20 @@ public class RpgPlayer implements Permissible {
 	/*
 	 * general variables
 	 */
+    //perm groups
+    private List<String> permGroups = new ArrayList<>();
+
+    //individual perms
+    private List<String> individualPerms = new ArrayList<>();
 
     //used for mob editing
     public String chatLock = "";
 
     //the players actual name
     private String realName = "";
+
+    //rpg player name
+    private String name = "";
 
     //player TP invite state
     private boolean tpInviteState = false;
@@ -1283,5 +1291,48 @@ public class RpgPlayer implements Permissible {
     }
     public void setOp(Boolean setIsOp){
         useOp = setIsOp;
+    }
+
+    public List<String> getPermGroups() {
+        return permGroups;
+    }
+    public void addGroup(String s){
+        permGroups.add(s);
+    }
+    public void removeGroup(String s){
+        permGroups.remove(s);
+    }
+    public void setPermGroups(List<String> permGroups) {
+        this.permGroups = permGroups;
+    }
+
+    public List<String> getIndividualPerms() {
+        return individualPerms;
+    }
+
+    public void setIndividualPerms(List<String> individualPerms) {
+        this.individualPerms = individualPerms;
+    }
+    public void addPerm(String s){
+        individualPerms.add(s);
+        PermissionAttachment pAttach = RpgAPI.permAttachments.get(realName);
+        PermissionAttachment attach = RpgAPI.permAttachments.get(name);
+        pAttach.setPermission(s, true);
+        attach.setPermission(s, true);
+    }
+    public void delPerm(String s){
+        individualPerms.remove(s);
+        PermissionAttachment pAttach = RpgAPI.permAttachments.get(realName);
+        PermissionAttachment attach = RpgAPI.permAttachments.get(name);
+        pAttach.setPermission(s, false);
+        attach.setPermission(s, false);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
