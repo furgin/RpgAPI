@@ -35,7 +35,7 @@ public class TradeEventListener implements Listener{
             forbiddenIndex.add(i);
         }
     }
-
+    @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.HIGHEST)
     public void clickListener(final InventoryClickEvent event) {
         // Return if trade isn't on
@@ -77,9 +77,11 @@ public class TradeEventListener implements Listener{
                                 if (!forbiddenIndex.contains(i) && i%9 < 4) {
                                     if (event.getInventory().getItem(i) != null) {
                                         otherP.getOpenInventory().setItem(i+5, event.getInventory().getItem(i).clone());
+                                        otherP.updateInventory();
                                     } else {
                                         // Clear up blank spaces
                                         otherP.getOpenInventory().setItem(i+5, new ItemStack(0));
+                                        otherP.updateInventory();
                                     }
                                 }
                             }
