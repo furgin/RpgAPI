@@ -49,32 +49,7 @@ public class playerLogIn implements Listener {
         RpgPlayer rp = RpgPlayerBuilder.RpgBuilder(p);
         RpgAPI.rpgPlayers.put(p, rp);
         if (RpgAPI.permsOn){
-        PermissionAttachment pAttach = player.addAttachment(RpgAPI.getInstance());
-        PermissionAttachment attach = rp.addAttachment(RpgAPI.getInstance());
-        if (rp.getPermGroups() == null){
-            List<String> groups = new ArrayList<>();
-            groups.add("Default");
-            rp.setPermGroups(groups);
-        }
-        for (String group : rp.getPermGroups()){
-
-            PermissionGroup pG = RpgAPI.permGroups.get(group);
-            RpgAPI.playerColors.put(pName, pG.getRankColor());
-            for (String denyPerm : pG.getDeniedPerms()){
-                pAttach.setPermission(denyPerm, false);
-                attach.setPermission(denyPerm, false);
-            }
-            for (String perm : pG.getPermissions()){
-                pAttach.setPermission(perm, true);
-                attach.setPermission(perm, true);
-            }
-            for (String indPerm : rp.getIndividualPerms()){
-                pAttach.setPermission(indPerm, true);
-                attach.setPermission(indPerm, true);
-            }
-        }
-        RpgAPI.permAttachments.put(p, attach);
-        RpgAPI.permAttachments.put(pName, pAttach);
+            rp.worldChange(player.getWorld().getName());
         }
         if (!(RpgAPI.playerColors.containsKey(pName))) {
             if (player.isOp()) {

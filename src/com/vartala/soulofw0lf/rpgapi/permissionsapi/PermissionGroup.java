@@ -34,8 +34,16 @@ public class PermissionGroup {
     private List<String> deniedPerms = new ArrayList<>();
     private String groupName = "";
     private boolean defaultGroup = false;
+    private boolean defaultPlayer = false;
+    private boolean defaultDonator = false;
+    private boolean defaultMediumDonator = false;
+    private boolean defaultHighDonator = false;
+    private boolean defaultModerator = false;
+    private boolean defaultAdmin = false;
+    private boolean defaultOp = false;
     private double rank = 0.0;
     private String rankColor = "";
+    private List<String> worlds = new ArrayList<>();
     private List<String> inheritances = new ArrayList<>();
 
     public List<String> getInheritances() {
@@ -47,23 +55,22 @@ public class PermissionGroup {
     public void removeInheritence(String s){
         inheritances.remove(s);
     }
-    public void addPerm(String s){
+    public void addPerm(String s, String world){
         for (Player p : Bukkit.getOnlinePlayers()){
             RpgPlayer rp = RpgAPI.getRp(p.getName());
-            if (rp.getPermGroups().contains(groupName)){
+            if (rp.getPermGroups().get(world).contains(groupName)){
                 PermissionAttachment attach = RpgAPI.permAttachments.get(RpgAPI.activeNicks.get(p.getName()));
                 attach.setPermission(s, true);
                 PermissionAttachment pAttach = RpgAPI.permAttachments.get(p.getName());
                 pAttach.setPermission(s, true);
             }
-
         }
         permissions.add(s);
     }
-    public void removePerm(String s){
+    public void removePerm(String s, String world){
         for (Player p : Bukkit.getOnlinePlayers()){
             RpgPlayer rp = RpgAPI.getRp(p.getName());
-            if (rp.getPermGroups().contains(groupName)){
+            if (rp.getPermGroups().get(world).contains(groupName)){
                 PermissionAttachment attach = RpgAPI.permAttachments.get(RpgAPI.activeNicks.get(p.getName()));
                 attach.setPermission(s, false);
                 PermissionAttachment pAttach = RpgAPI.permAttachments.get(p.getName());
@@ -124,5 +131,69 @@ public class PermissionGroup {
 
     public void setPermissions(List<String> permissions) {
         this.permissions = permissions;
+    }
+
+    public List<String> getWorlds() {
+        return worlds;
+    }
+
+    public void setWorlds(List<String> worlds) {
+        this.worlds = worlds;
+    }
+
+    public boolean isDefaultOp() {
+        return defaultOp;
+    }
+
+    public void setDefaultOp(boolean defaultOp) {
+        this.defaultOp = defaultOp;
+    }
+
+    public boolean isDefaultAdmin() {
+        return defaultAdmin;
+    }
+
+    public void setDefaultAdmin(boolean defaultAdmin) {
+        this.defaultAdmin = defaultAdmin;
+    }
+
+    public boolean isDefaultModerator() {
+        return defaultModerator;
+    }
+
+    public void setDefaultModerator(boolean defaultModerator) {
+        this.defaultModerator = defaultModerator;
+    }
+
+    public boolean isDefaultHighDonator() {
+        return defaultHighDonator;
+    }
+
+    public void setDefaultHighDonator(boolean defaultHighDonator) {
+        this.defaultHighDonator = defaultHighDonator;
+    }
+
+    public boolean isDefaultMediumDonator() {
+        return defaultMediumDonator;
+    }
+
+    public void setDefaultMediumDonator(boolean defaultMediumDonator) {
+        this.defaultMediumDonator = defaultMediumDonator;
+    }
+
+    public boolean isDefaultDonator() {
+        return defaultDonator;
+    }
+
+    public void setDefaultDonator(boolean defaultDonator) {
+        this.defaultDonator = defaultDonator;
+    }
+
+    public boolean isDefaultPlayer() {
+        return defaultPlayer;
+    }
+
+    public void setDefaultPlayer(boolean defaultPlayer) {
+        this.defaultPlayer = defaultPlayer;
     }
 }

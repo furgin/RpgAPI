@@ -208,7 +208,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<String, List<HelpFile>> helpPages = new HashMap<>();
     public static Map<Integer, HelpPage> helpDisplay = new HashMap<>();
     public static Map<String, PermissionGroup> permGroups = new HashMap<>();
-
+    public static String defaultGroup = "";
     public static RpgAPI getInstance() {
         return plugin;
     }

@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.enumapi.*;
+import com.vartala.soulofw0lf.rpgapi.permissionsapi.PermissionGroup;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -28,10 +29,10 @@ public class RpgPlayer implements Permissible {
 	 * general variables
 	 */
     //perm groups
-    private List<String> permGroups = new ArrayList<>();
+    private Map<String, List<String>> permGroups = new HashMap<>();
 
     //individual perms
-    private List<String> individualPerms = new ArrayList<>();
+    private Map<String, List<String>> individualPerms = new HashMap<>();
 
     //used for mob editing
     public String chatLock = "";
@@ -1306,39 +1307,95 @@ public class RpgPlayer implements Permissible {
         useOp = setIsOp;
     }
 
-    public List<String> getPermGroups() {
+    public Map<String, List<String>> getPermGroups() {
         return permGroups;
     }
-    public void addGroup(String s){
-        permGroups.add(s);
-    }
-    public void removeGroup(String s){
-        permGroups.remove(s);
-    }
-    public void setPermGroups(List<String> permGroups) {
-        this.permGroups = permGroups;
-    }
-
-    public List<String> getIndividualPerms() {
-        return individualPerms;
-    }
-
-    public void setIndividualPerms(List<String> individualPerms) {
-        this.individualPerms = individualPerms;
-    }
-    public void addPerm(String s){
-        individualPerms.add(s);
+    public void worldChange(String world){
+        resetPerms();
+        if (!permGroups.containsKey(world)){
+            List<String> permgroups = new ArrayList<>();
+            permgroups.add(RpgAPI.defaultGroup);
+            permGroups.put(world, permgroups);
+        }
         PermissionAttachment pAttach = RpgAPI.permAttachments.get(realName);
         PermissionAttachment attach = RpgAPI.permAttachments.get(name);
-        pAttach.setPermission(s, true);
-        attach.setPermission(s, true);
+        if (individualPerms.containsKey(world)){
+            for (String perms : individualPerms.get(world)){
+                pAttach.setPermission(perms, true);
+                attach.setPermission(perms, true);
+            }
+        }
+        for (String group : permGroups.get(world)){
+            PermissionGroup pG = RpgAPI.permGroups.get(group);
+
+            for (String deny : pG.getDeniedPerms()){
+                pAttach.setPermission(deny, false);
+                attach.setPermission(deny, false);
+            }
+            for (String perm : pG.getPermissions()){
+                pAttach.setPermission(perm, true);
+                attach.setPermission(perm, true);
+            }
+            List<PermissionGroup> inheritance = new ArrayList<>();
+            for (String  inh : pG.getInheritances()){
+                if (inh != null){
+                    inheritance.add(RpgAPI.permGroups.get(inh));
+                    for (PermissionGroup pg1 : inheritance){
+                        for (String deny : pg1.getDeniedPerms()){
+                            pAttach.setPermission(deny, false);
+                            attach.setPermission(deny, false);
+                        }
+                        for (String perm : pg1.getPermissions()){
+                            pAttach.setPermission(perm, true);
+                            attach.setPermission(perm, true);
+                        }
+                    }
+                }
+            }
+        }
     }
-    public void delPerm(String s){
-        individualPerms.remove(s);
-        PermissionAttachment pAttach = RpgAPI.permAttachments.get(realName);
-        PermissionAttachment attach = RpgAPI.permAttachments.get(name);
-        pAttach.setPermission(s, false);
-        attach.setPermission(s, false);
+    public void addGroup(String s, String group){
+        permGroups.get(s).add(group);
+        worldChange(s);
+    }
+    public void removeGroup(String s, String group){
+        permGroups.get(s).remove(group);
+        worldChange(s);
+    }
+    public void resetPerms(){
+        permGroups.clear();
+        individualPerms.clear();
+        if (RpgAPI.permAttachments.containsKey(realName)){
+            RpgAPI.permAttachments.remove(realName);
+        }
+        if (RpgAPI.permAttachments.containsKey(name)){
+            RpgAPI.permAttachments.remove(name);
+        }
+        PermissionAttachment pAttach = Bukkit.getPlayer(realName).addAttachment(RpgAPI.getInstance());
+        PermissionAttachment attach = this.addAttachment(RpgAPI.getInstance());
+        RpgAPI.permAttachments.put(realName, pAttach);
+        RpgAPI.permAttachments.put(name, attach);
+    }
+    public void setWorldPermGroups(String world, List<String> permGroups) {
+        this.permGroups.put(world, permGroups);
+        worldChange(world);
+    }
+
+    public List<String> getIndividualPerms(String world) {
+        return individualPerms.get(world);
+    }
+
+    public void setIndividualWorldPerms(String world, List<String> individualPerms) {
+        this.individualPerms.put(world, individualPerms);
+        worldChange(world);
+    }
+    public void addPerm(String world, String s){
+        individualPerms.get(world).add(s);
+        worldChange(world);
+    }
+    public void delPerm(String world, String s){
+        individualPerms.get(world).remove(s);
+        worldChange(world);
     }
 
     public String getName() {
