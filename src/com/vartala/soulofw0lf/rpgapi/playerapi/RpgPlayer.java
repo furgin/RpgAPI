@@ -1152,6 +1152,9 @@ public class RpgPlayer implements Permissible {
 
     @Override
     public boolean hasPermission(String s) {
+        if (!RpgAPI.permsOn){
+            if (Bukkit.getPlayer(realName).hasPermission(s)){return true;} else {return false;}
+        }
         PermissionAttachment attachment = RpgAPI.permAttachments.get(RpgAPI.activeNicks.get(realName));
         if (attachment.getPermissions().containsKey(s)){
             return true;

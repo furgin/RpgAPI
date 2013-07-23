@@ -88,7 +88,7 @@ public class UniqueCommands {
                         cancel();
                     }
                     Location loc = pl.getLocation();
-                    loc.setY(pl.getLocation().getY() - 4);
+                    loc.setY(pl.getLocation().getY() +1);
                 ParticleEffect.fromId(Integer.parseInt(commands[1])).play(pl, loc, 0f, 0f, 0f, Float.parseFloat(commands[2]), Integer.parseInt(commands[3]));
                     i--;
                 }
