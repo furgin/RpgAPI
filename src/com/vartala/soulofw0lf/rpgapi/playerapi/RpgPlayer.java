@@ -164,6 +164,8 @@ public class RpgPlayer implements Permissible {
     //if a receiver is waiting for a trade
     private String waitTrade = "";
 
+    private boolean defaultTrade = true;
+
 	
 	/*
 	 * chat variables
@@ -1345,5 +1347,13 @@ public class RpgPlayer implements Permissible {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean useDefaultTrade() {
+        return defaultTrade;
+    }
+
+    public void setDefaultTrade(boolean defaultTrade) {
+        this.defaultTrade = defaultTrade;
     }
 }
