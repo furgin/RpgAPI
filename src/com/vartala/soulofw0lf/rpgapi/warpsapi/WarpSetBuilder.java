@@ -1,7 +1,10 @@
 package com.vartala.soulofw0lf.rpgapi.warpsapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,24 +30,31 @@ import java.util.List;
  */
 public class WarpSetBuilder {
     public static void BuildSets() {
-        if (RpgAPI.warpConfig.get("Warp Sets") != null) {
-            for (String warpSet : RpgAPI.warpConfig.getConfigurationSection("Warp Sets").getKeys(false)) {
+        YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgWarps/RpgWarps.yml"));
+        if (warpConfig.get("Warp Sets") != null) {
+            for (String warpSet : warpConfig.getConfigurationSection("Warp Sets").getKeys(false)) {
                 WarpSets warpS = new WarpSets();
                 warpS.setSetName(warpSet);
-                List<RpgWarp> setWarps = new ArrayList<RpgWarp>();
+                List<RpgWarp> setWarps = new ArrayList<>();
                 warpS.setSetWarps(setWarps);
-                warpS.setWarpsRandom(RpgAPI.warpConfig.getBoolean("Warp Sets." + warpSet + ".Is Random"));
-                warpS.setSetPermission(RpgAPI.warpConfig.getString("Warp Sets." + warpSet + ".Permission Needed"));
+                warpS.setWarpsRandom(warpConfig.getBoolean("Warp Sets." + warpSet + ".Is Random"));
+                warpS.setSetPermission(warpConfig.getString("Warp Sets." + warpSet + ".Permission Needed"));
                 RpgAPI.savedSets.put(warpSet, warpS);
             }
         }
     }
 
     public static void SaveSets() {
+        YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgWarps/RpgWarps.yml"));
         for (String setNames : RpgAPI.savedSets.keySet()) {
             WarpSets warpS = RpgAPI.savedSets.get(setNames);
-            RpgAPI.warpConfig.set("Warp Sets." + setNames + ".Is Random", warpS.getWarpsRandom());
-            RpgAPI.warpConfig.set("Warp Sets." + setNames + ".Permission Needed", warpS.getSetPermission());
+            warpConfig.set("Warp Sets." + setNames + ".Is Random", warpS.getWarpsRandom());
+            warpConfig.set("Warp Sets." + setNames + ".Permission Needed", warpS.getSetPermission());
+        }
+        try {
+            warpConfig.save(new File("plugins/RpgWarps/RpgWarps.yml"));
+        } catch (IOException e){
+            System.out.print(e);
         }
     }
 }

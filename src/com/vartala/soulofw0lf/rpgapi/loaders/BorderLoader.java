@@ -32,8 +32,8 @@ import java.io.IOException;
  */
 public class BorderLoader {
     public BorderLoader(){
-        RpgAPI.worldBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgBorders.yml"));
-        RpgAPI.worldLocaleBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/RpgBorders.yml"));
+        RpgAPI.worldBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgBorders/RpgBorders.yml"));
+        RpgAPI.worldLocaleBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgBorders/Locale/RpgBorders.yml"));
         if (RpgAPI.worldBorder.get("Worlds") == null) {
             RpgAPI.worldBorder.set("Worlds.World.X", 0);
             RpgAPI.worldBorder.set("Worlds.World.Y", 0);
@@ -41,8 +41,8 @@ public class BorderLoader {
             RpgAPI.worldBorder.set("Worlds.World.Radius", 1000);
         }
         try {
-            RpgAPI.worldBorder.save(new File("plugins/RpgAPI/RpgBorders.yml"));
-            RpgAPI.worldLocaleBorder.save(new File("plugins/RpgAPI/Locale/RpgBorders.yml"));
+            RpgAPI.worldBorder.save(new File("plugins/RpgBorders/RpgBorders.yml"));
+            RpgAPI.worldLocaleBorder.save(new File("plugins/RpgBorders/Locale/RpgBorders.yml"));
         } catch (IOException e) {
         }
         Double X = 0.0;

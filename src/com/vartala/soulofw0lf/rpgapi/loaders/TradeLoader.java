@@ -34,12 +34,12 @@ public class TradeLoader {
         this.Rpg = rpg;
         RpgAPI.tradeHandler = new TradeHandler(this.Rpg);
         this.Rpg.tradeListener = new TradeEventListener(this.Rpg);
-        RpgAPI.tradeConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Trade.yml"));
-        RpgAPI.tradeLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/Trade.yml"));
+        RpgAPI.tradeConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgTrade/Trade.yml"));
+        RpgAPI.tradeLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgTrade/Locale/Trade.yml"));
 
     try {
-        RpgAPI.tradeConfig.save(new File("plugins/RpgAPI/Trade.yml"));
-        RpgAPI.tradeLocaleConfig.save(new File("plugins/RpgAPI/Locale/Trade.yml"));
+        RpgAPI.tradeConfig.save(new File("plugins/RpgTrade/Trade.yml"));
+        RpgAPI.tradeLocaleConfig.save(new File("plugins/RpgTrade/Locale/Trade.yml"));
     } catch (IOException e) {
     }
 

@@ -87,8 +87,6 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static YamlConfiguration localeConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale.yml"));
     public static YamlConfiguration guildConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Guilds.yml"));
     public static YamlConfiguration guildLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/Guilds.yml"));
-    public static YamlConfiguration chatConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat.yml"));
-    public static YamlConfiguration chatLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/RpgChat.yml"));
     public static YamlConfiguration foodConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Food.yml"));
     public static YamlConfiguration foodLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/Food.yml"));
     public static YamlConfiguration clickConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Clicks.yml"));
@@ -108,14 +106,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static YamlConfiguration testPlayer = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayer/TestPlayer.yml"));
     public static YamlConfiguration worldBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgBorders.yml"));
     public static YamlConfiguration worldLocaleBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/RpgBorders.yml"));
-    public static YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/WarpConfig.yml"));
-    public static YamlConfiguration warpLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/WarpConfig.yml"));
-    public static YamlConfiguration languageConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgLanguages.yml"));
-    public static YamlConfiguration languageLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/RpgLanguages.yml"));
-    public static YamlConfiguration cityConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat/RpgCities.yml"));
-    public static YamlConfiguration cityLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/RpgCities.yml"));
-    public static YamlConfiguration regionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat/RpgRegions.yml"));
-    public static YamlConfiguration regionLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/RpgRegions.yml"));
+
     public static Map<String, PermissionAttachment> permAttachments = new HashMap<>();
 
 
@@ -405,9 +396,6 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }
         playerConfig.set("Player Colors", playerColors);
         try {
-            if (warpsOn) {
-                warpConfig.save(new File("plugins/RpgAPI/WarpConfig.yml"));
-            }
             playerConfig.save(new File("plugins/RpgAPI/RpgPlayers.yml"));
         } catch (IOException e) {
         }

@@ -60,7 +60,7 @@ public class ChatClass {
     private boolean useBasic = false;
     private boolean useLanguage = false;
     private boolean useDistance = false;
-    private Integer distance = 0;
+    private int distance = 0;
     private boolean useParty = false;
     private boolean useGuild = false;
     private boolean useRegion = false;
@@ -108,7 +108,7 @@ public class ChatClass {
         this.channelBehaviors = channelBehaviors;
     }
 
-    public Boolean getPrivateChat() {
+    public boolean getPrivateChat() {
         return privateChat;
     }
 
@@ -204,7 +204,7 @@ public class ChatClass {
         this.useParty = useParty;
     }
 
-    public Integer getDistance() {
+    public int getDistance() {
         return distance;
     }
 

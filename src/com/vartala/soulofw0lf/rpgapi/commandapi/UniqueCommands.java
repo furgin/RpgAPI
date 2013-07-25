@@ -4,6 +4,7 @@ import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.chatapi.*;
 import com.vartala.soulofw0lf.rpgapi.enumapi.PlayerStat;
 import com.vartala.soulofw0lf.rpgapi.particleapi.ParticleEffect;
+import com.vartala.soulofw0lf.rpgapi.permissionsapi.PermHandler;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayerBuilder;
 import com.vartala.soulofw0lf.rpgapi.speedapi.SpeedHandler;
@@ -60,21 +61,14 @@ public class UniqueCommands {
     public static void BaseCommandHandler(Player p, String[] command) {
         command[0] = command[0].replace("/", "").toLowerCase().trim();
 
-        //Pass the command info the the warp command handler
+        //Pass the command info to the warp command handler
         if (RpgAPI.warpsOn){if (WarpCommands.handler(p, command)){return;}}
+        //pass the command info to the chat command handler
         if (RpgAPI.chatOn){if (ChatCommands.ChatHandler(p, command)){return;}}
-        //particle test
-        if (command[0].equalsIgnoreCase("addperm")){
-            String name = RpgAPI.activeNicks.get(p.getName());
-            if (name == null){
-                p.sendMessage("no name");
-            }
-            PermissionAttachment attachment = RpgAPI.permAttachments.get(name);
-            if (attachment == null){
-                p.sendMessage("can't find it.");
-            }
-            attachment.setPermission(command[1], true);
-        }
+        //pass the command info to the permission handler
+        if (RpgAPI.permsOn){if (PermHandler.permCommands(p, command)){return;}}
+        // Pass the command info to the trading processor
+        if (RpgAPI.tradeOn) TradeCommandProcessor.process(p, command);
         if (command[0].equalsIgnoreCase("effect"))  {
 
             final Player pl = p;
@@ -95,8 +89,7 @@ public class UniqueCommands {
             }.runTaskTimer(RpgAPI.getInstance(), 20, 5);
         }
 
-        // Pass the command info to the trading processor
-        if (RpgAPI.tradeOn) TradeCommandProcessor.process(p, command);
+
 
         if (command[0].equalsIgnoreCase("nick")) {
             String name = p.getName();

@@ -28,14 +28,14 @@ import java.io.IOException;
  */
 public class AchievementLoader {
     public AchievementLoader(){
-        RpgAPI.achievementConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Achievements.yml"));
-        RpgAPI.achievementLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/Achievements.yml"));
+        RpgAPI.achievementConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAchievements/Achievements.yml"));
+        RpgAPI.achievementLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAchievements/Locale/Achievements.yml"));
         if (RpgAPI.achievementConfig.get("Achievements") == null) {
             RpgAPI.achievementConfig.set("Achievements", "This file stores all your servers saved Achievements");
         }
         try {
-            RpgAPI.achievementConfig.save(new File("plugins/RpgAPI/Achievements.yml"));
-            RpgAPI.achievementLocaleConfig.save(new File("plugins/RpgAPI/Locale/Achievements.yml"));
+            RpgAPI.achievementConfig.save(new File("plugins/RpgAchievements/Achievements.yml"));
+            RpgAPI.achievementLocaleConfig.save(new File("plugins/RpgAchievements/Locale/Achievements.yml"));
         } catch (IOException e) {
         }
         //after file is saved

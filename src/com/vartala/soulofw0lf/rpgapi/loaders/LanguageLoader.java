@@ -29,7 +29,7 @@ import java.io.IOException;
  */
 public class LanguageLoader {
     public LanguageLoader(){
-        File l = new File("plugins/RpgAPI/RpgLanguages");
+        File l = new File("plugins/RpgLanguages");
         File[] lFiles = l.listFiles();
         if (!(lFiles == null)) {
             for (File languageFile : lFiles) {
@@ -37,13 +37,5 @@ public class LanguageLoader {
                 LanguageProcessor.LanguageLoader(lang);
             }
         }
-        RpgAPI.languageConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgLanguages.yml"));
-        RpgAPI.languageLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/RpgLanguages.yml"));
-        try {
-            RpgAPI.languageConfig.save(new File("plugins/RpgAPI/RpgLanguages.yml"));
-            RpgAPI.languageLocaleConfig.save(new File("plugins/RpgAPI/Locale/RpgLanguages.yml"));
-        } catch (IOException e) {
-        }
-        //after file is saved
     }
 }

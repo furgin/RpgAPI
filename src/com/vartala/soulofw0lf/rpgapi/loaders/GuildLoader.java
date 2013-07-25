@@ -28,14 +28,14 @@ import java.io.IOException;
  */
 public class GuildLoader {
     public GuildLoader(){
-        RpgAPI.guildConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Guilds.yml"));
-        RpgAPI.guildLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/Guilds.yml"));
+        RpgAPI.guildConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgGuilds/Guilds.yml"));
+        RpgAPI.guildLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgGuilds/Locale/Guilds.yml"));
         if (RpgAPI.guildConfig.get("Guilds Info") == null) {
             RpgAPI.guildConfig.set("Guilds Info", "This File will save all guild info, Mysql is highly recommended!");
         }
         try {
-            RpgAPI.guildConfig.save(new File("plugins/RpgAPI/Guilds.yml"));
-            RpgAPI.guildLocaleConfig.save(new File("plugins/RpgAPI/Locale/Guilds.yml"));
+            RpgAPI.guildConfig.save(new File("plugins/RpgGuilds/Guilds.yml"));
+            RpgAPI.guildLocaleConfig.save(new File("plugins/RpgGuilds/Locale/Guilds.yml"));
         } catch (IOException e) {
         }
         //after file is saved

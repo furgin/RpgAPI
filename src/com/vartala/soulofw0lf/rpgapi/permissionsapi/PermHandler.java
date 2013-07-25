@@ -2,6 +2,8 @@ package com.vartala.soulofw0lf.rpgapi.permissionsapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.permissions.PermissionAttachment;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,13 +31,23 @@ import java.util.List;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class PermHandler {
-    public Boolean permCommands(){
-
+    public static Boolean permCommands(Player p, String[] command){
+        if (command[0].equalsIgnoreCase("addperm")){
+            String name = RpgAPI.activeNicks.get(p.getName());
+            if (name == null){
+                p.sendMessage("no name");
+            }
+            PermissionAttachment attachment = RpgAPI.permAttachments.get(name);
+            if (attachment == null){
+                p.sendMessage("can't find it.");
+            }
+            attachment.setPermission(command[1], true);
+        }
         return false;
     }
     @SuppressWarnings("unchecked")
     public void loadPerms(){
-        YamlConfiguration groupConfig =  YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Permissions/Groups.yml"));
+        YamlConfiguration groupConfig =  YamlConfiguration.loadConfiguration(new File("plugins/RpgPermissions/Groups.yml"));
         if (groupConfig.getString("Groups") == null){
             groupConfig.set("Groups.Default.Default", true);
             List<String> perms = new ArrayList<>();
@@ -48,7 +60,7 @@ public class PermHandler {
             groupConfig.set("Groups.Default.Rank Color", "&f");
         }
         try {
-            groupConfig.save(new File("plugins/RpgAPI/Permissions/Groups.yml"));
+            groupConfig.save(new File("plugins/RpgPermissions/Groups.yml"));
         } catch (IOException e){
 
         }
@@ -69,7 +81,7 @@ public class PermHandler {
 
     }
     public void savePerms(){
-        YamlConfiguration groupConfig =  YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Permissions/Groups.yml"));
+        YamlConfiguration groupConfig =  YamlConfiguration.loadConfiguration(new File("plugins/RpgPermissions/Groups.yml"));
         for (String group : RpgAPI.permGroups.keySet()){
             PermissionGroup pG = RpgAPI.permGroups.get(group);
             groupConfig.set("Groups." + pG.getGroupName() + ".Default", pG.isDefaultGroup());
@@ -80,7 +92,7 @@ public class PermHandler {
             groupConfig.set("Groups." + pG.getGroupName() + ".Rank.Color", pG.getRankColor());
         }
         try {
-            groupConfig.save(new File("plugins/RpgAPI/Permissions/Groups.yml"));
+            groupConfig.save(new File("plugins/RpgPermissions/Groups.yml"));
         } catch (IOException e){
 
         }

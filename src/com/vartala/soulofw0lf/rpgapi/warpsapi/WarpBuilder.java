@@ -32,13 +32,13 @@ import java.util.List;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class WarpBuilder {
-
+    @SuppressWarnings("unchecked")
     public static void WarpLoader() {
-        File f = new File("plugins/RpgAPI/RpgWarps");
+        File f = new File("plugins/RpgWarps");
         File[] files = f.listFiles();
         if (files != null) {
             for (File warpSets : files) {
-                File r = new File("plugins/RpgAPI/RpgWarps/" + warpSets.getName());
+                File r = new File("plugins/RpgWarps/" + warpSets.getName());
                 File[] files1 = r.listFiles();
                 if (files1 != null) {
                     for (File warpFiles : files1) {
@@ -86,7 +86,7 @@ public class WarpBuilder {
                         }
                         RpgAPI.savedWarps.put(newWarp.getWarpName(), newWarp);
                         WarpSets thisSet = RpgAPI.savedSets.get(newWarp.getWarpSet());
-                        List<RpgWarp> setList = new ArrayList<RpgWarp>();
+                        List<RpgWarp> setList = new ArrayList<>();
                         if (thisSet.getSetWarps() != null) {
                             setList = thisSet.getSetWarps();
                         }
@@ -95,7 +95,7 @@ public class WarpBuilder {
                         for (String itemName : newWarp.getItemNames()) {
                             for (Material itemMaterial : newWarp.getItemMaterial()) {
                                 for (String itemLore : newWarp.getLoreNeeded()) {
-                                    List<String> tempLore = new ArrayList<String>();
+                                    List<String> tempLore = new ArrayList<>();
                                     tempLore.add(itemLore);
                                     Short dura = 0;
                                     ItemStack is = InventoryMaker.itemStackMaker(itemName, itemMaterial, 0, dura, tempLore);
@@ -112,7 +112,7 @@ public class WarpBuilder {
     public static void SaveWarp(String thisWarp) {
 
         RpgWarp saveWarp = RpgAPI.savedWarps.get(thisWarp);
-        YamlConfiguration warpYml = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgWarps/" + saveWarp.getWarpSet() + "/" + saveWarp.getWarpName() + ".yml"));
+        YamlConfiguration warpYml = YamlConfiguration.loadConfiguration(new File("plugins/RpgWarps/" + saveWarp.getWarpSet() + "/" + saveWarp.getWarpName() + ".yml"));
         warpYml.set("Warp Data.Warp Name", saveWarp.getWarpName());
         warpYml.set("Warp Data.Warp Set", saveWarp.getWarpSet());
         warpYml.set("Warp Data.Warp X", saveWarp.getWarpX());
@@ -169,8 +169,9 @@ public class WarpBuilder {
             warpYml.set("Warp Data.Use Item For Warp", false);
         }
         try {
-            warpYml.save(new File("plugins/RpgAPI/RpgWarps/" + saveWarp.getWarpSet() + "/" + saveWarp.getWarpName() + ".yml"));
+            warpYml.save(new File("plugins/RpgWarps/" + saveWarp.getWarpSet() + "/" + saveWarp.getWarpName() + ".yml"));
         } catch (IOException e) {
+            System.out.print(e);
         }
     }
 }

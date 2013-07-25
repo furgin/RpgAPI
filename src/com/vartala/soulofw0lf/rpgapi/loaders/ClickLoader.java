@@ -32,14 +32,14 @@ public class ClickLoader {
     public ClickLoader(RpgAPI Rpg){
         this.rpg = Rpg;
         this.rpg.clickListener = new ClickInvListener(this.rpg);
-        RpgAPI.clickLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/Clicks.yml"));
-        RpgAPI.clickConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Clicks.yml"));
+        RpgAPI.clickLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgClick/Locale/Clicks.yml"));
+        RpgAPI.clickConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgClick/Clicks.yml"));
         if (RpgAPI.clickConfig.get("Click Settings") == null) {
             RpgAPI.clickConfig.set("Click Settings", "This File is used to save all your click setting's");
         }
         try {
-            RpgAPI.clickLocaleConfig.save(new File("plugins/RpgAPI/Locale/Clicks.yml"));
-            RpgAPI.clickConfig.save(new File("plugins/RpgAPI/Clicks.yml"));
+            RpgAPI.clickLocaleConfig.save(new File("plugins/RpgClick/Locale/Clicks.yml"));
+            RpgAPI.clickConfig.save(new File("plugins/RpgClick/Clicks.yml"));
         } catch (IOException e) {
         }
         //after file is saved

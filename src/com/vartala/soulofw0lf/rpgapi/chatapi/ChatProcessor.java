@@ -55,7 +55,7 @@ public class ChatProcessor {
                 q = q.replaceAll("@Prefix", "");
             }
             if (!(rp.getActiveSuffix().equalsIgnoreCase("None")) && rp2.isShowingAchieveTitles()) {
-                q = q.replaceAll("@Suffix", "");
+                q = q.replaceAll("@Suffix", rp.getActiveSuffix());
             } else {
                 q = q.replaceAll(" @Suffix", "");
             }

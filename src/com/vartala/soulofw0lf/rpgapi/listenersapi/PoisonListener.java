@@ -50,8 +50,8 @@ public class PoisonListener implements Listener {
         if (p.getLocation().getY() >= 31) {
             return;
         }
-        if (this.Rpgapi.activeNicks.containsKey(p.getName())) {
-            RpgPlayer rp = this.Rpgapi.rpgPlayers.get(this.Rpgapi.activeNicks.get(p.getName()));
+        if (RpgAPI.activeNicks.containsKey(p.getName())) {
+            RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(p.getName()));
             if (rp.isPoisonProof()) {
                 return;
             }

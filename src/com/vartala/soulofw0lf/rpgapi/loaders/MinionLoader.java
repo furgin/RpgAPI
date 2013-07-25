@@ -34,10 +34,10 @@ public class MinionLoader {
         this.rpg = Rpg;
         RpgAPI.entityManager = RemoteEntities.createManager(this.rpg);
         this.rpg.mobEditingChatListener = new MobEditingChatListener(this.rpg);
-        RpgAPI.minionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Minions.yml"));
-        RpgAPI.minionLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/Minions.yml"));
-        RpgAPI.mobCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/MobCommands.yml"));
-        RpgAPI.mobLocaleCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/MobCommands.yml"));
+        RpgAPI.minionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgMinions/Minions.yml"));
+        RpgAPI.minionLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgMinions/Locale/Minions.yml"));
+        RpgAPI.mobCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgMinions/MobCommands.yml"));
+        RpgAPI.mobLocaleCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgMinions/Locale/MobCommands.yml"));
         if (RpgAPI.mobCommand.get("Mob Commands") == null) {
             RpgAPI.mobCommand.set("Mob Commands.Set 1.Item 1.Commands.1.ClickType", "right");
         }
@@ -45,10 +45,10 @@ public class MinionLoader {
             RpgAPI.minionConfig.set("Minions", "this file is used to store all minion and monster data (Mysql is highly recommended!");
         }
         try {
-            RpgAPI.minionConfig.save(new File("plugins/RpgAPI/Minions.yml"));
-            RpgAPI.minionLocaleConfig.save(new File("plugins/RpgAPI/Locale/Minions.yml"));
-            RpgAPI.mobCommand.save(new File("plugins/RpgAPI/MobCommands.yml"));
-            RpgAPI.mobLocaleCommand.save(new File("plugins/RpgAPI/Locale/MobCommands.yml"));
+            RpgAPI.minionConfig.save(new File("plugins/RpgMinions/Minions.yml"));
+            RpgAPI.minionLocaleConfig.save(new File("plugins/RpgMinions/Locale/Minions.yml"));
+            RpgAPI.mobCommand.save(new File("plugins/RpgMinions/MobCommands.yml"));
+            RpgAPI.mobLocaleCommand.save(new File("plugins/RpgMinions/Locale/MobCommands.yml"));
         } catch (IOException e) {
         }
         //after file is saved

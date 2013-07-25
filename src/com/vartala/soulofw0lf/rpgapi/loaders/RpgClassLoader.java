@@ -28,14 +28,14 @@ import java.io.IOException;
  */
 public class RpgClassLoader {
     public RpgClassLoader(){
-        RpgAPI.classConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Classes.yml"));
-        RpgAPI.classLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/Classes.yml"));
+        RpgAPI.classConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgClasses/Classes.yml"));
+        RpgAPI.classLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgClasses/Locale/Classes.yml"));
         if (RpgAPI.classConfig.get("Classes") == null) {
             RpgAPI.classConfig.set("Classes", "This file is used to save all Rpg Classes");
         }
         try {
-            RpgAPI.classConfig.save(new File("plugins/RpgAPI/Classes.yml"));
-            RpgAPI.classLocaleConfig.save(new File("plugins/RpgAPI/Locale/Classes.yml"));
+            RpgAPI.classConfig.save(new File("plugins/RpgClasses/Classes.yml"));
+            RpgAPI.classLocaleConfig.save(new File("plugins/RpgClasses/Locale/Classes.yml"));
         } catch (IOException e) {
         }
         //after file is saved

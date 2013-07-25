@@ -32,8 +32,8 @@ public class FoodLoader {
     public FoodLoader(RpgAPI Rpg){
         this.rpg = Rpg;
         this.rpg.foodListener = new FoodListener(this.rpg);
-        RpgAPI.foodConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Food.yml"));
-        RpgAPI.foodLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/Food.yml"));
+        RpgAPI.foodConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgFood/Food.yml"));
+        RpgAPI.foodLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgFood/Locale/Food.yml"));
         if (RpgAPI.foodConfig.get("Rpg Foods") == null) {
             RpgAPI.foodConfig.set("Rpg Foods", "This file will save all your Rpg Food Items");
             RpgAPI.foodLocaleConfig.set("Translations.Eating Health Full", "&F[&2Rpg API&F] &4you cannot eat while your health is full!");
@@ -41,8 +41,8 @@ public class FoodLoader {
         }
 
         try {
-            RpgAPI.foodConfig.save(new File("plugins/RpgAPI/Food.yml"));
-            RpgAPI.foodLocaleConfig.save(new File("plugins/RpgAPI/Locale/Food.yml"));
+            RpgAPI.foodConfig.save(new File("plugins/RpgFood/Food.yml"));
+            RpgAPI.foodLocaleConfig.save(new File("plugins/RpgFood/Locale/Food.yml"));
         } catch (IOException e) {
         }
         //after file is saved

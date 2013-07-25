@@ -1,6 +1,10 @@
 package com.vartala.soulofw0lf.rpgapi.chatapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by: soulofw0lf
@@ -24,25 +28,36 @@ import com.vartala.soulofw0lf.rpgapi.RpgAPI;
  */
 public class LoadRegions {
     public static void FromFile() {
-        for (String region : RpgAPI.regionConfig.getConfigurationSection("Rpg Regions").getKeys(false)) {
-            ChatRegions rpC = new ChatRegions();
-            rpC.setRegionName(region);
-            rpC.setRegionRadius(RpgAPI.regionConfig.getInt("Rpg Regions." + region + ".Radius"));
-            rpC.setRegionX(RpgAPI.regionConfig.getDouble("Rpg Regions." + region + ".X"));
-            rpC.setRegionY(RpgAPI.regionConfig.getDouble("Rpg Regions." + region + ".Y"));
-            rpC.setRegionZ(RpgAPI.regionConfig.getDouble("Rpg Regions." + region + ".Z"));
-            rpC.setRegionWorld(RpgAPI.regionConfig.getString("Rpg Regions." + region + ".World"));
-            RpgAPI.chatRegions.add(rpC);
+        File f = new File("plugins/RpgChat/Regions");
+        File[] files = f.listFiles();
+        if (files != null) {
+            for (File regions : files) {
+                YamlConfiguration region = YamlConfiguration.loadConfiguration(regions);
+                ChatRegions rpC = new ChatRegions();
+                rpC.setRegionName(region.getName());
+                rpC.setRegionRadius(region.getInt("Rpg Regions." + region + ".Radius"));
+                rpC.setRegionX(region.getDouble("Rpg Regions." + region + ".X"));
+                rpC.setRegionY(region.getDouble("Rpg Regions." + region + ".Y"));
+                rpC.setRegionZ(region.getDouble("Rpg Regions." + region + ".Z"));
+                rpC.setRegionWorld(region.getString("Rpg Regions." + region + ".World"));
+                RpgAPI.chatRegions.add(rpC);
+            }
         }
     }
 
     public static void ToFile() {
         for (ChatRegions rpC : RpgAPI.chatRegions) {
-            RpgAPI.regionConfig.set("Rpg Regions." + rpC.getRegionName() + ".Radius", rpC.getRegionRadius());
-            RpgAPI.regionConfig.set("Rpg Regions." + rpC.getRegionName() + ".X", rpC.getRegionX());
-            RpgAPI.regionConfig.set("Rpg Regions." + rpC.getRegionName() + ".Y", rpC.getRegionY());
-            RpgAPI.regionConfig.set("Rpg Regions." + rpC.getRegionName() + ".Z", rpC.getRegionZ());
-            RpgAPI.regionConfig.set("Rpg Regions." + rpC.getRegionName() + ".World", rpC.getRegionWorld());
+            YamlConfiguration region = YamlConfiguration.loadConfiguration(new File("plugins/RpgChat/Regions/"+rpC.getRegionName()+".yml"));
+            region.set("Rpg Regions." + rpC.getRegionName() + ".Radius", rpC.getRegionRadius());
+            region.set("Rpg Regions." + rpC.getRegionName() + ".X", rpC.getRegionX());
+            region.set("Rpg Regions." + rpC.getRegionName() + ".Y", rpC.getRegionY());
+            region.set("Rpg Regions." + rpC.getRegionName() + ".Z", rpC.getRegionZ());
+            region.set("Rpg Regions." + rpC.getRegionName() + ".World", rpC.getRegionWorld());
+            try {
+                region.save(new File("plugins/RpgChat/Regions/"+rpC.getRegionName()+".yml"));
+            } catch (IOException e){
+
+            }
         }
     }
 }

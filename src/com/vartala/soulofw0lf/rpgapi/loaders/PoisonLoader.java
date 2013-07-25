@@ -35,8 +35,8 @@ public class PoisonLoader {
     this.rpg = Rpg;
 
     this.rpg.poisonlistener = new PoisonListener(this.rpg);
-    RpgAPI.poisonCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Poisons.yml"));
-        RpgAPI.poisonLocaleCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/Poisons.yml"));
+    RpgAPI.poisonCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgPoisons/Poisons.yml"));
+        RpgAPI.poisonLocaleCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgPoisons/Locale/Poisons.yml"));
     if (RpgAPI.poisonCommand.get("Poisons") == null) {
         RpgAPI.poisonCommand.set("Poisons.Sickening Ground.Potion Effects.POISON.Duration", 15);
         RpgAPI.poisonCommand.set("Poisons.Sickening Ground.Potion Effects.POISON.Strength", 2);
@@ -51,8 +51,8 @@ public class PoisonLoader {
         RpgAPI.poisonCommand.set("Poisons.Sickening Ground.Radius", 38);
     }
         try {
-            RpgAPI.poisonCommand.save(new File("plugins/RpgAPI/Poisons.yml"));
-            RpgAPI.poisonLocaleCommand.save(new File("plugins/RpgAPI/Locale/Poisons.yml"));
+            RpgAPI.poisonCommand.save(new File("plugins/RpgPoisons/Poisons.yml"));
+            RpgAPI.poisonLocaleCommand.save(new File("plugins/RpgPoisons/Locale/Poisons.yml"));
         } catch (IOException e) {
         }
         //after file is saved

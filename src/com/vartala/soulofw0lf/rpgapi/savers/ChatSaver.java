@@ -7,6 +7,7 @@ import com.vartala.soulofw0lf.rpgapi.chatapi.LanguageBehavior;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by: soulofw0lf
@@ -30,22 +31,28 @@ import java.io.File;
  */
 public class ChatSaver {
     public ChatSaver(){
-    RpgAPI.chatConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgChat.yml"));
+
          for (ChatClass ch : RpgAPI.chatClasses){
              String name = ch.getChannelName();
-             RpgAPI.chatConfig.set("Chats."+name+".Name", name);
-             RpgAPI.chatConfig.set("Chats."+name+".Nick Name", ch.getChannelNick());
-             RpgAPI.chatConfig.set("Chats."+name+".Enabled", ch.isEnabled());
-             RpgAPI.chatConfig.set("Chats."+name+".Spy Enabled", ch.isChatSpy());
-             RpgAPI.chatConfig.set("Chats."+name+".Use Basic", ch.isUseBasic());
-             RpgAPI.chatConfig.set("Chats."+name+".Use Language", ch.isUseLanguage());
-             RpgAPI.chatConfig.set("Chats."+name+".Use Distance", ch.isUseDistance());
-             RpgAPI.chatConfig.set("Chats."+name+".Distance", ch.getDistance());
-             RpgAPI.chatConfig.set("Chats."+name+".Use Party", ch.isUseParty());
-             RpgAPI.chatConfig.set("Chats."+name+".Use Guild", ch.isUseGuild());
-             RpgAPI.chatConfig.set("Chats."+name+".Use Region", ch.isUseRegion());
-             RpgAPI.chatConfig.set("Chats."+name+".Use City", ch.isUseCity());
-             RpgAPI.chatConfig.set("Chats."+name+".Use World", ch.isUseWorld());
+             YamlConfiguration chatConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgChat/Channels/"+name+".yml"));
+             chatConfig.set("Channel."+name+".Name", name);
+             chatConfig.set("Channel."+name+".Nick Name", ch.getChannelNick());
+             chatConfig.set("Channel."+name+".Enabled", ch.isEnabled());
+             chatConfig.set("Channel."+name+".Spy Enabled", ch.isChatSpy());
+             chatConfig.set("Channel."+name+".Use Basic", ch.isUseBasic());
+             chatConfig.set("Channel."+name+".Use Language", ch.isUseLanguage());
+             chatConfig.set("Channel."+name+".Use Distance", ch.isUseDistance());
+             chatConfig.set("Channel."+name+".Distance", ch.getDistance());
+             chatConfig.set("Channel."+name+".Use Party", ch.isUseParty());
+             chatConfig.set("Channel."+name+".Use Guild", ch.isUseGuild());
+             chatConfig.set("Channel."+name+".Use Region", ch.isUseRegion());
+             chatConfig.set("Channel."+name+".Use City", ch.isUseCity());
+             chatConfig.set("Channel."+name+".Use World", ch.isUseWorld());
+             try {
+                 chatConfig.save(new File("plugins/RpgChat/Channels/"+name+".yml"));
+             } catch (IOException e){
+
+             }
          }
     }
 }
