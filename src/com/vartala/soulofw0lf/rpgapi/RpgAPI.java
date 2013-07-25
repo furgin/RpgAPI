@@ -34,6 +34,7 @@ import com.vartala.soulofw0lf.rpgapi.permissionsapi.PermissionGroup;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.poisonapi.RpgPoison;
 import com.vartala.soulofw0lf.rpgapi.savers.ChatSaver;
+import com.vartala.soulofw0lf.rpgapi.savers.VecSaver;
 import com.vartala.soulofw0lf.rpgapi.spellapi.MagicSpell;
 import com.vartala.soulofw0lf.rpgapi.sqlapi.SQLHandler;
 import com.vartala.soulofw0lf.rpgapi.tradeapi.TradeCommandProcessor;
@@ -42,12 +43,14 @@ import com.vartala.soulofw0lf.rpgapi.tradeapi.TradeHandler;
 import com.vartala.soulofw0lf.rpgapi.util.HelpFile;
 import com.vartala.soulofw0lf.rpgapi.util.HelpPage;
 import com.vartala.soulofw0lf.rpgapi.util.RPGLogging;
+import com.vartala.soulofw0lf.rpgapi.vectorapi.RpgVectorBlocks;
 import com.vartala.soulofw0lf.rpgapi.warpsapi.RpgWarp;
 import com.vartala.soulofw0lf.rpgapi.warpsapi.WarpBuilder;
 import com.vartala.soulofw0lf.rpgapi.warpsapi.WarpSetBuilder;
 import com.vartala.soulofw0lf.rpgapi.warpsapi.WarpSets;
 import com.vartala.soulofw0lf.rpgapi.entityapi.EntityManager;
 import org.bukkit.Bukkit;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -64,6 +67,7 @@ import com.vartala.soulofw0lf.rpgapi.listenersapi.MapListener;
 import com.vartala.soulofw0lf.rpgapi.listenersapi.playerLogIn;
 import com.vartala.soulofw0lf.rpgapi.mapsapi.ScrollMap;
 import com.vartala.soulofw0lf.rpgapi.util.PlayerUtil;
+import org.bukkit.util.Vector;
 
 //@author soulofwolf linksbro..
 public class RpgAPI extends JavaPlugin implements Listener {
@@ -100,6 +104,8 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
     public static Map<String, PermissionAttachment> permAttachments = new HashMap<>();
     public static boolean chatInConsole = true;
+    public static Map<Block, RpgVectorBlocks> vecBlockMap = new HashMap<>();
+    public static List<Block> vecBlocks = new ArrayList<>();
 
 
     //Listeners
@@ -135,6 +141,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static boolean languagesOn = true;
     public static boolean duelsOn = true;
     public static boolean permsOn = true;
+    public static boolean vectorOn = true;
 
 
     //Utilities
@@ -192,6 +199,8 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<Integer, HelpPage> helpDisplay = new HashMap<>();
     public static Map<String, PermissionGroup> permGroups = new HashMap<>();
     public static String defaultGroup = "";
+    public static Block jumpBlock;
+    public static Vector vec;
 
     //RE stuff
     public final Map<String, EntityManager> m_managers = new HashMap<String, EntityManager>();
@@ -233,6 +242,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
         reputationOn = getConfig().getBoolean("Plugins.Reputation");
         languagesOn = getConfig().getBoolean("Plugins.Languages");
         permsOn = getConfig().getBoolean("Plugins.Permissions");
+        vectorOn = getConfig().getBoolean("Plugins.Vector Blocks");
 
         //register global listeners
         Bukkit.getPluginManager().registerEvents(this, this);
@@ -289,6 +299,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
          */
 
          commands.add("zomb");
+        commands.add("vec");
         //check for achievements and load settings
         if (achievementsOn) {new AchievementLoader();}
 
@@ -321,6 +332,9 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
         //check for trade and load settings
         if (tradeOn) {new TradeLoader(this);}
+
+        //check for vector settings
+        if (vectorOn) {new VectorLoader(this);}
 
         //check for warp and load settings
         if (warpsOn) {new WarpLoader();}
@@ -386,6 +400,11 @@ public class RpgAPI extends JavaPlugin implements Listener {
             LoadCities.ToFile();
             LoadRegions.ToFile();
             new ChatSaver();
+        }
+        if (vectorOn) {
+            new VecSaver();
+            vecBlockMap.clear();
+            vecBlocks.clear();
         }
         if (warpsOn) {
             for (String thisWarp : RpgAPI.savedWarps.keySet()) {

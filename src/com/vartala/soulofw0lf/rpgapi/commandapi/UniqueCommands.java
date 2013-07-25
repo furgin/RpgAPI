@@ -10,6 +10,7 @@ import com.vartala.soulofw0lf.rpgapi.entityapi.api.thinking.goals.DesireGoToBed;
 import com.vartala.soulofw0lf.rpgapi.entityapi.api.thinking.goals.DesireLookAtNearest;
 import com.vartala.soulofw0lf.rpgapi.entityapi.api.thinking.goals.DesireMoveThroughVillage;
 import com.vartala.soulofw0lf.rpgapi.entityapi.api.thinking.goals.DesireWanderAroundArea;
+import com.vartala.soulofw0lf.rpgapi.loaders.VectorLoader;
 import com.vartala.soulofw0lf.rpgapi.particleapi.ParticleEffect;
 import com.vartala.soulofw0lf.rpgapi.permissionsapi.PermHandler;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
@@ -19,8 +20,10 @@ import com.vartala.soulofw0lf.rpgapi.tradeapi.TradeCommandProcessor;
 import com.vartala.soulofw0lf.rpgapi.warpsapi.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 /**
  * Created by: soulofw0lf
@@ -59,6 +62,8 @@ public class UniqueCommands {
         if (RpgAPI.permsOn){if (PermHandler.permCommands(p, command)){return;}}
         // Pass the command info to the trading processor
         if (RpgAPI.tradeOn) TradeCommandProcessor.process(p, command);
+        //pass the command info to the vector block handler
+        if (RpgAPI.vectorOn){if (VectorLoader.vectorCommands(command, p)){return;}}
         if (command[0].equalsIgnoreCase("zomb")){
             RemoteEntity entity = RpgAPI.entityManager.createEntity(RemoteEntityType.Zombie, p.getLocation(), false);
             //entity.getMind().addTargetingDesire(new DesireGoToBed(50), 30);
@@ -74,6 +79,8 @@ public class UniqueCommands {
             RpgAPI.entityManager.saveEntities();
             return;
         }
+
+
         if (command[0].equalsIgnoreCase("effect"))  {
 
             final Player pl = p;

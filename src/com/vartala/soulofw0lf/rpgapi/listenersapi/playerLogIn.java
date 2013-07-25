@@ -11,12 +11,16 @@ import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayerBuilder;
 import com.vartala.soulofw0lf.rpgapi.speedapi.SpeedHandler;
 import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
@@ -40,6 +44,7 @@ public class playerLogIn implements Listener {
      *
      * @param event
      */
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
