@@ -2,40 +2,17 @@ package com.vartala.soulofw0lf.rpgapi.commandapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.chatapi.*;
-import com.vartala.soulofw0lf.rpgapi.enumapi.PlayerStat;
 import com.vartala.soulofw0lf.rpgapi.particleapi.ParticleEffect;
 import com.vartala.soulofw0lf.rpgapi.permissionsapi.PermHandler;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayerBuilder;
 import com.vartala.soulofw0lf.rpgapi.speedapi.SpeedHandler;
 import com.vartala.soulofw0lf.rpgapi.tradeapi.TradeCommandProcessor;
-import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
 import com.vartala.soulofw0lf.rpgapi.warpsapi.*;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.RemoteEntityType;
-import de.kumpelblase2.remoteentities.api.thinking.Desire;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireFollowSpecific;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtSpecific;
-import de.kumpelblase2.remoteentities.entities.RemotePlayer;
-import de.kumpelblase2.remoteentities.api.thinking.DamageBehavior;
-import de.kumpelblase2.remoteentities.api.thinking.InteractBehavior;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtNearest;
-import de.kumpelblase2.remoteentities.persistence.EntityData;
-import de.kumpelblase2.remoteentities.persistence.serializers.PreparationSerializer;
-import de.kumpelblase2.remoteentities.persistence.serializers.YMLSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by: soulofw0lf

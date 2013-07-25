@@ -2,7 +2,6 @@ package com.vartala.soulofw0lf.rpgapi;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import com.vartala.soulofw0lf.rpgapi.achievementapi.TitleAchievement;
-import com.vartala.soulofw0lf.rpgapi.borderapi.BorderCheck;
 import com.vartala.soulofw0lf.rpgapi.chatapi.*;
 import com.vartala.soulofw0lf.rpgapi.classapi.RpgClasses;
 import com.vartala.soulofw0lf.rpgapi.commandapi.UniqueCommands;
@@ -29,13 +27,10 @@ import com.vartala.soulofw0lf.rpgapi.locale.LocaleSetting;
 import com.vartala.soulofw0lf.rpgapi.minionapi.MinionEntity;
 import com.vartala.soulofw0lf.rpgapi.mobcommandapi.MobCommand;
 import com.vartala.soulofw0lf.rpgapi.mobcommandapi.MobEditingChatListener;
-import com.vartala.soulofw0lf.rpgapi.mobcommandapi.SetBuilder;
 import com.vartala.soulofw0lf.rpgapi.partyapi.LFGPlayer;
 import com.vartala.soulofw0lf.rpgapi.partyapi.PartyGroup;
 import com.vartala.soulofw0lf.rpgapi.permissionsapi.PermissionGroup;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
-import com.vartala.soulofw0lf.rpgapi.poisonapi.PoisonBuilder;
-import com.vartala.soulofw0lf.rpgapi.poisonapi.PoisonTimeChecker;
 import com.vartala.soulofw0lf.rpgapi.poisonapi.RpgPoison;
 import com.vartala.soulofw0lf.rpgapi.savers.ChatSaver;
 import com.vartala.soulofw0lf.rpgapi.spellapi.MagicSpell;
@@ -50,11 +45,8 @@ import com.vartala.soulofw0lf.rpgapi.warpsapi.RpgWarp;
 import com.vartala.soulofw0lf.rpgapi.warpsapi.WarpBuilder;
 import com.vartala.soulofw0lf.rpgapi.warpsapi.WarpSetBuilder;
 import com.vartala.soulofw0lf.rpgapi.warpsapi.WarpSets;
-import de.kumpelblase2.remoteentities.EntityManager;
-import de.kumpelblase2.remoteentities.RemoteEntities;
+import com.vartala.soulofw0lf.rpgapi.entityapi.EntityManager;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -71,7 +63,6 @@ import com.vartala.soulofw0lf.rpgapi.listenersapi.MapListener;
 import com.vartala.soulofw0lf.rpgapi.listenersapi.playerLogIn;
 import com.vartala.soulofw0lf.rpgapi.mapsapi.ScrollMap;
 import com.vartala.soulofw0lf.rpgapi.util.PlayerUtil;
-import org.bukkit.scheduler.BukkitRunnable;
 
 //@author soulofwolf linksbro..
 public class RpgAPI extends JavaPlugin implements Listener {

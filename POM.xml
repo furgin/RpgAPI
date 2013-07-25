@@ -22,13 +22,8 @@
     </repositories>
     <dependencies>
         <dependency>
-            <groupId>de.kumpelblase2</groupId>
-            <artifactId>remoteentities</artifactId>
-            <version>1.7-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
+            <artifactId>craftbukkit</artifactId>
             <version>1.6.2-R0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

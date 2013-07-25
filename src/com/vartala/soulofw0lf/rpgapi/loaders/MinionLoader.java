@@ -2,7 +2,7 @@ package com.vartala.soulofw0lf.rpgapi.loaders;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.mobcommandapi.MobEditingChatListener;
-import de.kumpelblase2.remoteentities.RemoteEntities;
+import com.vartala.soulofw0lf.rpgapi.entityapi.RemoteEntities;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;

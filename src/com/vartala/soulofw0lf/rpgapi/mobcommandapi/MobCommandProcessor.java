@@ -1,13 +1,5 @@
 package com.vartala.soulofw0lf.rpgapi.mobcommandapi;
 
-import com.vartala.soulofw0lf.rpgapi.RpgAPI;
-import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
-import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireFollowSpecific;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-
 /**
  * Created by: tennyson.holloway
  * Date: 7/1/13

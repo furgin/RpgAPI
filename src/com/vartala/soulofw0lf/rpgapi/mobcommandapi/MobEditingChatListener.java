@@ -2,7 +2,7 @@ package com.vartala.soulofw0lf.rpgapi.mobcommandapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import com.vartala.soulofw0lf.rpgapi.entityapi.api.RemoteEntity;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
