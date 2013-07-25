@@ -29,6 +29,11 @@ import java.io.IOException;
  */
 public class ClickLoader {
     RpgAPI rpg;
+
+    /**
+     *
+     * @param Rpg
+     */
     public ClickLoader(RpgAPI Rpg){
         this.rpg = Rpg;
         this.rpg.clickListener = new ClickInvListener(this.rpg);

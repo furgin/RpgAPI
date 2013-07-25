@@ -12,6 +12,16 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class InventoryMaker {
     //
+
+    /**
+     *
+     * @param name
+     * @param Id
+     * @param size
+     * @param dura
+     * @param lores
+     * @return
+     */
     //this method is to construct an item stack
     public static ItemStack itemStackMaker(String name, Material Id, Integer size, Short dura, List<String> lores) {
         ItemStack is = new ItemStack(Id, size);
@@ -23,6 +33,13 @@ public class InventoryMaker {
         return is;
     }
 
+    /**
+     *
+     * @param Owner
+     * @param name
+     * @param items
+     * @return
+     */
     //this method constructs the actual inventory
     public static Inventory invMaker(InventoryHolder Owner, String name, List<ItemStack> items) {
         Integer i = 0;

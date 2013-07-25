@@ -27,6 +27,9 @@ import java.io.IOException;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class LoadCities {
+    /**
+     *
+     */
     public static void FromFile() {
         File f = new File("plugins/RpgChat/Cities");
         File[] files = f.listFiles();
@@ -46,6 +49,9 @@ public class LoadCities {
         }
     }
 
+    /**
+     *
+     */
     public static void ToFile() {
         for (RpgCities rpC : RpgAPI.rpgCities) {
             YamlConfiguration region = YamlConfiguration.loadConfiguration(new File("plugins/RpgChat/Cities/"+rpC.getRegionName()+".yml"));

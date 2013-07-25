@@ -17,10 +17,19 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class ClickInvListener implements Listener {
     RpgAPI Rpga;
 
+    /**
+     *
+     * @param rpga
+     */
     public ClickInvListener(RpgAPI rpga) {
         this.Rpga = rpga;
         Bukkit.getPluginManager().registerEvents(this, rpga);
     }
+
+    /**
+     *
+     * @param event
+     */
     @EventHandler
     public void clickClose(InventoryCloseEvent event){
         Inventory inv = event.getInventory();
@@ -32,6 +41,11 @@ public class ClickInvListener implements Listener {
             }
         }
     }
+
+    /**
+     *
+     * @param event
+     */
     //this method handles the actual listener for inventory clicks
     @EventHandler(priority = EventPriority.HIGHEST)
     public void clickListener(InventoryClickEvent event) {

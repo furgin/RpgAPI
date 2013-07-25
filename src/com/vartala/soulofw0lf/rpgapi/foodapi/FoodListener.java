@@ -44,11 +44,18 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class FoodListener implements Listener {
     RpgAPI Rpgapi;
 
+    /**
+     *
+     * @param rpgapi
+     */
     public FoodListener(RpgAPI rpgapi) {
         this.Rpgapi = rpgapi;
     }
 
-    //
+    /**
+     *
+     * @param event
+     */
     @EventHandler
     public void onRestore(EntityRegainHealthEvent event) {
         if (!RpgAPI.foodOn) {
@@ -64,6 +71,10 @@ public class FoodListener implements Listener {
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     @EventHandler(priority = EventPriority.HIGH)
     public void onEntityDamage(EntityDamageEvent event) {
         if (!RpgAPI.foodOn) {
@@ -80,6 +91,10 @@ public class FoodListener implements Listener {
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     @EventHandler(priority = EventPriority.LOW)
     public void onFoodLevelChange(FoodLevelChangeEvent event) {
         if (!RpgAPI.foodOn) {
@@ -92,6 +107,10 @@ public class FoodListener implements Listener {
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerUse(PlayerInteractEvent event) {
         if (!RpgAPI.foodOn) {

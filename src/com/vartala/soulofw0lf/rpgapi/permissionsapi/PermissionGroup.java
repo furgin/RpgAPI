@@ -46,15 +46,35 @@ public class PermissionGroup {
     private List<String> worlds = new ArrayList<>();
     private List<String> inheritances = new ArrayList<>();
 
+    /**
+     *
+     * @return
+     */
     public List<String> getInheritances() {
         return inheritances;
     }
+
+    /**
+     *
+     * @param s
+     */
     public void addInheritance(String s){
         inheritances.add(s);
     }
+
+    /**
+     *
+     * @param s
+     */
     public void removeInheritence(String s){
         inheritances.remove(s);
     }
+
+    /**
+     *
+     * @param s
+     * @param world
+     */
     public void addPerm(String s, String world){
         for (Player p : Bukkit.getOnlinePlayers()){
             RpgPlayer rp = RpgAPI.getRp(p.getName());
@@ -67,6 +87,12 @@ public class PermissionGroup {
         }
         permissions.add(s);
     }
+
+    /**
+     *
+     * @param s
+     * @param world
+     */
     public void removePerm(String s, String world){
         for (Player p : Bukkit.getOnlinePlayers()){
             RpgPlayer rp = RpgAPI.getRp(p.getName());
@@ -81,118 +107,234 @@ public class PermissionGroup {
         permissions.remove(s);
     }
 
+    /**
+     *
+     * @param inheritances
+     */
     public void setInheritances(List<String> inheritances) {
         this.inheritances = inheritances;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getRankColor() {
         return rankColor;
     }
 
+    /**
+     *
+     * @param rankColor
+     */
     public void setRankColor(String rankColor) {
         this.rankColor = rankColor;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getRank() {
         return rank;
     }
 
+    /**
+     *
+     * @param rank
+     */
     public void setRank(double rank) {
         this.rank = rank;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isDefaultGroup() {
         return defaultGroup;
     }
 
+    /**
+     *
+     * @param defaultGroup
+     */
     public void setDefaultGroup(boolean defaultGroup) {
         this.defaultGroup = defaultGroup;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getGroupName() {
         return groupName;
     }
 
+    /**
+     *
+     * @param groupName
+     */
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> getDeniedPerms() {
         return deniedPerms;
     }
 
+    /**
+     *
+     * @param deniedPerms
+     */
     public void setDeniedPerms(List<String> deniedPerms) {
         this.deniedPerms = deniedPerms;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> getPermissions() {
         return permissions;
     }
 
+    /**
+     *
+     * @param permissions
+     */
     public void setPermissions(List<String> permissions) {
         this.permissions = permissions;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> getWorlds() {
         return worlds;
     }
 
+    /**
+     *
+     * @param worlds
+     */
     public void setWorlds(List<String> worlds) {
         this.worlds = worlds;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isDefaultOp() {
         return defaultOp;
     }
 
+    /**
+     *
+     * @param defaultOp
+     */
     public void setDefaultOp(boolean defaultOp) {
         this.defaultOp = defaultOp;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isDefaultAdmin() {
         return defaultAdmin;
     }
 
+    /**
+     *
+     * @param defaultAdmin
+     */
     public void setDefaultAdmin(boolean defaultAdmin) {
         this.defaultAdmin = defaultAdmin;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isDefaultModerator() {
         return defaultModerator;
     }
 
+    /**
+     *
+     * @param defaultModerator
+     */
     public void setDefaultModerator(boolean defaultModerator) {
         this.defaultModerator = defaultModerator;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isDefaultHighDonator() {
         return defaultHighDonator;
     }
 
+    /**
+     *
+     * @param defaultHighDonator
+     */
     public void setDefaultHighDonator(boolean defaultHighDonator) {
         this.defaultHighDonator = defaultHighDonator;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isDefaultMediumDonator() {
         return defaultMediumDonator;
     }
 
+    /**
+     *
+     * @param defaultMediumDonator
+     */
     public void setDefaultMediumDonator(boolean defaultMediumDonator) {
         this.defaultMediumDonator = defaultMediumDonator;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isDefaultDonator() {
         return defaultDonator;
     }
 
+    /**
+     *
+     * @param defaultDonator
+     */
     public void setDefaultDonator(boolean defaultDonator) {
         this.defaultDonator = defaultDonator;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isDefaultPlayer() {
         return defaultPlayer;
     }
 
+    /**
+     *
+     * @param defaultPlayer
+     */
     public void setDefaultPlayer(boolean defaultPlayer) {
         this.defaultPlayer = defaultPlayer;
     }

@@ -32,86 +32,169 @@ public class HelpPage {
     private String line9 = "";
     private String line10 = "";
 
+    /**
+     *
+     */
     public void HelpPage() {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLine1() {
         return line1;
     }
 
+    /**
+     *
+     * @param line1
+     */
     public void setLine1(String line1) {
         this.line1 = line1;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLine2() {
         return line2;
     }
 
+    /**
+     *
+     * @param line2
+     */
     public void setLine2(String line2) {
         this.line2 = line2;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLine3() {
         return line3;
     }
 
+    /**
+     *
+     * @param line3
+     */
     public void setLine3(String line3) {
         this.line3 = line3;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLine4() {
         return line4;
     }
 
+    /**
+     *
+     * @param line4
+     */
     public void setLine4(String line4) {
         this.line4 = line4;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLine5() {
         return line5;
     }
 
+    /**
+     *
+     * @param line5
+     */
     public void setLine5(String line5) {
         this.line5 = line5;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLine6() {
         return line6;
     }
 
+    /**
+     *
+     * @param line6
+     */
     public void setLine6(String line6) {
         this.line6 = line6;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLine7() {
         return line7;
     }
 
+    /**
+     *
+     * @param line7
+     */
     public void setLine7(String line7) {
         this.line7 = line7;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLine8() {
         return line8;
     }
 
+    /**
+     *
+     * @param line8
+     */
     public void setLine8(String line8) {
         this.line8 = line8;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLine9() {
         return line9;
     }
 
+    /**
+     *
+     * @param line9
+     */
     public void setLine9(String line9) {
         this.line9 = line9;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLine10() {
         return line10;
     }
 
+    /**
+     *
+     * @param line10
+     */
     public void setLine10(String line10) {
         this.line10 = line10;
     }

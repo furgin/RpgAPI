@@ -27,6 +27,9 @@ import java.io.IOException;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class AchievementLoader {
+    /**
+     *
+     */
     public AchievementLoader(){
         RpgAPI.achievementConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAchievements/Achievements.yml"));
         RpgAPI.achievementLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAchievements/Locale/Achievements.yml"));

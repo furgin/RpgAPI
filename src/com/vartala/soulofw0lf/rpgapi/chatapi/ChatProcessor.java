@@ -30,6 +30,13 @@ import java.util.regex.Pattern;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class ChatProcessor {
+    /**
+     *
+     * @param s
+     * @param name
+     * @param rName
+     * @return
+     */
     public static String TitleString(String s, String name, String rName) {
         Player p = Bukkit.getPlayer(name);
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(name));

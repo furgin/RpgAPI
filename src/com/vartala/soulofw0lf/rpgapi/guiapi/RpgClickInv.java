@@ -12,6 +12,10 @@ import org.bukkit.inventory.ItemStack;
 public class RpgClickInv {
     RpgAPI Rpga;
 
+    /**
+     *
+     * @param rpga
+     */
     public RpgClickInv(RpgAPI rpga) {
         this.Rpga = rpga;
     }        //
@@ -40,39 +44,74 @@ public class RpgClickInv {
 
     }
 
+    /**
+     *
+     * @param behavior
+     */
     public void addBehavior(InventoryClickBehavior behavior) {
 
         behaviorList.add(behavior);
     }
 
+    /**
+     *
+     */
     public void clearBehavior() {
         behaviorList.clear();
     }
 
+    /**
+     *
+     * @return
+     */
     public List<InventoryClickBehavior> getBehavior() {
         return behaviorList;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<ItemStack, List<String>> getItemCommands() {
         return itemCommands;
     }
 
+    /**
+     *
+     * @param itemCommands
+     */
     public void setItemCommands(Map<ItemStack, List<String>> itemCommands) {
         this.itemCommands = itemCommands;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getInvName() {
         return invName;
     }
 
+    /**
+     *
+     * @param invName
+     */
     public void setInvName(String invName) {
         this.invName = invName;
     }
 
+    /**
+     *
+     * @return
+     */
     public Inventory getClickInv() {
         return clickInv;
     }
 
+    /**
+     *
+     * @param clickInv
+     */
     public void setClickInv(Inventory clickInv) {
         this.clickInv = clickInv;
     }

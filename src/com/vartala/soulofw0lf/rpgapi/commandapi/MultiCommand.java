@@ -22,12 +22,25 @@ public class MultiCommand implements CommandExecutor, MultiHandler {
         //
     }
 
+    /**
+     *
+     * @param info
+     * @throws MultiException
+     */
     @Override
     public void handle(SubInfo info) throws MultiException {
         String commandLabel = info.getBaseCommand() + " " + info.getSubCommand().getName();
         handleCommand(info.getSender(), info.getPlayer(), commandLabel, info.getArgs());
     }
 
+    /**
+     *
+     * @param sender
+     * @param cmd
+     * @param label
+     * @param args
+     * @return
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         Player player = null;
@@ -40,6 +53,13 @@ public class MultiCommand implements CommandExecutor, MultiHandler {
         return false;
     }
 
+    /**
+     *
+     * @param sender
+     * @param player
+     * @param label
+     * @param args
+     */
     private void handleCommand(CommandSender sender, Player player, String label, List<String> args) {
         if (args.size() == 0) {
             showUsage(sender, player, label);
@@ -71,6 +91,12 @@ public class MultiCommand implements CommandExecutor, MultiHandler {
         return;
     }
 
+    /**
+     *
+     * @param sender
+     * @param player
+     * @param label
+     */
     private void showUsage(CommandSender sender, Player player, String label) {
         MultiColorUtil.send(sender, "{gold}-- %s Command Menu --", label);
         String message = "{green}%s %s {gold}%s {dark_purple}%s";
@@ -79,16 +105,33 @@ public class MultiCommand implements CommandExecutor, MultiHandler {
         }
     }
 
+    /**
+     *
+     * @param name
+     * @param permission
+     * @return
+     */
     public SubCommand addSub(String name, String permission) {
         SubCommand cmd = new SubCommand(name, permission);
         this.SubCommands.put(name.toLowerCase(), cmd);
         return cmd;
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public SubCommand addSub(String name) {
         return addSub(name, null);
     }
 
+    /**
+     *
+     * @param sender
+     * @param player
+     * @return
+     */
     private List<SubCommand> availableCommands(CommandSender sender, Player player) {
         ArrayList<SubCommand> items = new ArrayList<SubCommand>();
         boolean hasPlayer = (player != null);
@@ -100,10 +143,18 @@ public class MultiCommand implements CommandExecutor, MultiHandler {
         return items;
     }
 
+    /**
+     *
+     * @param handler
+     */
     public void autoRegisterFrom(Object handler) {
         new MultiCommandFinder(this).registerMethods(handler);
     }
 
+    /**
+     *
+     * @return
+     */
     public List<SubCommand> listCommands() {
         return new ArrayList<SubCommand>(this.SubCommands.values());
     }

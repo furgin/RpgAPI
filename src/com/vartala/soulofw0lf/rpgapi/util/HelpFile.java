@@ -26,38 +26,73 @@ public class HelpFile {
     private String description = "";
     private String helpGroup = "";
 
+    /**
+     *
+     */
     public void HelpFile() {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAliasColor() {
         return aliasColor;
     }
 
+    /**
+     *
+     * @param aliasColor
+     */
     public void setAliasColor(String aliasColor) {
         this.aliasColor = aliasColor;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCmdAlias() {
         return cmdAlias;
     }
 
+    /**
+     *
+     * @param cmdAlias
+     */
     public void setCmdAlias(String cmdAlias) {
         this.cmdAlias = cmdAlias;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getHelpGroup() {
         return helpGroup;
     }
 
+    /**
+     *
+     * @param helpGroup
+     */
     public void setHelpGroup(String helpGroup) {
         this.helpGroup = helpGroup;
     }

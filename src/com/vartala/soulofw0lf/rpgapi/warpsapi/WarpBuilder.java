@@ -32,6 +32,9 @@ import java.util.List;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class WarpBuilder {
+    /**
+     *
+     */
     @SuppressWarnings("unchecked")
     public static void WarpLoader() {
         File f = new File("plugins/RpgWarps");
@@ -109,6 +112,10 @@ public class WarpBuilder {
         }
     }
 
+    /**
+     *
+     * @param thisWarp
+     */
     public static void SaveWarp(String thisWarp) {
 
         RpgWarp saveWarp = RpgAPI.savedWarps.get(thisWarp);

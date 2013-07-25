@@ -27,6 +27,9 @@ import java.io.IOException;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class RpgClassLoader {
+    /**
+     *
+     */
     public RpgClassLoader(){
         RpgAPI.classConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgClasses/Classes.yml"));
         RpgAPI.classLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgClasses/Locale/Classes.yml"));

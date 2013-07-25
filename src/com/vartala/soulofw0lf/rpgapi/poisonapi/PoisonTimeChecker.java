@@ -35,10 +35,17 @@ import java.util.Map;
 public class PoisonTimeChecker {
     RpgAPI Rpga;
 
+    /**
+     *
+     * @param rpga
+     */
     public PoisonTimeChecker(RpgAPI rpga) {
         this.Rpga = rpga;
     }
 
+    /**
+     *
+     */
     public static void PoisonRegionTimer() {
         final Map<String, RpgPoison> poisonRegions = RpgAPI.rpgPoisons;
         final Map<String, RpgPlayer> rPlayers = RpgAPI.rpgPlayers;
@@ -66,6 +73,11 @@ public class PoisonTimeChecker {
         }.runTaskTimer(RpgAPI.getInstance(), 60, 180);
     }
 
+    /**
+     *
+     * @param rPoison
+     * @param name
+     */
     private static void PoisonAplicator(RpgPoison rPoison, String name) {
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(name));
         rp.setPoisoned(true);
@@ -80,6 +92,11 @@ public class PoisonTimeChecker {
         }
     }
 
+    /**
+     *
+     * @param rPoison
+     * @param rp
+     */
     private static void PoisonRemover(RpgPoison rPoison, final RpgPlayer rp) {
         final Integer poisonTicks = rPoison.getPoisonTickLength() * 20;
         new BukkitRunnable() {

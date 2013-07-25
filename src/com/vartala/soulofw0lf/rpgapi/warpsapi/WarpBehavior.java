@@ -21,5 +21,9 @@ package com.vartala.soulofw0lf.rpgapi.warpsapi;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public interface WarpBehavior {
+    /**
+     *
+     * @param playerName
+     */
     public void onWarp(String playerName);
 }

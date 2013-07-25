@@ -18,6 +18,13 @@ public class RpgTrade {
     private String recName;
     private String iniName;
 
+    /**
+     *
+     * @param initiator
+     * @param receiver
+     * @param iniName
+     * @param recName
+     */
     public RpgTrade(RpgPlayer initiator, RpgPlayer receiver, String iniName, String recName) {
         this.initiator = initiator;
         this.receiver = receiver;
@@ -25,6 +32,9 @@ public class RpgTrade {
         this.recName = recName;
     }
 
+    /**
+     *
+     */
     public void startTrade() {
         Player ini = Bukkit.getPlayer(initiator.getRealName());
         Player rec = Bukkit.getPlayer(receiver.getRealName());

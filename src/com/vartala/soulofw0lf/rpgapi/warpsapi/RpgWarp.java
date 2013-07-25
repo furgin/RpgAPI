@@ -79,215 +79,419 @@ public class RpgWarp {
     //should this warp use a cool down
     private Boolean useCD = false;
 
+    /**
+     *
+     * @return
+     */
     public List<String> getLoreNeeded() {
         return loreNeeded;
     }
 
+    /**
+     *
+     * @param loreNeeded
+     */
     public void setLoreNeeded(List<String> loreNeeded) {
         this.loreNeeded = loreNeeded;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getNeedsLore() {
         return needsLore;
     }
 
+    /**
+     *
+     * @param needsLore
+     */
     public void setNeedsLore(Boolean needsLore) {
         this.needsLore = needsLore;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> getItemNames() {
         return itemNames;
     }
 
+    /**
+     *
+     * @param itemNames
+     */
     public void setItemNames(List<String> itemNames) {
         this.itemNames = itemNames;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getItemNeedsName() {
         return itemNeedsName;
     }
 
+    /**
+     *
+     * @param itemNeedsName
+     */
     public void setItemNeedsName(Boolean itemNeedsName) {
         this.itemNeedsName = itemNeedsName;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Material> getItemMaterial() {
         return itemMaterial;
     }
 
+    /**
+     *
+     * @param itemMaterial
+     */
     public void setItemMaterial(List<Material> itemMaterial) {
         this.itemMaterial = itemMaterial;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getUseItemForWarp() {
         return useItemForWarp;
     }
 
+    /**
+     *
+     * @param useItemForWarp
+     */
     public void setUseItemForWarp(Boolean useItemForWarp) {
         this.useItemForWarp = useItemForWarp;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getItemConsumed() {
         return itemConsumed;
     }
 
+    /**
+     *
+     * @param itemConsumed
+     */
     public void setItemConsumed(Boolean itemConsumed) {
         this.itemConsumed = itemConsumed;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getItemNeeded() {
         return itemNeeded;
     }
 
+    /**
+     *
+     * @param itemNeeded
+     */
     public void setItemNeeded(Boolean itemNeeded) {
         this.itemNeeded = itemNeeded;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getWarpCoolDown() {
         return warpCoolDown;
     }
 
+    /**
+     *
+     * @param warpCoolDown
+     */
     public void setWarpCoolDown(Integer warpCoolDown) {
         this.warpCoolDown = warpCoolDown;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getSameWorld() {
         return sameWorld;
     }
 
+    /**
+     *
+     * @param sameWorld
+     */
     public void setSameWorld(Boolean sameWorld) {
         this.sameWorld = sameWorld;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getWorldName() {
         return worldName;
     }
 
+    /**
+     *
+     * @param worldName
+     */
     public void setWorldName(String worldName) {
         this.worldName = worldName;
     }
 
+    /**
+     *
+     * @return
+     */
     public Float getWarpPitch() {
         return warpPitch;
     }
 
+    /**
+     *
+     * @param warpPitch
+     */
     public void setWarpPitch(Float warpPitch) {
         this.warpPitch = warpPitch;
     }
 
+    /**
+     *
+     * @return
+     */
     public Float getWarpYaw() {
         return warpYaw;
     }
 
+    /**
+     *
+     * @param warpYaw
+     */
     public void setWarpYaw(Float warpYaw) {
         this.warpYaw = warpYaw;
     }
 
+    /**
+     *
+     * @return
+     */
     public Double getWarpZ() {
         return warpZ;
     }
 
+    /**
+     *
+     * @param warpZ
+     */
     public void setWarpZ(Double warpZ) {
         this.warpZ = warpZ;
     }
 
+    /**
+     *
+     * @return
+     */
     public Double getWarpY() {
         return warpY;
     }
 
+    /**
+     *
+     * @param warpY
+     */
     public void setWarpY(Double warpY) {
         this.warpY = warpY;
     }
 
+    /**
+     *
+     * @return
+     */
     public Double getWarpX() {
         return warpX;
     }
 
+    /**
+     *
+     * @param warpX
+     */
     public void setWarpX(Double warpX) {
         this.warpX = warpX;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getWarpSet() {
         return warpSet;
     }
 
+    /**
+     *
+     * @param warpSet
+     */
     public void setWarpSet(String warpSet) {
         this.warpSet = warpSet;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getWarpVariance() {
         return warpVariance;
     }
 
+    /**
+     *
+     * @param warpVariance
+     */
     public void setWarpVariance(Integer warpVariance) {
         this.warpVariance = warpVariance;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getVariance() {
         return variance;
     }
 
+    /**
+     *
+     * @param variance
+     */
     public void setVariance(Boolean variance) {
         this.variance = variance;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getWarpName() {
         return warpName;
     }
 
+    /**
+     *
+     * @param warpName
+     */
     public void setWarpName(String warpName) {
         this.warpName = warpName;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getSinglePerm() {
         return singlePerm;
     }
 
+    /**
+     *
+     * @param singlePerm
+     */
     public void setSinglePerm(Boolean singlePerm) {
         this.singlePerm = singlePerm;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPermNeeded() {
         return permNeeded;
     }
 
+    /**
+     *
+     * @param permNeeded
+     */
     public void setPermNeeded(String permNeeded) {
         this.permNeeded = permNeeded;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<WarpBehavior> getWarpBehaviors() {
         return warpBehaviors;
     }
 
+    /**
+     *
+     * @param warpBehaviors
+     */
     public void setWarpBehaviors(List<WarpBehavior> warpBehaviors) {
         this.warpBehaviors = warpBehaviors;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getLevelNeeded() {
         return levelNeeded;
     }
 
+    /**
+     *
+     * @param levelNeeded
+     */
     public void setLevelNeeded(Boolean levelNeeded) {
         this.levelNeeded = levelNeeded;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getWarpLevel() {
         return warpLevel;
     }
 
+    /**
+     *
+     * @param warpLevel
+     */
     public void setWarpLevel(Integer warpLevel) {
         this.warpLevel = warpLevel;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getUseCD() {
         return useCD;
     }
 
+    /**
+     *
+     * @param useCD
+     */
     public void setUseCD(Boolean useCD) {
         this.useCD = useCD;
     }
-    /*
-     * All getters and setters listed below
-     */
-
 }

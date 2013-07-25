@@ -46,34 +46,66 @@ public class GuildRank {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<RankPermission, Boolean> getRanksPerms() {
         return ranksPerms;
     }
 
+    /**
+     *
+     * @param ranksPerms
+     */
     public void setRanksPerms(Map<RankPermission, Boolean> ranksPerms) {
         this.ranksPerms = ranksPerms;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getGuildName() {
         return guildName;
     }
 
+    /**
+     *
+     * @param guildName
+     */
     public void setGuildName(String guildName) {
         this.guildName = guildName;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> getPlayersInRank() {
         return playersInRank;
     }
 
+    /**
+     *
+     * @param playersInRank
+     */
     public void setPlayersInRank(List<String> playersInRank) {
         this.playersInRank = playersInRank;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getRankOrder() {
         return rankOrder;
     }
 
+    /**
+     *
+     * @param rankOrder
+     */
     public void setRankOrder(Integer rankOrder) {
         this.rankOrder = rankOrder;
     }

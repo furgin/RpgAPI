@@ -29,6 +29,11 @@ import java.io.IOException;
  */
 public class FoodLoader {
     RpgAPI rpg;
+
+    /**
+     *
+     * @param Rpg
+     */
     public FoodLoader(RpgAPI Rpg){
         this.rpg = Rpg;
         this.rpg.foodListener = new FoodListener(this.rpg);

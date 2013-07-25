@@ -21,21 +21,37 @@ package com.vartala.soulofw0lf.rpgapi.questapi;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class AbstractQuest implements Quest {
+    /**
+     *
+     * @return
+     */
     @Override
     public String getName() {
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean getRequirements() {
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getQuestID() {
         return -1;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean isRepeatable() {
         return false;

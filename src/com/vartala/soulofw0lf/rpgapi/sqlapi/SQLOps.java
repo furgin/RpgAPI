@@ -23,6 +23,13 @@ import java.sql.*;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class SQLOps {
+    /**
+     *
+     * @param query
+     * @param connection
+     * @return
+     * @throws SQLException
+     */
     protected synchronized int standardQuery(String query, Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
         int rowsUpdated = statement.executeUpdate(query);
@@ -30,12 +37,26 @@ public class SQLOps {
         return rowsUpdated;
     }
 
+    /**
+     *
+     * @param query
+     * @param connection
+     * @return
+     * @throws SQLException
+     */
     protected synchronized ResultSet sqlQuery(String query, Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(query);
         return result;
     }
 
+    /**
+     *
+     * @param table
+     * @param connection
+     * @return
+     * @throws SQLException
+     */
     protected synchronized boolean checkTable(String table, Connection connection) throws SQLException {
         DatabaseMetaData dbm;
         dbm = connection.getMetaData();

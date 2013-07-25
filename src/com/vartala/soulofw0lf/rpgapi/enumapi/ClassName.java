@@ -1,5 +1,8 @@
 package com.vartala.soulofw0lf.rpgapi.enumapi;
 
+/**
+ *
+ */
 public enum ClassName {
     BARBARIAN,
     BARD,

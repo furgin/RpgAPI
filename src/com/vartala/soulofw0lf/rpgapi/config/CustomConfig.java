@@ -15,13 +15,20 @@ public class CustomConfig {
     FileConfiguration customConfig = null;
     File customConfigFile = null;
 
-    //
+    /**
+     *
+     * @param plugin
+     * @param filename
+     */
     public CustomConfig(JavaPlugin plugin, String filename) {
         this.FileName = filename;
         this.Plugin = plugin;
         this.customConfigFile = new File(this.Plugin.getDataFolder(), filename);
     }
 
+    /**
+     *
+     */
     public void reloadCustomConfig() {
         if (this.customConfigFile == null) {
             this.customConfigFile = new File(this.Plugin.getDataFolder(), this.FileName);
@@ -35,6 +42,10 @@ public class CustomConfig {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public FileConfiguration getCustomConfig() {
         if (this.customConfig == null) {
             this.reloadCustomConfig();
@@ -42,6 +53,9 @@ public class CustomConfig {
         return this.customConfig;
     }
 
+    /**
+     *
+     */
     public void saveCustomConfig() {
         if (this.customConfig == null || this.customConfigFile == null) {
             return;
@@ -53,6 +67,9 @@ public class CustomConfig {
         }
     }
 
+    /**
+     *
+     */
     public void saveDefaultConfig() {
         if (customConfigFile == null) {
             this.customConfigFile = new File(this.Plugin.getDataFolder(), this.FileName);
@@ -62,6 +79,9 @@ public class CustomConfig {
         }
     }
 
+    /**
+     *
+     */
     public void loadDefault() {
         if (this.customConfigFile == null) {
             this.customConfigFile = new File(this.Plugin.getDataFolder(), this.FileName);

@@ -34,10 +34,20 @@ import org.bukkit.potion.PotionEffectType;
  */
 public class PoisonListener implements Listener {
     RpgAPI Rpgapi;
+
+    /**
+     *
+     * @param RpgApi
+     */
     public PoisonListener(RpgAPI RpgApi) {
         this.Rpgapi = RpgApi;
         Bukkit.getPluginManager().registerEvents(this, this.Rpgapi);
     }
+
+    /**
+     *
+     * @param event
+     */
     @EventHandler
     public void playerPoisonGround(PlayerMoveEvent event) {
         if (!RpgAPI.poisonedEarthOn) {

@@ -22,7 +22,14 @@ import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
  * You should have received a copy of the GNU General Public License
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**
+ *
+ */
 public interface EquipBehaviors {
-    //
+    /**
+     *
+     * @param rpgp
+     */
     public void onEquipAch(RpgPlayer rpgp);
 }

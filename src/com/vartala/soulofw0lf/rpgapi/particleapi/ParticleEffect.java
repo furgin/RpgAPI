@@ -32,6 +32,10 @@ import org.bukkit.entity.Player;
  * @author DarkBlade12
  * @author Linksbro
  */
+
+/**
+ *
+ */
 public enum ParticleEffect {
 
     HUGE_EXPLOSION("hugeexplosion", 0),
@@ -67,26 +71,47 @@ public enum ParticleEffect {
     HEART("heart", 30),
     ANGRY_VILLAGER("angryVillager", 31),
     HAPPY_VILLAGER("happyVillager", 32);
-
+    /**
+     *
+     */
     private String name;
     private int id;
 
+    /**
+     *
+     * @param name
+     * @param id
+     */
     ParticleEffect(String name, int id) {
         this.name = name;
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     *
+     */
     private static final Map<String, ParticleEffect> NAME_MAP = new HashMap<String, ParticleEffect>();
     private static final Map<Integer, ParticleEffect> ID_MAP = new HashMap<Integer, ParticleEffect>();
 
+    /**
+     *
+     */
     static {
         for (ParticleEffect effect : values()) {
             NAME_MAP.put(effect.name, effect);
@@ -94,6 +119,11 @@ public enum ParticleEffect {
         }
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public static ParticleEffect fromName(String name) {
         if (name == null) {
             return null;
@@ -106,6 +136,11 @@ public enum ParticleEffect {
         return null;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public static ParticleEffect fromId(int id) {
         return ID_MAP.get(id);
     }
@@ -219,18 +254,61 @@ public enum ParticleEffect {
         }
     }
 
+    /**
+     *
+     * @param effect
+     * @param loc
+     * @param offsetX
+     * @param offsetY
+     * @param offsetZ
+     * @param speed
+     * @param amount
+     * @return
+     */
     private Object createNormalPacket(ParticleEffect effect, Location loc, float offsetX, float offsetY, float offsetZ, float speed, int amount) {
         return createPacket(effect.getName(), loc, offsetX, offsetY, offsetZ, speed, amount);
     }
 
+    /**
+     *
+     * @param id
+     * @param data
+     * @param loc
+     * @param offsetX
+     * @param offsetY
+     * @param offsetZ
+     * @param amount
+     * @return
+     */
     private static Object createTileCrackPacket(int id, byte data, Location loc, float offsetX, float offsetY, float offsetZ, int amount) {
         return createPacket("tilecrack_" + id + "_" + data, loc, offsetX, offsetY, offsetZ, 0.1F, amount);
     }
 
+    /**
+     *
+     * @param id
+     * @param loc
+     * @param offsetX
+     * @param offsetY
+     * @param offsetZ
+     * @param amount
+     * @return
+     */
     private static Object createIconCrackPacket(int id, Location loc, float offsetX, float offsetY, float offsetZ, int amount) {
         return createPacket("iconcrack_" + id, loc, offsetX, offsetY, offsetZ, 0.1F, amount);
     }
 
+    /**
+     *
+     * @param effectName
+     * @param loc
+     * @param offsetX
+     * @param offsetY
+     * @param offsetZ
+     * @param speed
+     * @param amount
+     * @return
+     */
     private static Object createPacket(String effectName, Location loc, float offsetX, float offsetY, float offsetZ, float speed, int amount) {
         try {
             if (amount <= 0) {
@@ -254,6 +332,11 @@ public enum ParticleEffect {
         }
     }
 
+    /**
+     *
+     * @param p
+     * @param packet
+     */
     private static void sendPacket(Player p, Object packet) {
         if (packet == null) {
             return;
@@ -268,7 +351,17 @@ public enum ParticleEffect {
         }
     }
 
+    /**
+     *
+     */
     private static class ReflectionUtil {
+        /**
+         *
+         * @param name
+         * @param args
+         * @return
+         * @throws Exception
+         */
         public static Object getClass(String name, Object... args) throws Exception {
             Class<?> c = Class.forName(ReflectionUtil.getPackageName() + "." + name);
             int params = 0;
@@ -283,6 +376,13 @@ public enum ParticleEffect {
             return null;
         }
 
+        /**
+         *
+         * @param name
+         * @param c
+         * @param params
+         * @return
+         */
         public static Method getMethod(String name, Class<?> c, int params) {
             for (Method m : c.getMethods()) {
                 if (m.getName().equals(name) && m.getParameterTypes().length == params) {
@@ -292,12 +392,23 @@ public enum ParticleEffect {
             return null;
         }
 
+        /**
+         *
+         * @param instance
+         * @param fieldName
+         * @param value
+         * @throws Exception
+         */
         public static void setValue(Object instance, String fieldName, Object value) throws Exception {
             Field field = instance.getClass().getDeclaredField(fieldName);
             field.setAccessible(true);
             field.set(instance, value);
         }
 
+        /**
+         *
+         * @return
+         */
         public static String getPackageName() {
             return "net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
         }

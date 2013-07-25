@@ -15,10 +15,19 @@ import org.bukkit.entity.Player;
 public class TradeHandler {
     RpgAPI rpgApi;
 
+    /**
+     *
+     * @param rpgApi
+     */
     public TradeHandler(RpgAPI rpgApi) {
         this.rpgApi = rpgApi;
     }
 
+    /**
+     *
+     * @param sender
+     * @param receiver
+     */
     public void sendRequest(RpgPlayer sender, RpgPlayer receiver) {
         // Get bukkit players
         Player sen = Bukkit.getPlayer(sender.getRealName());
@@ -44,6 +53,11 @@ public class TradeHandler {
         receiver.setWaitTrade(sender.getRealName());
     }
 
+    /**
+     *
+     * @param receiver
+     * @param accept
+     */
     public void answerRequest(RpgPlayer receiver, boolean accept) {
         RpgPlayer sender = rpgApi.rpgPlayers.get(receiver.getWaitTrade());
 

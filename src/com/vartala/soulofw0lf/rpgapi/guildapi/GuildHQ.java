@@ -24,6 +24,7 @@ import org.bukkit.Location;
  */
 public class GuildHQ {
     //
+
     //name of the guild headquarters
     private String HQName = "";
 
@@ -38,18 +39,34 @@ public class GuildHQ {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String getHQName() {
         return HQName;
     }
 
+    /**
+     *
+     * @param HQName
+     */
     public void setHQName(String HQName) {
         this.HQName = HQName;
     }
 
+    /**
+     *
+     * @return
+     */
     public Location getHQLoc() {
         return HQLoc;
     }
 
+    /**
+     *
+     * @param HQLoc
+     */
     public void setHQLoc(Location HQLoc) {
         this.HQLoc = HQLoc;
     }

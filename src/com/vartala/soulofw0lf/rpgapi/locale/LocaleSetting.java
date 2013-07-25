@@ -15,6 +15,10 @@ import java.io.IOException;
  */
 public class LocaleSetting {
     //locale config (only general localle commands and messages should go in here)
+
+    /**
+     *
+     */
     public static void localeLoader(){
     RpgAPI.localeConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale.yml"));
         if (RpgAPI.localeConfig.get("Locale Settings") == null) {

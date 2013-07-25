@@ -3,7 +3,12 @@ package com.vartala.soulofw0lf.rpgapi.util;
 import java.lang.reflect.Field;
 
 public class ReflectionUtil {
-    //
+    /**
+     *
+     * @param obj
+     * @param fieldname
+     * @return
+     */
     public static Object getPrivateField(Object obj, String fieldname) {
         try {
             Field field = obj.getClass().getDeclaredField(fieldname);

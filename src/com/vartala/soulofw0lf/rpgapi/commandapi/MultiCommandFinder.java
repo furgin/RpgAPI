@@ -10,11 +10,18 @@ public class MultiCommandFinder {
     protected PrintStream Log = System.err;
     private MultiCommand Base;
 
+    /**
+     *
+     * @param base
+     */
     public MultiCommandFinder(MultiCommand base) {
         this.Base = base;
     }
 
-    //
+    /**
+     *
+     * @param handler
+     */
     public void registerMethods(Object handler) {
         for (Method method : sortedMethods(handler)) {
             MultiCmd cmd = method.getAnnotation(MultiCmd.class);
@@ -28,6 +35,12 @@ public class MultiCommandFinder {
         }
     }
 
+    /**
+     *
+     * @param handler
+     * @param method
+     * @param cmd
+     */
     public void registerMethod(Object handler, Method method, MultiCmd cmd) {
         String name = cmd.name();
         if (name.equals("")) {
@@ -47,6 +60,12 @@ public class MultiCommandFinder {
         sub.setHandler(buildHandler(handler, method));
     }
 
+    /**
+     *
+     * @param handler
+     * @param method
+     * @return
+     */
     private MultiHandler buildHandler(final Object handler, final Method method) {
         return new MultiHandler() {
 
@@ -61,6 +80,11 @@ public class MultiCommandFinder {
         };
     }
 
+    /**
+     *
+     * @param handler
+     * @return
+     */
     private ArrayList<Method> sortedMethods(Object handler) {
         TreeMap<String, Method> methodMap = new TreeMap<String, Method>();
         for (Method method : handler.getClass().getDeclaredMethods()) {

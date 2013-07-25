@@ -18,12 +18,19 @@ public class MapListener implements Listener {
 
     private RpgAPI RPG;
 
-    //
+    /**
+     *
+     * @param rpg
+     */
     public MapListener(RpgAPI rpg) {
         this.RPG = rpg;
         Bukkit.getPluginManager().registerEvents(this, this.RPG);
     }
 
+    /**
+     *
+     * @param event
+     */
     @EventHandler
     public void onMap(MapInitializeEvent event) {
         if (!ScrollMap.containsScrollMap(event.getMap().getId())) {
@@ -31,6 +38,10 @@ public class MapListener implements Listener {
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     @EventHandler
     public void onClick(PlayerInteractEvent event) {
         if ((event.getAction().equals(Action.RIGHT_CLICK_AIR) ||

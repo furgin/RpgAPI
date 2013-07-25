@@ -44,38 +44,73 @@ public class LFGPlayer {
      *  all getters and setters
      */
 
+    /**
+     *
+     */
     public LFGPlayer() {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getInQue() {
         return inQue;
     }
 
+    /**
+     *
+     * @param inQue
+     */
     public void setInQue(Integer inQue) {
         this.inQue = inQue;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<ClassRole, ClassName> getPlayerRole() {
         return playerRole;
     }
 
+    /**
+     *
+     * @param playerRole
+     */
     public void setPlayerRole(Map<ClassRole, ClassName> playerRole) {
         this.playerRole = playerRole;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPlayerName() {
         return playerName;
     }
 
+    /**
+     *
+     * @param playerName
+     */
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getReasonForJoining() {
         return reasonForJoining;
     }
 
+    /**
+     *
+     * @param reasonForJoining
+     */
     public void setReasonForJoining(String reasonForJoining) {
         this.reasonForJoining = reasonForJoining;
     }

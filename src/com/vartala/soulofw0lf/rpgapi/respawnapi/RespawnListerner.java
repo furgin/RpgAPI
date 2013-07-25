@@ -13,12 +13,20 @@ import org.bukkit.event.player.PlayerRespawnEvent;
  * To change this template use File | Settings | File Templates.
  */
 public class RespawnListerner implements Listener {
+    /**
+     *
+     * @param event
+     */
     public static void rezCommandListener(PlayerCommandPreprocessEvent event) {
         //oncommand "rez"
         //if RespawnHandler.getInstance().rezQueue.contains(p) -> this player is already being rezzed
         //else add player to queue
     }
 
+    /**
+     *
+     * @param event
+     */
     public static void respawnListener(PlayerRespawnEvent event) {
         event.setRespawnLocation(RespawnHandler.getInstance().getPlayerSpawnLocation(event.getPlayer()));
     }

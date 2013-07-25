@@ -30,6 +30,9 @@ import java.io.IOException;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class ChatSaver {
+    /**
+     *
+     */
     public ChatSaver(){
 
          for (ChatClass ch : RpgAPI.chatClasses){

@@ -24,5 +24,12 @@ import org.bukkit.Location;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */   //
 public interface SpellBehaviors {
+    /**
+     *
+     * @param rpgp
+     * @param rp
+     * @param spell
+     * @param loc
+     */
     public void onSpellCast(RpgPlayer rpgp, RpgPlayer rp, MagicSpell spell, Location loc);
 }

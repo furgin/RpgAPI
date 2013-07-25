@@ -59,67 +59,130 @@ public class TitleAchievement {
 
     }
 
-
+    /**
+     *
+     * @return
+     */
     public List<UnEquipBehaviors> getUnEquipBehavior() {
         return unEquipBehavior;
     }
 
+    /**
+     *
+     * @param unEquipBehavior
+     */
     public void setUnEquipBehavior(List<UnEquipBehaviors> unEquipBehavior) {
         this.unEquipBehavior = unEquipBehavior;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<EquipBehaviors> getEquipBehavior() {
         return equipBehavior;
     }
 
+    /**
+     *
+     * @param equipBehavior
+     */
     public void setEquipBehavior(List<EquipBehaviors> equipBehavior) {
         this.equipBehavior = equipBehavior;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isPrefix() {
         return isPrefix;
     }
 
+    /**
+     *
+     * @param prefix
+     */
     public void setPrefix(boolean prefix) {
         isPrefix = prefix;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<String, Boolean> getAchievementUnEquipCommands() {
         return achievementUnEquipCommands;
     }
 
+    /**
+     *
+     * @param achievementUnEquipCommands
+     */
     public void setAchievementUnEquipCommands(Map<String, Boolean> achievementUnEquipCommands) {
         this.achievementUnEquipCommands = achievementUnEquipCommands;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<String, Boolean> getAchievementEquipCommands() {
         return achievementEquipCommands;
     }
 
+    /**
+     *
+     * @param achievementEquipCommands
+     */
     public void setAchievementEquipCommands(Map<String, Boolean> achievementEquipCommands) {
         this.achievementEquipCommands = achievementEquipCommands;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAchievementName() {
         return AchievementName;
     }
 
+    /**
+     *
+     * @param achievementName
+     */
     public void setAchievementName(String achievementName) {
         AchievementName = achievementName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAchievementdescription() {
         return Achievementdescription;
     }
 
+    /**
+     *
+     * @param achievementdescription
+     */
     public void setAchievementdescription(String achievementdescription) {
         Achievementdescription = achievementdescription;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAchievementtitle() {
         return Achievementtitle;
     }
 
+    /**
+     *
+     * @param achievementtitle
+     */
     public void setAchievementtitle(String achievementtitle) {
         Achievementtitle = achievementtitle;
     }

@@ -29,7 +29,11 @@ import org.bukkit.scheduler.BukkitRunnable;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class basicFoodBehavior implements FoodBehavior {
-    //
+    /**
+     *
+     * @param player
+     * @param foodItem
+     */
     @Override
     public void ConsumptionEffect(RpgPlayer player, CustomFood foodItem) {
         final RpgPlayer p = player;

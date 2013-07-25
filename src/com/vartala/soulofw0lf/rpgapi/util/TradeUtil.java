@@ -10,6 +10,14 @@ import org.bukkit.ChatColor;
  */
 public class TradeUtil {
     // Show money as plat,gold,silver,bronze
+
+    /**
+     * Show money as Platinum Gold Silver and Bronze
+     *
+     * @param money
+     * @param omitZeros
+     * @return
+     */
     public static String expandedMoney(int money, boolean omitZeros) {
         int copper = 0, silver = 0, gold = 0, plat = 0;
         copper = money % 10;

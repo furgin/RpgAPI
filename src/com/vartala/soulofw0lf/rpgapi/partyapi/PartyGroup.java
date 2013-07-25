@@ -38,18 +38,34 @@ public class PartyGroup {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> getPlayersInParty() {
         return playersInParty;
     }
 
+    /**
+     *
+     * @param playersInParty
+     */
     public void setPlayersInParty(List<String> playersInParty) {
         this.playersInParty = playersInParty;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPartyName() {
         return partyName;
     }
 
+    /**
+     *
+     * @param partyName
+     */
     public void setPartyName(String partyName) {
         this.partyName = partyName;
     }

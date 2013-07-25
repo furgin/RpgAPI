@@ -33,6 +33,9 @@ import java.util.List;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class WarpLoader{
+    /**
+     *
+     */
     public WarpLoader(){
         YamlConfiguration warpLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgWarps/Locale/WarpConfig.yml"));
         warpLocaleConfig.set("Warp Commands.Set Warp.Alias", "setwarp");

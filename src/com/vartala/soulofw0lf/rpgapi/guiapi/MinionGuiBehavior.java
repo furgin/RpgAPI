@@ -29,6 +29,13 @@ import java.util.List;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class MinionGuiBehavior implements InventoryClickBehavior {
+    /**
+     *
+     * @param inv
+     * @param player
+     * @param item
+     * @param click
+     */
     @Override
     public void onClick(RpgClickInv inv, Player player, ItemStack item, ClickType click) {
         if (!inv.getInvName().contains("MOB EDITING ID:")) { //only proceed if the opened GUI is a mob editing GUI

@@ -31,6 +31,11 @@ import java.io.IOException;
  */
 public class PoisonLoader {
     RpgAPI rpg;
+
+    /**
+     *
+     * @param Rpg
+     */
     public PoisonLoader(RpgAPI Rpg){
     this.rpg = Rpg;
 

@@ -26,6 +26,16 @@ import org.bukkit.Location;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class CityChatBehavior implements ChatBehavior {
+    /**
+     *
+     * @param chatName
+     * @param receiveName
+     * @param sendName
+     * @param language
+     * @param message
+     * @param chatSpy
+     * @return
+     */
     @Override
     public Boolean chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy) {
         RpgPlayer rp = RpgAPI.getRp(receiveName);

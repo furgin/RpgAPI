@@ -31,6 +31,13 @@ import org.bukkit.inventory.meta.ItemMeta;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class ChatCreateBehavior implements InventoryClickBehavior{
+    /**
+     *
+     * @param inv
+     * @param player
+     * @param item
+     * @param click
+     */
     @SuppressWarnings("deprecation")
     @Override
     public void onClick(RpgClickInv inv, Player player, ItemStack item, ClickType click) {

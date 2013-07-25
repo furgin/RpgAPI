@@ -19,11 +19,18 @@ public class RespawnHandler {
     public static Map<String, Location> rezQueue = new HashMap<>();
     public static RespawnHandler instance = new RespawnHandler();
 
+    /**
+     *
+     */
     public RespawnHandler() {
         //TODO: Load from config soul0fwolf
         //SpawnPoint sp = new SpawnPoint(Location, Permission, Name) if no perm, just pass ""
     }
 
+    /**
+     *
+     * @return
+     */
     public static RespawnHandler getInstance() {
         return instance;
     }

@@ -28,6 +28,9 @@ import java.io.IOException;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class LanguageLoader {
+    /**
+     *
+     */
     public LanguageLoader(){
         File l = new File("plugins/RpgLanguages");
         File[] lFiles = l.listFiles();

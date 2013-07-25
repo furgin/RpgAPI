@@ -85,130 +85,258 @@ public class RpgClasses {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<String, String> getClassHelpFile() {
         return classHelpFile;
     }
 
+    /**
+     *
+     * @param classHelpFile
+     */
     public void setClassHelpFile(Map<String, String> classHelpFile) {
         this.classHelpFile = classHelpFile;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getClassDescription() {
         return classDescription;
     }
 
+    /**
+     *
+     * @param classDescription
+     */
     public void setClassDescription(String classDescription) {
         this.classDescription = classDescription;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<Integer, List<Spell>> getClassSpells() {
         return classSpells;
     }
 
+    /**
+     *
+     * @param classSpells
+     */
     public void setClassSpells(Map<Integer, List<Spell>> classSpells) {
         this.classSpells = classSpells;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> getClassSkills() {
         return classSkills;
     }
 
+    /**
+     *
+     * @param classSkills
+     */
     public void setClassSkills(List<String> classSkills) {
         this.classSkills = classSkills;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> getWeaponProficiencies() {
         return weaponProficiencies;
     }
 
+    /**
+     *
+     * @param weaponProficiencies
+     */
     public void setWeaponProficiencies(List<String> weaponProficiencies) {
         this.weaponProficiencies = weaponProficiencies;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> getArmorProficiencies() {
         return armorProficiencies;
     }
 
+    /**
+     *
+     * @param armorProficiencies
+     */
     public void setArmorProficiencies(List<String> armorProficiencies) {
         this.armorProficiencies = armorProficiencies;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<Integer, Map<Integer, Integer>> getSpellsKnown() {
         return spellsKnown;
     }
 
+    /**
+     *
+     * @param spellsKnown
+     */
     public void setSpellsKnown(Map<Integer, Map<Integer, Integer>> spellsKnown) {
         this.spellsKnown = spellsKnown;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<Integer, Map<Integer, Integer>> getSpellsPerCombat() {
         return spellsPerCombat;
     }
 
+    /**
+     *
+     * @param spellsPerCombat
+     */
     public void setSpellsPerCombat(Map<Integer, Map<Integer, Integer>> spellsPerCombat) {
         this.spellsPerCombat = spellsPerCombat;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getSkillsPerLevel() {
         return skillsPerLevel;
     }
 
+    /**
+     *
+     * @param skillsPerLevel
+     */
     public void setSkillsPerLevel(Integer skillsPerLevel) {
         this.skillsPerLevel = skillsPerLevel;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getHitDie() {
         return hitDie;
     }
 
+    /**
+     *
+     * @param hitDie
+     */
     public void setHitDie(Integer hitDie) {
         this.hitDie = hitDie;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<Integer, List<String>> getClassFeatures() {
         return classFeatures;
     }
 
+    /**
+     *
+     * @param classFeatures
+     */
     public void setClassFeatures(Map<Integer, List<String>> classFeatures) {
         this.classFeatures = classFeatures;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<Integer, Integer> getWillSaves() {
         return willSaves;
     }
 
+    /**
+     *
+     * @param willSaves
+     */
     public void setWillSaves(Map<Integer, Integer> willSaves) {
         this.willSaves = willSaves;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<Integer, Integer> getReflexSaves() {
         return reflexSaves;
     }
 
+    /**
+     *
+     * @param reflexSaves
+     */
     public void setReflexSaves(Map<Integer, Integer> reflexSaves) {
         this.reflexSaves = reflexSaves;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<Integer, Integer> getFortSaves() {
         return fortSaves;
     }
 
+    /**
+     *
+     * @param fortSaves
+     */
     public void setFortSaves(Map<Integer, Integer> fortSaves) {
         this.fortSaves = fortSaves;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<Integer, Integer> getBabList() {
         return babList;
     }
 
+    /**
+     *
+     * @param babList
+     */
     public void setBabList(Map<Integer, Integer> babList) {
         this.babList = babList;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getClassName() {
         return className;
     }
 
+    /**
+     *
+     * @param className
+     */
     public void setClassName(String className) {
         this.className = className;
     }

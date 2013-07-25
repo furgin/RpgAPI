@@ -25,30 +25,57 @@ public class PoisonEffects {
     private Integer duration = 0;
     private Integer strength = 0;
 
+    /**
+     *
+     */
     public PoisonEffects() {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getStrength() {
         return strength;
     }
 
+    /**
+     *
+     * @param strength
+     */
     public void setStrength(Integer strength) {
         this.strength = strength;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getDuration() {
         return duration;
     }
 
+    /**
+     *
+     * @param duration
+     */
     public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEffectName() {
         return effectName;
     }
 
+    /**
+     *
+     * @param effectName
+     */
     public void setEffectName(String effectName) {
         this.effectName = effectName;
     }

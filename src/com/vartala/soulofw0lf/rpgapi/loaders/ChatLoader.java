@@ -31,6 +31,11 @@ import java.util.List;
  */
 public class ChatLoader {
     RpgAPI rpg;
+
+    /**
+     *
+     * @param Rpg
+     */
     public ChatLoader(RpgAPI Rpg){
         this.rpg = Rpg;
     this.rpg.chatListener = new ChatListener(this.rpg);

@@ -27,6 +27,10 @@ public class TradeEventListener implements Listener{
     RpgAPI api;
     ArrayList<Integer> forbiddenIndex = new ArrayList<Integer>();
 
+    /**
+     *
+     * @param api
+     */
     public TradeEventListener(RpgAPI api) {
         this.api = api;
         Bukkit.getPluginManager().registerEvents(this, api);
@@ -35,6 +39,11 @@ public class TradeEventListener implements Listener{
             forbiddenIndex.add(i);
         }
     }
+
+    /**
+     *
+     * @param event
+     */
     @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.HIGHEST)
     public void clickListener(final InventoryClickEvent event) {
@@ -153,6 +162,13 @@ public class TradeEventListener implements Listener{
         }
     }
 
+    /**
+     *
+     * @param clickBlock
+     * @param player
+     * @param otherPlayer
+     * @param Cancel
+     */
     // Change the status wool on both players' screens
     private void setReady(ItemStack clickBlock, Player player, String otherPlayer, boolean Cancel) {
         // Set block
@@ -188,11 +204,23 @@ public class TradeEventListener implements Listener{
         }
         otherBlock.setItemMeta(meta);
     }
+
+    /**
+     *
+     * @param a
+     * @param b
+     */
     private void confirmTrade(Player a, Player b) {
         RpgAPI.getRp(a).setInConfirm(true);
         RpgAPI.getRp(b).setInConfirm(true);
         //TODO finish this
     }
+
+    /**
+     *
+     * @param a
+     * @param b
+     */
     private void makeTrade(Player a, Player b) {
         for (int i =0; i < 45; i++) {
             // Only copy things under index 45, not forbidden, and on the left (less than 4)
@@ -223,6 +251,11 @@ public class TradeEventListener implements Listener{
         b.sendMessage(ChatColor.GREEN + "Trade Accepted.");
     }
 
+    /**
+     *
+     * @param p
+     * @return
+     */
     private int findOfferedMoney(Player p) {
         int total = 0;
         for (int i = 0; i < 4; i++) {
@@ -232,6 +265,12 @@ public class TradeEventListener implements Listener{
         return total;
     }
 
+    /**
+     *
+     * @param label
+     * @param type
+     * @return
+     */
     // Get the actual worth of money (i.e. 100 for Gold, 10 for silver...)
     private int findMoney (String label, int type) {
         // Find Number
@@ -252,6 +291,10 @@ public class TradeEventListener implements Listener{
         return number;
     }
 
+    /**
+     *
+     * @param event
+     */
     @EventHandler(priority = EventPriority.HIGHEST)
     // This is still called when a complete trade is made
     public void closeListener(InventoryCloseEvent event) {

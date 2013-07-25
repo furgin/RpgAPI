@@ -13,7 +13,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class BasicInventoryClickBehavior implements InventoryClickBehavior {
-    //
+    /**
+     *
+     * @param inv
+     * @param p
+     * @param item
+     * @param click
+     */
     @Override
     public void onClick(RpgClickInv inv, Player p, ItemStack item, ClickType click
     ) {

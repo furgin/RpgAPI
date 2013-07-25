@@ -33,12 +33,20 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class ChatListener implements Listener {
     RpgAPI Rpgapi;
     public static String eventMessage = "";
+
+    /**
+     *
+     * @param rpgAPI
+     */
     public ChatListener(RpgAPI rpgAPI) {
         this.Rpgapi = rpgAPI;
         Bukkit.getPluginManager().registerEvents(this, this.Rpgapi);
     }
 
-    //
+    /**
+     *
+     * @param event
+     */
     @EventHandler(priority = EventPriority.HIGHEST)
     public void channelChat(AsyncPlayerChatEvent event) {
         Player p = event.getPlayer();

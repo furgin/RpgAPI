@@ -26,6 +26,11 @@ import org.bukkit.entity.Player;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class SpeedHandler {
+    /**
+     *
+     * @param rp
+     * @param play
+     */
     public static void SetWalkSpeed(RpgPlayer rp, String play) {
         Player p = Bukkit.getPlayer(play);
         Integer walkingSpeed = rp.getStats().get(PlayerStat.SPEED_LAND.toString());
@@ -107,6 +112,11 @@ public class SpeedHandler {
         }
     }
 
+    /**
+     *
+     * @param rp
+     * @param play
+     */
     public static void SetFlySpeed(RpgPlayer rp, String play) {
         Player p = Bukkit.getPlayer(play);
         Integer speed = rp.getStats().get(PlayerStat.SPEED_FLY.toString());

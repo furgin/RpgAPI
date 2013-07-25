@@ -29,6 +29,9 @@ import java.util.Map;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class PoisonBuilder {
+    /**
+     *
+     */
     public static void newPoison() {
 
         for (String poisonName : RpgAPI.poisonCommand.getConfigurationSection("Poisons").getKeys(false)) {

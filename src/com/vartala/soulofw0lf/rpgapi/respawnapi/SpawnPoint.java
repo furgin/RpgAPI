@@ -41,26 +41,50 @@ public class SpawnPoint {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     public Location getRespawnPoint() {
         return respawnPoint;
     }
 
+    /**
+     *
+     * @param respawnPoint
+     */
     public void setRespawnPoint(Location respawnPoint) {
         this.respawnPoint = respawnPoint;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPerm() {
         return perm;
     }
 
+    /**
+     *
+     * @param perm
+     */
     public void setPerm(String perm) {
         this.perm = perm;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }

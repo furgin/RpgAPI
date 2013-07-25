@@ -21,6 +21,10 @@ package com.vartala.soulofw0lf.rpgapi.partyapi;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */         //
 public enum ClassRole {
+    /**
+     * Enums for all class roles available
+     *
+     */
     TANK,
     HEALER,
     MELEEDPS,

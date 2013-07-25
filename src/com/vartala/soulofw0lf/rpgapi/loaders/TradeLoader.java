@@ -30,6 +30,11 @@ import java.io.IOException;
  */
 public class TradeLoader {
     RpgAPI Rpg;
+
+    /**
+     *
+     * @param rpg
+     */
     public TradeLoader(RpgAPI rpg){
         this.Rpg = rpg;
         RpgAPI.tradeHandler = new TradeHandler(this.Rpg);

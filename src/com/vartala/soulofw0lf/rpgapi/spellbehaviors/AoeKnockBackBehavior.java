@@ -26,6 +26,13 @@ import org.bukkit.Location;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class AoeKnockBackBehavior implements SpellBehaviors {
+    /**
+     *
+     * @param rpgP caster of the spell
+     * @param rp person being hit by the spell
+     * @param spell the spell being cast
+     * @param loc location the spell actually hit
+     */
     @Override
     public void onSpellCast(RpgPlayer rpgP, RpgPlayer rp, MagicSpell spell, Location loc){
         //rpgP should be the caster of the spell

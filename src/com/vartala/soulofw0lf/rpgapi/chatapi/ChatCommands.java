@@ -36,6 +36,12 @@ import java.util.List;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class ChatCommands {
+    /**
+     *
+     * @param p
+     * @param command
+     * @return
+     */
     public static Boolean ChatHandler(Player p, String[] command){
         RpgPlayer rp = RpgAPI.getRp(p.getName());
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Chat Command"))){

@@ -41,6 +41,10 @@ public class MobCommand {
     //all items in set ID's mapped by name
     private Map<String, Integer> idMap = new HashMap<>();
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<ItemStack> toItemStack() {
         ArrayList<ItemStack> itemStackList = new ArrayList<>();
         for (String name : itemNames) {
@@ -50,6 +54,11 @@ public class MobCommand {
         return itemStackList;
     }
 
+    /**
+     *
+     * @param itemStacks
+     * @return
+     */
     public Map<ItemStack, List<String>> toCommandMap(ArrayList<ItemStack> itemStacks) {
         Map<ItemStack, List<String>> returnMap = new HashMap<>();
         for (ItemStack is : itemStacks) {
@@ -58,42 +67,82 @@ public class MobCommand {
         return returnMap;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSetName() {
         return setName;
     }
 
+    /**
+     *
+     * @param setName
+     */
     public void setSetName(String setName) {
         this.setName = setName;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> getItemNames() {
         return itemNames;
     }
 
+    /**
+     *
+     * @param itemNames
+     */
     public void setItemNames(List<String> itemNames) {
         this.itemNames = itemNames;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<String, List<String>> getCommandMap() {
         return commandMap;
     }
 
+    /**
+     *
+     * @param commandMap
+     */
     public void setCommandMap(Map<String, List<String>> commandMap) {
         this.commandMap = commandMap;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<String, List<String>> getLoreMap() {
         return loreMap;
     }
 
+    /**
+     *
+     * @param loreMap
+     */
     public void setLoreMap(Map<String, List<String>> loreMap) {
         this.loreMap = loreMap;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<String, Integer> getIdMap() {
         return idMap;
     }
 
+    /**
+     *
+     * @param idMap
+     */
     public void setIdMap(Map<String, Integer> idMap) {
         this.idMap = idMap;
     }

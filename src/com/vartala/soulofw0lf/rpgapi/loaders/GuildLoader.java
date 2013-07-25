@@ -27,6 +27,9 @@ import java.io.IOException;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class GuildLoader {
+    /**
+     *
+     */
     public GuildLoader(){
         RpgAPI.guildConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgGuilds/Guilds.yml"));
         RpgAPI.guildLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgGuilds/Locale/Guilds.yml"));

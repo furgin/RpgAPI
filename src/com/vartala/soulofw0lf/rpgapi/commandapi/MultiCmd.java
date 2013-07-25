@@ -3,6 +3,7 @@ package com.vartala.soulofw0lf.rpgapi.commandapi;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MultiCmd {
     //

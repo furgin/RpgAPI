@@ -31,6 +31,12 @@ import java.util.List;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class PermHandler {
+    /**
+     *
+     * @param p
+     * @param command
+     * @return
+     */
     public static Boolean permCommands(Player p, String[] command){
         if (command[0].equalsIgnoreCase("addperm")){
             String name = RpgAPI.activeNicks.get(p.getName());
@@ -45,6 +51,10 @@ public class PermHandler {
         }
         return false;
     }
+
+    /**
+     *
+     */
     @SuppressWarnings("unchecked")
     public void loadPerms(){
         YamlConfiguration groupConfig =  YamlConfiguration.loadConfiguration(new File("plugins/RpgPermissions/Groups.yml"));
@@ -80,6 +90,10 @@ public class PermHandler {
         System.out.print("Permissions loaded.");
 
     }
+
+    /**
+     *
+     */
     public void savePerms(){
         YamlConfiguration groupConfig =  YamlConfiguration.loadConfiguration(new File("plugins/RpgPermissions/Groups.yml"));
         for (String group : RpgAPI.permGroups.keySet()){

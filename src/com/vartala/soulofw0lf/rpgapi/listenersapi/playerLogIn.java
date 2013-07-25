@@ -27,12 +27,19 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class playerLogIn implements Listener {
     RpgAPI Rpgapi;
 
+    /**
+     *
+     * @param rpga
+     */
     public playerLogIn(RpgAPI rpga) {
         this.Rpgapi = rpga;
         Bukkit.getPluginManager().registerEvents(this, this.Rpgapi);
     }
 
-
+    /**
+     *
+     * @param event
+     */
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
@@ -94,6 +101,10 @@ public class playerLogIn implements Listener {
         //}
     }
 
+    /**
+     *
+     * @param event
+     */
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerKick(PlayerKickEvent event) {
         Player p = event.getPlayer();
@@ -116,6 +127,10 @@ public class playerLogIn implements Listener {
 		 */
     }
 
+    /**
+     *
+     * @param event
+     */
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player p = event.getPlayer();

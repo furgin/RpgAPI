@@ -58,6 +58,11 @@ import java.util.Map;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class UniqueCommands {
+    /**
+     *
+     * @param p
+     * @param command
+     */
     public static void BaseCommandHandler(Player p, String[] command) {
         command[0] = command[0].replace("/", "").toLowerCase().trim();
 

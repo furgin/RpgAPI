@@ -16,7 +16,12 @@ import org.bukkit.scheduler.BukkitRunnable;
  */
 public class BorderCheck {
 
-
+    /**
+     *
+     * @param rpgAPI
+     * @param loc
+     * @param rad
+     */
     public static void cycleCheck(RpgAPI rpgAPI, Location loc, Integer rad) {
         final JavaPlugin plugin = rpgAPI;
         final String worldName = loc.getWorld().getName();
@@ -24,8 +29,8 @@ public class BorderCheck {
         final double Y = loc.getY();
         final double Z = loc.getZ();
         final Integer radius = rad;
-        new BukkitRunnable() {
 
+        new BukkitRunnable() {
             @Override
             public void run() {
                 for (Player player : Bukkit.getOnlinePlayers()) {

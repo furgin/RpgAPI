@@ -14,6 +14,11 @@ import org.bukkit.entity.Player;
  * Time: 2:25 PM
  */
 public class TradeCommandProcessor {
+    /**
+     *
+     * @param p
+     * @param command
+     */
     public static void process(Player p, String[] command) {
         for (int i = 0; i < command.length; i++)
         {

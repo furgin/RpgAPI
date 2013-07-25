@@ -54,78 +54,153 @@ public class CustomFood {
     //food buff strength
     private Integer buffAmp = 0;
 
+    /**
+     *
+     */
     public CustomFood() {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFoodName() {
         return foodName;
     }
 
+    /**
+     *
+     * @param foodName
+     */
     public void setFoodName(String foodName) {
         this.foodName = foodName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFoodMaterial() {
         return foodMaterial;
     }
 
+    /**
+     *
+     * @param foodMaterial
+     */
     public void setFoodMaterial(String foodMaterial) {
         this.foodMaterial = foodMaterial;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getFoodHealth() {
         return foodHealth;
     }
 
+    /**
+     *
+     * @param foodHealth
+     */
     public void setFoodHealth(Integer foodHealth) {
         this.foodHealth = foodHealth;
     }
 
+    /**
+     *
+     * @return
+     */
     public Double getTimeToEat() {
         return timeToEat;
     }
 
+    /**
+     *
+     * @param timeToEat
+     */
     public void setTimeToEat(Double timeToEat) {
         this.timeToEat = timeToEat;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<FoodBehavior> getFoodBehaviors() {
         return foodBehaviors;
     }
 
+    /**
+     *
+     * @param foodBehaviors
+     */
     public void setFoodBehaviors(List<FoodBehavior> foodBehaviors) {
         this.foodBehaviors = foodBehaviors;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFoodBuff() {
         return foodBuff;
     }
 
+    /**
+     *
+     * @param foodBuff
+     */
     public void setFoodBuff(String foodBuff) {
         this.foodBuff = foodBuff;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getBuffDuration() {
         return buffDuration;
     }
 
+    /**
+     *
+     * @param buffDuration
+     */
     public void setBuffDuration(Integer buffDuration) {
         this.buffDuration = buffDuration;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getBuffAmp() {
         return buffAmp;
     }
 
+    /**
+     *
+     * @param buffAmp
+     */
     public void setBuffAmp(Integer buffAmp) {
         this.buffAmp = buffAmp;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isHasBuff() {
         return hasBuff;
     }
 
+    /**
+     *
+     * @param hasBuff
+     */
     public void setHasBuff(boolean hasBuff) {
         this.hasBuff = hasBuff;
     }

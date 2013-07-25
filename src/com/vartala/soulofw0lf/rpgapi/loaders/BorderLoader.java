@@ -31,6 +31,9 @@ import java.io.IOException;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class BorderLoader {
+    /**
+     *
+     */
     public BorderLoader(){
         RpgAPI.worldBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgBorders/RpgBorders.yml"));
         RpgAPI.worldLocaleBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgBorders/Locale/RpgBorders.yml"));

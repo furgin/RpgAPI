@@ -16,7 +16,9 @@ public class MapMenu extends MapRenderer {
     private boolean Wrap = false;
     private int Index = 0;
 
-    //
+    /**
+     *
+     */
     public MapMenu() {
         this.Title = "Test Title";
         this.Lines.add("HelloWorld");
@@ -31,6 +33,9 @@ public class MapMenu extends MapRenderer {
         this.Lines.add("12345678901234567890123456789012345678901234567890");
     }
 
+    /**
+     *
+     */
     public void incrementIndex() {
         if (this.Index + 1 >= this.Lines.size()) {
             if (this.Wrap) this.Index = 0;
@@ -39,6 +44,9 @@ public class MapMenu extends MapRenderer {
         }
     }
 
+    /**
+     *
+     */
     public void decrementIndex() {
         if (this.Index - 1 < 0) {
             if (this.Wrap) this.Index = this.Lines.size() - 1;
@@ -47,10 +55,18 @@ public class MapMenu extends MapRenderer {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSelectedLine() {
         return this.Lines.get(this.Index);
     }
 
+    /**
+     *
+     * @return
+     */
     private List<String> getLinesToDraw() {
         List<String> tmp = new ArrayList<String>();
         for (int x = -4; x <= 4; x++) {
@@ -63,6 +79,12 @@ public class MapMenu extends MapRenderer {
         return tmp;
     }
 
+    /**
+     *
+     * @param view
+     * @param canvas
+     * @param player
+     */
     @Override
     public void render(MapView view, MapCanvas canvas, Player player) {
         if (ScrollMap.isMapDirty(view.getId()) || ScrollMap.isPlayerDirty(player.getName())) {

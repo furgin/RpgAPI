@@ -40,88 +40,169 @@ public class RpgPoison {
     private List<PoisonBehavior> poisonBehaviors = new ArrayList<PoisonBehavior>();
     private Map<PotionEffectType, PoisonEffects> effectStats = new HashMap<>();
 
+    /**
+     *
+     */
     public void RpgPoison() {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getPoisonTickLength() {
         return poisonTickLength;
     }
 
+    /**
+     *
+     * @param poisonTickLength
+     */
     public void setPoisonTickLength(Integer poisonTickLength) {
         this.poisonTickLength = poisonTickLength;
     }
 
-
+    /**
+     *
+     * @return
+     */
     public boolean isAboveY() {
         return aboveY;
     }
 
+    /**
+     *
+     * @param aboveY
+     */
     public void setAboveY(boolean aboveY) {
         this.aboveY = aboveY;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getPoisonY() {
         return poisonY;
     }
 
+    /**
+     *
+     * @param poisonY
+     */
     public void setPoisonY(double poisonY) {
         this.poisonY = poisonY;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getPoisonRadius() {
         return poisonRadius;
     }
 
+    /**
+     *
+     * @param poisonRadius
+     */
     public void setPoisonRadius(double poisonRadius) {
         this.poisonRadius = poisonRadius;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getWorldName() {
         return worldName;
     }
 
+    /**
+     *
+     * @param worldName
+     */
     public void setWorldName(String worldName) {
         this.worldName = worldName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPoisonName() {
         return poisonName;
     }
 
+    /**
+     *
+     * @param poisonName
+     */
     public void setPoisonName(String poisonName) {
         this.poisonName = poisonName;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getPoisonX() {
         return poisonX;
     }
 
+    /**
+     *
+     * @param poisonX
+     */
     public void setPoisonX(double poisonX) {
         this.poisonX = poisonX;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getPoisonZ() {
         return poisonZ;
     }
 
+    /**
+     *
+     * @param poisonZ
+     */
     public void setPoisonZ(double poisonZ) {
         this.poisonZ = poisonZ;
     }
 
-
+    /**
+     *
+     * @return
+     */
     public List<PoisonBehavior> getPoisonBehaviors() {
         return poisonBehaviors;
     }
 
+    /**
+     *
+     * @param poisonBehaviors
+     */
     public void setPoisonBehaviors(List<PoisonBehavior> poisonBehaviors) {
         this.poisonBehaviors = poisonBehaviors;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<PotionEffectType, PoisonEffects> getEffectStats() {
         return effectStats;
     }
 
+    /**
+     *
+     * @param effectStats
+     */
     public void setEffectStats(Map<PotionEffectType, PoisonEffects> effectStats) {
         this.effectStats = effectStats;
     }

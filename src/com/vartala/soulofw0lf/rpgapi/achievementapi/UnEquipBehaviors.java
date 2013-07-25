@@ -23,6 +23,9 @@ import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public interface UnEquipBehaviors {
-    //
+    /**
+     *
+     * @param rpgp
+     */
     public void onUnEquipAch(RpgPlayer rpgp);
 }

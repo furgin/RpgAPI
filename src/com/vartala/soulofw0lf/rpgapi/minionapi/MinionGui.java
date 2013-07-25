@@ -23,6 +23,12 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class MinionGui {
+    /**
+     *
+     * @param p
+     * @param guiId
+     * @param mobId
+     */
     //for the player p, creates entity config with id
     public static void createGui(Player p, int guiId, int mobId) {
         MobCommand mc = RpgAPI.minionCommands.get("Set " + guiId);

@@ -28,6 +28,9 @@ import java.util.Map;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class SetBuilder {
+    /**
+     *
+     */
     public static void minionCommand() {
         List<String> itemLores = new ArrayList<String>();
         List<String> itemCommands = new ArrayList<String>();

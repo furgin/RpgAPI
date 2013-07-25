@@ -10,28 +10,52 @@ public class MapRightClickEvent extends Event {
     private short EventMapID;
     private static final HandlerList handler = new HandlerList();
 
+    /**
+     *
+     * @param player
+     * @param mapid
+     */
     public MapRightClickEvent(Player player, short mapid) {
         this.EventPlayer = player;
         this.EventMapID = mapid;
     }
 
-    //
+    /**
+     *
+     * @return
+     */
     public HandlerList getHandlers() {
         return handler;
     }
 
+    /**
+     *
+     * @return
+     */
     public static HandlerList getHandlerList() {
         return handler;
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getPlayer() {
         return this.EventPlayer;
     }
 
+    /**
+     *
+     * @return
+     */
     public short getMapID() {
         return this.EventMapID;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isPlayerSneaking() {
         return this.EventPlayer.isSneaking();
     }

@@ -34,16 +34,28 @@ public class ExampleQuest extends AbstractQuest {
         player = p;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getName() {
         return "ExmapleQuest";
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean getRequirements() {
         return player.getKnownLanguages().contains("Elvish");
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getQuestID() {
         return 1;

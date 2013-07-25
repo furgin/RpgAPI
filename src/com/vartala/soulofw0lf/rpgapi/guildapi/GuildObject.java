@@ -76,122 +76,242 @@ public class GuildObject {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String getGuildName() {
         return guildName;
     }
 
+    /**
+     *
+     * @param guildName
+     */
     public void setGuildName(String guildName) {
         this.guildName = guildName;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> getMembers() {
         return members;
     }
 
+    /**
+     *
+     * @param members
+     */
     public void setMembers(List<String> members) {
         this.members = members;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<GuildRank> getRanks() {
         return ranks;
     }
 
+    /**
+     *
+     * @param ranks
+     */
     public void setRanks(List<GuildRank> ranks) {
         this.ranks = ranks;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getGMoTD() {
         return GMoTD;
     }
 
+    /**
+     *
+     * @param GMoTD
+     */
     public void setGMoTD(String GMoTD) {
         this.GMoTD = GMoTD;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<String, String> getPlayerNotes() {
         return playerNotes;
     }
 
+    /**
+     *
+     * @param playerNotes
+     */
     public void setPlayerNotes(Map<String, String> playerNotes) {
         this.playerNotes = playerNotes;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<String, String> getOfficerNotes() {
         return officerNotes;
     }
 
+    /**
+     *
+     * @param officerNotes
+     */
     public void setOfficerNotes(Map<String, String> officerNotes) {
         this.officerNotes = officerNotes;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getGuildMoney() {
         return guildMoney;
     }
 
+    /**
+     *
+     * @param guildMoney
+     */
     public void setGuildMoney(Integer guildMoney) {
         this.guildMoney = guildMoney;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getGuildOwner() {
         return guildOwner;
     }
 
+    /**
+     *
+     * @param guildOwner
+     */
     public void setGuildOwner(String guildOwner) {
         this.guildOwner = guildOwner;
     }
 
+    /**
+     *
+     * @return
+     */
     public Inventory getGuildBank1() {
         return guildBank1;
     }
 
+    /**
+     *
+     * @param guildBank1
+     */
     public void setGuildBank1(Inventory guildBank1) {
         this.guildBank1 = guildBank1;
     }
 
+    /**
+     *
+     * @return
+     */
     public Inventory getGuildBank2() {
         return guildBank2;
     }
 
+    /**
+     *
+     * @param guildBank2
+     */
     public void setGuildBank2(Inventory guildBank2) {
         this.guildBank2 = guildBank2;
     }
 
+    /**
+     *
+     * @return
+     */
     public Inventory getGuildBank3() {
         return guildBank3;
     }
 
+    /**
+     *
+     * @param guildBank3
+     */
     public void setGuildBank3(Inventory guildBank3) {
         this.guildBank3 = guildBank3;
     }
 
+    /**
+     *
+     * @return
+     */
     public Inventory getGuildBank4() {
         return guildBank4;
     }
 
+    /**
+     *
+     * @param guildBank4
+     */
     public void setGuildBank4(Inventory guildBank4) {
         this.guildBank4 = guildBank4;
     }
 
+    /**
+     *
+     * @return
+     */
     public Inventory getGuildBank5() {
         return guildBank5;
     }
 
+    /**
+     *
+     * @param guildBank5
+     */
     public void setGuildBank5(Inventory guildBank5) {
         this.guildBank5 = guildBank5;
     }
 
+    /**
+     *
+     * @return
+     */
     public GuildHQ getGuildHQ() {
         return guildHQ;
     }
 
+    /**
+     *
+     * @param guildHQ
+     */
     public void setGuildHQ(GuildHQ guildHQ) {
         this.guildHQ = guildHQ;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDisplayName() {
         return displayName;
     }
 
+    /**
+     *
+     * @param displayName
+     */
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }

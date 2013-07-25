@@ -26,6 +26,12 @@ import java.util.List;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class LanguageProcessor {
+    /**
+     *
+     * @param m
+     * @param language
+     * @return
+     */
     public static String LanguageDecoder(String m, String language) {
         List<String> cypher = RpgAPI.languageCypher.get(language);
         List<String> key = RpgAPI.languageKey.get(language);
@@ -38,6 +44,10 @@ public class LanguageProcessor {
         return m;
     }
 
+    /**
+     *
+     * @param languageFile
+     */
     public static void LanguageLoader(YamlConfiguration languageFile) {
         RpgAPI.languageCypher.put(languageFile.getString("Language Name"), (List<String>) languageFile.getList("Language Cypher"));
         RpgAPI.languageKey.put(languageFile.getString("Language Name"), (List<String>) languageFile.getList("Language Key"));

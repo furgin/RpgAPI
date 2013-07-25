@@ -21,5 +21,15 @@ package com.vartala.soulofw0lf.rpgapi.chatapi;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public interface ChatBehavior {
+    /**
+     *
+     * @param chatName
+     * @param receiveName
+     * @param sendName
+     * @param language
+     * @param message
+     * @param chatSpy
+     * @return
+     */
     public Boolean chatChannel(String chatName, String receiveName, String sendName, String language, String message, Boolean chatSpy);
 }

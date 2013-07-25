@@ -26,7 +26,9 @@ import java.util.List;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class HelpBuilder {
-
+    /**
+     *
+     */
     public void MakeHelpPages() {
         List<HelpFile> gc = new ArrayList<>();
         List<HelpFile> wc = new ArrayList<>();
@@ -43,6 +45,9 @@ public class HelpBuilder {
         SeperatePages();
     }
 
+    /**
+     *
+     */
     public void SeperatePages() {
         Integer i = 0;
         Integer y = 1;

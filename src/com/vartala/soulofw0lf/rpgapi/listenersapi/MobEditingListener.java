@@ -18,11 +18,19 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class MobEditingListener implements Listener {
     RpgAPI rRA;
 
+    /**
+     *
+     * @param RA
+     */
     public MobEditingListener(RpgAPI RA) {
         rRA = RA;
         Bukkit.getPluginManager().registerEvents(this, this.rRA);
     }
 
+    /**
+     *
+     * @param event
+     */
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerInteractEntityEvent(PlayerInteractEntityEvent event) {
         if (!RpgAPI.minionsOn) {

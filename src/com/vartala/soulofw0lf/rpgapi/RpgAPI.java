@@ -103,7 +103,6 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static YamlConfiguration mobLocaleCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/MobCommands.yml"));
     public static YamlConfiguration poisonCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Poisons.yml"));
     public static YamlConfiguration poisonLocaleCommand = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/Poisons.yml"));
-    public static YamlConfiguration testPlayer = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayer/TestPlayer.yml"));
     public static YamlConfiguration worldBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgBorders.yml"));
     public static YamlConfiguration worldLocaleBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/RpgBorders.yml"));
 
@@ -204,6 +203,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
         return plugin;
     }
 
+    /**
+     * Only load content that is enabled through config during onEnable
+     *
+     */
     @Override
     public void onEnable() {
         plugin = this;
@@ -266,11 +269,6 @@ public class RpgAPI extends JavaPlugin implements Listener {
             activeNicks.put(players, currentNick);
         }
 
-        //default test player charactor sheet
-        testPlayer = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/RpgPlayer/TestPlayer.yml"));
-
-
-
         //settings config, i'm sure we'll use ti for something eventually
         settingsConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Settings.yml"));
         settingsLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/Settings.yml"));
@@ -286,14 +284,6 @@ public class RpgAPI extends JavaPlugin implements Listener {
                 YamlConfiguration.loadConfiguration(playerFile);
             }
         }
-
-        //TODO: use the following code to grab commands out of each locale file in their loaders.
-        /*
-        for (String command : RpgAPI.pluginPartLocaleConfig.getConfigurationSection("Commands").getKeys(false)) {
-            RpgAPI.commandSection.put(command, RpgAPI.pluginPartLocaleConfig.getString("Commands." + command));
-            RpgAPI.commands.add(RpgAPI.pluginPartLocaleConfig.getString("Commands." + command));
-        }
-         */
 
         /*
         all yml files to be loaded if they are turned on. sorted in alphabetic order for ease of reference
@@ -336,15 +326,9 @@ public class RpgAPI extends JavaPlugin implements Listener {
         //check for warp and load settings
         if (warpsOn) {new WarpLoader();}
 
-        //TODO: testing line remove later
-        commands.add("effect");
-        commands.add("addperm");
-
-
         try {
             playerConfig.save(new File("plugins/RpgAPI/RpgPlayers.yml"));
             localeConfig.save(new File("plugins/RpgAPI/Locale.yml"));
-            testPlayer.save(new File("plugins/RpgAPI/RpgPlayer/TestPlayer.yml"));
             settingsConfig.save(new File("plugins/RpgAPI/Settings.yml"));
         } catch (IOException e) {
         }
@@ -374,13 +358,29 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }
     }
 
+    /**
+     * get an rpg player from a player name
+     *
+     * @param name player name
+     * @return RpgPlayer Object
+     */
     public static RpgPlayer getRp(String name) {
         return rpgPlayers.get(activeNicks.get(name));
     }
+
+    /**
+     * get an RpgPlayer from a player object
+     *
+     * @param p  player object
+     * @return RpgPlayer Object
+     */
     public static RpgPlayer getRp(Player p) {
         return rpgPlayers.get(activeNicks.get(p.getName()));
     }
 
+    /**
+     *
+     */
     @Override
     public void onDisable() {
         if (chatOn){
@@ -402,6 +402,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
     }
 
+    /**
+     *
+     * @param event
+     */
     @EventHandler
     public void onRightClickMap(MapRightClickEvent event) {
         if (event.isPlayerSneaking()) {
@@ -413,6 +417,12 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }
     }
 
+    /**
+     * Grab command input before it is executed so have the appearance of dynamically registering commands
+     * Uses the commands List to stop the command handler and use custom handlers instead
+     *
+     * @param event PlayerCommandPreProcessEvent
+     */
     @EventHandler(priority = EventPriority.HIGHEST)
     public void playerCommand(PlayerCommandPreprocessEvent event) {
         Player p = event.getPlayer();
@@ -431,7 +441,12 @@ public class RpgAPI extends JavaPlugin implements Listener {
         TradeCommandProcessor.process(p, args);
     }
 
-
+    /**
+     * Get a ChatClass object by name
+     *
+     * @param displayName the name of the ChatClass object you are looking for
+     * @return A ChatClass object from the chatClasses List
+     */
     public static ChatClass getChatByName(String displayName) {
         ChatClass thisChat = new ChatClass();
         for (ChatClass ch : chatClasses){

@@ -21,19 +21,30 @@ public class ScrollMap {
     private static List<String> DirtyPlayers = new ArrayList<>();
     private static List<Short> DirtyMaps = new ArrayList<>();
 
-    //
+    /**
+     *
+     * @param id
+     */
     public ScrollMap(short id) {
         this.MV = Bukkit.getMap(id);
         this.SMR = new MapMenu();
         this.removeAllRenders();
     }
 
+    /**
+     *
+     */
     public void removeAllRenders() {
         for (MapRenderer mr : this.MV.getRenderers()) {
             this.MV.removeRenderer(mr);
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public static ScrollMap addScrollMap(short id) {
         if (containsScrollMap(id))
             return null;
@@ -43,6 +54,11 @@ public class ScrollMap {
         return SM;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public static ScrollMap getScrollMap(short id) {
         if (containsScrollMap(id)) {
             return AllScrollMaps.get(id);
@@ -50,38 +66,77 @@ public class ScrollMap {
         return null;
     }
 
+    /**
+     *
+     * @param key
+     * @return
+     */
     public static boolean containsScrollMap(short key) {
         return AllScrollMaps.containsKey(key);
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public static boolean isPlayerDirty(String name) {
         return DirtyPlayers.contains(name);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public static boolean isMapDirty(short id) {
         return DirtyMaps.contains(id);
     }
 
+    /**
+     *
+     * @param name
+     */
     public static void removeDirtyPlayer(String name) {
         DirtyPlayers.remove(name);
     }
 
+    /**
+     *
+     * @param id
+     */
     public static void removeDirtyMap(short id) {
         DirtyMaps.remove(new Short(id));
     }
 
+    /**
+     *
+     * @return
+     */
     public static List<String> getDirtyPlayers() {
         return DirtyPlayers;
     }
 
+    /**
+     *
+     * @return
+     */
     public static List<Short> getDirtyMaps() {
         return DirtyMaps;
     }
 
+    /**
+     *
+     * @return
+     */
     public MapMenu getMapRender() {
         return this.SMR;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void update(String name) {
         if (this.MV.getRenderers().contains(this.SMR)) {
             this.MV.removeRenderer(this.getMapRender());

@@ -33,6 +33,11 @@ import java.util.Random;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class WarpProcessor {
+    /**
+     *
+     * @param p
+     * @param rpgWarp
+     */
     public static void WarpHandler(String p, RpgWarp rpgWarp) {
         WarpSets wSet = RpgAPI.savedSets.get(rpgWarp.getWarpSet());
         RpgWarp thisWarp = rpgWarp;
@@ -107,6 +112,12 @@ public class WarpProcessor {
 
     }
 
+    /**
+     *
+     * @param p
+     * @param rWarp
+     * @return
+     */
     public static Boolean WarpRequirements(Player p, RpgWarp rWarp) {
         Boolean requirements = true;
         if (rWarp.getLevelNeeded()) {

@@ -28,50 +28,98 @@ public class RpgCities {
     private String regionWorld = "";
     private Integer regionRadius = 0;
 
+    /**
+     *
+     * @return
+     */
     public String getRegionName() {
         return regionName;
     }
 
+    /**
+     *
+     * @param regionName
+     */
     public void setRegionName(String regionName) {
         this.regionName = regionName;
     }
 
+    /**
+     *
+     * @return
+     */
     public Double getRegionX() {
         return regionX;
     }
 
+    /**
+     *
+     * @param regionX
+     */
     public void setRegionX(Double regionX) {
         this.regionX = regionX;
     }
 
+    /**
+     *
+     * @return
+     */
     public Double getRegionY() {
         return regionY;
     }
 
+    /**
+     *
+     * @param regionY
+     */
     public void setRegionY(Double regionY) {
         this.regionY = regionY;
     }
 
+    /**
+     *
+     * @return
+     */
     public Double getRegionZ() {
         return regionZ;
     }
 
+    /**
+     *
+     * @param regionZ
+     */
     public void setRegionZ(Double regionZ) {
         this.regionZ = regionZ;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getRegionWorld() {
         return regionWorld;
     }
 
+    /**
+     *
+     * @param regionWorld
+     */
     public void setRegionWorld(String regionWorld) {
         this.regionWorld = regionWorld;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getRegionRadius() {
         return regionRadius;
     }
 
+    /**
+     *
+     * @param regionRadius
+     */
     public void setRegionRadius(Integer regionRadius) {
         this.regionRadius = regionRadius;
     }

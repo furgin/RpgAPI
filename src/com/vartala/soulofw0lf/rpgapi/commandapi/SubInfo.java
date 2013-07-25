@@ -20,6 +20,14 @@ public class SubInfo {
 
     private List<String> Args;
 
+    /**
+     *
+     * @param sender
+     * @param player
+     * @param basecommand
+     * @param subcommand
+     * @param args
+     */
     public SubInfo(CommandSender sender, Player player, String basecommand, SubCommand subcommand, List<String> args) {
         Validate.notNull(sender);
         Validate.notEmpty(basecommand);
@@ -32,42 +40,87 @@ public class SubInfo {
         this.ReplyPrefix = "{blue}Reply: ";
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getPlayer() {
         return this.Player;
     }
 
+    /**
+     *
+     * @return
+     */
     public CommandSender getSender() {
         return this.Sender;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> getArgs() {
         return this.Args;
     }
 
+    /**
+     *
+     * @param index
+     * @return
+     */
     public String getIntArgs(int index) {
         return this.Args.get(index);
     }
 
+    /**
+     *
+     * @param index
+     * @return
+     */
     public String getJoinedArgsAfter(int index) {
         return StringUtils.join(this.Args.subList(index, this.Args.size()), " ");
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNumArgs() {
         return this.Args.size();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBaseCommand() {
         return this.BaseCommand;
     }
 
+    /**
+     *
+     * @return
+     */
     public SubCommand getSubCommand() {
         return this.SubCommand;
     }
 
+    /**
+     *
+     * @param message
+     * @param args
+     */
     public void reply(String message, Object... args) {
         reply(true, message, args);
     }
 
+    /**
+     *
+     * @param prefix
+     * @param message
+     * @param args
+     */
     public void reply(boolean prefix, String message, Object... args) {
         if (prefix) {
             MultiColorUtil.send(this.Sender, this.ReplyPrefix + message, args);

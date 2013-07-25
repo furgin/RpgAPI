@@ -30,6 +30,11 @@ import java.io.IOException;
  */
 public class MinionLoader {
     RpgAPI rpg;
+
+    /**
+     *
+     * @param Rpg
+     */
     public MinionLoader(RpgAPI Rpg){
         this.rpg = Rpg;
         RpgAPI.entityManager = RemoteEntities.createManager(this.rpg);

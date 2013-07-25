@@ -29,6 +29,10 @@ import java.util.List;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class WarpSetBuilder {
+    /**
+     * Make Warp sets from yml
+     *
+     */
     public static void BuildSets() {
         YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgWarps/RpgWarps.yml"));
         if (warpConfig.get("Warp Sets") != null) {
@@ -44,6 +48,10 @@ public class WarpSetBuilder {
         }
     }
 
+    /**
+     * Save all warp sets to yml
+     *
+     */
     public static void SaveSets() {
         YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgWarps/RpgWarps.yml"));
         for (String setNames : RpgAPI.savedSets.keySet()) {

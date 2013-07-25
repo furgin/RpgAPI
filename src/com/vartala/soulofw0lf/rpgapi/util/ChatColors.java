@@ -23,6 +23,12 @@ import org.bukkit.ChatColor;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class ChatColors {
+    /**
+     * This converts all chat color segments with &# into bukkit chat colors
+     *
+     * @param s The string to be changed
+     * @return the string after it is changed
+     */
     public static String ChatString(String s) {
         s = ChatColor.translateAlternateColorCodes('&', s);
         return s;

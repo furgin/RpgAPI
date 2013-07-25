@@ -20,6 +20,10 @@ public class TradeInventory {
     // Bukkit inventory produced
     private Inventory inv;
 
+    /**
+     *
+     * @param name
+     */
     public TradeInventory(String name) {
         ItemStack divider = new ItemStack(102);
         nameItem(divider, "Divider");
@@ -99,18 +103,32 @@ public class TradeInventory {
         inv = InventoryMaker.invMaker(null, name, itemStacks);
     }
 
+    /**
+     *
+     * @param stack
+     * @param name
+     */
     private void nameItem(ItemStack stack, String name) {
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(name);
         stack.setItemMeta(meta);
     }
 
+    /**
+     *
+     * @param stack
+     * @param strings
+     */
     private void addStringsItems(ItemStack stack, ArrayList<String> strings) {
         ItemMeta meta = stack.getItemMeta();
         meta.setLore(strings);
         stack.setItemMeta(meta);
     }
 
+    /**
+     *
+     * @return
+     */
     public Inventory getInv() {
         return inv;
     }

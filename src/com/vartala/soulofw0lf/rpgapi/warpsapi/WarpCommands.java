@@ -32,6 +32,12 @@ import java.util.List;
  * along with The Rpg Suite Plugin you have downloaded.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class WarpCommands {
+    /**
+     *
+     * @param p
+     * @param command
+     * @return
+     */
     public static Boolean handler(Player p, String[] command){
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Load Warps"))) {
             WarpSetBuilder.BuildSets();
@@ -239,6 +245,13 @@ public class WarpCommands {
 
         return false;
     }
+
+    /**
+     *
+     * @param p
+     * @param rpgWarp
+     * @return
+     */
     private static Boolean ItemProcessor(Player p, RpgWarp rpgWarp) {
         Boolean useWarp = false;
         Inventory inv = p.getInventory();

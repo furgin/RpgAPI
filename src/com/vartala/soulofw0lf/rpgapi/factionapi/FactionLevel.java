@@ -42,18 +42,34 @@ public class FactionLevel {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<FactionBehavior> getBehavior() {
         return behavior;
     }
 
+    /**
+     *
+     * @param behavior
+     */
     public void setBehavior(List<FactionBehavior> behavior) {
         this.behavior = behavior;
     }
