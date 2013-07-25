@@ -1,9 +1,15 @@
 package com.vartala.soulofw0lf.rpgapi.loaders;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import com.vartala.soulofw0lf.rpgapi.entityapi.EntityManager;
+import com.vartala.soulofw0lf.rpgapi.entityapi.api.DespawnReason;
 import com.vartala.soulofw0lf.rpgapi.mobcommandapi.MobEditingChatListener;
 import com.vartala.soulofw0lf.rpgapi.entityapi.RemoteEntities;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.server.PluginDisableEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +43,16 @@ public class MinionLoader {
      */
     public MinionLoader(RpgAPI Rpg){
         this.rpg = Rpg;
+        String minecraftversion = this.rpg.getPresentMinecraftVersion();
+        if(!minecraftversion.equals(this.rpg.COMPATIBLE_VERSION)){
+            this.rpg.getLogger().severe("Invalid minecraft version for remote entities (Required: " + this.rpg.COMPATIBLE_VERSION + " ; Present: " + minecraftversion + ").");
+            this.rpg.getLogger().severe("Disabling plugin to prevent issues.");
+            Bukkit.getPluginManager().disablePlugin(this.rpg);
+            return;
+        }
+
+
+        Bukkit.getPluginManager().registerEvents(new DisableListener(), this.rpg);
         RpgAPI.entityManager = RemoteEntities.createManager(this.rpg);
         this.rpg.mobEditingChatListener = new MobEditingChatListener(this.rpg);
         RpgAPI.minionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgMinions/Minions.yml"));
@@ -57,5 +73,18 @@ public class MinionLoader {
         } catch (IOException e) {
         }
         //after file is saved
+    }
+    class DisableListener implements Listener
+    {
+        @EventHandler
+        public void onPluginDisable(PluginDisableEvent event)
+        {
+            EntityManager manager = RemoteEntities.getManagerOfPlugin(event.getPlugin().getName());
+            if(manager != null)
+            {
+                manager.despawnAll(DespawnReason.PLUGIN_DISABLE);
+                manager.unregisterEntityLoader();
+            }
+        }
     }
 }

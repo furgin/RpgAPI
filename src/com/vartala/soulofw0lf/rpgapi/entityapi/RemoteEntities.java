@@ -2,6 +2,8 @@ package com.vartala.soulofw0lf.rpgapi.entityapi;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -13,46 +15,12 @@ import com.vartala.soulofw0lf.rpgapi.entityapi.api.DespawnReason;
 import com.vartala.soulofw0lf.rpgapi.entityapi.api.RemoteEntity;
 import com.vartala.soulofw0lf.rpgapi.entityapi.exceptions.PluginNotEnabledException;
 
-public class RemoteEntities extends JavaPlugin
+public class RemoteEntities
 {
-	private final Map<String, EntityManager> m_managers = new HashMap<String, EntityManager>();
-	private static RemoteEntities s_instance;
-	private static final String COMPATIBLE_VERSION = "1.6.2";
 
-	@Override
-	public void onEnable()
-	{
-		String minecraftversion = this.getPresentMinecraftVersion();
-		if(!minecraftversion.equals(COMPATIBLE_VERSION)){
-			this.getLogger().severe("Invalid minecraft version for remote entities (Required: " + COMPATIBLE_VERSION + " ; Present: " + minecraftversion + ").");
-			this.getLogger().severe("Disabling plugin to prevent issues.");
-			Bukkit.getPluginManager().disablePlugin(this);
-			return;
-		}
 
-		s_instance = this;
-		Bukkit.getPluginManager().registerEvents(new DisableListener(), this);
-	}
 
-	@Override
-	public void onDisable()
-	{
-		for(EntityManager manager : m_managers.values())
-		{
-			manager.despawnAll(DespawnReason.PLUGIN_DISABLE);
-			manager.unregisterEntityLoader();
-		}
-		s_instance = null;
-	}
 
-	private String getPresentMinecraftVersion()
-	{
-		String fullVersion = Bukkit.getServer().getVersion();
-		String[] split = fullVersion.split("MC: ");
-		split = split[1].split("\\)");
-
-		return split[0];
-	}
 
 	/**
 	 * Creates a manager for your plugin
@@ -62,7 +30,7 @@ public class RemoteEntities extends JavaPlugin
 	 */
 	public static EntityManager createManager(Plugin inPlugin) throws PluginNotEnabledException
 	{
-		if(getInstance() == null)
+		if(RpgAPI.getInstance() == null)
 			throw new PluginNotEnabledException();
 
 		return createManager(inPlugin, false);
@@ -78,7 +46,7 @@ public class RemoteEntities extends JavaPlugin
 	 */
 	public static EntityManager createManager(Plugin inPlugin, boolean inRemoveDespawned)
 	{
-		if(getInstance() == null)
+		if(RpgAPI.getInstance() == null)
 			throw new PluginNotEnabledException();
 
 		EntityManager manager = new EntityManager(inPlugin, inRemoveDespawned);
@@ -94,10 +62,10 @@ public class RemoteEntities extends JavaPlugin
 	 */
 	public static void registerCustomManager(EntityManager inManager, String inName)
 	{
-		if(getInstance() == null)
+		if(RpgAPI.getInstance() == null)
 			return;
 
-		getInstance().m_managers.put(inName, inManager);
+		RpgAPI.getInstance().m_managers.put(inName, inManager);
 	}
 
 	/**
@@ -108,10 +76,10 @@ public class RemoteEntities extends JavaPlugin
 	 */
 	public static EntityManager getManagerOfPlugin(String inName)
 	{
-		if(getInstance() == null)
+		if(RpgAPI.getInstance() == null)
 			return null;
 
-		return getInstance().m_managers.get(inName);
+		return RpgAPI.getInstance().m_managers.get(inName);
 	}
 
 	/**
@@ -122,17 +90,7 @@ public class RemoteEntities extends JavaPlugin
 	 */
 	public static boolean hasManagerForPlugin(String inName)
 	{
-		return getInstance() != null && getInstance().m_managers.containsKey(inName);
-	}
-
-	/**
-	 * Gets the instance of the RemoteEntities plugin
-	 *
-	 * @return RemoteEntities
-	 */
-	public static RemoteEntities getInstance()
-	{
-		return s_instance;
+		return RpgAPI.getInstance() != null && RpgAPI.getInstance().m_managers.containsKey(inName);
 	}
 
 	/**
@@ -143,10 +101,10 @@ public class RemoteEntities extends JavaPlugin
 	 */
 	public static boolean isRemoteEntity(LivingEntity inEntity)
 	{
-		if(getInstance() == null)
+		if(RpgAPI.getInstance() == null)
 			return false;
 
-		for(EntityManager manager : getInstance().m_managers.values())
+		for(EntityManager manager : RpgAPI.getInstance().m_managers.values())
 		{
 			if(manager.isRemoteEntity(inEntity))
 				return true;
@@ -162,10 +120,10 @@ public class RemoteEntities extends JavaPlugin
 	 */
 	public static RemoteEntity getRemoteEntityFromEntity(LivingEntity inEntity)
 	{
-		if(getInstance() == null)
+		if(RpgAPI.getInstance() == null)
 			return null;
 
-		for(EntityManager manager : getInstance().m_managers.values())
+		for(EntityManager manager : RpgAPI.getInstance().m_managers.values())
 		{
 			RemoteEntity entity = manager.getRemoteEntityFromEntity(inEntity);
 			if(entity != null)
@@ -181,20 +139,8 @@ public class RemoteEntities extends JavaPlugin
 	 */
 	public static String getCompatibleMinecraftVersion()
 	{
-		return COMPATIBLE_VERSION;
+		return RpgAPI.COMPATIBLE_VERSION;
 	}
 
-	class DisableListener implements Listener
-	{
-		@EventHandler
-		public void onPluginDisable(PluginDisableEvent event)
-		{
-			EntityManager manager = RemoteEntities.getManagerOfPlugin(event.getPlugin().getName());
-			if(manager != null)
-			{
-				manager.despawnAll(DespawnReason.PLUGIN_DISABLE);
-				manager.unregisterEntityLoader();
-			}
-		}
-	}
+
 }

@@ -1,6 +1,8 @@
 package com.vartala.soulofw0lf.rpgapi.entityapi;
 
 import java.util.*;
+
+import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import net.minecraft.server.v1_6_R2.WorldServer;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_6_R2.CraftWorld;
@@ -39,7 +41,7 @@ class ChunkEntityLoader implements Listener
 			}
 		}
 
-		Bukkit.getScheduler().runTask(RemoteEntities.getInstance(), new Runnable() {
+		Bukkit.getScheduler().runTask(RpgAPI.getInstance(), new Runnable() {
 			public void run()
 			{
 				Iterator<EntityLoadData> it = m_toSpawn.iterator();
@@ -61,7 +63,7 @@ class ChunkEntityLoader implements Listener
 	public void onChunkUnload(ChunkUnloadEvent event)
 	{
 		final Chunk c = event.getChunk();
-		Bukkit.getScheduler().runTask(RemoteEntities.getInstance(), new Runnable() {
+		Bukkit.getScheduler().runTask(RpgAPI.getInstance(), new Runnable() {
 			public void run()
 			{
 				for(Entity entity : c.getEntities())

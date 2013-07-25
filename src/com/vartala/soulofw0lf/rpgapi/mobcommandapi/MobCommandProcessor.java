@@ -1,5 +1,12 @@
 package com.vartala.soulofw0lf.rpgapi.mobcommandapi;
 
+import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import com.vartala.soulofw0lf.rpgapi.entityapi.api.RemoteEntity;
+import com.vartala.soulofw0lf.rpgapi.entityapi.api.thinking.goals.DesireFollowSpecific;
+import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+
 /**
  * Created by: tennyson.holloway
  * Date: 7/1/13
@@ -27,7 +34,7 @@ public class MobCommandProcessor {
      * @param cmd   [commandName, clicktype, sender (console, player), (args)]
      * @param mobID the id of the RemoteEntity mob
      */
-   /* public static void process(String[] cmd, int mobID, Player p) {
+   public static void process(String[] cmd, int mobID, Player p) {
         RemoteEntity rm = RpgAPI.entityManager.getRemoteEntityByID(mobID);
         RpgPlayer rp = RpgAPI.rpgPlayers.get(RpgAPI.activeNicks.get(p.getName()));
         switch (cmd[0].toLowerCase()) {
@@ -42,5 +49,5 @@ public class MobCommandProcessor {
                 rp.chatLock = "setname:" + mobID;
                 break;
         }
-    }*/
+    }
 }

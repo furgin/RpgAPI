@@ -4,6 +4,8 @@ import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import net.minecraft.server.v1_6_R2.EntityLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -21,12 +23,12 @@ import com.vartala.soulofw0lf.rpgapi.entityapi.persistence.IEntitySerializer;
 
 public class EntityManager
 {
-	private final Map<Integer, RemoteEntity> m_entities;
-	private final Plugin m_plugin;
+	public final Map<Integer, RemoteEntity> m_entities;
+	public final Plugin m_plugin;
 	protected boolean m_removeDespawned = false;
-	private final ChunkEntityLoader m_entityChunkLoader;
+	public final ChunkEntityLoader m_entityChunkLoader;
 	protected IEntitySerializer m_serializer;
-	private boolean m_saveOnDisable = false;
+	public boolean m_saveOnDisable = false;
 
 	protected EntityManager(final Plugin inPlugin, boolean inRemoveDespawned)
 	{
@@ -34,7 +36,7 @@ public class EntityManager
 		this.m_entities = new ConcurrentHashMap<Integer, RemoteEntity>();
 		this.m_removeDespawned = inRemoveDespawned;
 		this.m_entityChunkLoader = new ChunkEntityLoader(this);
-		Bukkit.getPluginManager().registerEvents(this.m_entityChunkLoader, RemoteEntities.getInstance());
+		Bukkit.getPluginManager().registerEvents(this.m_entityChunkLoader, RpgAPI.getInstance());
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(inPlugin, new Runnable()
 		{
 			@Override
@@ -497,7 +499,7 @@ public class EntityManager
 		this.m_removeDespawned = inState;
 	}
 
-	void unregisterEntityLoader()
+	public void unregisterEntityLoader()
 	{
 		ChunkLoadEvent.getHandlerList().unregister(this.m_entityChunkLoader);
 	}

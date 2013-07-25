@@ -2,6 +2,8 @@ package com.vartala.soulofw0lf.rpgapi.entityapi.persistence.serializers;
 
 import java.io.File;
 import java.util.List;
+
+import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
@@ -108,7 +110,7 @@ public class YMLSerializer extends PreparationSerializer implements ISingleEntit
 	{
 		try
 		{
-			File fileFolder = new File(RemoteEntities.getInstance().getDataFolder(), this.m_plugin.getName());
+			File fileFolder = new File(RpgAPI.getInstance().getDataFolder(), this.m_plugin.getName());
 			if(!fileFolder.exists())
 			{
 				if(!fileFolder.mkdirs())

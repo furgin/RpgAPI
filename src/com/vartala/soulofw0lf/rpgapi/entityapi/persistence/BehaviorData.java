@@ -2,6 +2,8 @@ package com.vartala.soulofw0lf.rpgapi.entityapi.persistence;
 
 import java.lang.reflect.Constructor;
 import java.util.*;
+
+import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import org.apache.commons.lang3.ClassUtils;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import com.vartala.soulofw0lf.rpgapi.entityapi.RemoteEntities;
@@ -80,8 +82,8 @@ public class BehaviorData implements ConfigurationSerializable
 		}
 		catch(Exception e)
 		{
-			RemoteEntities.getInstance().getLogger().warning("Error when trying to deserialize behavior with type " + this.type + ": ");
-			RemoteEntities.getInstance().getLogger().warning(e.getMessage());
+			RpgAPI.getInstance().getLogger().warning("Error when trying to deserialize behavior with type " + this.type + ": ");
+			RpgAPI.getInstance().getLogger().warning(e.getMessage());
 			return null;
 		}
 	}

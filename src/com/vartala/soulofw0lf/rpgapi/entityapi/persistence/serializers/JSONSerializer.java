@@ -1,6 +1,8 @@
 package com.vartala.soulofw0lf.rpgapi.entityapi.persistence.serializers;
 
 import java.io.*;
+
+import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
 import org.bukkit.craftbukkit.libs.com.google.gson.GsonBuilder;
 import org.bukkit.plugin.Plugin;
@@ -40,7 +42,7 @@ public class JSONSerializer extends PreparationSerializer
 	@Override
 	public EntityData[] loadData()
 	{
-		File jsonFile = new File(RemoteEntities.getInstance().getDataFolder(), this.m_plugin.getName() + File.separator + "entities.json");
+		File jsonFile = new File(RpgAPI.getInstance().getDataFolder(), this.m_plugin.getName() + File.separator + "entities.json");
 		if(!jsonFile.exists())
 			return new EntityData[0];
 
@@ -58,7 +60,7 @@ public class JSONSerializer extends PreparationSerializer
 	{
 		try
 		{
-			File fileFolder = new File(RemoteEntities.getInstance().getDataFolder(), this.m_plugin.getName());
+			File fileFolder = new File(RpgAPI.getInstance().getDataFolder(), this.m_plugin.getName());
 			if(!fileFolder.exists())
 			{
 				if(!fileFolder.mkdirs())

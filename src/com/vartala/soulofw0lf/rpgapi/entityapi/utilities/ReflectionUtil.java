@@ -4,6 +4,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
+
+import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import net.minecraft.server.v1_6_R2.EntityLiving;
 import net.minecraft.server.v1_6_R2.PathfinderGoalSelector;
 import com.vartala.soulofw0lf.rpgapi.entityapi.RemoteEntities;
@@ -169,7 +171,7 @@ public final class ReflectionUtil
 						}
 						catch(Exception e)
 						{
-							RemoteEntities.getInstance().getLogger().warning("Unable to add desire parameter. " + e.getMessage());
+							RpgAPI.getInstance().getLogger().warning("Unable to add desire parameter. " + e.getMessage());
 						}
 					}
 				}

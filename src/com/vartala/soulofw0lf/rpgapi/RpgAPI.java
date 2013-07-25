@@ -12,6 +12,7 @@ import com.vartala.soulofw0lf.rpgapi.achievementapi.TitleAchievement;
 import com.vartala.soulofw0lf.rpgapi.chatapi.*;
 import com.vartala.soulofw0lf.rpgapi.classapi.RpgClasses;
 import com.vartala.soulofw0lf.rpgapi.commandapi.UniqueCommands;
+import com.vartala.soulofw0lf.rpgapi.entityapi.api.DespawnReason;
 import com.vartala.soulofw0lf.rpgapi.enumapi.ClassName;
 import com.vartala.soulofw0lf.rpgapi.enumapi.Spell;
 import com.vartala.soulofw0lf.rpgapi.factionapi.FactionLevel;
@@ -190,6 +191,12 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<Integer, HelpPage> helpDisplay = new HashMap<>();
     public static Map<String, PermissionGroup> permGroups = new HashMap<>();
     public static String defaultGroup = "";
+
+    //RE stuff
+    public final Map<String, EntityManager> m_managers = new HashMap<String, EntityManager>();
+    public static final String COMPATIBLE_VERSION = "1.6.2";
+
+
     public static RpgAPI getInstance() {
         return plugin;
     }
@@ -390,6 +397,11 @@ public class RpgAPI extends JavaPlugin implements Listener {
             playerConfig.save(new File("plugins/RpgAPI/RpgPlayers.yml"));
         } catch (IOException e) {
         }
+        for(EntityManager manager : m_managers.values())
+        {
+            manager.despawnAll(DespawnReason.PLUGIN_DISABLE);
+            manager.unregisterEntityLoader();
+        }
 
     }
 
@@ -431,7 +443,14 @@ public class RpgAPI extends JavaPlugin implements Listener {
         args[0] = args[0].replace("/", "");
         TradeCommandProcessor.process(p, args);
     }
+    public String getPresentMinecraftVersion()
+    {
+        String fullVersion = Bukkit.getServer().getVersion();
+        String[] split = fullVersion.split("MC: ");
+        split = split[1].split("\\)");
 
+        return split[0];
+    }
     /**
      * Get a ChatClass object by name
      *
