@@ -99,6 +99,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static YamlConfiguration worldLocaleBorder = YamlConfiguration.loadConfiguration(new File("plugins/RpgAPI/Locale/RpgBorders.yml"));
 
     public static Map<String, PermissionAttachment> permAttachments = new HashMap<>();
+    public static boolean chatInConsole = true;
 
 
     //Listeners

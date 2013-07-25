@@ -285,6 +285,135 @@ public class ChatCommands {
                 p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Chat Help")).replace("@h", RpgAPI.commandSettings.get("Chat Help")).replace("@n", RpgAPI.commandSettings.get("Chat New")).replace("@p", RpgAPI.commandSettings.get("Create Private")).replace("@r", RpgAPI.commandSettings.get("Create Region")).replace("@c", RpgAPI.commandSettings.get("Create City")).replace("@i", RpgAPI.commandSettings.get("Chat Invite")).replace("@a", RpgAPI.commandSettings.get("Chat Accept")).replace("@k", RpgAPI.commandSettings.get("Chat Kick")).replace("@m", RpgAPI.commandSettings.get("Chat Mute")).replace("@v", RpgAPI.commandSettings.get("Chat Voice")).replace("@b", RpgAPI.commandSettings.get("Chat Ban")).replace("@u", RpgAPI.commandSettings.get("Chat Unban")).replace("@d", RpgAPI.commandSettings.get("Chat Delete")).replace("@l", RpgAPI.commandSettings.get("Chat Channel List")).replace("@w", RpgAPI.commandSettings.get("Chat Who")).replace("@o", RpgAPI.commandSettings.get("Chat Owner")).replace("@t", RpgAPI.commandSettings.get("Chat Take")).replace("@s",RpgAPI.commandSettings.get("Chat Supervisor")).replace("@x", RpgAPI.commandSettings.get("Chat XSupervisor")));
                 return true;
             }
+            if (command[1].equalsIgnoreCase(RpgAPI.commandSettings.get("Create Region"))){
+                if (!rp.hasPermission(RpgAPI.permissionSettings.get("Create Region"))){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Region No Create Perms")));
+                    return true;
+                }
+                if (command.length != 4){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Chat Wrong Region Create Command")));
+                    return true;
+                }
+                ChatRegions cR = new ChatRegions();
+                cR.setRegionName(command[2]);
+                cR.setRegionRadius(Integer.parseInt(command[3]));
+                cR.setRegionLoc(p.getLocation());
+                RpgAPI.chatRegions.add(cR);
+                p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Region Created")));
+                return true;
+            }
+            if (command[1].equalsIgnoreCase(RpgAPI.commandSettings.get("Create City"))){
+                if (!rp.hasPermission(RpgAPI.permissionSettings.get("Create City"))){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("City No Create Perms")));
+                    return true;
+                }
+                if (command.length != 4){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Chat Wrong City Create Command")));
+                    return true;
+                }
+                RpgCities cR = new RpgCities();
+                cR.setRegionName(command[2]);
+                cR.setRegionRadius(Integer.parseInt(command[3]));
+                cR.setRegionLoc(p.getLocation());
+                RpgAPI.rpgCities.add(cR);
+                p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("City Created")));
+                return true;
+            }
+            if (command[1].equalsIgnoreCase(RpgAPI.commandSettings.get("Chat Invite"))){
+                if (!rp.hasPermission(RpgAPI.permissionSettings.get("Chat Invite"))){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("No Chat Invite Perms")));
+                }
+                if (command.length != 4){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Chat Wrong Invite Command")));
+                    return true;
+                }
+                if (RpgAPI.getChatByName(command[3]) == null){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("No Such Channel")));
+                    return true;
+                }
+                ChatClass cH = RpgAPI.getChatByName(command[3]);
+
+                if (!cH.getChannelOwner().equalsIgnoreCase(RpgAPI.activeNicks.get(p.getName()))){
+                     p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Not Channel Owner")));
+                    return true;
+                }
+                RpgPlayer rpl = RpgAPI.rpgPlayers.get(command[2]);
+                if (rpl == null){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Player Not Found")));
+                    return true;
+                }
+                if (!rpl.hasPermission(RpgAPI.permissionSettings.get("Chat Accept"))){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Can Not Be Invited").replace("@p", command[2])));
+                    return true;
+                }
+                if (rpl.getChannelColor().containsKey(command[3])){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Player In Chat").replace("@p", command[2])));
+                    return true;
+                }
+                if (rpl.getBannedChats().contains(command[3])){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Player Banned From Chat").replace("@p", command[2])));
+                    return true;
+                }
+                if (rpl.getInvitedChats().contains(command[3])){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Player Already Invited").replace("@p", command[2])));
+                    return true;
+                }
+                rpl.getInvitedChats().add(command[3]);
+                Bukkit.getPlayer(rpl.getRealName()).sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Chat Invite Received").replace("@p", rp.getName()).replace("@c", command[3])));
+                p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Chat Invite Sent").replace("@p", command[2])));
+                return true;
+            }
+            if (command[1].equalsIgnoreCase(RpgAPI.commandSettings.get("Chat Accept"))){
+                if (!rp.hasPermission(RpgAPI.permissionSettings.get("Chat Accept"))){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Can Not Accept")));
+                    return true;
+                }
+                if (command.length != 3){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Chat Wrong Accept Command")));
+                    return true;
+                }
+                if (rp.getInvitedChats().isEmpty()){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("No Pending Invites")));
+                    return true;
+                }
+                if (command[2].equalsIgnoreCase(RpgAPI.commandSettings.get("Chat Accept List"))){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Chat List All")));
+                    for (String chat : rp.getInvitedChats()){
+                        p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + chat));
+                    }
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Chat Wrong Accept Command")));
+                    return true;
+                }
+                if (command[2].equalsIgnoreCase(RpgAPI.commandSettings.get("Chat Accept All"))){
+                    for (String chat : rp.getInvitedChats()){
+                        if (RpgAPI.getChatByName(chat) == null){
+                            continue;
+                        }
+                        ChatClass ch = RpgAPI.getChatByName(chat);
+                        rp.getChannelColor().put(chat, "&f");
+                        for (String pic : ch.getPlayersInChat()){
+                            Bukkit.getPlayer(pic).sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Player Joined Channel").replace("@p", rp.getName())));
+                        }
+                        ch.addPlayerToChat(rp.getName());
+                        p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Joined Chat").replace("@c", chat)));
+                        rp.getInvitedChats().remove(chat);
+                    }
+                }
+                if (!rp.getInvitedChats().contains(command[2])){
+                    p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("No Such Channel")));
+                    return true;
+                }
+                String chat = command[2];
+                ChatClass ch = RpgAPI.getChatByName(chat);
+                rp.getChannelColor().put(chat, "&f");
+                for (String pic : ch.getPlayersInChat()){
+                    Bukkit.getPlayer(pic).sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Player Joined Channel").replace("@p", rp.getName())));
+                }
+                ch.addPlayerToChat(rp.getName());
+                p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") + RpgAPI.localeSettings.get("Joined Chat").replace("@c", chat)));
+                rp.getInvitedChats().remove(chat);
+                return true;
+            }
 
             return true;
         }

@@ -33,6 +33,9 @@ public class ChatClass {
     //nickname of the channel for command useage
     private String channelNick = "";
 
+    //players in chat
+    private List<String> playersInChat = new ArrayList<>();
+
     //should chat spying be allowed in this channel
     private boolean chatSpy = true;
 
@@ -433,5 +436,48 @@ public class ChatClass {
      */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    /**
+     * Get a list of all player names of players currently online and in the chat channel
+     *
+     * @return - all online players in the chat channel
+     */
+    public List<String> getPlayersInChat() {
+        return playersInChat;
+    }
+
+    /**
+     * set the list of players in the channel
+     *
+     * @param playersInChat - List<String> of players to set as the channels players
+     */
+    public void setPlayersInChat(List<String> playersInChat) {
+        this.playersInChat = playersInChat;
+    }
+
+    /**
+     * Add a single player to the chat channel
+     *
+     * @param name - name of player to add to the channel
+     */
+    public void addPlayerToChat(String name){
+        this.playersInChat.add(name);
+    }
+
+    /**
+     * Remove a single player form the list of players in the chat channel
+     *
+     * @param name - name of player to remove
+     */
+    public void removePlayerFromChat(String name){
+        this.playersInChat.remove(name);
+    }
+
+    /**
+     * clear the list of players in the chat channel
+     */
+    public void clearPlayersFromChat(){
+        this.playersInChat.clear();
     }
 }

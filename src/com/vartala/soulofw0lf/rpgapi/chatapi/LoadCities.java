@@ -1,6 +1,7 @@
 package com.vartala.soulofw0lf.rpgapi.chatapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import com.vartala.soulofw0lf.rpgapi.util.Misc;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -40,10 +41,7 @@ public class LoadCities {
                 String city = region.getName();
                 rpC.setRegionName(city);
                 rpC.setRegionRadius(region.getInt("Rpg City." + city + ".Radius"));
-                rpC.setRegionX(region.getDouble("Rpg City." + city + ".X"));
-                rpC.setRegionY(region.getDouble("Rpg City." + city + ".Y"));
-                rpC.setRegionZ(region.getDouble("Rpg City." + city + ".Z"));
-                rpC.setRegionWorld(region.getString("Rpg City." + city + ".World"));
+                rpC.setRegionLoc(Misc.stringToLoc(region.getString("Rpg City." + city + ".Location")));
                 RpgAPI.rpgCities.add(rpC);
             }
         }
@@ -56,10 +54,7 @@ public class LoadCities {
         for (RpgCities rpC : RpgAPI.rpgCities) {
             YamlConfiguration region = YamlConfiguration.loadConfiguration(new File("plugins/RpgChat/Cities/"+rpC.getRegionName()+".yml"));
             region.set("Rpg City." + rpC.getRegionName() + ".Radius", rpC.getRegionRadius());
-            region.set("Rpg City." + rpC.getRegionName() + ".X", rpC.getRegionX());
-            region.set("Rpg City." + rpC.getRegionName() + ".Y", rpC.getRegionY());
-            region.set("Rpg City." + rpC.getRegionName() + ".Z", rpC.getRegionZ());
-            region.set("Rpg City." + rpC.getRegionName() + ".World", rpC.getRegionWorld());
+            region.set("Rpg City." + rpC.getRegionName() + ".Location", Misc.locToString(rpC.getRegionLoc()));
             try {
                 region.save(new File("plugins/RpgChat/Cities/"+rpC.getRegionName()+".yml"));
             } catch (IOException e){

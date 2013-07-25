@@ -1,5 +1,7 @@
 package com.vartala.soulofw0lf.rpgapi.chatapi;
 
+import org.bukkit.Location;
+
 /**
  * Created by: soulofw0lf
  * Date: 6/28/13
@@ -22,10 +24,7 @@ package com.vartala.soulofw0lf.rpgapi.chatapi;
  */
 public class RpgCities {
     private String regionName = "";
-    private Double regionX = 0.0;
-    private Double regionY = 0.0;
-    private Double regionZ = 0.0;
-    private String regionWorld = "";
+    private Location regionLoc;
     private Integer regionRadius = 0;
 
     /**
@@ -48,70 +47,6 @@ public class RpgCities {
      *
      * @return
      */
-    public Double getRegionX() {
-        return regionX;
-    }
-
-    /**
-     *
-     * @param regionX
-     */
-    public void setRegionX(Double regionX) {
-        this.regionX = regionX;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Double getRegionY() {
-        return regionY;
-    }
-
-    /**
-     *
-     * @param regionY
-     */
-    public void setRegionY(Double regionY) {
-        this.regionY = regionY;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Double getRegionZ() {
-        return regionZ;
-    }
-
-    /**
-     *
-     * @param regionZ
-     */
-    public void setRegionZ(Double regionZ) {
-        this.regionZ = regionZ;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getRegionWorld() {
-        return regionWorld;
-    }
-
-    /**
-     *
-     * @param regionWorld
-     */
-    public void setRegionWorld(String regionWorld) {
-        this.regionWorld = regionWorld;
-    }
-
-    /**
-     *
-     * @return
-     */
     public Integer getRegionRadius() {
         return regionRadius;
     }
@@ -122,5 +57,13 @@ public class RpgCities {
      */
     public void setRegionRadius(Integer regionRadius) {
         this.regionRadius = regionRadius;
+    }
+
+    public Location getRegionLoc() {
+        return regionLoc;
+    }
+
+    public void setRegionLoc(Location regionLoc) {
+        this.regionLoc = regionLoc;
     }
 }

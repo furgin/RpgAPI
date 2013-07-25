@@ -84,7 +84,9 @@ public class YMLSerializer extends PreparationSerializer implements ISingleEntit
                  this.m_config.save(this.m_configFile);
 
              } else {
-			((List<EntityData>)this.m_config.getList("entities")).add(inData);
+                 List<EntityData> eD = (List<EntityData>)this.m_config.getList("entities");
+                 eD.add(inData);
+                 this.m_config.set("entities", eD);
                  this.m_config.save(this.m_configFile);
              }
 
@@ -126,7 +128,7 @@ public class YMLSerializer extends PreparationSerializer implements ISingleEntit
 					return false;
 			}
 
-			this.m_configFile = new File(fileFolder, "entities.yml");
+			this.m_configFile = new File("plugins/RpgMinions/entities.yml");
 			if(!this.m_configFile.exists())
 			{
 				if(!this.m_configFile.createNewFile())

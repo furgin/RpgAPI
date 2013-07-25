@@ -45,12 +45,9 @@ public class CityChatBehavior implements ChatBehavior {
         Boolean inCity = false;
         for (RpgCities cReg : RpgAPI.rpgCities) {
             Integer radius = cReg.getRegionRadius();
-            Double X = cReg.getRegionX();
-            Double Y = cReg.getRegionY();
-            Double Z = cReg.getRegionZ();
-            String World = cReg.getRegionWorld();
-            Location regionLoc = new Location(Bukkit.getWorld(World), X, Y, Z);
-            if (!Bukkit.getPlayer(receiveName).getWorld().getName().equalsIgnoreCase(World)){
+            Location regionLoc = cReg.getRegionLoc();
+            String world = cReg.getRegionLoc().getWorld().getName();
+            if (!Bukkit.getPlayer(receiveName).getWorld().getName().equalsIgnoreCase(world)){
                 continue;
             }
             if (regionLoc.distance(Bukkit.getPlayer(receiveName).getLocation()) <= radius) {

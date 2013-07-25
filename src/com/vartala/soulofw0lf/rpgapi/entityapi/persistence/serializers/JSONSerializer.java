@@ -6,7 +6,6 @@ import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
 import org.bukkit.craftbukkit.libs.com.google.gson.GsonBuilder;
 import org.bukkit.plugin.Plugin;
-import com.vartala.soulofw0lf.rpgapi.entityapi.RemoteEntities;
 import com.vartala.soulofw0lf.rpgapi.entityapi.persistence.EntityData;
 import com.vartala.soulofw0lf.rpgapi.entityapi.persistence.ParameterData;
 import com.vartala.soulofw0lf.rpgapi.entityapi.utilities.ParameterDataDeserializer;

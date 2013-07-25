@@ -4,6 +4,7 @@ import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.regex.Pattern;
@@ -70,7 +71,41 @@ public class ChatProcessor {
         q = q.replaceAll("@Pname", RpgAPI.playerColors.get(name) + RpgAPI.activeNicks.get(name) + "&F");
         if (RpgAPI.chatOn) {
             if (rp2.isShowingChannelNames()) {
+                ChatClass cH = RpgAPI.getChatByName(rp.getActiveChannel());
+                if (cH.isUseRegion() || cH.isUseCity()){
+                    if (cH.isUseRegion() && !cH.isUseCity()){
+                        ChatRegions currenRegion = new ChatRegions();
+                        for (ChatRegions cReg : RpgAPI.chatRegions) {
+                            Integer radius = cReg.getRegionRadius();
+                            Location regionLoc = cReg.getRegionLoc();
+                            String world = regionLoc.getWorld().getName();
+                            if (!Bukkit.getPlayer(name).getWorld().getName().equalsIgnoreCase(world)){
+                                continue;
+                            }
+                            if (regionLoc.distance(Bukkit.getPlayer(name).getLocation()) <= radius) {
+                                currenRegion = cReg;
+                            }
+                        }
+                        q = q.replaceAll("@Channel", currenRegion.getRegionName());
+                    }
+                    if (cH.isUseCity()){
+                        RpgCities currenRegion = new RpgCities();
+                        for (RpgCities cReg : RpgAPI.rpgCities) {
+                            Integer radius = cReg.getRegionRadius();
+                            Location regionLoc = cReg.getRegionLoc();
+                            String world = regionLoc.getWorld().getName();
+                            if (!Bukkit.getPlayer(name).getWorld().getName().equalsIgnoreCase(world)){
+                                continue;
+                            }
+                            if (regionLoc.distance(Bukkit.getPlayer(name).getLocation()) <= radius) {
+                                currenRegion = cReg;
+                            }
+                        }
+                        q = q.replaceAll("@Channel", currenRegion.getRegionName());
+                    }
+                } else {
                 q = q.replaceAll("@Channel", rp.getActiveChannel());
+                }
             } else {
                 q = q.replaceAll("@Channel", "");
             }

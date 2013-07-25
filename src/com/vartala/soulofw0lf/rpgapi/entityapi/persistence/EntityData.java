@@ -57,7 +57,7 @@ public class EntityData implements ConfigurationSerializable
 		this.pushable = inEntity.isPushable();
 		this.speed = inEntity.getSpeed();
 		this.pathfindingRange = inEntity.getPathfindingRange();
-		List<DesireData> action = new ArrayList<DesireData>();
+		List<DesireData> action = new ArrayList<>();
 		for(int i = 0; i < inEntity.getMind().getTargetingDesires().size(); i++)
 		{
 			DesireItem desire = inEntity.getMind().getTargetingDesires().get(i);
@@ -66,7 +66,7 @@ public class EntityData implements ConfigurationSerializable
 		}
 
 		this.actionDesires = action.toArray(new DesireData[action.size()]);
-		List<DesireData> movement = new ArrayList<DesireData>();
+		List<DesireData> movement = new ArrayList<>();
 		for(int i = 0; i < inEntity.getMind().getMovementDesires().size(); i++)
 		{
 			DesireItem desire = inEntity.getMind().getMovementDesires().get(i);
@@ -83,7 +83,7 @@ public class EntityData implements ConfigurationSerializable
 			pos++;
 		}
 
-		List<FeatureData> featureList = new ArrayList<FeatureData>();
+		List<FeatureData> featureList = new ArrayList<>();
 		for(int i = 0; i < this.features.length; i++)
 		{
 			Feature f = inEntity.getFeatures().getAllFeatures().get(i);
@@ -151,7 +151,7 @@ public class EntityData implements ConfigurationSerializable
 	@Override
 	public Map<String, Object> serialize()
 	{
-		Map<String, Object> data = new HashMap<String, Object>();
+		Map<String, Object> data = new HashMap<>();
 		data.put("id", this.id);
 		data.put("type", this.type.name());
 		data.put("name", this.name);
@@ -160,28 +160,28 @@ public class EntityData implements ConfigurationSerializable
 		data.put("pushable", this.pushable);
 		data.put("speed", this.speed);
 		data.put("pathfindingRange", this.pathfindingRange);
-		List<Map<String, Object>> desirelist = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> desirelist = new ArrayList<>();
 		for(DesireData dd : movementDesires)
 		{
 			desirelist.add(dd.serialize());
 		}
 
 		data.put("movementDesires", desirelist);
-		List<Map<String, Object>> actiondesirelist = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> actiondesirelist = new ArrayList<>();
 		for(DesireData dd : this.actionDesires)
 		{
 			actiondesirelist.add(dd.serialize());
 		}
 
 		data.put("actionDesires", actiondesirelist);
-		List<Map<String, Object>> behaviorList = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> behaviorList = new ArrayList<>();
 		for(BehaviorData bd : this.behaviors)
 		{
 			behaviorList.add(bd.serialize());
 		}
 
 		data.put("behaviors", behaviorList);
-		List<Map<String, Object>> featureList = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> featureList = new ArrayList<>();
 		for(FeatureData fd : this.features)
 		{
 			featureList.add(fd.serialize());

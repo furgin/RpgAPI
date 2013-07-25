@@ -94,6 +94,9 @@ public class ChatListener implements Listener {
         }
         Boolean spyChat = thisChat.isChatSpy();
         event.setCancelled(true);
+        if (RpgAPI.chatInConsole){
+            System.out.print(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Stub") +thisChat.getChannelName() + " " + sendPlayer.getName() + " " + eventMessage));
+        }
         for (Player pl : event.getRecipients()) {
             String receiveName = pl.getName();
             eventMessage = event.getMessage();

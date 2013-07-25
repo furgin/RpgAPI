@@ -71,7 +71,7 @@ public class UniqueCommands {
                     inPlayer.sendMessage("Sup yo!");
                 }
             });
-            entity.save();
+            RpgAPI.entityManager.saveEntities();
             return;
         }
         if (command[0].equalsIgnoreCase("effect"))  {

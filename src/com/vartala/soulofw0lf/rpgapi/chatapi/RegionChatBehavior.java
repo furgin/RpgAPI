@@ -45,12 +45,9 @@ public class RegionChatBehavior implements ChatBehavior {
         ChatRegions currenRegion = new ChatRegions();
         for (ChatRegions cReg : RpgAPI.chatRegions) {
             Integer radius = cReg.getRegionRadius();
-            Double X = cReg.getRegionX();
-            Double Y = cReg.getRegionY();
-            Double Z = cReg.getRegionZ();
-            String World = cReg.getRegionWorld();
-            Location regionLoc = new Location(Bukkit.getWorld(World), X, Y, Z);
-            if (!Bukkit.getPlayer(sendName).getWorld().getName().equalsIgnoreCase(World)){
+            Location regionLoc = cReg.getRegionLoc();
+            String world = regionLoc.getWorld().getName();
+            if (!Bukkit.getPlayer(sendName).getWorld().getName().equalsIgnoreCase(world)){
                  continue;
             }
             if (regionLoc.distance(Bukkit.getPlayer(sendName).getLocation()) <= radius) {
@@ -59,12 +56,9 @@ public class RegionChatBehavior implements ChatBehavior {
 
         }
         Integer radius = currenRegion.getRegionRadius();
-        Double X = currenRegion.getRegionX();
-        Double Y = currenRegion.getRegionY();
-        Double Z = currenRegion.getRegionZ();
-        String World = currenRegion.getRegionWorld();
-        Location regionLoc = new Location(Bukkit.getWorld(World), X, Y, Z);
-        if (!Bukkit.getPlayer(receiveName).getWorld().getName().equalsIgnoreCase(World)){
+        Location regionLoc = currenRegion.getRegionLoc();
+        String world = regionLoc.getWorld().getName();
+        if (!Bukkit.getPlayer(receiveName).getWorld().getName().equalsIgnoreCase(world)){
              return false;
         }
         if (regionLoc.distance(Bukkit.getPlayer(receiveName).getLocation()) <= radius) {

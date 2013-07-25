@@ -46,8 +46,8 @@ public class MinionLoader {
     public MinionLoader(RpgAPI Rpg){
         this.rpg = Rpg;
         String minecraftversion = this.rpg.getPresentMinecraftVersion();
-        if(!minecraftversion.equals(this.rpg.COMPATIBLE_VERSION)){
-            this.rpg.getLogger().severe("Invalid minecraft version for remote entities (Required: " + this.rpg.COMPATIBLE_VERSION + " ; Present: " + minecraftversion + ").");
+        if(!minecraftversion.equals(RpgAPI.COMPATIBLE_VERSION)){
+            this.rpg.getLogger().severe("Invalid minecraft version for remote entities (Required: " + RpgAPI.COMPATIBLE_VERSION + " ; Present: " + minecraftversion + ").");
             this.rpg.getLogger().severe("Disabling plugin to prevent issues.");
             Bukkit.getPluginManager().disablePlugin(this.rpg);
             return;
@@ -55,11 +55,12 @@ public class MinionLoader {
 
 
         Bukkit.getPluginManager().registerEvents(new DisableListener(), this.rpg);
-        RpgAPI.entityManager = RemoteEntities.createManager(this.rpg);
+        RpgAPI.entityManager = RemoteEntities.createManager(RpgAPI.getInstance());
         if (RpgAPI.useMySql){
             RpgAPI.entityManager.setEntitySerializer(new JSONSerializer(RpgAPI.getInstance()));
         } else {
             RpgAPI.entityManager.setEntitySerializer(new YMLSerializer(RpgAPI.getInstance()));
+            RpgAPI.entityManager.loadEntities();
         }
         this.rpg.mobEditingChatListener = new MobEditingChatListener(this.rpg);
         RpgAPI.minionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgMinions/Minions.yml"));
@@ -78,6 +79,7 @@ public class MinionLoader {
             RpgAPI.mobCommand.save(new File("plugins/RpgMinions/MobCommands.yml"));
             RpgAPI.mobLocaleCommand.save(new File("plugins/RpgMinions/Locale/MobCommands.yml"));
         } catch (IOException e) {
+            e.printStackTrace();
         }
         //after file is saved
     }
