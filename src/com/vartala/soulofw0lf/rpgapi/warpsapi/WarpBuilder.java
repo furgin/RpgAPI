@@ -41,10 +41,14 @@ public class WarpBuilder {
         File[] files = f.listFiles();
         if (files != null) {
             for (File warpSets : files) {
+                if (warpSets.getName().equalsIgnoreCase("Locale")){
+                    continue;
+                }
                 File r = new File("plugins/RpgWarps/" + warpSets.getName());
                 File[] files1 = r.listFiles();
                 if (files1 != null) {
                     for (File warpFiles : files1) {
+                        if (warpFiles.exists()){
                         YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(warpFiles);
                         RpgWarp newWarp = new RpgWarp();
                         newWarp.setWarpSet(warpConfig.getString("Warp Data.Warp Set"));
@@ -104,6 +108,7 @@ public class WarpBuilder {
                                     ItemStack is = InventoryMaker.itemStackMaker(itemName, itemMaterial, 0, dura, tempLore);
                                     RpgAPI.warpItems.add(is);
                                 }
+                            }
                             }
                         }
                     }

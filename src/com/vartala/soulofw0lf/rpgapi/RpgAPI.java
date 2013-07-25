@@ -287,7 +287,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
         all yml files to be loaded if they are turned on. sorted in alphabetic order for ease of reference
          */
 
-
+         commands.add("zomb");
         //check for achievements and load settings
         if (achievementsOn) {new AchievementLoader();}
 

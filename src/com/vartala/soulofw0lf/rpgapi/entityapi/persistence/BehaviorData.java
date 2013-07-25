@@ -30,7 +30,7 @@ public class BehaviorData implements ConfigurationSerializable
 	{
 		this.type = (String)inData.get("type");
 		List<Map<String, Object>> parameterData = (List<Map<String, Object>>)inData.get("parameters");
-		if(parameterData == null || parameterData.size() == 0)
+		if(parameterData == null || parameterData.size() <= 0)
 		{
 			this.parameters = new ParameterData[0];
 			return;
@@ -40,6 +40,9 @@ public class BehaviorData implements ConfigurationSerializable
 		for(Map<String, Object> param : parameterData)
 		{
 			ParameterData paramData = new ParameterData(param);
+            if (paramData.pos <= 0){
+                paramData.pos = 0;
+            }
 			this.parameters[paramData.pos] = paramData;
 		}
 	}

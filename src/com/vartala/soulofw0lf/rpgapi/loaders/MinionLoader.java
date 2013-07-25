@@ -3,6 +3,8 @@ package com.vartala.soulofw0lf.rpgapi.loaders;
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.entityapi.EntityManager;
 import com.vartala.soulofw0lf.rpgapi.entityapi.api.DespawnReason;
+import com.vartala.soulofw0lf.rpgapi.entityapi.persistence.serializers.JSONSerializer;
+import com.vartala.soulofw0lf.rpgapi.entityapi.persistence.serializers.YMLSerializer;
 import com.vartala.soulofw0lf.rpgapi.mobcommandapi.MobEditingChatListener;
 import com.vartala.soulofw0lf.rpgapi.entityapi.RemoteEntities;
 import org.bukkit.Bukkit;
@@ -54,6 +56,11 @@ public class MinionLoader {
 
         Bukkit.getPluginManager().registerEvents(new DisableListener(), this.rpg);
         RpgAPI.entityManager = RemoteEntities.createManager(this.rpg);
+        if (RpgAPI.useMySql){
+            RpgAPI.entityManager.setEntitySerializer(new JSONSerializer(RpgAPI.getInstance()));
+        } else {
+            RpgAPI.entityManager.setEntitySerializer(new YMLSerializer(RpgAPI.getInstance()));
+        }
         this.rpg.mobEditingChatListener = new MobEditingChatListener(this.rpg);
         RpgAPI.minionConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgMinions/Minions.yml"));
         RpgAPI.minionLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgMinions/Locale/Minions.yml"));

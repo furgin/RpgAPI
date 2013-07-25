@@ -2,6 +2,14 @@ package com.vartala.soulofw0lf.rpgapi.commandapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.chatapi.*;
+import com.vartala.soulofw0lf.rpgapi.entityapi.api.RemoteEntity;
+import com.vartala.soulofw0lf.rpgapi.entityapi.api.RemoteEntityType;
+import com.vartala.soulofw0lf.rpgapi.entityapi.api.thinking.InteractBehavior;
+import com.vartala.soulofw0lf.rpgapi.entityapi.api.thinking.Mind;
+import com.vartala.soulofw0lf.rpgapi.entityapi.api.thinking.goals.DesireGoToBed;
+import com.vartala.soulofw0lf.rpgapi.entityapi.api.thinking.goals.DesireLookAtNearest;
+import com.vartala.soulofw0lf.rpgapi.entityapi.api.thinking.goals.DesireMoveThroughVillage;
+import com.vartala.soulofw0lf.rpgapi.entityapi.api.thinking.goals.DesireWanderAroundArea;
 import com.vartala.soulofw0lf.rpgapi.particleapi.ParticleEffect;
 import com.vartala.soulofw0lf.rpgapi.permissionsapi.PermHandler;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
@@ -51,6 +59,21 @@ public class UniqueCommands {
         if (RpgAPI.permsOn){if (PermHandler.permCommands(p, command)){return;}}
         // Pass the command info to the trading processor
         if (RpgAPI.tradeOn) TradeCommandProcessor.process(p, command);
+        if (command[0].equalsIgnoreCase("zomb")){
+            RemoteEntity entity = RpgAPI.entityManager.createEntity(RemoteEntityType.Zombie, p.getLocation(), false);
+            //entity.getMind().addTargetingDesire(new DesireGoToBed(50), 30);
+            entity.getMind().addMovementDesire(new DesireWanderAroundArea(50, p.getLocation()), 10);
+            entity.getMind().addTargetingDesire(new DesireLookAtNearest(Player.class, 5f), 20);
+            entity.setSpeed(1.0);
+            entity.getMind().addBehaviour(new InteractBehavior(entity) {
+                @Override
+                public void onInteract(Player inPlayer) {
+                    inPlayer.sendMessage("Sup yo!");
+                }
+            });
+            entity.save();
+            return;
+        }
         if (command[0].equalsIgnoreCase("effect"))  {
 
             final Player pl = p;

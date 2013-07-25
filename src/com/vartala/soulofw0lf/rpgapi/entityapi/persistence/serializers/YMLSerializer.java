@@ -1,6 +1,7 @@
 package com.vartala.soulofw0lf.rpgapi.entityapi.persistence.serializers;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
@@ -76,9 +77,17 @@ public class YMLSerializer extends PreparationSerializer implements ISingleEntit
 				if(!this.loadConfig())
 					return;
 			}
+             if (this.m_config.get("entities") == null){
+                 List<EntityData> eD = new ArrayList<>();
+                 eD.add(inData);
+                 this.m_config.set("entities", eD);
+                 this.m_config.save(this.m_configFile);
 
+             } else {
 			((List<EntityData>)this.m_config.getList("entities")).add(inData);
-			this.m_config.save(this.m_configFile);
+                 this.m_config.save(this.m_configFile);
+             }
+
 		}
 		catch(Exception e)
 		{
@@ -110,7 +119,7 @@ public class YMLSerializer extends PreparationSerializer implements ISingleEntit
 	{
 		try
 		{
-			File fileFolder = new File(RpgAPI.getInstance().getDataFolder(), this.m_plugin.getName());
+			File fileFolder = new File("plugins/RpgMinions");
 			if(!fileFolder.exists())
 			{
 				if(!fileFolder.mkdirs())
