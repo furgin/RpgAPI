@@ -41,6 +41,7 @@ public class VecBlockListener implements Listener {
         this.Rpg = rpga;
         Bukkit.getPluginManager().registerEvents(this, this.Rpg);
     }
+
     @SuppressWarnings("deprecation")
     @EventHandler
     public void onInteract(PlayerInteractEvent event){

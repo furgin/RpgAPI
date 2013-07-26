@@ -11,10 +11,6 @@
             <url>http://repo.bukkit.org/content/groups/public/</url>
         </repository>
         <repository>
-            <id>remoteentities-repo</id>
-            <url>http://repo.infinityblade.de/remoteentities/snapshots</url>
-        </repository>
-        <repository>
             <id>comphenix-rep</id>
             <name>Comphenix Repository</name>
             <url>http://repo.comphenix.net/content/groups/public</url>

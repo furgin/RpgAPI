@@ -20,15 +20,15 @@ public class Misc {
      */
     public static String locToString(Location l) {
         if (l.getPitch() == 0 && l.getYaw() == 0)
-            return l.getWorld().getName()+"|"+l.getX()+"|"+l.getY()+"|"+l.getZ();
+            return l.getWorld().getName()+"@"+l.getX()+"@"+l.getY()+"@"+l.getZ();
         else
-            return l.getWorld().getName()+"|"+l.getX()+"|"+l.getY()+"|"+l.getZ()+"|"+l.getYaw()+"|"+l.getPitch();
+            return l.getWorld().getName()+"@"+l.getX()+"@"+l.getY()+"@"+l.getZ()+"@"+l.getYaw()+"@"+l.getPitch();
     }
     public static String vecToString(Vector vec){
-        return vec.getX()+"|"+vec.getY()+"|"+vec.getZ();
+        return vec.getX()+"@"+vec.getY()+"@"+vec.getZ();
     }
     public static Vector stringToVec(String s){
-        String[] vc = s.split("|");
+        String[] vc = s.split("@");
         return new Vector(Double.parseDouble(vc[0]), Double.parseDouble(vc[1]),Double.parseDouble(vc[2]));
     }
 
@@ -38,7 +38,10 @@ public class Misc {
      * @return location
      */
     public static Location stringToLoc(String s) {
-        String[] arr = s.split("|");
+        String[] arr = s.split("@");
+        for (String l : arr){
+            System.out.print(l);
+        }
         if (arr.length == 4)
             return new Location(Bukkit.getWorld(arr[0]), Double.parseDouble(arr[1]), Double.parseDouble(arr[2]), Double.parseDouble(arr[3]));
         else

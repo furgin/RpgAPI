@@ -30,6 +30,7 @@ public class TradeUtil {
                 }
             }
         }
+
         if (!omitZeros) {
             return String.format("Plat: %d Gold: %d Silver: %d Copper: %d", plat, gold, silver, copper);
         }
