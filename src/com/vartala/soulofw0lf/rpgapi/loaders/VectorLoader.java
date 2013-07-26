@@ -40,7 +40,9 @@ public class VectorLoader {
     RpgAPI rpg;
     public VectorLoader(RpgAPI Rpg){
      this.rpg = Rpg;
-
+        loader();
+    }
+    public void loader(){
     new VecBlockListener(this.rpg);
         YamlConfiguration vecConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgVectorBlocks/config.yml"));
         if (vecConfig.get("Vector Blocks") == null){
