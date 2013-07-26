@@ -299,7 +299,6 @@ public class RpgAPI extends JavaPlugin implements Listener {
          */
 
          commands.add("zomb");
-        commands.add("vec");
         //check for achievements and load settings
         if (achievementsOn) {new AchievementLoader();}
 

@@ -68,6 +68,9 @@ public class VectorLoader {
         RpgAPI.localeSettings.put("Vector Error", vecConfig.getString("Vector Error"));
         RpgAPI.permissionSettings.put("Vector Permission", vecConfig.getString("Vector Permission"));
         for (String key : vecConfig.getConfigurationSection("Vector Blocks").getKeys(false)){
+            if (key == null){
+                continue;
+            }
             Location loc = Misc.stringToLoc(vecConfig.getString("Vector Blocks." + key + ".Location"));
             Block b = loc.getBlock();
             RpgVectorBlocks rV = new RpgVectorBlocks(key, b, vecConfig.getInt("Vector Blocks." + key + ".Vector Immune"), Misc.stringToVec(vecConfig.getString("Vector Blocks." + key + ".Vector")));

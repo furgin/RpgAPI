@@ -3,7 +3,7 @@ main: com.vartala.soulofw0lf.rpgapi.RpgAPI
 version: 0.2
 author: Soulofw0lf
 description: rpg Api designed by soulofw0lf and Linksy
-
+softdepend: [Multiverse-Core,Multiverse-Portals,WorldGuard]
 commands:
   RpgHelp:
     description: Rpg suite - Use /RpgHelp to view rpg commands and Descriptions!
