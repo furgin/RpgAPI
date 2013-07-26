@@ -11,7 +11,6 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.io.File;
@@ -52,7 +51,7 @@ public class VectorLoader {
             vecConfig.set("Vector Permission Denied", "&f[&2Rpg Vector Blocks&f] &4You do not have permission to set new vectors!");
             vecConfig.set("Vector Error", "&f[&2Rpg Vector Blocks&f] &4Error please use /vec name immunetime vecx vecy vecz");
             vecConfig.set("Vector Blocks.1.Location", "world|0|0|0");
-            vecConfig.set("Vector Blocks.1.Vector", "-.8|1.6|-2.0");
+            vecConfig.set("Vector Blocks.1.Vector", "-0.8|1.6|-2.0");
             vecConfig.set("Vector Blocks.1.Vector Immune", "40");
             try {
                 vecConfig.save(new File("plugins/RpgVectorBlocks/config.yml"));
