@@ -58,6 +58,9 @@ public class ChatInventoryBehavior implements InventoryClickBehavior {
             if (item.getType().equals(Material.WEB)){
                 item.setType(Material.WOOL);
                 rp.getChannelColor().put(displayName, "&f");
+                if (rp.getInvitedChats().contains(displayName)){
+                    rp.getInvitedChats().remove(displayName);
+                }
                 player.updateInventory();
                 return;
             }
@@ -119,8 +122,12 @@ public class ChatInventoryBehavior implements InventoryClickBehavior {
                 rp.getChannelColor().remove(displayName);
             }
             rp.getChannelColor().put(displayName, color);
+
         }
         if (click.isRightClick()){
+            if (RpgAPI.noLeaveChats.contains(displayName)){
+                return;
+            }
             if (rp.getChannelColor().containsKey(displayName)){
                 rp.getChannelColor().remove(displayName);
                 if (rp.getModChats().contains(displayName)){

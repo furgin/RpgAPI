@@ -70,6 +70,7 @@ public class playerLogIn implements Listener {
                 RpgAPI.playerColors.put(pName, "&2");
             }
         }
+        if (RpgAPI.classesOn){
         final String playerN = pName;
         new BukkitRunnable() {
 
@@ -83,7 +84,7 @@ public class playerLogIn implements Listener {
                 Bukkit.getPlayer(playerN).setLevel(r.getStats().get(PlayerStat.CHARACTER_LEVEL.toString()));
             }
         }.runTaskLater(RpgAPI.getInstance(), 4);
-
+        }
         /*
          * Commented out until sql loading is fixed
          */

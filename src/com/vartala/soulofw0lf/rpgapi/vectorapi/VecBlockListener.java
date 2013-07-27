@@ -11,9 +11,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * Created by: soulofw0lf
@@ -41,21 +43,12 @@ public class VecBlockListener implements Listener {
         this.Rpg = rpga;
         Bukkit.getPluginManager().registerEvents(this, this.Rpg);
     }
-
-    @SuppressWarnings("deprecation")
     @EventHandler
-    public void onInteract(PlayerInteractEvent event){
-        Player p = event.getPlayer();
-        if(event.getAction().equals(Action.RIGHT_CLICK_AIR) && p.getItemInHand().getType().equals(Material.BRICK)){
-            p.sendMessage(ChatColor.GREEN + "Eating Granola Bar!");
-            event.setCancelled(true);
-            ItemStack iS = p.getItemInHand();
-            if (iS.getAmount() <= 1){
-                p.getInventory().remove(iS);
-                p.updateInventory();
-            } else {
-                iS.setAmount(iS.getAmount() -1);
-                p.updateInventory();
+    public void boostDamage(EntityDamageEvent event){
+        if (event.getEntity() instanceof Player){
+            Player p = (Player)event.getEntity();
+            if (event.getCause().equals(EntityDamageEvent.DamageCause.FALL) && RpgAPI.recentlyJumped.contains(p.getName())){
+                event.setDamage(0.0);
             }
         }
     }
@@ -70,6 +63,18 @@ public class VecBlockListener implements Listener {
             p.teleport(loc);
             p.setNoDamageTicks(rV.getImmune());
             p.setVelocity(rV.getVec());
+            RpgAPI.recentlyJumped.add(p.getName());
+            final String name = p.getName();
+            final int timer = rV.getImmune();
+            new BukkitRunnable(){
+                @Override
+                public void run(){
+                    RpgAPI.recentlyJumped.remove(name);
+                }
+            }.runTaskLater(RpgAPI.getInstance(), timer);
         }
     }
+
+
+
 }

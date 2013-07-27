@@ -52,10 +52,12 @@ import com.vartala.soulofw0lf.rpgapi.entityapi.EntityManager;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.PermissionAttachment;
@@ -68,6 +70,8 @@ import com.vartala.soulofw0lf.rpgapi.listenersapi.playerLogIn;
 import com.vartala.soulofw0lf.rpgapi.mapsapi.ScrollMap;
 import com.vartala.soulofw0lf.rpgapi.util.PlayerUtil;
 import org.bukkit.util.Vector;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 //@author soulofwolf linksbro..
 public class RpgAPI extends JavaPlugin implements Listener {
@@ -201,6 +205,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static String defaultGroup = "";
     public static Block jumpBlock;
     public static Vector vec;
+    public static List<String> noLeaveChats = new ArrayList<>();
+    public static List<String> defaultChats = new ArrayList<>();
+    public static List<String> recentlyJumped = new ArrayList<>();
+    public static String firstChat = "";
 
     //RE stuff
     public final Map<String, EntityManager> m_managers = new HashMap<String, EntityManager>();
@@ -445,6 +453,8 @@ public class RpgAPI extends JavaPlugin implements Listener {
      *
      * @param event PlayerCommandPreProcessEvent
      */
+
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void playerCommand(PlayerCommandPreprocessEvent event) {
         Player p = event.getPlayer();
@@ -461,6 +471,17 @@ public class RpgAPI extends JavaPlugin implements Listener {
         // For testing Trading
         args[0] = args[0].replace("/", "");
         TradeCommandProcessor.process(p, args);
+        if (args[0].equalsIgnoreCase("crypt")){
+            if (args.length >= 1){
+            p.sendMessage(args[1]);
+            String code = encode(args[1]);
+            p.sendMessage(code);
+            String unCode = decode(code);
+            p.sendMessage(unCode);
+            event.setCancelled(true);
+            return;
+            }
+        }
     }
     public String getPresentMinecraftVersion()
     {
@@ -493,6 +514,22 @@ public class RpgAPI extends JavaPlugin implements Listener {
             }
         }
         return null;
+    }
+
+    private String encode(String str) {
+        BASE64Encoder encoder = new BASE64Encoder();
+        str = encoder.encodeBuffer(str.getBytes());
+        return str;
+    }
+
+    private String decode(String str) {
+        BASE64Decoder decoder = new BASE64Decoder();
+        try {
+            str = new String(decoder.decodeBuffer(str));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str;
     }
     public static void listVecNames(Player p){
         for (Block b : vecBlockMap.keySet()){

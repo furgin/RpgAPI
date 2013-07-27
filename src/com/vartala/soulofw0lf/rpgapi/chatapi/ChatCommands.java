@@ -55,9 +55,12 @@ public class ChatCommands {
                     ItemMeta iM = iS.getItemMeta();
                     iM.setDisplayName(invC);
                     List<String> lores = new ArrayList<String>();
-                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Left Click")));
-                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Right Click")));
-                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Shift Click")));
+                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Left Click Line 1")));
+                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Left Click Line 2")));
+                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Right Click Line 1")));
+                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Right Click Line 2")));
+                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Shift Click Line 1")));
+                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Shift Click Line 2")));
                     iM.setLore(lores);
                     iS.setItemMeta(iM);
                     iS.setDurability(wc);
@@ -119,9 +122,12 @@ public class ChatCommands {
                     ItemMeta iM = iS.getItemMeta();
                     iM.setDisplayName(chat);
                     List<String> lores = new ArrayList<String>();
-                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Left Click")));
-                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Right Click")));
-                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Shift Click")));
+                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Left Click Line 1")));
+                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Left Click Line 2")));
+                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Right Click Line 1")));
+                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Right Click Line 2")));
+                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Shift Click Line 1")));
+                    lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Shift Click Line 2")));
                     iM.setLore(lores);
                     iS.setItemMeta(iM);
                     iS.setDurability(wc);
@@ -136,9 +142,12 @@ public class ChatCommands {
                             ItemMeta iM = iS.getItemMeta();
                             iM.setDisplayName(cC.getChannelName());
                             List<String> lores = new ArrayList<String>();
-                            lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Left Click")));
-                            lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Right Click")));
-                            lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Shift Click")));
+                        lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Left Click Line 1")));
+                        lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Left Click Line 2")));
+                        lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Right Click Line 1")));
+                        lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Right Click Line 2")));
+                        lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Shift Click Line 1")));
+                        lores.add(ChatColors.ChatString(RpgAPI.localeSettings.get("Chat Shift Click Line 2")));
                             iM.setLore(lores);
                             iS.setItemMeta(iM);
                             iS.setDurability(wc);
@@ -414,6 +423,7 @@ public class ChatCommands {
                 rp.getInvitedChats().remove(chat);
                 return true;
             }
+
 
             return true;
         }

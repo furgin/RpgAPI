@@ -346,7 +346,7 @@ public class RpgPlayerBuilder {
                     playerStats.put(PlayerStat.INTELLIGENCE.toString(), 10);
                     playerStats.put(PlayerStat.WISDOM.toString(), 10);
                     playerStats.put(PlayerStat.CHARISMA.toString(), 10);
-                    playerStats.put(PlayerStat.HIT_POINTS.toString(), 10);
+                    playerStats.put(PlayerStat.HIT_POINTS.toString(), 20);
                     playerStats.put(PlayerStat.DAMAGE_REDUCTION_PIERCING.toString(), 0);
                     playerStats.put(PlayerStat.DAMAGE_REDUCTION_SLASHING.toString(), 0);
                     playerStats.put(PlayerStat.DAMAGE_REDUCTION_BLUDGEONING.toString(), 0);
@@ -365,7 +365,7 @@ public class RpgPlayerBuilder {
                     playerStats.put(PlayerStat.DAMAGE_REDUCTION_MAGICAL.toString(), 0);
                     playerStats.put(PlayerStat.DAMAGE_REDUCTION_SILVER.toString(), 0);
                     playerStats.put(PlayerStat.DAMAGE_REDUCTION_NONE.toString(), 0);
-                    playerStats.put(PlayerStat.TOTAL_HIT_POINTS.toString(), 10);
+                    playerStats.put(PlayerStat.TOTAL_HIT_POINTS.toString(), 20);
                     playerStats.put(PlayerStat.SPEED_LAND.toString(), 30);
                     playerStats.put(PlayerStat.SPEED_LAND_WITH_ARMOR.toString(), 20);
                     playerStats.put(PlayerStat.SPEED_FLY.toString(), 30);
@@ -492,40 +492,13 @@ public class RpgPlayerBuilder {
                 }
                 if (RpgAPI.chatOn) {
                     Map<String, String> channelColors = rp.getChannelColor();
-                    channelColors.put("Party", ChatColor.BLUE.toString());
-                    channelColors.put("Region", ChatColor.WHITE.toString());
-                    channelColors.put("Guild", ChatColor.DARK_GREEN.toString());
-                    channelColors.put("General", ChatColor.DARK_RED.toString());
-                    channelColors.put("Shout", ChatColor.AQUA.toString());
-                    channelColors.put("Local", ChatColor.DARK_PURPLE.toString());
-                    channelColors.put("Whisper", ChatColor.LIGHT_PURPLE.toString());
-                    channelColors.put("World", ChatColor.GRAY.toString());
-                    channelColors.put("Trade", ChatColor.YELLOW.toString());
+                    for (String chat :RpgAPI.defaultChats){
+                    channelColors.put(chat, ChatColor.WHITE.toString());
+                    }
                     rp.setChannelColor(channelColors);
                     List<String> ignoreList = rp.getIgnoreList();
-                    ignoreList.add("Notch");
-                    ignoreList.add("Jeb");
+                    ignoreList.add("Test Player");
                     rp.setIgnoreList(ignoreList);
-                    List<String> invitedChats = rp.getInvitedChats();
-                    invitedChats.add("Soul\'s Party Room");
-                    invitedChats.add("The Basement");
-                    rp.setInvitedChats(invitedChats);
-                    List<String> bannedChats = rp.getBannedChats();
-                    bannedChats.add("Blok\'s Room");
-                    bannedChats.add("Out of The Basement");
-                    rp.setBannedChats(bannedChats);
-                    List<String> mutedChats = rp.getMutedChats();
-                    mutedChats.add("Admin Announcements");
-                    mutedChats.add("Soul\'s Party Room");
-                    rp.setMutedChats(mutedChats);
-                    List<String> ownedChats = rp.getOwnedChats();
-                    ownedChats.add(p);
-                    ownedChats.add("Talk with " + p);
-                    rp.setOwnedChats(ownedChats);
-                    List<String> moderatedChats = rp.getModChats();
-                    moderatedChats.add(p);
-                    moderatedChats.add("Talk with " + p);
-                    rp.setModChats(moderatedChats);
                     rp.setSpyingOnChats(false);
                     rp.setShowingGuildTags(true);
                     rp.setShowingAchieveTitles(true);
@@ -533,11 +506,7 @@ public class RpgPlayerBuilder {
                     rp.setShowingLanguageNames(true);
                     rp.setShowingWorldName(true);
                     rp.setActiveLanguage("Common");
-                    rp.setActiveChannel("General");
-                    List<String> languages = rp.getKnownLanguages();
-                    languages.add("Common");
-                    languages.add("Out of Game");
-                    rp.setKnownLanguages(languages);
+                    rp.setActiveChannel(RpgAPI.firstChat);
                     rp.setLanguagesInChat(true);
                 }
                 if (RpgAPI.achievementsOn) {

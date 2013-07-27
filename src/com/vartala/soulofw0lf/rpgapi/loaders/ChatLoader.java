@@ -34,124 +34,147 @@ public class ChatLoader {
 
     /**
      *
-     * @param Rpg
+     * @param Rpg - load in the main plugin class
      */
     public ChatLoader(RpgAPI Rpg){
         this.rpg = Rpg;
-    this.rpg.chatListener = new ChatListener(this.rpg);
+        this.rpg.chatListener = new ChatListener(this.rpg);
         YamlConfiguration chatLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgChat/Locale/RpgChat.yml"));
         YamlConfiguration chatConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgChat/RpgChat.yml"));
         YamlConfiguration cityLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgChat/Locale/RpgCities.yml"));
         YamlConfiguration regionLocaleConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgChat/Locale/RpgRegions.yml"));
-    if (chatLocaleConfig.get("Translations") == null){
-        chatLocaleConfig.set("Translations.Chat Left Click", "&2Left click to join this channel or switch it's color");
-        chatLocaleConfig.set("Translations.Chat Right Click", "&4Right click to leave this channel");
-        chatLocaleConfig.set("Translations.Chat Shift Click", "&9Shift click to set this as your active channel");
-        chatLocaleConfig.set("Translations.Chat Inventory Name", "&9Chat Channels");
-        chatLocaleConfig.set("Translations.Chat No Create Perms", "&9You do not have permission to create a chat!");
-        chatLocaleConfig.set("Translations.No Chat Invite Perms", "&9You do not have permission to invite someone to a channel!");
-        chatLocaleConfig.set("Translations.No Pending Invites", "&9You do not have any chat invites pending!");
-        chatLocaleConfig.set("Translations.Player Joined Channel", "&9@p has joined the channel!");
-        chatLocaleConfig.set("Translations.Joined Chat", "&9You have joined the channel @c!");
-        chatLocaleConfig.set("Translations.Not Channel Owner", "&9You are not this Channels owner!");
-        chatLocaleConfig.set("Translations.Player Not Found", "&9This player either does not exist or is not online!");
-        chatLocaleConfig.set("Translations.Region No Create Perms", "&9You do not have permission to create a chat region!");
-        chatLocaleConfig.set("Translations.City No Create Perms", "&9You do not have permission to create a chat city!");
-        chatLocaleConfig.set("Translations.Chat Wrong Create Command", "&9Wrong command usage. Please use &2/chat create <Channel Name> <Channel Nick>");
-        chatLocaleConfig.set("Translations.Chat Wrong Invite Command", "&9Wrong command usage. Please use &2/chat invite <PlayerName> <Channel Name>");
-        chatLocaleConfig.set("Translations.Chat Wrong Accept Command", "&9Please use &2/chat accept <Channel Name / all / list>");
-        chatLocaleConfig.set("Translations.Chat Wrong Region Create Command", "&9Wrong command usage. Please use &2/chat region <Region Name> <Radius>");
-        chatLocaleConfig.set("Translations.Chat Wrong City Create Command", "&9Wrong command usage. Please use &2/chat city <City Name> <Radius>");
-        chatLocaleConfig.set("Translations.Chat Wrong Create Private Command", "&9Wrong command usage. Please use &2/chat create <Channel Name> <Channel Nick> <password>");
-        chatLocaleConfig.set("Translations.Region Created", "Chat Region successfully created!");
-        chatLocaleConfig.set("Translations.City Created", "Chat City successfully created!");
-        chatLocaleConfig.set("Translations.Chat Channel Exists", "&9A channel named @c already exists!");
-        chatLocaleConfig.set("Translations.No Such Channel", "&9That Channel Does Not Exist!");
-        chatLocaleConfig.set("Translations.Chat Nick Exists", "&9A channel nicknamed @n already exists!");
-        chatLocaleConfig.set("Translations.Chat Stub", "&f[&4Rpg Chat&f] ");
-        chatLocaleConfig.set("Translations.Chat City Behavior", "&2City Chat");
-        chatLocaleConfig.set("Translations.Chat Invite Sent", "Channel invite has been sent to @p");
-        chatLocaleConfig.set("Translations.Chat Invite Received", "@p has invited you to join the chat channel @c");
-        chatLocaleConfig.set("Translations.Can Not Be Invited", "@p does not have permission to accept chat invited");
-        chatLocaleConfig.set("Translations.Can Not Accept", "You do not have permission to accept chat invites");
-        chatLocaleConfig.set("Translations.Player In Chat", "@p is already in this channel.");
-        chatLocaleConfig.set("Translations.Player Banned From Chat", "@p is banned from this channel.");
-        chatLocaleConfig.set("Translations.Player Already Invited", "@p already has a pending invite from this channel.");
-        chatLocaleConfig.set("Translations.Chat Region Behavior", "&2Region Chat");
-        chatLocaleConfig.set("Translations.Chat Guild Behavior", "&2Guild Chat");
-        chatLocaleConfig.set("Translations.Chat Language Behavior", "&2Language In Chat");
-        chatLocaleConfig.set("Translations.Chat List All", "&2You have pending invites from the following channels:");
-        chatLocaleConfig.set("Translations.Chat Party Behavior", "&2Party Chat");
-        chatLocaleConfig.set("Translations.Chat World Behavior", "&2World Chat");
-        chatLocaleConfig.set("Translations.Chat Distance Behavior", "&2Distance Chat");
-        chatLocaleConfig.set("Translations.Chat Create Left Click", "&2Left click to turn on this behavior");
-        chatLocaleConfig.set("Translations.Chat Create Right Click", "&2Right click to turn off this behavior");
-        chatLocaleConfig.set("Translations.Chat Create Shift Left Click", "&2Shift Left click to increase distance");
-        chatLocaleConfig.set("Translations.Chat Create Shift Right Click", "&2Shift Right click to reduce distance");
-        chatLocaleConfig.set("Translations.Chat Help", "&2Possible chat commands, @h, @n, @p, @r, @c, @i, @a, @k, @m, @v, @b, @u, @d, @l, @w, @o, @t, @s, @x");
-        chatLocaleConfig.set("Commands.Chat Command", "chat");
-        chatLocaleConfig.set("Sub Commands.Chat Help", "help");
-        chatLocaleConfig.set("Sub Commands.Chat New", "create");
-        chatLocaleConfig.set("Sub Commands.Create Private", "createp");
-        chatLocaleConfig.set("Sub Commands.Create Region", "region");
-        chatLocaleConfig.set("Sub Commands.Create City", "city");
-        chatLocaleConfig.set("Sub Commands.Chat Invite", "invite");
-        chatLocaleConfig.set("Sub Commands.Chat Accept", "accept");
-        chatLocaleConfig.set("Sub Commands.Chat Accept All", "all");
-        chatLocaleConfig.set("Sub Commands.Chat Accept List", "list");
-        chatLocaleConfig.set("Sub Commands.Chat Kick", "kick");
-        chatLocaleConfig.set("Sub Commands.Chat Mute", "mute");
-        chatLocaleConfig.set("Sub Commands.Chat Voice", "unmute");
-        chatLocaleConfig.set("Sub Commands.Chat Ban", "ban");
-        chatLocaleConfig.set("Sub Commands.Chat Unban", "unban");
-        chatLocaleConfig.set("Sub Commands.Chat Delete", "delete");
-        chatLocaleConfig.set("Sub Commands.Chat Channel List", "list");
-        chatLocaleConfig.set("Sub Commands.Chat Who", "who");
-        chatLocaleConfig.set("Sub Commands.Chat Supervisor", "mod");
-        chatLocaleConfig.set("Sub Commands.Chat XSupervisor", "unmod");
-        chatLocaleConfig.set("Sub Commands.Chat Owner", "promote");
-        chatLocaleConfig.set("Sub Commands.Chat Take", "claim");
-        chatLocaleConfig.set("Permissions.Create Chat", "chat.create");
-        chatLocaleConfig.set("Permissions.Create Private Chat", "chat.private");
-        chatLocaleConfig.set("Permissions.Ban Immune", "chat.noban");
-        chatLocaleConfig.set("Permissions.Kick Immune", "chat.noKick");
-        chatLocaleConfig.set("Permissions.Mute Immune", "chat.noMute");
-        chatLocaleConfig.set("Permissions.Create City", "chat.city");
-        chatLocaleConfig.set("Permissions.Create Region", "chat.region");
-        chatLocaleConfig.set("Permissions.Create Chat", "chat.create");
-        chatLocaleConfig.set("Permissions.Chat Invite", "chat.invite");
-        chatLocaleConfig.set("Permissions.Chat Accept", "chat.accept");
-        chatLocaleConfig.set("Permissions.Chat Kick", "chat.kick");
-        chatLocaleConfig.set("Permissions.Chat Mute", "chat.mute");
-        chatLocaleConfig.set("Permissions.Chat Voice", "chat.voice");
-        chatLocaleConfig.set("Permissions.Chat Ban", "chat.ban");
-        chatLocaleConfig.set("Permissions.Chat Unban", "chat.unban");
-        chatLocaleConfig.set("Permissions.Chat Delete", "chat.delete");
-        chatLocaleConfig.set("Permissions.Chat List", "chat.list");
-        chatLocaleConfig.set("Permissions.Chat Who", "chat.who");
-        chatLocaleConfig.set("Permissions.Chat Mod", "chat.mod");
-        chatLocaleConfig.set("Permissions.Chat Unmod", "chat.unmod");
-        chatLocaleConfig.set("Permissions.Chat Promote", "chat.promote");
-        chatLocaleConfig.set("Permissions.Chat Take", "chat.take");
+        if (chatLocaleConfig.get("Translations") == null){
+            chatLocaleConfig.set("Translations.Chat Left Click Line 1", "&2Left click to join this channel");
+            chatLocaleConfig.set("Translations.Chat Left Click Line 2", "&2or switch it's color");
+            chatLocaleConfig.set("Translations.Chat Right Click Line 1", "&4Right click to leave");
+            chatLocaleConfig.set("Translations.Chat Right Click Line 2", "&4this channel");
+            chatLocaleConfig.set("Translations.Chat Shift Click Line 1", "&9Shift click to set this");
+            chatLocaleConfig.set("Translations.Chat Shift Click Line 2", "&9as your active channel");
+            chatLocaleConfig.set("Translations.Chat Inventory Name", "&9Chat Channels");
+            chatLocaleConfig.set("Translations.Chat No Create Perms", "&9You do not have permission to create a chat!");
+            chatLocaleConfig.set("Translations.No Chat Invite Perms", "&9You do not have permission to invite someone to a channel!");
+            chatLocaleConfig.set("Translations.No Pending Invites", "&9You do not have any chat invites pending!");
+            chatLocaleConfig.set("Translations.Player Joined Channel", "&9@p has joined the channel!");
+            chatLocaleConfig.set("Translations.Joined Chat", "&9You have joined the channel @c!");
+            chatLocaleConfig.set("Translations.Not Channel Owner", "&9You are not this Channels owner!");
+            chatLocaleConfig.set("Translations.Player Not Found", "&9This player either does not exist or is not online!");
+            chatLocaleConfig.set("Translations.Region No Create Perms", "&9You do not have permission to create a chat region!");
+            chatLocaleConfig.set("Translations.City No Create Perms", "&9You do not have permission to create a chat city!");
+            chatLocaleConfig.set("Translations.Chat Wrong Create Command", "&9Wrong command usage. Please use &2/chat create <Channel Name> <Channel Nick>");
+            chatLocaleConfig.set("Translations.Chat Wrong Invite Command", "&9Wrong command usage. Please use &2/chat invite <PlayerName> <Channel Name>");
+            chatLocaleConfig.set("Translations.Chat Wrong Accept Command", "&9Please use &2/chat accept <Channel Name / all / list>");
+            chatLocaleConfig.set("Translations.Chat Wrong Region Create Command", "&9Wrong command usage. Please use &2/chat region <Region Name> <Radius>");
+            chatLocaleConfig.set("Translations.Chat Wrong City Create Command", "&9Wrong command usage. Please use &2/chat city <City Name> <Radius>");
+            chatLocaleConfig.set("Translations.Chat Wrong Create Private Command", "&9Wrong command usage. Please use &2/chat create <Channel Name> <Channel Nick> <password>");
+            chatLocaleConfig.set("Translations.Region Created", "Chat Region successfully created!");
+            chatLocaleConfig.set("Translations.City Created", "Chat City successfully created!");
+            chatLocaleConfig.set("Translations.Chat Channel Exists", "&9A channel named @c already exists!");
+            chatLocaleConfig.set("Translations.No Such Channel", "&9That Channel Does Not Exist!");
+            chatLocaleConfig.set("Translations.Chat Nick Exists", "&9A channel nicknamed @n already exists!");
+            chatLocaleConfig.set("Translations.Chat Stub", "&f[&4Rpg Chat&f] ");
+            chatLocaleConfig.set("Translations.Chat City Behavior", "&2City Chat");
+            chatLocaleConfig.set("Translations.Chat Invite Sent", "Channel invite has been sent to @p");
+            chatLocaleConfig.set("Translations.Chat Invite Received", "@p has invited you to join the chat channel @c");
+            chatLocaleConfig.set("Translations.Can Not Be Invited", "@p does not have permission to accept chat invited");
+            chatLocaleConfig.set("Translations.Can Not Accept", "You do not have permission to accept chat invites");
+            chatLocaleConfig.set("Translations.Player In Chat", "@p is already in this channel.");
+            chatLocaleConfig.set("Translations.Player Banned From Chat", "@p is banned from this channel.");
+            chatLocaleConfig.set("Translations.Player Already Invited", "@p already has a pending invite from this channel.");
+            chatLocaleConfig.set("Translations.Chat Region Behavior", "&2Region Chat");
+            chatLocaleConfig.set("Translations.Chat Guild Behavior", "&2Guild Chat");
+            chatLocaleConfig.set("Translations.Chat Language Behavior", "&2Language In Chat");
+            chatLocaleConfig.set("Translations.Chat List All", "&2You have pending invites from the following channels:");
+            chatLocaleConfig.set("Translations.Chat Party Behavior", "&2Party Chat");
+            chatLocaleConfig.set("Translations.Chat World Behavior", "&2World Chat");
+            chatLocaleConfig.set("Translations.Chat Distance Behavior", "&2Distance Chat");
+            chatLocaleConfig.set("Translations.Chat Create Left Click", "&2Left click to turn on this behavior");
+            chatLocaleConfig.set("Translations.Chat Create Right Click", "&2Right click to turn off this behavior");
+            chatLocaleConfig.set("Translations.Chat Create Shift Left Click", "&2Shift Left click to increase distance");
+            chatLocaleConfig.set("Translations.Chat Create Shift Right Click", "&2Shift Right click to reduce distance");
+            chatLocaleConfig.set("Translations.Chat Help", "&2Possible chat commands, @h, @n, @p, @r, @c, @i, @a, @k, @m, @v, @b, @u, @d, @l, @w, @o, @t, @s, @x");
+            chatLocaleConfig.set("Commands.Chat Command", "chat");
+            chatLocaleConfig.set("Sub Commands.Chat Help", "help");
+            chatLocaleConfig.set("Sub Commands.Chat New", "create");
+            chatLocaleConfig.set("Sub Commands.Create Private", "createp");
+            chatLocaleConfig.set("Sub Commands.Create Region", "region");
+            chatLocaleConfig.set("Sub Commands.Create City", "city");
+            chatLocaleConfig.set("Sub Commands.Chat Invite", "invite");
+            chatLocaleConfig.set("Sub Commands.Chat Accept", "accept");
+            chatLocaleConfig.set("Sub Commands.Chat Accept All", "all");
+            chatLocaleConfig.set("Sub Commands.Chat Accept List", "list");
+            chatLocaleConfig.set("Sub Commands.Chat Kick", "kick");
+            chatLocaleConfig.set("Sub Commands.Chat Mute", "mute");
+            chatLocaleConfig.set("Sub Commands.Chat Voice", "unmute");
+            chatLocaleConfig.set("Sub Commands.Chat Ban", "ban");
+            chatLocaleConfig.set("Sub Commands.Chat Unban", "unban");
+            chatLocaleConfig.set("Sub Commands.Chat Delete", "delete");
+            chatLocaleConfig.set("Sub Commands.Chat Channel List", "list");
+            chatLocaleConfig.set("Sub Commands.Chat Who", "who");
+            chatLocaleConfig.set("Sub Commands.Chat Supervisor", "mod");
+            chatLocaleConfig.set("Sub Commands.Chat XSupervisor", "unmod");
+            chatLocaleConfig.set("Sub Commands.Chat Owner", "promote");
+            chatLocaleConfig.set("Sub Commands.Chat Take", "claim");
+            chatLocaleConfig.set("Permissions.Create Chat", "chat.create");
+            chatLocaleConfig.set("Permissions.Create Private Chat", "chat.private");
+            chatLocaleConfig.set("Permissions.Ban Immune", "chat.noban");
+            chatLocaleConfig.set("Permissions.Kick Immune", "chat.noKick");
+            chatLocaleConfig.set("Permissions.Mute Immune", "chat.noMute");
+            chatLocaleConfig.set("Permissions.Create City", "chat.city");
+            chatLocaleConfig.set("Permissions.Create Region", "chat.region");
+            chatLocaleConfig.set("Permissions.Create Chat", "chat.create");
+            chatLocaleConfig.set("Permissions.Chat Invite", "chat.invite");
+            chatLocaleConfig.set("Permissions.Chat Accept", "chat.accept");
+            chatLocaleConfig.set("Permissions.Chat Kick", "chat.kick");
+            chatLocaleConfig.set("Permissions.Chat Mute", "chat.mute");
+            chatLocaleConfig.set("Permissions.Chat Voice", "chat.voice");
+            chatLocaleConfig.set("Permissions.Chat Ban", "chat.ban");
+            chatLocaleConfig.set("Permissions.Chat Unban", "chat.unban");
+            chatLocaleConfig.set("Permissions.Chat Delete", "chat.delete");
+            chatLocaleConfig.set("Permissions.Chat List", "chat.list");
+            chatLocaleConfig.set("Permissions.Chat Who", "chat.who");
+            chatLocaleConfig.set("Permissions.Chat Mod", "chat.mod");
+            chatLocaleConfig.set("Permissions.Chat Unmod", "chat.unmod");
+            chatLocaleConfig.set("Permissions.Chat Promote", "chat.promote");
+            chatLocaleConfig.set("Permissions.Chat Take", "chat.take");
 
-    }
+        }
 
-    if (chatConfig.get("Titles and Names") == null) {
-        chatConfig.set("Titles and Names", "&7[@World]&2[@Guild]&3[@Channel]&r[@Prefix @Pname @Suffix&F]");
-        chatConfig.set("Default Active Channel", "General");
-        List<String> channels = new ArrayList<>();
-        channels.add("Whisper");
-        channels.add("Local");
-        channels.add("Shout");
-        channels.add("World");
-        channels.add("General");
-        channels.add("Party");
-        channels.add("Guild");
-        channels.add("Region");
-        channels.add("Trade");
-        chatConfig.set("Default Channels", channels);
-        chatConfig.set("No Leave Channels", channels);
-        chatConfig.set("Show Chat In Console", true);
+        if (chatConfig.get("Titles and Names") == null) {
+            chatConfig.set("Titles and Names", "&7[@World]&2[@Guild]&3[@Channel]&r[@Prefix @Pname @Suffix&F]");
+            chatConfig.set("Default Active Channel", "General");
+            List<String> channels = new ArrayList<>();
+            channels.add("Whisper");
+            channels.add("Local");
+            channels.add("Shout");
+            channels.add("World");
+            channels.add("General");
+            channels.add("Party");
+            channels.add("Guild");
+            channels.add("Region");
+            channels.add("Trade");
+            chatConfig.set("Default Channels", channels);
+            List<String> lchannels = new ArrayList<>();
+            lchannels.add("Whisper");
+            lchannels.add("Local");
+            lchannels.add("Shout");
+            lchannels.add("World");
+            lchannels.add("General");
+            lchannels.add("Party");
+            lchannels.add("Guild");
+            lchannels.add("Region");
+            lchannels.add("Trade");
+            chatConfig.set("No Leave Channels", lchannels);
+            chatConfig.set("Show Chat In Console", true);
+        }
+        try {
+
+            chatLocaleConfig.save(new File("plugins/RpgChat/Locale/RpgChat.yml"));
+            chatConfig.save(new File("plugins/RpgChat/RpgChat.yml"));
+            cityLocaleConfig.save(new File("plugins/RpgChat/Locale/RpgCities.yml"));
+            regionLocaleConfig.save(new File("plugins/RpgChat/Locale/RpgRegions.yml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //whisper Chat
         YamlConfiguration whisper = YamlConfiguration.loadConfiguration(new File("plugins/RpgChat/Channels/Whisper.yml"));
         whisper.set("Channel.Whisper.Name", "Whisper");
@@ -159,7 +182,7 @@ public class ChatLoader {
         whisper.set("Channel.Whisper.Enabled", true);
         whisper.set("Channel.Whisper.Spy Enabled", true);
         whisper.set("Channel.Whisper.Use Basic", true);
-        whisper.set("Channel.Whisper.Use Language", true);
+        whisper.set("Channel.Whisper.Use Language", false);
         whisper.set("Channel.Whisper.Use Distance", true);
         whisper.set("Channel.Whisper.Distance", 5);
         whisper.set("Channel.Whisper.Use Party", false);
@@ -175,7 +198,7 @@ public class ChatLoader {
         local.set("Channel.Local.Enabled", true);
         local.set("Channel.Local.Spy Enabled", true);
         local.set("Channel.Local.Use Basic", true);
-        local.set("Channel.Local.Use Language", true);
+        local.set("Channel.Local.Use Language", false);
         local.set("Channel.Local.Use Distance", true);
         local.set("Channel.Local.Distance", 50);
         local.set("Channel.Local.Use Party", false);
@@ -191,7 +214,7 @@ public class ChatLoader {
         shout.set("Channel.Shout.Enabled", true);
         shout.set("Channel.Shout.Spy Enabled", true);
         shout.set("Channel.Shout.Use Basic", true);
-        shout.set("Channel.Shout.Use Language", true);
+        shout.set("Channel.Shout.Use Language", false);
         shout.set("Channel.Shout.Use Distance", true);
         shout.set("Channel.Shout.Distance", 150);
         shout.set("Channel.Shout.Use Party", false);
@@ -207,7 +230,7 @@ public class ChatLoader {
         general.set("Channel.General.Enabled", true);
         general.set("Channel.General.Spy Enabled", true);
         general.set("Channel.General.Use Basic", true);
-        general.set("Channel.General.Use Language", true);
+        general.set("Channel.General.Use Language", false);
         general.set("Channel.General.Use Distance", false);
         general.set("Channel.General.Use Party", false);
         general.set("Channel.General.Use Guild", false);
@@ -222,7 +245,7 @@ public class ChatLoader {
         party.set("Channel.Party.Enabled", true);
         party.set("Channel.Party.Spy Enabled", true);
         party.set("Channel.Party.Use Basic", true);
-        party.set("Channel.Party.Use Language", true);
+        party.set("Channel.Party.Use Language", false);
         party.set("Channel.Party.Use Distance", false);
         party.set("Channel.Party.Use Party", true);
         party.set("Channel.Party.Use Guild", false);
@@ -237,7 +260,7 @@ public class ChatLoader {
         guild.set("Channel.Guild.Enabled", true);
         guild.set("Channel.Guild.Spy Enabled", true);
         guild.set("Channel.Guild.Use Basic", true);
-        guild.set("Channel.Guild.Use Language", true);
+        guild.set("Channel.Guild.Use Language", false);
         guild.set("Channel.Guild.Use Distance", false);
         guild.set("Channel.Guild.Use Party", false);
         guild.set("Channel.Guild.Use Guild", true);
@@ -252,7 +275,7 @@ public class ChatLoader {
         world.set("Channel.World.Enabled", true);
         world.set("Channel.World.Spy Enabled", true);
         world.set("Channel.World.Use Basic", true);
-        world.set("Channel.World.Use Language", true);
+        world.set("Channel.World.Use Language", false);
         world.set("Channel.World.Use Distance", false);
         world.set("Channel.World.Use Party", false);
         world.set("Channel.World.Use Guild", false);
@@ -267,7 +290,7 @@ public class ChatLoader {
         region.set("Channel.Region.Enabled", true);
         region.set("Channel.Region.Spy Enabled", true);
         region.set("Channel.Region.Use Basic", true);
-        region.set("Channel.Region.Use Language", true);
+        region.set("Channel.Region.Use Language", false);
         region.set("Channel.Region.Use Distance", false);
         region.set("Channel.Region.Use Party", false);
         region.set("Channel.Region.Use Guild", false);
@@ -282,7 +305,7 @@ public class ChatLoader {
         trade.set("Channel.Trade.Enabled", true);
         trade.set("Channel.Trade.Spy Enabled", true);
         trade.set("Channel.Trade.Use Basic", true);
-        trade.set("Channel.Trade.Use Language", true);
+        trade.set("Channel.Trade.Use Language", false);
         trade.set("Channel.Trade.Use Distance", false);
         trade.set("Channel.Trade.Use Party", false);
         trade.set("Channel.Trade.Use Guild", false);
@@ -300,20 +323,15 @@ public class ChatLoader {
             region.save(new File("plugins/RpgChat/Channels/Region.yml"));
             trade.save(new File("plugins/RpgChat/Channels/Trade.yml"));
         } catch (IOException e){
-            
+            e.printStackTrace();
         }
-        }
-        try {
 
-            chatLocaleConfig.save(new File("plugins/RpgChat/Locale/RpgChat.yml"));
-            chatConfig.save(new File("plugins/RpgChat/RpgChat.yml"));
-            cityLocaleConfig.save(new File("plugins/RpgChat/Locale/RpgCities.yml"));
-            regionLocaleConfig.save(new File("plugins/RpgChat/Locale/RpgRegions.yml"));
-        } catch (IOException e) {
-        }
         //after file is saved
         LoadCities.FromFile();
         LoadRegions.FromFile();
+        RpgAPI.noLeaveChats = (List<String>)chatConfig.getList("No Leave Channels");
+        RpgAPI.defaultChats = (List<String>)chatConfig.getList("Default Channels");
+        RpgAPI.firstChat = chatConfig.getString("Default Active Channel");
         RpgAPI.nameDisplays = chatConfig.getString("Titles and Names");
         RpgAPI.chatInConsole = chatConfig.getBoolean("Show Chat In Console");
         for (String locale : chatLocaleConfig.getConfigurationSection("Translations").getKeys(false)){
