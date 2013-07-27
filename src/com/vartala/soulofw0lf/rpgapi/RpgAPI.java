@@ -416,11 +416,11 @@ public class RpgAPI extends JavaPlugin implements Listener {
             playerConfig.save(new File("plugins/RpgAPI/RpgPlayers.yml"));
         } catch (IOException e) {
         }
-        for(EntityManager manager : m_managers.values())
-        {
-            manager.despawnAll(DespawnReason.PLUGIN_DISABLE);
-            manager.unregisterEntityLoader();
-        }
+       // for(EntityManager manager : m_managers.values())
+        //{
+         //   manager.despawnAll(DespawnReason.PLUGIN_DISABLE);
+          //  manager.unregisterEntityLoader();
+        //}
 
     }
 
@@ -484,5 +484,20 @@ public class RpgAPI extends JavaPlugin implements Listener {
             }
         }
         return thisChat;
+    }
+    public static RpgVectorBlocks getVecByName(String s){
+        for (Block b : vecBlockMap.keySet()){
+            RpgVectorBlocks rV = vecBlockMap.get(b);
+            if (rV.getName().equalsIgnoreCase(s)){
+                return rV;
+            }
+        }
+        return null;
+    }
+    public static void listVecNames(Player p){
+        for (Block b : vecBlockMap.keySet()){
+            RpgVectorBlocks rV = vecBlockMap.get(b);
+            p.sendMessage(rV.getName());
+        }
     }
 }

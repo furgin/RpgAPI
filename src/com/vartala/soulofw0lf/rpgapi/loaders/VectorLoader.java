@@ -2,6 +2,7 @@ package com.vartala.soulofw0lf.rpgapi.loaders;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
+import com.vartala.soulofw0lf.rpgapi.savers.VecSaver;
 import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
 import com.vartala.soulofw0lf.rpgapi.util.Misc;
 import com.vartala.soulofw0lf.rpgapi.vectorapi.RpgVectorBlocks;
@@ -47,11 +48,20 @@ public class VectorLoader {
         YamlConfiguration vecConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgVectorBlocks/config.yml"));
         if (vecConfig.get("Vector Blocks") == null){
             vecConfig.set("Vector Command", "vec");
+            vecConfig.set("Vector Save Command", "vsave");
+            vecConfig.set("Vector Edit Command", "evec");
+            vecConfig.set("Vector Delete Command", "dvec");
+            vecConfig.set("Vector List Command", "vlist");
             vecConfig.set("Vector Message", "&f[&2Rpg Vector Blocks&f] &eVector @n Created!");
+            vecConfig.set("Vector Save Message", "&f[&2Rpg Vector Blocks&f] &eAll Vectors Saved To Disk!");
+            vecConfig.set("Vector Delete Message", "&f[&2Rpg Vector Blocks&f] &eVector @n Deleted!");
             vecConfig.set("Vector Exists", "&f[&2Rpg Vector Blocks&f] &eA vector named @n already exists!");
             vecConfig.set("Vector Permission", "vector.make");
-            vecConfig.set("Vector Permission Denied", "&f[&2Rpg Vector Blocks&f] &4You do not have permission to set new vectors!");
+            vecConfig.set("Vector Permission Denied", "&f[&2Rpg Vector Blocks&f] &4You do not have permission to use vectors commands!");
             vecConfig.set("Vector Error", "&f[&2Rpg Vector Blocks&f] &4Error please use /vec name immunetime vecx vecy vecz");
+            vecConfig.set("Vector Edit Error", "&f[&2Rpg Vector Blocks&f] &4Error please use /evec name immunetime vecx vecy vecz");
+            vecConfig.set("Vector Not Found Error", "&f[&2Rpg Vector Blocks&f] &4Error that vector does not exist!");
+            vecConfig.set("Vector Delete Error", "&f[&2Rpg Vector Blocks&f] &4Error please use /dvec name");
             vecConfig.set("Vector Blocks.1.Location", "world@0@0@0");
             vecConfig.set("Vector Blocks.1.Vector", "-0.8@1.6@-2.0");
             vecConfig.set("Vector Blocks.1.Vector Immune", "40");
@@ -62,11 +72,23 @@ public class VectorLoader {
             }
         }
         RpgAPI.commands.add(vecConfig.getString("Vector Command"));
+        RpgAPI.commands.add(vecConfig.getString("Vector Save Command"));
+        RpgAPI.commands.add(vecConfig.getString("Vector List Command"));
+        RpgAPI.commands.add(vecConfig.getString("Vector Delete Command"));
+        RpgAPI.commands.add(vecConfig.getString("Vector Edit Command"));
         RpgAPI.commandSettings.put("Vector Command", vecConfig.getString("Vector Command"));
+        RpgAPI.commandSettings.put("Vector Save Command", vecConfig.getString("Vector Save Command"));
+        RpgAPI.commandSettings.put("Vector List Command", vecConfig.getString("Vector List Command"));
+        RpgAPI.commandSettings.put("Vector Delete Command", vecConfig.getString("Vector Delete Command"));
+        RpgAPI.commandSettings.put("Vector Edit Command", vecConfig.getString("Vector Edit Command"));
         RpgAPI.localeSettings.put("Vector Message", vecConfig.getString("Vector Message"));
+        RpgAPI.localeSettings.put("Vector Save Message", vecConfig.getString("Vector Save Message"));
+        RpgAPI.localeSettings.put("Vector Delete Message", vecConfig.getString("Vector Delete Message"));
         RpgAPI.localeSettings.put("Vector Exists", vecConfig.getString("Vector Exists"));
         RpgAPI.localeSettings.put("Vector Permission Denied", vecConfig.getString("Vector Permission Denied"));
         RpgAPI.localeSettings.put("Vector Error", vecConfig.getString("Vector Error"));
+        RpgAPI.localeSettings.put("Vector Not Found Error", vecConfig.getString("Vector Not Found Error"));
+        RpgAPI.localeSettings.put("Vector Edit Error", vecConfig.getString("Vector Edit Error"));
         RpgAPI.permissionSettings.put("Vector Permission", vecConfig.getString("Vector Permission"));
         for (String key : vecConfig.getConfigurationSection("Vector Blocks").getKeys(false)){
             if (key == null){
@@ -92,9 +114,11 @@ public class VectorLoader {
             }
             for (Block b : RpgAPI.vecBlocks){
                 RpgVectorBlocks rv = RpgAPI.vecBlockMap.get(b);
+                if (rv != null){
                 if (rv.getName().equalsIgnoreCase(cmd[1])){
                     p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Vector Exists").replace("@n", cmd[1])));
                     return true;
+                }
                 }
             }
             Block bl = p.getLocation().getBlock().getRelative(BlockFace.DOWN);
@@ -104,7 +128,77 @@ public class VectorLoader {
             p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Vector Message").replace("@n", rVb.getName())));
             return true;
         }
-
+        if (cmd[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Vector Edit Command"))){
+            RpgPlayer rp = RpgAPI.getRp(p);
+            if (cmd.length != 6){
+                p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Vector Edit Error")));
+                return true;
+            }
+            if (!rp.hasPermission(RpgAPI.permissionSettings.get("Vector Permission"))){
+                p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Vector Permission Denied")));
+                return true;
+            }
+            if (RpgAPI.getVecByName(cmd[1]) == null){
+                p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Vector Not Found Error")));
+                return true;
+            }
+            RpgVectorBlocks rV = RpgAPI.getVecByName(cmd[1]);
+            rV.setImmune(Integer.parseInt(cmd[2]));
+            double x = Double.parseDouble(cmd[3]);
+            double y = Double.parseDouble(cmd[4]);
+            double z = Double.parseDouble(cmd[5]);
+            Vector vec = new Vector(x, y, z);
+            rV.setVec(vec);
+            p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Vector Message").replace("@n", rV.getName())));
+            return true;
+        }
+        if (cmd[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Vector Delete Command"))){
+            RpgPlayer rp = RpgAPI.getRp(p);
+            if (cmd.length != 2){
+                p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Vector Delete Error")));
+                return true;
+            }
+            if (!rp.hasPermission(RpgAPI.permissionSettings.get("Vector Permission"))){
+                p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Vector Permission Denied")));
+                return true;
+            }
+            if (RpgAPI.getVecByName(cmd[1]) == null){
+                p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Vector Not Found Error")));
+                return true;
+            }
+            RpgVectorBlocks rV = RpgAPI.getVecByName(cmd[1]);
+            p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Vector Delete Message").replace("@n", rV.getName())));
+            Block b = rV.getB();
+            RpgAPI.vecBlockMap.remove(b);
+            RpgAPI.vecBlocks.remove(b);
+            YamlConfiguration vecConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgVectorBlocks/config.yml"));
+            vecConfig.set("Vector Blocks." + cmd[1], null);
+            try {
+                vecConfig.save(new File("plugins/RpgVectorBlocks/config.yml"));
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+            return true;
+        }
+        if (cmd[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Vector List Command"))){
+            RpgPlayer rp = RpgAPI.getRp(p);
+            if (!rp.hasPermission(RpgAPI.permissionSettings.get("Vector Permission"))){
+                p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Vector Permission Denied")));
+                return true;
+            }
+            RpgAPI.listVecNames(p);
+            return true;
+        }
+        if (cmd[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Vector Save Command"))){
+            RpgPlayer rp = RpgAPI.getRp(p);
+            if (!rp.hasPermission(RpgAPI.permissionSettings.get("Vector Permission"))){
+                p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Vector Permission Denied")));
+                return true;
+            }
+            new VecSaver();
+            p.sendMessage(ChatColors.ChatString(RpgAPI.localeSettings.get("Vector Save Message")));
+            return true;
+        }
         return false;
     }
 }

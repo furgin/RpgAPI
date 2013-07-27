@@ -36,6 +36,9 @@ public class VecSaver {
             if (!RpgAPI.vecBlocks.isEmpty()){
                 for (Block b : RpgAPI.vecBlocks){
                     RpgVectorBlocks rV = RpgAPI.vecBlockMap.get(b);
+                    if (rV == null){
+                        continue;
+                    }
                     vecConfig.set("Vector Blocks."+rV.getName()+".Location", Misc.locToString(b.getLocation()));
                     vecConfig.set("Vector Blocks."+rV.getName()+".Vector", Misc.vecToString(rV.getVec()));
                     vecConfig.set("Vector Blocks."+rV.getName()+".Vector Immune", rV.getImmune());
