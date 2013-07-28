@@ -353,7 +353,6 @@ public class ChatLoader {
             for (File channels : files) {
                 YamlConfiguration chan = YamlConfiguration.loadConfiguration(channels);
                 String channel = channels.getName().replace(".yml", "");
-                System.out.print(channel);
             if (chan.getBoolean("Channel." + channel + ".Enabled")) {
 
                 ChatClass chatClass = new ChatClass();

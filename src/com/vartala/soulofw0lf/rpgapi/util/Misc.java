@@ -39,9 +39,6 @@ public class Misc {
      */
     public static Location stringToLoc(String s) {
         String[] arr = s.split("@");
-        for (String l : arr){
-            System.out.print(l);
-        }
         if (arr.length == 4)
             return new Location(Bukkit.getWorld(arr[0]), Double.parseDouble(arr[1]), Double.parseDouble(arr[2]), Double.parseDouble(arr[3]));
         else
