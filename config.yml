@@ -1,4 +1,5 @@
 #Load / Save Settings for the Rpg Suite of plugins
+Auto Update: true
 Use Mysql: false
 MySql DataBase:
   User: usernamehere

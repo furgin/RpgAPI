@@ -40,9 +40,7 @@ import com.vartala.soulofw0lf.rpgapi.sqlapi.SQLHandler;
 import com.vartala.soulofw0lf.rpgapi.tradeapi.TradeCommandProcessor;
 import com.vartala.soulofw0lf.rpgapi.tradeapi.TradeEventListener;
 import com.vartala.soulofw0lf.rpgapi.tradeapi.TradeHandler;
-import com.vartala.soulofw0lf.rpgapi.util.HelpFile;
-import com.vartala.soulofw0lf.rpgapi.util.HelpPage;
-import com.vartala.soulofw0lf.rpgapi.util.RPGLogging;
+import com.vartala.soulofw0lf.rpgapi.util.*;
 import com.vartala.soulofw0lf.rpgapi.vectorapi.RpgVectorBlocks;
 import com.vartala.soulofw0lf.rpgapi.warpsapi.RpgWarp;
 import com.vartala.soulofw0lf.rpgapi.warpsapi.WarpBuilder;
@@ -68,7 +66,6 @@ import com.vartala.soulofw0lf.rpgapi.eventsapi.MapRightClickEvent;
 import com.vartala.soulofw0lf.rpgapi.listenersapi.MapListener;
 import com.vartala.soulofw0lf.rpgapi.listenersapi.playerLogIn;
 import com.vartala.soulofw0lf.rpgapi.mapsapi.ScrollMap;
-import com.vartala.soulofw0lf.rpgapi.util.PlayerUtil;
 import org.bukkit.util.Vector;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -146,6 +143,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static boolean duelsOn = true;
     public static boolean permsOn = true;
     public static boolean vectorOn = true;
+    public static boolean autoUpdate = true;
 
 
     //Utilities
@@ -251,7 +249,10 @@ public class RpgAPI extends JavaPlugin implements Listener {
         languagesOn = getConfig().getBoolean("Plugins.Languages");
         permsOn = getConfig().getBoolean("Plugins.Permissions");
         vectorOn = getConfig().getBoolean("Plugins.Vector Blocks");
+        autoUpdate = getConfig().getBoolean("Auto Update");
 
+        //auto updater
+        if (autoUpdate){Updater updater = new Updater(this, "rpgapi", this.getFile(), Updater.UpdateType.DEFAULT, false);}
         //register global listeners
         Bukkit.getPluginManager().registerEvents(this, this);
         this.MapListen = new MapListener(this);
