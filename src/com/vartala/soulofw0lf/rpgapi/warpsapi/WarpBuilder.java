@@ -2,7 +2,6 @@ package com.vartala.soulofw0lf.rpgapi.warpsapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.guiapi.InventoryMaker;
-import com.vartala.soulofw0lf.rpgapi.util.Misc;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -37,7 +36,7 @@ public class WarpBuilder {
      *
      */
 
-
+    @SuppressWarnings("unchecked")
     public static void WarpLoader() {
         File f = new File("plugins/RpgWarps");
         File[] files = f.listFiles();
@@ -121,7 +120,7 @@ public class WarpBuilder {
 
     /**
      *
-     * @param thisWarp
+     * @param thisWarp - save the warp object specified to config
      */
     public static void SaveWarp(String thisWarp) {
 

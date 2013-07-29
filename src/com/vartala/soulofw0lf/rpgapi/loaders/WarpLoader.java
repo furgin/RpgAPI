@@ -82,12 +82,19 @@ public class WarpLoader{
         warpLocaleConfig.set("Warp Commands.Edit Warp Values.Help Color", "&2");
         warpLocaleConfig.set("Warp Commands.Edit Warp Values.Description", "Edit the attributes of a Warp Point. &2Usage: &f/editwarp warpname <Cd |Level | Perm | Variance | Material | iName | iLore> <Value_settings>");
 
+        warpLocaleConfig.set("Warp Messages.Warp Stub", "&f[&4Rpg Warps&f]&2");
+        warpLocaleConfig.set("Warp Messages.Warps Loaded", "All warps have been loaded!");
+        warpLocaleConfig.set("Warp Messages.Warp Placed", "You have made a warp named @w");
+
     try {
         warpLocaleConfig.save(new File("plugins/RpgWarps/Locale/WarpConfig.yml"));
     } catch (IOException e) {
         System.out.print(e);
     }
     //after file is saved
+        for (String message : warpLocaleConfig.getConfigurationSection("Warp Messages").getKeys(false)){
+            RpgAPI.localeSettings.put(message, warpLocaleConfig.getString("Warp Messages." + message));
+        }
         List<String> warpCommands = new ArrayList<>();
         for (String command : warpLocaleConfig.getConfigurationSection("Warp Commands").getKeys(false)) {
             String commandRT = warpLocaleConfig.getString("Warp Commands." + command + ".Alias");

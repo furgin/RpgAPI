@@ -3,6 +3,7 @@ package com.vartala.soulofw0lf.rpgapi.warpsapi;
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.commandapi.UniqueCommands;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
+import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -39,21 +40,26 @@ public class WarpCommands {
      * @return
      */
     public static Boolean handler(Player p, String[] command){
+        String stub = RpgAPI.localeSettings.get("Warp Stub");
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Load Warps"))) {
             WarpSetBuilder.BuildSets();
             WarpBuilder.WarpLoader();
-            p.sendMessage("you have loaded all warps");
+            p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warps Loaded")));
             return true;
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Set Warp"))) {
             RpgWarp rWarp = new RpgWarp();
             rWarp.setWarpName(command[1]);
+            if (command.length == 3){
+                rWarp.setWarpSet(command[2]);
+            } else {
             rWarp.setWarpSet("Default");
-            if (!(RpgAPI.savedSets.containsKey("Default"))) {
+            }
+            if (!(RpgAPI.savedSets.containsKey(rWarp.getWarpSet()))) {
                 WarpSets wSet = new WarpSets();
-                wSet.setSetName("Default");
+                wSet.setSetName(rWarp.getWarpSet());
                 wSet.setWarpsRandom(false);
-                wSet.setSetPermission("default.warp");
+                wSet.setSetPermission(rWarp.getWarpSet()+".warp");
                 RpgAPI.savedSets.put(wSet.getSetName(), wSet);
             }
             rWarp.setWarpX(p.getLocation().getX());
@@ -63,11 +69,11 @@ public class WarpCommands {
             rWarp.setWarpYaw(p.getLocation().getYaw());
             rWarp.setWarpPitch(p.getLocation().getPitch());
             RpgAPI.savedWarps.put(command[1], rWarp);
-            WarpSets thisSet = RpgAPI.savedSets.get("Default");
+            WarpSets thisSet = RpgAPI.savedSets.get(rWarp.getWarpSet());
             List<RpgWarp> thisList = thisSet.getSetWarps();
             thisList.add(rWarp);
             thisSet.setSetWarps(thisList);
-            p.sendMessage("you have set a warp named " + command[1] + ".");
+            p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Placed").replace("@w", rWarp.getWarpName())));
             return true;
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Save Warp"))) {
