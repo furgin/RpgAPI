@@ -1,6 +1,6 @@
 name: RpgAPI
 main: com.vartala.soulofw0lf.rpgapi.RpgAPI
-version: 0.2
+version: 1.0.0
 author: Soulofw0lf
 description: rpg Api designed by soulofw0lf and Linksy
 softdepend: [Multiverse-Core,Multiverse-Portals,WorldGuard]
