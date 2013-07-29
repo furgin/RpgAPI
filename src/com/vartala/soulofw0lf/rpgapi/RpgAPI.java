@@ -271,6 +271,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
                 RPGLogging.logInfo("SQL connection initialised.");
         }
 
+
         /*
         default ymls and initial settings
          */
