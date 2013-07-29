@@ -11,7 +11,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class RpgClickInv {
     RpgAPI Rpga;
-                            /**
+
+    /**
      *
      * @param rpga
      */
