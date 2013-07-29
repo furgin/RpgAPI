@@ -4,6 +4,7 @@ import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.commandapi.UniqueCommands;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
+import com.vartala.soulofw0lf.rpgapi.util.HelpFile;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -49,6 +50,11 @@ public class WarpCommands {
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Set Warp"))) {
             RpgWarp rWarp = new RpgWarp();
+            if (command.length <= 1){
+                HelpFile hF = RpgAPI.helpByName(command[0]);
+                p.sendMessage(ChatColors.ChatString(stub + hF.getDescription()));
+                return true;
+            }
             rWarp.setWarpName(command[1]);
             if (command.length == 3){
                 rWarp.setWarpSet(command[2]);
@@ -78,24 +84,26 @@ public class WarpCommands {
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Save Warp"))) {
             if (command.length != 2) {
-                p.sendMessage("Proper formatting /saveWarpCommand <warp name>");
+                HelpFile hF = RpgAPI.helpByName(command[0]);
+                p.sendMessage(ChatColors.ChatString(stub + hF.getDescription()));
                 return true;
             }
             if (!(RpgAPI.savedWarps.containsKey(command[1]))) {
-                p.sendMessage("That Warp Doesn't Exist!!!");
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("No Warp By That Name")));
                 return true;
             }
             WarpBuilder.SaveWarp(command[1]);
-            p.sendMessage("you have saved a warp named " + command[1] + ".");
+            p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Saved").replace("@w", command[1])));
             return true;
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Use Warp"))) {
             if (command.length != 2) {
-                p.sendMessage("Proper formatting /useWarpCommand <warp name>");
+                HelpFile hF = RpgAPI.helpByName(command[0]);
+                p.sendMessage(ChatColors.ChatString(stub + hF.getDescription()));
                 return true;
             }
             if (!(RpgAPI.savedWarps.containsKey(command[1]))) {
-                p.sendMessage("That Warp Doesn't Exist!!!");
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("No Warp By That Name")));
                 return true;
             }
             if (RpgAPI.warpCds.containsKey(p.getName())) {
@@ -119,11 +127,12 @@ public class WarpCommands {
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Edit Warp Values"))) {
             if (command.length != 4) {
-                p.sendMessage("Proper use /" + RpgAPI.commandSettings.get("Edit Warp Values") + " <warp name> <Cd |Level | Perm | Variance | Material | iName | iLore> <Value_settings>");
+                HelpFile hF = RpgAPI.helpByName(command[0]);
+                p.sendMessage(ChatColors.ChatString(stub + hF.getDescription()));
                 return true;
             }
             if (!(RpgAPI.savedWarps.containsKey(command[1]))) {
-                p.sendMessage("That warp does not exist!");
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("No Warp By That Name")));
                 return true;
             }
             if (command[2].equalsIgnoreCase("level")) {
@@ -176,11 +185,12 @@ public class WarpCommands {
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Edit Warp"))) {
             if (command.length != 4) {
-                p.sendMessage("Proper use /" + RpgAPI.commandSettings.get("Edit Warp") + " <warp name> <Cd | World | Level | Perm | Variance | item> <true/false>");
+                HelpFile hF = RpgAPI.helpByName(command[0]);
+                p.sendMessage(ChatColors.ChatString(stub + hF.getDescription()));
                 return true;
             }
             if (!(RpgAPI.savedWarps.containsKey(command[1]))) {
-                p.sendMessage("That warp does not exist!");
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("No Warp By That Name")));
                 return true;
             }
             if (command[2].equalsIgnoreCase("World")) {

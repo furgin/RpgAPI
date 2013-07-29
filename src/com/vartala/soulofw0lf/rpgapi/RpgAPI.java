@@ -538,4 +538,12 @@ public class RpgAPI extends JavaPlugin implements Listener {
             p.sendMessage(rV.getName());
         }
     }
+    public static HelpFile helpByName(String s){
+        for (HelpFile hF : helpMap){
+            if (hF.getCmdAlias().equalsIgnoreCase(s)){
+                return hF;
+            }
+        }
+        return null;
+    }
 }

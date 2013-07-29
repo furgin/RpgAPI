@@ -85,6 +85,9 @@ public class WarpLoader{
         warpLocaleConfig.set("Warp Messages.Warp Stub", "&f[&4Rpg Warps&f]&2");
         warpLocaleConfig.set("Warp Messages.Warps Loaded", "All warps have been loaded!");
         warpLocaleConfig.set("Warp Messages.Warp Placed", "You have made a warp named @w");
+        warpLocaleConfig.set("Warp Messages.Save Warp Error", "Proper formatting /saveWarpCommand <warp name>");
+        warpLocaleConfig.set("Warp Messages.No Warp By That Name", "That warp does not exist!");
+        warpLocaleConfig.set("Warp Messages.Warp Saved", "You have saved a warp named @w");
 
     try {
         warpLocaleConfig.save(new File("plugins/RpgWarps/Locale/WarpConfig.yml"));
