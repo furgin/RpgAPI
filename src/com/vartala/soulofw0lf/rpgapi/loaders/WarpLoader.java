@@ -75,7 +75,7 @@ public class WarpLoader{
 
         warpLocaleConfig.set("Warp Commands.Delete Set.Alias", "delset");
         warpLocaleConfig.set("Warp Commands.Delete Set.Help Color", "&2");
-        warpLocaleConfig.set("Warp Commands.Delete Set.Description", "&fdelete a warp set &4Warning!!! This deletes all Warps in the set!!!. &2Usage: &f/delset setname");
+        warpLocaleConfig.set("Warp Commands.Delete Set.Description", "&fdelete a warp set &4Warning!!! This moves all Warps in the set to the default set!!!. &2Usage: &f/delset setname");
         warpLocaleConfig.set("Warp Commands.Delete Set.Permission", "warpset.delete");
 
         warpLocaleConfig.set("Warp Commands.Load Warps.Alias", "loadwarps");
