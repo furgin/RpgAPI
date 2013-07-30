@@ -122,6 +122,11 @@ public class WarpBuilder {
      *
      * @param thisWarp - save the warp object specified to config
      */
+    public static void deleteWarp(String thisWarp){
+        RpgWarp saveWarp = RpgAPI.savedWarps.get(thisWarp);
+        new File("plugins/RpgWarps/" + saveWarp.getWarpSet() + "/" + saveWarp.getWarpName() + ".yml").delete();
+        RpgAPI.savedWarps.remove(thisWarp);
+    }
     public static void SaveWarp(String thisWarp) {
 
         RpgWarp saveWarp = RpgAPI.savedWarps.get(thisWarp);

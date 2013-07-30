@@ -5,6 +5,7 @@ import com.vartala.soulofw0lf.rpgapi.commandapi.UniqueCommands;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.util.ChatColors;
 import com.vartala.soulofw0lf.rpgapi.util.HelpFile;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -43,6 +44,24 @@ public class WarpCommands {
     public static Boolean handler(Player p, String[] command){
         String stub = RpgAPI.localeSettings.get("Warp Stub");
         RpgPlayer rp = RpgAPI.getRp(p.getName());
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Delete Warp"))) {
+            if (!rp.hasPermission(RpgAPI.permissionSettings.get("Delete Warp"))){
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp No Perms")));
+                return true;
+            }
+            if (command.length != 2) {
+                HelpFile hF = RpgAPI.helpByName(command[0]);
+                p.sendMessage(ChatColors.ChatString(stub + hF.getDescription()));
+                return true;
+            }
+            if (!(RpgAPI.savedWarps.containsKey(command[1]))) {
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("No Warp By That Name")));
+                return true;
+            }
+            WarpBuilder.deleteWarp(command[1]);
+            p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Deleted").replace("@w", command[1])));
+            return true;
+        }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("List Warps"))){
             if (!rp.hasPermission(RpgAPI.permissionSettings.get("List Warps"))){
                 p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp No Perms")));
@@ -56,7 +75,7 @@ public class WarpCommands {
                         continue;
                     }
                 }
-                s = s + " " + warp.getWarpName();
+                s = s + ChatColor.WHITE + " | " + ChatColor.GREEN + warp.getWarpName();
             }
             p.sendMessage(s);
             return true;
