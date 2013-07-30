@@ -99,6 +99,7 @@ public class WarpLoader{
         warpLocaleConfig.set("Warp Messages.Save Warp Error", "Proper formatting /saveWarpCommand <warp name>");
         warpLocaleConfig.set("Warp Messages.No Warp By That Name", "That warp does not exist!");
         warpLocaleConfig.set("Warp Messages.Warp Saved", "You have saved a warp named @w");
+        warpLocaleConfig.set("Warp Messages.Warp Deleted", "You have deleted a warp named @w");
         warpLocaleConfig.set("Warp Messages.Warp On Cooldown", "You must wait longer before using that warp!");
         warpLocaleConfig.set("Warp Messages.Warp Item Missing", "You do not have the required item to use that warp.");
         warpLocaleConfig.set("Warp Messages.Warp Value Set", "@v has been set for warp @w.");
