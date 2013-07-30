@@ -2,6 +2,7 @@ package com.vartala.soulofw0lf.rpgapi.commandapi;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
 import com.vartala.soulofw0lf.rpgapi.chatapi.*;
+import com.vartala.soulofw0lf.rpgapi.diseaseapi.DiseaseCommand;
 import com.vartala.soulofw0lf.rpgapi.entityapi.api.RemoteEntity;
 import com.vartala.soulofw0lf.rpgapi.entityapi.api.RemoteEntityType;
 import com.vartala.soulofw0lf.rpgapi.entityapi.api.thinking.InteractBehavior;
@@ -56,6 +57,8 @@ public class UniqueCommands {
 
         //Pass the command info to the warp command handler
         if (RpgAPI.warpsOn){if (WarpCommands.handler(p, command)){return;}}
+        //Pass the command info to the disease command handler
+        if (RpgAPI.diseasesOn){if (DiseaseCommand.handler(p, command)){return;}}
         //pass the command info to the chat command handler
         if (RpgAPI.chatOn){if (ChatCommands.ChatHandler(p, command)){return;}}
         //pass the command info to the permission handler
