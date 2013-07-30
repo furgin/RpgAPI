@@ -41,46 +41,57 @@ public class WarpLoader{
         warpLocaleConfig.set("Warp Commands.Set Warp.Alias", "setwarp");
         warpLocaleConfig.set("Warp Commands.Set Warp.Help Color", "&2");
         warpLocaleConfig.set("Warp Commands.Set Warp.Description", "&fSet a new Warp Point. &2Usage: &f/setwarp warpname");
+        warpLocaleConfig.set("Warp Commands.Set Warp.Permission", "warp.set");
 
         warpLocaleConfig.set("Warp Commands.Delete Warp.Alias", "delwarp");
         warpLocaleConfig.set("Warp Commands.Delete Warp.Help Color", "&2");
         warpLocaleConfig.set("Warp Commands.Delete Warp.Description", "&fDelete a Warp Point. &2Usage: &f/delwarp warpname");
+        warpLocaleConfig.set("Warp Commands.Delete Warp.Permission", "warp.delete");
 
         warpLocaleConfig.set("Warp Commands.Use Warp.Alias", "warp");
         warpLocaleConfig.set("Warp Commands.Use Warp.Help Color", "&2");
         warpLocaleConfig.set("Warp Commands.Use Warp.Description", "&fUse a Warp Point. &2Usage: &f/warp warpname");
+        warpLocaleConfig.set("Warp Commands.Use Warp.Permission", "warp");
 
         warpLocaleConfig.set("Warp Commands.Save Warp.Alias", "savewarp");
         warpLocaleConfig.set("Warp Commands.Save Warp.Help Color", "&2");
         warpLocaleConfig.set("Warp Commands.Save Warp.Description", "&fSave a specific Warp Point to config. &2Usage: &f/savewarp warpname");
+        warpLocaleConfig.set("Warp Commands.Save Warp.Permission", "warp.save");
 
         warpLocaleConfig.set("Warp Commands.Edit Warp.Alias", "editwarp");
         warpLocaleConfig.set("Warp Commands.Edit Warp.Help Color", "&2");
         warpLocaleConfig.set("Warp Commands.Edit Warp.Description", "&fEdit the attributes of a Warp Point. &2Usage: &f/editwarp warpname <Cd | World | Level | Perm | Variance | item> <true/false>");
+        warpLocaleConfig.set("Warp Commands.Edit Warp.Permission", "warp.edit");
 
         warpLocaleConfig.set("Warp Commands.Edit set.Alias", "editset");
         warpLocaleConfig.set("Warp Commands.Edit set.Help Color", "&2");
         warpLocaleConfig.set("Warp Commands.Edit set.Description", "&fEdit the attributes of a Warp Set. &2Usage: &f/editset setname <values coming soon>");
+        warpLocaleConfig.set("Warp Commands.Edit set.Permission", "warpset.edit");
 
         warpLocaleConfig.set("Warp Commands.Make Set.Alias", "makeset");
         warpLocaleConfig.set("Warp Commands.Make Set.Help Color", "&2");
         warpLocaleConfig.set("Warp Commands.Make Set.Description", "&fMake a new Warp Set. &2Usage: &f/makeset setname");
+        warpLocaleConfig.set("Warp Commands.Make Set.Permission", "warpset.new");
 
         warpLocaleConfig.set("Warp Commands.Delete set.Alias", "delset");
         warpLocaleConfig.set("Warp Commands.Delete set.Help Color", "&2");
         warpLocaleConfig.set("Warp Commands.Delete set.Description", "&fdelete a warp set &4Warning!!! This deletes all Warps in the set!!!. &2Usage: &f/delset setname");
+        warpLocaleConfig.set("Warp Commands.Delete set.Permission", "warpset.delete");
 
         warpLocaleConfig.set("Warp Commands.Load Warps.Alias", "loadwarps");
         warpLocaleConfig.set("Warp Commands.Load Warps.Help Color", "&2");
         warpLocaleConfig.set("Warp Commands.Load Warps.Description", "&fLoad all warps and sets from config: &f/loadwarps");
+        warpLocaleConfig.set("Warp Commands.Load Warps.Permission", "warps.load");
 
         warpLocaleConfig.set("Warp Commands.List Warps.Alias", "listwarps");
         warpLocaleConfig.set("Warp Commands.List Warps.Help Color", "&2");
         warpLocaleConfig.set("Warp Commands.List Warps.Description", "&fList all warps that are saved: &f/listwarps");
+        warpLocaleConfig.set("Warp Commands.List Warps.Permission", "warps.list");
 
         warpLocaleConfig.set("Warp Commands.Edit Warp Values.Alias", "warpvalues");
         warpLocaleConfig.set("Warp Commands.Edit Warp Values.Help Color", "&2");
         warpLocaleConfig.set("Warp Commands.Edit Warp Values.Description", "Edit the attributes of a Warp Point. &2Usage: &f/editwarp warpname <Cd |Level | Perm | Variance | Material | iName | iLore> <Value_settings>");
+        warpLocaleConfig.set("Warp Commands.Edit Warp Values.Permission", "warp.values");
 
         warpLocaleConfig.set("Warp Messages.Warp Stub", "&f[&4Rpg Warps&f]&2");
         warpLocaleConfig.set("Warp Messages.Warps Loaded", "All warps have been loaded!");
@@ -88,6 +99,11 @@ public class WarpLoader{
         warpLocaleConfig.set("Warp Messages.Save Warp Error", "Proper formatting /saveWarpCommand <warp name>");
         warpLocaleConfig.set("Warp Messages.No Warp By That Name", "That warp does not exist!");
         warpLocaleConfig.set("Warp Messages.Warp Saved", "You have saved a warp named @w");
+        warpLocaleConfig.set("Warp Messages.Warp On Cooldown", "You must wait longer before using that warp!");
+        warpLocaleConfig.set("Warp Messages.Warp Item Missing", "You do not have the required item to use that warp.");
+        warpLocaleConfig.set("Warp Messages.Warp Value Set", "@v has been set for warp @w.");
+        warpLocaleConfig.set("Warp Messages.Warp Requirements", "@w now has @v set to @b");
+        warpLocaleConfig.set("Warp Messages.Warp No Perms", "You don't have the required permission to use that command!");
 
     try {
         warpLocaleConfig.save(new File("plugins/RpgWarps/Locale/WarpConfig.yml"));
@@ -103,6 +119,7 @@ public class WarpLoader{
             String commandRT = warpLocaleConfig.getString("Warp Commands." + command + ".Alias");
             String helpColor = warpLocaleConfig.getString("Warp Commands." + command + ".Help Color");
             String descText = warpLocaleConfig.getString("Warp Commands." + command + ".Description");
+            RpgAPI.permissionSettings.put(command, warpLocaleConfig.getString("Warp Commands." + command + ".Permission"));
             HelpFile cmd = new HelpFile();
             cmd.setCmdAlias(commandRT);
             cmd.setAliasColor(helpColor);

@@ -42,13 +42,40 @@ public class WarpCommands {
      */
     public static Boolean handler(Player p, String[] command){
         String stub = RpgAPI.localeSettings.get("Warp Stub");
+        RpgPlayer rp = RpgAPI.getRp(p.getName());
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("List Warps"))){
+            if (!rp.hasPermission(RpgAPI.permissionSettings.get("List Warps"))){
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp No Perms")));
+                return true;
+            }
+            String s = ChatColors.ChatString(stub);
+            for (String key : RpgAPI.savedWarps.keySet()){
+                RpgWarp warp = RpgAPI.savedWarps.get(key);
+                if (warp.getSinglePerm()){
+                    if (!rp.hasPermission(warp.getPermNeeded())){
+                        continue;
+                    }
+                }
+                s = s + " " + warp.getWarpName();
+            }
+            p.sendMessage(s);
+            return true;
+        }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Load Warps"))) {
+            if (!rp.hasPermission(RpgAPI.permissionSettings.get("Load Warps"))){
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp No Perms")));
+                return true;
+            }
             WarpSetBuilder.BuildSets();
             WarpBuilder.WarpLoader();
             p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warps Loaded")));
             return true;
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Set Warp"))) {
+            if (!rp.hasPermission(RpgAPI.permissionSettings.get("Set Warp"))){
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp No Perms")));
+                return true;
+            }
             RpgWarp rWarp = new RpgWarp();
             if (command.length <= 1){
                 HelpFile hF = RpgAPI.helpByName(command[0]);
@@ -83,6 +110,10 @@ public class WarpCommands {
             return true;
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Save Warp"))) {
+            if (!rp.hasPermission(RpgAPI.permissionSettings.get("Save Warp"))){
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp No Perms")));
+                return true;
+            }
             if (command.length != 2) {
                 HelpFile hF = RpgAPI.helpByName(command[0]);
                 p.sendMessage(ChatColors.ChatString(stub + hF.getDescription()));
@@ -97,6 +128,10 @@ public class WarpCommands {
             return true;
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Use Warp"))) {
+            if (!rp.hasPermission(RpgAPI.permissionSettings.get("Use Warp"))){
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp No Perms")));
+                return true;
+            }
             if (command.length != 2) {
                 HelpFile hF = RpgAPI.helpByName(command[0]);
                 p.sendMessage(ChatColors.ChatString(stub + hF.getDescription()));
@@ -109,7 +144,7 @@ public class WarpCommands {
             if (RpgAPI.warpCds.containsKey(p.getName())) {
                 for (String warpName : RpgAPI.warpCds.get(p.getName())) {
                     if (warpName.equalsIgnoreCase(command[1])) {
-                        p.sendMessage("You must wait longer before using that Warp");
+                        p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp On Cooldown")));
                         return true;
                     }
                 }
@@ -117,7 +152,7 @@ public class WarpCommands {
             if (RpgAPI.savedWarps.get(command[1]).getItemNeeded()) {
                 Boolean useWarp = ItemProcessor(p, RpgAPI.savedWarps.get(command[1]));
                 if (!(useWarp)) {
-                    p.sendMessage("You do not have the required item to use this warp");
+                    p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Item Missing")));
                     return true;
                 }
 
@@ -126,6 +161,10 @@ public class WarpCommands {
             return true;
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Edit Warp Values"))) {
+            if (!rp.hasPermission(RpgAPI.permissionSettings.get("Edit Warp Values"))){
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp No Perms")));
+                return true;
+            }
             if (command.length != 4) {
                 HelpFile hF = RpgAPI.helpByName(command[0]);
                 p.sendMessage(ChatColors.ChatString(stub + hF.getDescription()));
@@ -139,17 +178,20 @@ public class WarpCommands {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 Integer i = Integer.parseInt(command[3]);
                 rWarp.setWarpLevel(i);
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Value Set").replace("@v", command[2]).replace("@w", command[1])));
                 return true;
             }
             if (command[2].equalsIgnoreCase("perm")) {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 rWarp.setPermNeeded(command[3]);
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Value Set").replace("@v", command[2]).replace("@w", command[1])));
                 return true;
             }
             if (command[2].equalsIgnoreCase("Variance")) {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 Integer i = Integer.parseInt(command[3]);
                 rWarp.setWarpVariance(i);
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Value Set").replace("@v", command[2]).replace("@w", command[1])));
                 return true;
             }
             if (command[2].equalsIgnoreCase("Material")) {
@@ -158,6 +200,7 @@ public class WarpCommands {
                 List<Material> mats = rWarp.getItemMaterial();
                 mats.add(mat);
                 rWarp.setItemMaterial(mats);
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Value Set").replace("@v", command[2]).replace("@w", command[1])));
                 return true;
             }
             if (command[2].equalsIgnoreCase("iName")) {
@@ -165,6 +208,7 @@ public class WarpCommands {
                 List<String> names = rWarp.getItemNames();
                 names.add(command[3].replaceAll("_", " "));
                 rWarp.setItemNames(names);
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Value Set").replace("@v", command[2]).replace("@w", command[1])));
                 return true;
             }
             if (command[2].equalsIgnoreCase("iLore")) {
@@ -172,18 +216,25 @@ public class WarpCommands {
                 List<String> lores = rWarp.getLoreNeeded();
                 lores.add(command[3].replaceAll("_", " "));
                 rWarp.setLoreNeeded(lores);
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Value Set").replace("@v", command[2]).replace("@w", command[1])));
                 return true;
             }
             if (command[2].equalsIgnoreCase("cd")) {
                 RpgWarp rWarp = RpgAPI.savedWarps.get(command[1]);
                 Integer i = Integer.parseInt(command[3]);
                 rWarp.setWarpCoolDown(i);
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Value Set").replace("@v", command[2]).replace("@w", command[1])));
                 return true;
             }
-            p.sendMessage("Proper use /" + RpgAPI.commandSettings.get("Edit Warp Values") + " <warp name> <Cd |Level | Perm | Variance | Material | iName | iLore> <Value_settings>");
+            HelpFile hF = RpgAPI.helpByName(command[0]);
+            p.sendMessage(ChatColors.ChatString(stub + hF.getDescription()));
             return true;
         }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Edit Warp"))) {
+            if (!rp.hasPermission(RpgAPI.permissionSettings.get("Edit Warp"))){
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp No Perms")));
+                return true;
+            }
             if (command.length != 4) {
                 HelpFile hF = RpgAPI.helpByName(command[0]);
                 p.sendMessage(ChatColors.ChatString(stub + hF.getDescription()));
@@ -200,7 +251,7 @@ public class WarpCommands {
                     c3 = true;
                 }
                 rWarp.setSameWorld(c3);
-                p.sendMessage("Warp " + command[1] + " now has Same world required set to " + c3 + ".");
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Requirements").replace("@v", command[2]).replace("@w", command[1]).replace("@b", c3.toString())));
                 return true;
             }
             if (command[2].equalsIgnoreCase("level")) {
@@ -210,7 +261,7 @@ public class WarpCommands {
                     c3 = true;
                 }
                 rWarp.setLevelNeeded(c3);
-                p.sendMessage("Warp " + command[1] + " now has Level Needed set to " + c3 + ".");
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Requirements").replace("@v", command[2]).replace("@w", command[1]).replace("@b", c3.toString())));
                 return true;
             }
             if (command[2].equalsIgnoreCase("Perm")) {
@@ -220,7 +271,7 @@ public class WarpCommands {
                     c3 = true;
                 }
                 rWarp.setSinglePerm(c3);
-                p.sendMessage("Warp " + command[1] + " now has Same world required set to " + c3 + ".");
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Requirements").replace("@v", command[2]).replace("@w", command[1]).replace("@b", c3.toString())));
                 return true;
             }
             if (command[2].equalsIgnoreCase("Variance")) {
@@ -230,7 +281,7 @@ public class WarpCommands {
                     c3 = true;
                 }
                 rWarp.setVariance(c3);
-                p.sendMessage("Warp " + command[1] + " now has Variance set to " + c3 + ".");
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Requirements").replace("@v", command[2]).replace("@w", command[1]).replace("@b", c3.toString())));
                 return true;
             }
             if (command[2].equalsIgnoreCase("cd")) {
@@ -240,7 +291,7 @@ public class WarpCommands {
                     c3 = true;
                 }
                 rWarp.setUseCD(c3);
-                p.sendMessage("Warp " + command[1] + " now has Use Cool down set to " + c3 + ".");
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Requirements").replace("@v", command[2]).replace("@w", command[1]).replace("@b", c3.toString())));
                 return true;
             }
             if (command[2].equalsIgnoreCase("Item")) {
@@ -251,10 +302,11 @@ public class WarpCommands {
                 }
 
                 rWarp.setItemNeeded(c3);
-                p.sendMessage("Warp " + command[1] + " now has Item required set to " + c3 + ".");
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Requirements").replace("@v", command[2]).replace("@w", command[1]).replace("@b", c3.toString())));
                 return true;
             }
-            p.sendMessage("Proper use /" + RpgAPI.commandSettings.get("Edit Warp") + " <warp name> <Cd | World | Level | Perm | Variance | item> <true/false>");
+            HelpFile hF = RpgAPI.helpByName(command[0]);
+            p.sendMessage(ChatColors.ChatString(stub + hF.getDescription()));
             return true;
         }
 
