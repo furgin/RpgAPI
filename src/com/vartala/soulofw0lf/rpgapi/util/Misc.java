@@ -1,5 +1,7 @@
 package com.vartala.soulofw0lf.rpgapi.util;
 
+import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import com.vartala.soulofw0lf.rpgapi.diseaseapi.Disease;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -43,5 +45,13 @@ public class Misc {
             return new Location(Bukkit.getWorld(arr[0]), Double.parseDouble(arr[1]), Double.parseDouble(arr[2]), Double.parseDouble(arr[3]));
         else
             return new Location(Bukkit.getWorld(arr[0]), Double.parseDouble(arr[1]), Double.parseDouble(arr[2]), Double.parseDouble(arr[3]), Float.parseFloat(arr[4]), Float.parseFloat(arr[5]));
+    }
+    public static Disease getDiseaseByName(String s){
+        for (Disease dis : RpgAPI.diseases){
+            if (dis.getDiseaseName().equalsIgnoreCase(s)){
+                return dis;
+            }
+        }
+        return null;
     }
 }

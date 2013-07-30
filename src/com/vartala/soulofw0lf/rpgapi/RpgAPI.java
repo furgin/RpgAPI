@@ -12,6 +12,8 @@ import com.vartala.soulofw0lf.rpgapi.achievementapi.TitleAchievement;
 import com.vartala.soulofw0lf.rpgapi.chatapi.*;
 import com.vartala.soulofw0lf.rpgapi.classapi.RpgClasses;
 import com.vartala.soulofw0lf.rpgapi.commandapi.UniqueCommands;
+import com.vartala.soulofw0lf.rpgapi.diseaseapi.Disease;
+import com.vartala.soulofw0lf.rpgapi.diseaseapi.DiseaseListeners;
 import com.vartala.soulofw0lf.rpgapi.entityapi.api.DespawnReason;
 import com.vartala.soulofw0lf.rpgapi.enumapi.ClassName;
 import com.vartala.soulofw0lf.rpgapi.enumapi.Spell;
@@ -34,6 +36,7 @@ import com.vartala.soulofw0lf.rpgapi.permissionsapi.PermissionGroup;
 import com.vartala.soulofw0lf.rpgapi.playerapi.RpgPlayer;
 import com.vartala.soulofw0lf.rpgapi.poisonapi.RpgPoison;
 import com.vartala.soulofw0lf.rpgapi.savers.ChatSaver;
+import com.vartala.soulofw0lf.rpgapi.savers.DiseaseSaver;
 import com.vartala.soulofw0lf.rpgapi.savers.VecSaver;
 import com.vartala.soulofw0lf.rpgapi.spellapi.MagicSpell;
 import com.vartala.soulofw0lf.rpgapi.sqlapi.SQLHandler;
@@ -118,6 +121,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public FoodListener foodListener;
     public PoisonListener poisonlistener;
     public MobEditingChatListener mobEditingChatListener;
+    public DiseaseListeners diseaseListener;
 
     //plugin booleans
     public static boolean useMySql = false;
@@ -144,13 +148,15 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static boolean permsOn = true;
     public static boolean vectorOn = true;
     public static boolean autoUpdate = true;
+    public static boolean diseasesOn = true;
 
 
     //Utilities
     PlayerUtil PlayerUtility = new PlayerUtil(this);
 
     //Variables
-    public static ArrayList<RpgClickInv> rpgClicks = new ArrayList<RpgClickInv>();
+    public static List<RpgClickInv> deleteOnClose = new ArrayList<>();
+    public static ArrayList<RpgClickInv> rpgClicks = new ArrayList<>();
     public static Map<String, GuildObject> guilds = new HashMap<>();
     public static Map<String, PartyGroup> partys = new HashMap<>();
     public static Map<String, LFGPlayer> lookingForGroup = new HashMap<>();
@@ -163,7 +169,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
     public static Map<String, RpgPlayer> rpgPlayers = new HashMap<>();
     public static Map<ClassName, RpgClasses> rpgClasses = new HashMap<>();
     public static List<ChatClass> chatClasses = new ArrayList<ChatClass>();
-    public static List<RpgClickInv> deleteOnClose = new ArrayList<>();
+    public static List<Disease> diseases = new ArrayList<>();
     public static Map<String, String> activeNicks = new HashMap<>();
     public static Map<String, CustomFood> foodItems = new HashMap<>();
     public static boolean rpgStyleFood = true;
@@ -250,6 +256,7 @@ public class RpgAPI extends JavaPlugin implements Listener {
         permsOn = getConfig().getBoolean("Plugins.Permissions");
         vectorOn = getConfig().getBoolean("Plugins.Vector Blocks");
         autoUpdate = getConfig().getBoolean("Auto Update");
+        diseasesOn = getConfig().getBoolean("Plugins.Diseases");
 
         //auto updater
         if (autoUpdate){Updater updater = new Updater(this, "rpgapi", this.getFile(), Updater.UpdateType.DEFAULT, false);}
@@ -322,6 +329,9 @@ public class RpgAPI extends JavaPlugin implements Listener {
 
         //check for click and load settings
         if (clickOn) {new ClickLoader(this);}
+
+        //check for diseases and load settings
+        if (diseasesOn) {new DiseaseLoader(this);}
 
         //check for food and load setting
         if (foodOn) {new FoodLoader(this);}
@@ -413,6 +423,9 @@ public class RpgAPI extends JavaPlugin implements Listener {
             new VecSaver();
             vecBlockMap.clear();
             vecBlocks.clear();
+        }
+        if (diseasesOn){
+            new DiseaseSaver();
         }
         if (warpsOn) {
             for (String thisWarp : RpgAPI.savedWarps.keySet()) {

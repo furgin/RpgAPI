@@ -3,6 +3,7 @@ package com.vartala.soulofw0lf.rpgapi.playerapi;
 import java.util.*;
 
 import com.vartala.soulofw0lf.rpgapi.RpgAPI;
+import com.vartala.soulofw0lf.rpgapi.diseaseapi.Disease;
 import com.vartala.soulofw0lf.rpgapi.enumapi.*;
 import com.vartala.soulofw0lf.rpgapi.permissionsapi.PermissionGroup;
 import org.bukkit.Bukkit;
@@ -28,6 +29,7 @@ public class RpgPlayer implements Permissible {
 	/*
 	 * general variables
 	 */
+    private double maxHealth = 20.0;
     //perm groups
     private Map<String, List<String>> permGroups = new HashMap<>();
 
@@ -393,6 +395,14 @@ public class RpgPlayer implements Permissible {
 
     //is the player wearing aromor he isn't proficient with
     private Boolean encumbered = false;
+
+
+
+    private boolean diseased = false;
+
+    private List<Disease> diseases = new ArrayList<>();
+
+    private List<Disease> immuneDiseases = new ArrayList<>();
 
 
     /*
@@ -2357,5 +2367,40 @@ public class RpgPlayer implements Permissible {
      */
     public void setDefaultTrade(boolean defaultTrade) {
         this.defaultTrade = defaultTrade;
+    }
+
+    public List<Disease> getDiseases() {
+        return diseases;
+    }
+
+    public void setDiseases(List<Disease> diseases) {
+        this.diseases = diseases;
+    }
+
+    public boolean isDiseased() {
+        if (this.diseases.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+    public void setDiseased(boolean diseased) {
+        this.diseased = diseased;
+    }
+
+    public List<Disease> getImmuneDiseases() {
+        return immuneDiseases;
+    }
+
+    public void setImmuneDiseases(List<Disease> immuneDiseases) {
+        this.immuneDiseases = immuneDiseases;
+    }
+
+    public double getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(double maxHealth) {
+        this.maxHealth = maxHealth;
     }
 }
