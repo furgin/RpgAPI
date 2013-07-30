@@ -111,7 +111,7 @@ public class DiseaseLoader {
                 dis.setEffectDamageTaken(diseaseConfig.getBoolean("Diseases." + key + ".Effect Damage Taken"));
                 dis.setAdjustDamageTaken(diseaseConfig.getDouble("Diseases." + key + ".Adjust Damage Taken By"));
                 List<PotionEffect> pots = new ArrayList<>();
-                for (String type : diseaseConfig.getConfigurationSection("Diseases." + key + ".effects").getKeys(false)){
+                for (String type : diseaseConfig.getConfigurationSection("Diseases." + key + ".Effects").getKeys(false)){
                     PotionEffect pE = new PotionEffect(PotionEffectType.getByName(type.toUpperCase()), diseaseConfig.getInt("Diseases." + key + ".Effects." + type + ".Duration"), diseaseConfig.getInt("Diseases." + key + ".Effects." + type + ".Amplifier"));
                     pots.add(pE);
                 }
