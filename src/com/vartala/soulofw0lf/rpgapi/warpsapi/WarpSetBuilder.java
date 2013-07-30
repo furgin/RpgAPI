@@ -35,7 +35,15 @@ public class WarpSetBuilder {
      */
     public static void BuildSets() {
         YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgWarps/RpgWarps.yml"));
-        if (warpConfig.get("Warp Sets") != null) {
+        if (warpConfig.get("Warp Sets") == null) {
+            warpConfig.set("Warp Sets.Default.Is Random", false);
+            warpConfig.set("Warp Sets.Default.Permission Needed", "warps.default");
+            try {
+                warpConfig.save(new File("plugins/RpgWarps/RpgWarps.yml"));
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
             for (String warpSet : warpConfig.getConfigurationSection("Warp Sets").getKeys(false)) {
                 WarpSets warpS = new WarpSets();
                 warpS.setSetName(warpSet);
@@ -44,7 +52,7 @@ public class WarpSetBuilder {
                 warpS.setWarpsRandom(warpConfig.getBoolean("Warp Sets." + warpSet + ".Is Random"));
                 warpS.setSetPermission(warpConfig.getString("Warp Sets." + warpSet + ".Permission Needed"));
                 RpgAPI.savedSets.put(warpSet, warpS);
-            }
+
         }
     }
 
