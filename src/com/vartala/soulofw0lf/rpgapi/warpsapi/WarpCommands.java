@@ -83,12 +83,19 @@ public class WarpCommands {
             }
             if (command[2].equalsIgnoreCase("Perm")){
                 RpgAPI.savedSets.get(command[1]).setSetPermission(command[3]);
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Set Edited")));
+                return true;
             }
             if (command[2].equalsIgnoreCase("Random")){
-                RpgAPI.savedSets.get(command[1]).setWarpsRandom(Boolean.getBoolean(command[3]));
+                if (command[3].equalsIgnoreCase("true")){
+                    RpgAPI.savedSets.get(command[1]).setWarpsRandom(true);
+                } else {
+                    RpgAPI.savedSets.get(command[1]).setWarpsRandom(false);
+                }
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Set Edited")));
+                return true;
             }
-            p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Set Edited")));
-            return true;
+
         }
 
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Delete Set"))) {

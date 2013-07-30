@@ -44,7 +44,6 @@ public class WarpProcessor {
         Integer i = 0;
         if (wSet.getWarpsRandom()) {
             Player pl = Bukkit.getPlayer(p);
-            pl.sendMessage("set is random");
             List<RpgWarp> newList = wSet.getSetWarps();
             Boolean warpPerms = false;
             for (RpgWarp warp1 : newList) {
@@ -53,7 +52,6 @@ public class WarpProcessor {
             while (warpPerms == false) {
                 i = (int) (Math.random() * newList.size());
                 thisWarp = newList.get(i);
-                pl.sendMessage("location on list is " + i);
                 warpPerms = WarpRequirements(Bukkit.getPlayer(p), thisWarp);
             }
 
