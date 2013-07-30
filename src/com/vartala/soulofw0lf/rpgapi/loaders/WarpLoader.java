@@ -65,7 +65,7 @@ public class WarpLoader{
 
         warpLocaleConfig.set("Warp Commands.Edit set.Alias", "editset");
         warpLocaleConfig.set("Warp Commands.Edit set.Help Color", "&2");
-        warpLocaleConfig.set("Warp Commands.Edit set.Description", "&fEdit the attributes of a Warp Set. &2Usage: &f/editset setname <values coming soon>");
+        warpLocaleConfig.set("Warp Commands.Edit set.Description", "&fEdit the attributes of a Warp Set. &2Usage: &f/editset setname <perm | random> <permission | true/false");
         warpLocaleConfig.set("Warp Commands.Edit set.Permission", "warpset.edit");
 
         warpLocaleConfig.set("Warp Commands.Make Set.Alias", "makeset");
@@ -73,10 +73,10 @@ public class WarpLoader{
         warpLocaleConfig.set("Warp Commands.Make Set.Description", "&fMake a new Warp Set. &2Usage: &f/makeset setname");
         warpLocaleConfig.set("Warp Commands.Make Set.Permission", "warpset.new");
 
-        warpLocaleConfig.set("Warp Commands.Delete set.Alias", "delset");
-        warpLocaleConfig.set("Warp Commands.Delete set.Help Color", "&2");
-        warpLocaleConfig.set("Warp Commands.Delete set.Description", "&fdelete a warp set &4Warning!!! This deletes all Warps in the set!!!. &2Usage: &f/delset setname");
-        warpLocaleConfig.set("Warp Commands.Delete set.Permission", "warpset.delete");
+        warpLocaleConfig.set("Warp Commands.Delete Set.Alias", "delset");
+        warpLocaleConfig.set("Warp Commands.Delete Set.Help Color", "&2");
+        warpLocaleConfig.set("Warp Commands.Delete Set.Description", "&fdelete a warp set &4Warning!!! This deletes all Warps in the set!!!. &2Usage: &f/delset setname");
+        warpLocaleConfig.set("Warp Commands.Delete Set.Permission", "warpset.delete");
 
         warpLocaleConfig.set("Warp Commands.Load Warps.Alias", "loadwarps");
         warpLocaleConfig.set("Warp Commands.Load Warps.Help Color", "&2");
@@ -105,7 +105,10 @@ public class WarpLoader{
         warpLocaleConfig.set("Warp Messages.Warp Value Set", "@v has been set for warp @w.");
         warpLocaleConfig.set("Warp Messages.Warp Requirements", "@w now has @v set to @b");
         warpLocaleConfig.set("Warp Messages.Warp No Perms", "You don't have the required permission to use that command!");
-
+        warpLocaleConfig.set("Warp Messages.Set Exists", "That warp set already exists!");
+        warpLocaleConfig.set("Warp Messages.Set Deleted", "You have deleted the Warp set @s. All warps belonging to that set have been moved to your default set!");
+        warpLocaleConfig.set("Warp Messages.Set Saved", "You have saved a warp set named @s");
+        warpLocaleConfig.set("Warp Messages.Set Edited", "Set settings have been edited");
     try {
         warpLocaleConfig.save(new File("plugins/RpgWarps/Locale/WarpConfig.yml"));
     } catch (IOException e) {
@@ -132,11 +135,11 @@ public class WarpLoader{
             warpCommands.add(commandRT);
         }
         RpgAPI.pluginCommand.put("Warp Commands", warpCommands);
-        WarpSetBuilder.BuildSets();
+        WarpSetBuilder.buildSets();
         new BukkitRunnable() {
             @Override
             public void run() {
-                WarpBuilder.WarpLoader();
+                WarpBuilder.warpLoader();
             }
         }.runTaskLater(RpgAPI.getInstance(), 5);
     }

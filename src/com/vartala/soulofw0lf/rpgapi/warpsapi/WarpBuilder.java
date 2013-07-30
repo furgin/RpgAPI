@@ -37,7 +37,7 @@ public class WarpBuilder {
      */
 
     @SuppressWarnings("unchecked")
-    public static void WarpLoader() {
+    public static void warpLoader() {
         File f = new File("plugins/RpgWarps");
         File[] files = f.listFiles();
         if (files != null) {
@@ -127,7 +127,7 @@ public class WarpBuilder {
         new File("plugins/RpgWarps/" + saveWarp.getWarpSet() + "/" + saveWarp.getWarpName() + ".yml").delete();
         RpgAPI.savedWarps.remove(thisWarp);
     }
-    public static void SaveWarp(String thisWarp) {
+    public static void saveWarp(String thisWarp) {
 
         RpgWarp saveWarp = RpgAPI.savedWarps.get(thisWarp);
         YamlConfiguration warpYml = YamlConfiguration.loadConfiguration(new File("plugins/RpgWarps/" + saveWarp.getWarpSet() + "/" + saveWarp.getWarpName() + ".yml"));

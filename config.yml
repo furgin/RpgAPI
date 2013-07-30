@@ -1,5 +1,7 @@
 #Load / Save Settings for the Rpg Suite of plugins
 Auto Update: true
+#Mysql loading and saving is not implemented yet so please keep it to false till the table
+#structure is finished being built for this.
 Use Mysql: false
 MySql DataBase:
   User: usernamehere
@@ -31,3 +33,4 @@ Plugins:
   Reputations: false
   Permissions: false
   Vector Blocks: false
+  Diseases: false

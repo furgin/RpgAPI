@@ -33,9 +33,11 @@ public class WarpSetBuilder {
      * Make Warp sets from yml
      *
      */
-    public static void BuildSets() {
+    public static String defaultSet = "";
+    public static void buildSets() {
         YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgWarps/RpgWarps.yml"));
         if (warpConfig.get("Warp Sets") == null) {
+            warpConfig.set("Default Warp Set", "Default");
             warpConfig.set("Warp Sets.Default.Is Random", false);
             warpConfig.set("Warp Sets.Default.Permission Needed", "warps.default");
             try {
@@ -44,6 +46,7 @@ public class WarpSetBuilder {
                 e.printStackTrace();
             }
         }
+        defaultSet = warpConfig.getString("Default Warp Set");
             for (String warpSet : warpConfig.getConfigurationSection("Warp Sets").getKeys(false)) {
                 WarpSets warpS = new WarpSets();
                 warpS.setSetName(warpSet);
@@ -60,7 +63,24 @@ public class WarpSetBuilder {
      * Save all warp sets to yml
      *
      */
-    public static void SaveSets() {
+    public static void deleteSet(String set){
+        YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgWarps/RpgWarps.yml"));
+        warpConfig.set("Warp Sets." + set, null);
+        try {
+            warpConfig.save(new File("plugins/RpgWarps/RpgWarps.yml"));
+        } catch (IOException e){
+            System.out.print(e);
+        }
+        for (String key : RpgAPI.savedWarps.keySet()){
+            RpgWarp rw = RpgAPI.savedWarps.get(key);
+            if (rw.getWarpSet().equalsIgnoreCase(set)){
+                rw.setWarpSet(defaultSet);
+            }
+        }
+        RpgAPI.savedSets.remove(set);
+
+    }
+    public static void saveSets() {
         YamlConfiguration warpConfig = YamlConfiguration.loadConfiguration(new File("plugins/RpgWarps/RpgWarps.yml"));
         for (String setNames : RpgAPI.savedSets.keySet()) {
             WarpSets warpS = RpgAPI.savedSets.get(setNames);

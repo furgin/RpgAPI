@@ -43,7 +43,72 @@ public class WarpCommands {
      */
     public static Boolean handler(Player p, String[] command){
         String stub = RpgAPI.localeSettings.get("Warp Stub");
+
         RpgPlayer rp = RpgAPI.getRp(p.getName());
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Make Set"))) {
+            if (!rp.hasPermission(RpgAPI.permissionSettings.get("Make Set"))){
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp No Perms")));
+                return true;
+            }
+            if (command.length != 2) {
+                HelpFile hF = RpgAPI.helpByName(command[0]);
+                p.sendMessage(ChatColors.ChatString(stub + hF.getDescription()));
+                return true;
+            }
+            if (RpgAPI.savedSets.containsKey(command[1])){
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Set Exists")));
+                return true;
+            }
+            WarpSets set = new WarpSets();
+            set.setSetName(command[1]);
+            set.setSetPermission(command[1] + ".warp");
+            set.setWarpsRandom(false);
+            p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Set Saved").replace("@s", command[1])));
+            RpgAPI.savedSets.put(command[1], set);
+            return true;
+        }
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Edit Set"))) {
+            if (!rp.hasPermission(RpgAPI.permissionSettings.get("Edit Set"))){
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp No Perms")));
+                return true;
+            }
+            if (command.length != 4) {
+                HelpFile hF = RpgAPI.helpByName(command[0]);
+                p.sendMessage(ChatColors.ChatString(stub + hF.getDescription()));
+                return true;
+            }
+            if (!(RpgAPI.savedSets.containsKey(command[1]))) {
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("No Set By That Name")));
+                return true;
+            }
+            if (command[2].equalsIgnoreCase("Perm")){
+                RpgAPI.savedSets.get(command[1]).setSetPermission(command[3]);
+            }
+            if (command[2].equalsIgnoreCase("Random")){
+                RpgAPI.savedSets.get(command[1]).setWarpsRandom(Boolean.getBoolean(command[3]));
+            }
+            p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Set Edited")));
+            return true;
+        }
+
+        if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Delete Set"))) {
+            if (!rp.hasPermission(RpgAPI.permissionSettings.get("Delete Set"))){
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp No Perms")));
+                return true;
+            }
+            if (command.length != 2) {
+                HelpFile hF = RpgAPI.helpByName(command[0]);
+                p.sendMessage(ChatColors.ChatString(stub + hF.getDescription()));
+                return true;
+            }
+            if (!(RpgAPI.savedSets.containsKey(command[1]))) {
+                p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("No Set By That Name")));
+                return true;
+            }
+            WarpSetBuilder.deleteSet(command[1]);
+            p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Set Deleted").replace("@s", command[1])));
+            return true;
+        }
         if (command[0].equalsIgnoreCase(RpgAPI.commandSettings.get("Delete Warp"))) {
             if (!rp.hasPermission(RpgAPI.permissionSettings.get("Delete Warp"))){
                 p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp No Perms")));
@@ -85,8 +150,8 @@ public class WarpCommands {
                 p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp No Perms")));
                 return true;
             }
-            WarpSetBuilder.BuildSets();
-            WarpBuilder.WarpLoader();
+            WarpSetBuilder.buildSets();
+            WarpBuilder.warpLoader();
             p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warps Loaded")));
             return true;
         }
@@ -142,7 +207,7 @@ public class WarpCommands {
                 p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("No Warp By That Name")));
                 return true;
             }
-            WarpBuilder.SaveWarp(command[1]);
+            WarpBuilder.saveWarp(command[1]);
             p.sendMessage(ChatColors.ChatString(stub + RpgAPI.localeSettings.get("Warp Saved").replace("@w", command[1])));
             return true;
         }
