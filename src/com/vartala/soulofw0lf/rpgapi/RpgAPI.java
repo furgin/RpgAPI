@@ -429,8 +429,8 @@ public class RpgAPI extends JavaPlugin implements Listener {
         }
         if (warpsOn) {
             for (String thisWarp : RpgAPI.savedWarps.keySet()) {
-                WarpBuilder.SaveWarp(thisWarp);
-                WarpSetBuilder.SaveSets();
+                WarpBuilder.saveWarp(thisWarp);
+                WarpSetBuilder.saveSets();
             }
         }
         playerConfig.set("Player Colors", playerColors);

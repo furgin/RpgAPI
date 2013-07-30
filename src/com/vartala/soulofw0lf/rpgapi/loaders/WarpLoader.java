@@ -63,10 +63,10 @@ public class WarpLoader{
         warpLocaleConfig.set("Warp Commands.Edit Warp.Description", "&fEdit the attributes of a Warp Point. &2Usage: &f/editwarp warpname <Cd | World | Level | Perm | Variance | item> <true/false>");
         warpLocaleConfig.set("Warp Commands.Edit Warp.Permission", "warp.edit");
 
-        warpLocaleConfig.set("Warp Commands.Edit set.Alias", "editset");
-        warpLocaleConfig.set("Warp Commands.Edit set.Help Color", "&2");
-        warpLocaleConfig.set("Warp Commands.Edit set.Description", "&fEdit the attributes of a Warp Set. &2Usage: &f/editset setname <perm | random> <permission | true/false");
-        warpLocaleConfig.set("Warp Commands.Edit set.Permission", "warpset.edit");
+        warpLocaleConfig.set("Warp Commands.Edit Set.Alias", "editset");
+        warpLocaleConfig.set("Warp Commands.Edit Set.Help Color", "&2");
+        warpLocaleConfig.set("Warp Commands.Edit Set.Description", "&fEdit the attributes of a Warp Set. &2Usage: &f/editset setname <perm | random> <permission | true/false");
+        warpLocaleConfig.set("Warp Commands.Edit Set.Permission", "warpset.edit");
 
         warpLocaleConfig.set("Warp Commands.Make Set.Alias", "makeset");
         warpLocaleConfig.set("Warp Commands.Make Set.Help Color", "&2");
