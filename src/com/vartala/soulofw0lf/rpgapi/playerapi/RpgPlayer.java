@@ -397,13 +397,19 @@ public class RpgPlayer implements Permissible {
     private Boolean encumbered = false;
 
 
-
-    private boolean diseased = false;
+    /*
+    *Rpg Disease Variables
+     */
 
     private List<Disease> diseases = new ArrayList<>();
 
     private List<Disease> immuneDiseases = new ArrayList<>();
 
+     /*
+     *Rpg Warp Variables
+      */
+    private boolean tpImmune = false;
+    private boolean tpImmuneBypass = false;
 
     /*
      *  all getters and setters
@@ -2384,10 +2390,6 @@ public class RpgPlayer implements Permissible {
         return true;
     }
 
-    public void setDiseased(boolean diseased) {
-        this.diseased = diseased;
-    }
-
     public List<Disease> getImmuneDiseases() {
         return immuneDiseases;
     }
@@ -2402,5 +2404,21 @@ public class RpgPlayer implements Permissible {
 
     public void setMaxHealth(double maxHealth) {
         this.maxHealth = maxHealth;
+    }
+
+    public boolean isTpImmune() {
+        return tpImmune;
+    }
+
+    public void setTpImmune(boolean tpImmune) {
+        this.tpImmune = tpImmune;
+    }
+
+    public boolean isTpImmuneBypass() {
+        return tpImmuneBypass;
+    }
+
+    public void setTpImmuneBypass(boolean tpImmuneBypass) {
+        this.tpImmuneBypass = tpImmuneBypass;
     }
 }

@@ -18,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -155,6 +156,19 @@ public class playerLogIn implements Listener {
 		/*
 		 * save active nickname to table
 		 */
+    }
+
+    @EventHandler
+    public void playerDeath(PlayerDeathEvent event){
+        Player p = event.getEntity();
+        RpgPlayer rp = RpgAPI.getRp(p.getName());
+        if (!rp.hasPermission(RpgAPI.permissionSettings.get("Warp Back On Death"))){
+            return;
+        }
+        if (RpgAPI.recentLocation.containsKey(rp.getName())){
+            RpgAPI.recentLocation.remove(rp.getName());
+        }
+        RpgAPI.recentLocation.put(rp.getName(), p.getLocation());
     }
 
 }

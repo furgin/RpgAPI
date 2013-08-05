@@ -53,6 +53,12 @@ public class WarpLoader{
         warpLocaleConfig.set("Warp Commands.Use Warp.Description", "&fUse a Warp Point. &2Usage: &f/warp warpname");
         warpLocaleConfig.set("Warp Commands.Use Warp.Permission", "warp");
 
+        warpLocaleConfig.set("Warp Commands.Warp Back.Alias", "back");
+        warpLocaleConfig.set("Warp Commands.Warp Back.Help Color", "&2");
+        warpLocaleConfig.set("Warp Commands.Warp Back.Description", "&fGo back to your last Location. &2Usage: &f/back");
+        warpLocaleConfig.set("Warp Commands.Warp Back.Permission", "warp.back");
+        warpLocaleConfig.set("Warp Commands.Warp Back On Death.Permission", "warp.back.death");
+
         warpLocaleConfig.set("Warp Commands.Save Warp.Alias", "savewarp");
         warpLocaleConfig.set("Warp Commands.Save Warp.Help Color", "&2");
         warpLocaleConfig.set("Warp Commands.Save Warp.Description", "&fSave a specific Warp Point to config. &2Usage: &f/savewarp warpname");
@@ -93,6 +99,71 @@ public class WarpLoader{
         warpLocaleConfig.set("Warp Commands.Edit Warp Values.Description", "Edit the attributes of a Warp Point. &2Usage: &f/editwarp warpname <Cd |Level | Perm | Variance | Material | iName | iLore> <Value_settings>");
         warpLocaleConfig.set("Warp Commands.Edit Warp Values.Permission", "warp.values");
 
+        warpLocaleConfig.set("Warp Commands.Teleport Self.Alias", "tp");
+        warpLocaleConfig.set("Warp Commands.Teleport Self.Help Color", "&2");
+        warpLocaleConfig.set("Warp Commands.Teleport Self.Description", "Teleport yourself to another user or location. &2Usage: &f/tp <Rpg Player Name | X Y Z>");
+        warpLocaleConfig.set("Warp Commands.Teleport Self.Permission", "warp.teleport");
+
+        warpLocaleConfig.set("Warp Commands.Teleport Other.Alias", "tpo");
+        warpLocaleConfig.set("Warp Commands.Teleport Other.Help Color", "&2");
+        warpLocaleConfig.set("Warp Commands.Teleport Other.Description", "Teleport someone else to another user or location. &2Usage: &f/tpo <Rpg player name > <target Rpg Player Name | X Y Z>");
+        warpLocaleConfig.set("Warp Commands.Teleport Other.Permission", "warp.teleport.other");
+
+        warpLocaleConfig.set("Warp Commands.Teleport All.Alias", "tpall");
+        warpLocaleConfig.set("Warp Commands.Teleport All.Help Color", "&2");
+        warpLocaleConfig.set("Warp Commands.Teleport All.Description", "Teleport everyone to another user or location. &2Usage: &f/tpall <Rpg Player Name | X Y Z>");
+        warpLocaleConfig.set("Warp Commands.Teleport All.Permission", "warp.teleport.all");
+
+        warpLocaleConfig.set("Warp Commands.Teleport Here.Alias", "tphere");
+        warpLocaleConfig.set("Warp Commands.Teleport Here.Help Color", "&2");
+        warpLocaleConfig.set("Warp Commands.Teleport Here.Description", "Teleport someone to you. &2Usage: &f/tphere <Rpg Player Name>");
+        warpLocaleConfig.set("Warp Commands.Teleport Here.Permission", "warp.teleport.here");
+
+        warpLocaleConfig.set("Warp Commands.Teleport Request.Alias", "tpr");
+        warpLocaleConfig.set("Warp Commands.Teleport Request.Help Color", "&2");
+        warpLocaleConfig.set("Warp Commands.Teleport Requst.Description", "Request to teleport to another player. &2Usage: &f/tpr <Rpg Player Name>");
+        warpLocaleConfig.set("Warp Commands.Teleport Request.Permission", "warp.teleport");
+
+        warpLocaleConfig.set("Warp Commands.Teleport Summon.Alias", "summon");
+        warpLocaleConfig.set("Warp Commands.Teleport Summon.Help Color", "&2");
+        warpLocaleConfig.set("Warp Commands.Teleport Summon.Description", "Summon someone to your location. &2Usage: &f/summon <Rpg Player Name>");
+        warpLocaleConfig.set("Warp Commands.Teleport Summon.Permission", "warp.teleport.summon");
+
+        warpLocaleConfig.set("Warp Commands.Teleport Summon All.Alias", "summonall");
+        warpLocaleConfig.set("Warp Commands.Teleport Summon All.Help Color", "&2");
+        warpLocaleConfig.set("Warp Commands.Teleport Summon All.Description", "Summon everyone to your location. &2Usage: &f/summonall");
+        warpLocaleConfig.set("Warp Commands.Teleport Summon All.Permission", "warp.teleport.summon.all");
+
+        warpLocaleConfig.set("Warp Commands.Teleport Accept.Alias", "tpa");
+        warpLocaleConfig.set("Warp Commands.Teleport Accept.Help Color", "&2");
+        warpLocaleConfig.set("Warp Commands.Teleport Accept.Description", "Accept a teleport request or summons. &2Usage: &f/tpa");
+        warpLocaleConfig.set("Warp Commands.Teleport Accept.Permission", "warp.teleport.accept");
+
+        warpLocaleConfig.set("Warp Commands.Teleport Deny.Alias", "tpdeny");
+        warpLocaleConfig.set("Warp Commands.Teleport Deny.Help Color", "&2");
+        warpLocaleConfig.set("Warp Commands.Teleport Deny.Description", "Deny an incomming teleport or summons request. &2Usage: &f/tpdeny");
+        warpLocaleConfig.set("Warp Commands.Teleport Deny.Permission", "warp.teleport.deny");
+
+        warpLocaleConfig.set("Warp Commands.Teleport Toggle.Alias", "tptoggle");
+        warpLocaleConfig.set("Warp Commands.Teleport Toggle.Help Color", "&2");
+        warpLocaleConfig.set("Warp Commands.Teleport Toggle.Description", "toggle peoples ability to teleport you. &2Usage: &f/tptoggle");
+        warpLocaleConfig.set("Warp Commands.Teleport Toggle.Permission", "warp.teleport.toggle");
+
+        warpLocaleConfig.set("Warp Commands.Teleport Override.Alias", "tpov");
+        warpLocaleConfig.set("Warp Commands.Teleport Override.Help Color", "&2");
+        warpLocaleConfig.set("Warp Commands.Teleport Override.Description", "toggle whether you override another players tpToggle. &2Usage: &f/tpov");
+        warpLocaleConfig.set("Warp Commands.Teleport Override.Permission", "warp.teleport.override");
+
+        warpLocaleConfig.set("Warp Commands.Teleport World.Alias", "world");
+        warpLocaleConfig.set("Warp Commands.Teleport World.Help Color", "&2");
+        warpLocaleConfig.set("Warp Commands.Teleport World.Description", "teleport to your current location on another world. &2Usage: &f/world <world name>");
+        warpLocaleConfig.set("Warp Commands.Teleport World.Permission", "warp.world");
+
+        warpLocaleConfig.set("Warp Commands.Teleport World Spawn.Alias", "worldspawn");
+        warpLocaleConfig.set("Warp Commands.Teleport World Spawn.Help Color", "&2");
+        warpLocaleConfig.set("Warp Commands.Teleport World Spawn.Description", "Teleport to the spawn point of another world. &2Usage: &f/worldspawn <world name>");
+        warpLocaleConfig.set("Warp Commands.Teleport World Spawn.Permission", "warp.worldspawn");
+
         warpLocaleConfig.set("Warp Messages.Warp Stub", "&f[&4Rpg Warps&f]&2");
         warpLocaleConfig.set("Warp Messages.Warps Loaded", "All warps have been loaded!");
         warpLocaleConfig.set("Warp Messages.Warp Placed", "You have made a warp named @w");
@@ -109,6 +180,7 @@ public class WarpLoader{
         warpLocaleConfig.set("Warp Messages.Set Deleted", "You have deleted the Warp set @s. All warps belonging to that set have been moved to your default set!");
         warpLocaleConfig.set("Warp Messages.Set Saved", "You have saved a warp set named @s");
         warpLocaleConfig.set("Warp Messages.Set Edited", "Set settings have been edited");
+        warpLocaleConfig.set("Warp Messages.No Back Location", "You do not have a back location saved");
     try {
         warpLocaleConfig.save(new File("plugins/RpgWarps/Locale/WarpConfig.yml"));
     } catch (IOException e) {
